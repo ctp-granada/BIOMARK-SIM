@@ -28,7 +28,8 @@ import {
   Wallet,
   Calendar,
   Volume2,
-  VolumeX
+  VolumeX,
+  Star
 } from 'lucide-react';
 import { audioService } from '../utils/audioService';
 
@@ -42,6 +43,7 @@ interface NavbarProps {
   onOpenAuthModal?: () => void;
   onSignOut?: () => void;
   onOpenFirebaseModal?: () => void;
+  onOpenSatisfactionSurvey?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -53,7 +55,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   syncStatus = 'idle',
   onOpenAuthModal,
   onSignOut,
-  onOpenFirebaseModal
+  onOpenFirebaseModal,
+  onOpenSatisfactionSurvey
 }) => {
   const [isMuted, setIsMuted] = React.useState<boolean>(audioService.getIsMuted());
 
@@ -164,6 +167,21 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <LogIn className="w-3.5 h-3.5 text-amber-300" />
                 <span>Acceso Alumno UGR</span>
+              </button>
+            )}
+
+            {/* Satisfaction Survey Button */}
+            {onOpenSatisfactionSurvey && (
+              <button
+                onClick={onOpenSatisfactionSurvey}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-950/80 hover:bg-amber-900 border border-amber-400/60 text-amber-200 hover:text-white text-xs font-bold transition-all shadow-xs cursor-pointer group"
+                title="Encuesta de Satisfacción del Alumnado (Gana +150 XP y +100 €)"
+              >
+                <Star className="w-3.5 h-3.5 text-amber-300 fill-amber-300 group-hover:scale-110 transition-transform" />
+                <span className="hidden sm:inline">Evaluar Plataforma</span>
+                <span className="bg-amber-400 text-amber-950 text-[9px] font-black px-1.5 py-0.2 rounded-full hidden md:inline">
+                  +150 XP
+                </span>
               </button>
             )}
 

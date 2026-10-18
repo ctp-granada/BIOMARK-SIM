@@ -41,6 +41,8 @@ import { GamesHub } from './components/InteractiveLabs/GamesHub';
 import { TeachingMaterialView } from './components/TeachingMaterial/TeachingMaterialView';
 import { PracticasSeminariosView } from './components/PracticasSeminarios/PracticasSeminariosView';
 import { FirebaseHubModal } from './components/Firebase/FirebaseHubModal';
+import { SatisfactionSurveyModal } from './components/Satisfaction/SatisfactionSurveyModal';
+import { SatisfactionMetricsModal } from './components/Satisfaction/SatisfactionMetricsModal';
 import { useSupabaseAuth } from './hooks/useSupabaseAuth';
 import { X } from 'lucide-react';
 
@@ -128,6 +130,8 @@ export default function App() {
   const { user, syncStatus, loadCloudProgress, saveCloudProgress, signOut } = useSupabaseAuth();
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [firebaseModalOpen, setFirebaseModalOpen] = useState(false);
+  const [satisfactionSurveyOpen, setSatisfactionSurveyOpen] = useState(false);
+  const [satisfactionMetricsOpen, setSatisfactionMetricsOpen] = useState(false);
 
   // User Progress with localStorage & Supabase persistence
   const [userProgress, setUserProgress] = useState<UserProgress>(() => {
@@ -674,6 +678,7 @@ export default function App() {
         onOpenAuthModal={() => setAuthModalOpen(true)}
         onSignOut={signOut}
         onOpenFirebaseModal={() => setFirebaseModalOpen(true)}
+        onOpenSatisfactionSurvey={() => setSatisfactionSurveyOpen(true)}
       />
 
       {/* Main Container */}
@@ -843,6 +848,8 @@ export default function App() {
           <UserStatsView
             userProgress={userProgress}
             onResetProgress={handleResetProgress}
+            onOpenSatisfactionSurvey={() => setSatisfactionSurveyOpen(true)}
+            onOpenSatisfactionMetrics={() => setSatisfactionMetricsOpen(true)}
           />
         )}
 
@@ -964,6 +971,24 @@ export default function App() {
       <FirebaseHubModal
         isOpen={firebaseModalOpen}
         onClose={() => setFirebaseModalOpen(false)}
+      />
+
+      {/* Student Satisfaction Survey Modal */}
+      <SatisfactionSurveyModal
+        isOpen={satisfactionSurveyOpen}
+        onClose={() => setSatisfactionSurveyOpen(false)}
+        onRewardUser={(xp, budget) => {
+          handleAddBonusXP(xp, 'Encuesta de Satisfacción Alumnado');
+          handleEarnBudget(budget);
+        }}
+        onOpenMetrics={() => setSatisfactionMetricsOpen(true)}
+      />
+
+      {/* Student Satisfaction & Quality Metrics Modal */}
+      <SatisfactionMetricsModal
+        isOpen={satisfactionMetricsOpen}
+        onClose={() => setSatisfactionMetricsOpen(false)}
+        onOpenSurvey={() => setSatisfactionSurveyOpen(true)}
       />
     </div>
   );
