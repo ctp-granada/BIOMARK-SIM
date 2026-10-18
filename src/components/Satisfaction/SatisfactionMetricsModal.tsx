@@ -1,21 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { BarChart3, Users, FileSpreadsheet, MessageSquare, X, Loader2, Lock, Target } from 'lucide-react';
 import {
-  BarChart3,
-  Star,
-  Users,
-  Download,
-  FileSpreadsheet,
-  CheckCircle2,
-  TrendingUp,
-  MessageSquare,
-  Award,
-  Sparkles,
-  X,
-  PlusCircle,
-  Building2,
-  PieChart
-} from 'lucide-react';
-import { satisfactionService, SatisfactionMetrics } from '../../utils/satisfactionService';
+  satisfactionService,
+  MetricsResult,
+  PROJECT_ITEMS,
+  EXTRA_ITEMS,
+} from '../../utils/satisfactionService';
 
 interface SatisfactionMetricsModalProps {
   isOpen: boolean;
@@ -23,61 +13,49 @@ interface SatisfactionMetricsModalProps {
   onOpenSurvey?: () => void;
 }
 
-export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> = ({
-  isOpen,
-  onClose,
-  onOpenSurvey
-}) => {
-  const [metrics, setMetrics] = useState<SatisfactionMetrics>(() => satisfactionService.getMetrics());
-  const [copiedNotification, setCopiedNotification] = useState<string | null>(null);
+/** Objetivo del proyecto: valoración media ≥ 4 sobre 5 */
+const PROJECT_TARGET = 4;
+
+export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> = ({ isOpen, onClose }) => {
+  const [result, setResult] = useState<MetricsResult | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    let cancelled = false;
+    setResult(null);
+    satisfactionService.fetchMetrics().then((r) => { if (!cancelled) setResult(r); });
+    return () => { cancelled = true; };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   const handleDownloadCSV = () => {
-    const csvContent = satisfactionService.exportToCSV();
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    if (result?.status !== 'ok') return;
+    const blob = new Blob([satisfactionService.toCSV(result.rows)], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', `evaluacion_satisfaccion_alumnado_ugr_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.href = url;
+    link.download = `encuesta_satisfaccion_biomark_${new Date().toISOString().slice(0, 10)}.csv`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
-    setCopiedNotification('Archivo CSV exportado para memoria docente.');
-    setTimeout(() => setCopiedNotification(null), 3500);
+    URL.revokeObjectURL(url);
   };
 
-  const handleDownloadJSON = () => {
-    const jsonContent = satisfactionService.exportToJSON();
-    const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', `encuestas_alumnado_ugr_${new Date().toISOString().slice(0, 10)}.json`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    setCopiedNotification('Archivo JSON exportado correctamente.');
-    setTimeout(() => setCopiedNotification(null), 3500);
-  };
-
-  const renderProgressBar = (label: string, score: number, max: number = 5, color: string = 'bg-amber-500') => {
-    const percent = Math.min(100, Math.round((score / max) * 100));
+  const Bar: React.FC<{ label: string; mean: number; sd: number; pct: number; highlight?: boolean }> = ({ label, mean, sd, pct, highlight }) => {
+    const width = Math.min(100, (mean / 5) * 100);
+    const ok = mean >= PROJECT_TARGET;
     return (
-      <div className="space-y-1.5">
-        <div className="flex items-center justify-between text-xs">
+      <div className={`space-y-1.5 ${highlight ? 'p-3 rounded-xl border border-amber-200 bg-amber-50/50' : ''}`}>
+        <div className="flex items-center justify-between gap-2 text-xs">
           <span className="font-semibold text-slate-700">{label}</span>
-          <span className="font-black text-slate-900 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">
-            {score.toFixed(2)} / {max} ({percent}%)
+          <span className="font-mono text-slate-900 shrink-0">
+            <strong>{mean.toFixed(2)}</strong> ± {sd.toFixed(2)} · {pct}% ≥ 4
           </span>
         </div>
-        <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
-          <div
-            className={`h-full ${color} rounded-full transition-all duration-500`}
-            style={{ width: `${percent}%` }}
-          />
+        <div className="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+          <div className={`h-full rounded-full ${ok ? 'bg-emerald-500' : 'bg-amber-500'}`} style={{ width: `${width}%` }} />
+          <div className="absolute top-0 bottom-0 w-px bg-slate-700" style={{ left: `${(PROJECT_TARGET / 5) * 100}%` }} title="Objetivo del proyecto (4/5)" />
         </div>
       </div>
     );
@@ -86,271 +64,130 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-200 overflow-y-auto">
       <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl max-w-4xl w-full my-6 overflow-hidden flex flex-col max-h-[92vh]">
-        
-        {/* Header */}
-        <div className="bg-gradient-to-r from-slate-900 via-amber-950 to-slate-900 text-white p-5 sm:p-6 flex items-start justify-between gap-4 border-b border-amber-900/60 shrink-0">
+        <div className="bg-gradient-to-r from-slate-900 via-amber-950 to-slate-900 text-white p-5 sm:p-6 flex items-start justify-between gap-4 shrink-0">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-300 shrink-0 mt-0.5">
+            <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center shrink-0 mt-0.5">
               <BarChart3 className="w-5 h-5 text-amber-300" />
             </div>
             <div>
-              <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-500/30">
-                  Panel de Calidad Docente · Facultad de Medicina UGR
-                </span>
-                <span className="text-[10px] font-mono text-slate-300">
-                  {metrics.totalSurveys} encuestas registradas
-                </span>
-              </div>
-              <h2 className="text-base sm:text-xl font-black text-white leading-tight">
-                Métricas de Satisfacción y Evaluación del Alumnado
-              </h2>
-              <p className="text-xs text-slate-300 mt-1">
-                Resultados consolidados de utilidad clínica, motivación por gamificación, usabilidad y Net Promoter Score (NPS).
-              </p>
+              <h2 className="text-base sm:text-xl font-black text-white leading-tight">Resultados de la encuesta de satisfacción</h2>
+              <p className="text-xs text-slate-300 mt-1">Solo para la coordinación. Datos reales y anónimos guardados en la base de datos de la asignatura.</p>
             </div>
           </div>
-
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer shrink-0"
-            title="Cerrar ventana"
-          >
-            <X className="w-5 h-5" />
+          <button onClick={onClose} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-white text-xs font-bold cursor-pointer shrink-0" aria-label="Cerrar">
+            <X className="w-4 h-4" />
+            <span>Cerrar</span>
           </button>
         </div>
 
-        {/* Content */}
         <div className="p-5 sm:p-6 overflow-y-auto space-y-6 flex-1 text-slate-800 text-xs">
-          
-          {/* Notification toast */}
-          {copiedNotification && (
-            <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 flex items-center gap-2 animate-in fade-in">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span className="font-semibold text-xs">{copiedNotification}</span>
+          {!result && (
+            <div className="flex items-center justify-center gap-2 py-12 text-slate-500">
+              <Loader2 className="w-5 h-5 animate-spin" />
+              <span>Cargando respuestas…</span>
             </div>
           )}
 
-          {/* Top KPI Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-            {/* Global Satisfaction */}
-            <div className="p-4 bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-200 rounded-2xl space-y-1">
-              <div className="flex items-center justify-between text-amber-800">
-                <span className="text-[11px] font-bold uppercase">Satisfacción Global</span>
-                <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-black text-amber-950">
-                  {metrics.averageOverall.toFixed(2)}
-                </span>
-                <span className="text-xs font-bold text-amber-700">/ 5.0</span>
-              </div>
-              <div className="flex text-amber-400">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-3 h-3 fill-amber-400" />
-                ))}
-              </div>
+          {result && result.status !== 'ok' && (
+            <div className="py-10 text-center space-y-3 max-w-md mx-auto">
+              <Lock className="w-8 h-8 text-slate-400 mx-auto" />
+              <p className="text-sm text-slate-700">{result.message}</p>
             </div>
+          )}
 
-            {/* Net Promoter Score */}
-            <div className="p-4 bg-gradient-to-br from-emerald-50 to-emerald-100/60 border border-emerald-200 rounded-2xl space-y-1">
-              <div className="flex items-center justify-between text-emerald-800">
-                <span className="text-[11px] font-bold uppercase">Recomendación (NPS)</span>
-                <TrendingUp className="w-4 h-4 text-emerald-600" />
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-black text-emerald-950">
-                  +{metrics.npsScore}
-                </span>
-                <span className="text-xs font-bold text-emerald-700">Puntos</span>
-              </div>
-              <span className="text-[10px] text-emerald-800 font-semibold block">
-                {metrics.npsPromotersPercent}% Promotores (9-10)
-              </span>
-            </div>
+          {result?.status === 'ok' && result.metrics.total === 0 && (
+            <div className="py-10 text-center text-sm text-slate-600">Todavía no hay ninguna respuesta.</div>
+          )}
 
-            {/* Total Surveys */}
-            <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100/60 border border-blue-200 rounded-2xl space-y-1">
-              <div className="flex items-center justify-between text-blue-800">
-                <span className="text-[11px] font-bold uppercase">Muestra Total</span>
-                <Users className="w-4 h-4 text-blue-600" />
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-black text-blue-950">
-                  {metrics.totalSurveys}
-                </span>
-                <span className="text-xs font-bold text-blue-700">Respuestas</span>
-              </div>
-              <span className="text-[10px] text-blue-800 font-semibold block">
-                Grado en Medicina UGR
-              </span>
-            </div>
-
-            {/* Clinical Utility Score */}
-            <div className="p-4 bg-gradient-to-br from-indigo-50 to-indigo-100/60 border border-indigo-200 rounded-2xl space-y-1">
-              <div className="flex items-center justify-between text-indigo-800">
-                <span className="text-[11px] font-bold uppercase">Utilidad Docente</span>
-                <Award className="w-4 h-4 text-indigo-600" />
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-black text-indigo-950">
-                  {metrics.averageClinicalUtility.toFixed(2)}
-                </span>
-                <span className="text-xs font-bold text-indigo-700">/ 5.0</span>
-              </div>
-              <span className="text-[10px] text-indigo-800 font-semibold block">
-                Impacto en Aprendizaje
-              </span>
-            </div>
-          </div>
-
-          {/* Breakdown By Dimension */}
-          <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-2xs space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-black uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                <PieChart className="w-4 h-4 text-slate-600" />
-                <span>Desglose por Dimensión de Calidad Docente</span>
-              </h3>
-              <span className="text-[10px] font-semibold text-slate-500">
-                Escala Likert 1 (Muy Insuficiente) a 5 (Excelente)
-              </span>
-            </div>
-
-            <div className="space-y-3.5">
-              {renderProgressBar(
-                '1. Utilidad de Casos Clínicos y Comprensión de Biomarcadores',
-                metrics.averageClinicalUtility,
-                5,
-                'bg-indigo-600'
-              )}
-
-              {renderProgressBar(
-                '2. Simuladores Moleculares e Integración Metabólica (Atlas & Curvas de Cahill)',
-                metrics.averageSimulators,
-                5,
-                'bg-teal-600'
-              )}
-
-              {renderProgressBar(
-                '3. Motivación por Dinámicas de Gamificación (Guardias, Vidas, Presupuesto, Rosco)',
-                metrics.averageGamification,
-                5,
-                'bg-amber-600'
-              )}
-
-              {renderProgressBar(
-                '4. Usabilidad, Velocidad de Respuesta y Diseño de la Interfaz',
-                metrics.averageUsability,
-                5,
-                'bg-emerald-600'
-              )}
-            </div>
-          </div>
-
-          {/* Qualitative Feedback Cards */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-black uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-amber-600" />
-                <span>Valoraciones Cualitativas y Sugerencias de los Estudiantes</span>
-              </h3>
-              <span className="text-[10px] text-slate-500">
-                Últimas opiniones recogidas
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {metrics.recentComments.map((comment, index) => (
-                <div
-                  key={index}
-                  className="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-2 hover:bg-slate-100/80 transition-colors"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-slate-900">
-                      {comment.role}
-                    </span>
-                    <div className="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
-                      <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                      <span className="text-[10px] font-bold text-amber-800">
-                        {comment.rating} / 5
-                      </span>
-                    </div>
+          {result?.status === 'ok' && result.metrics.total > 0 && (() => {
+            const m = result.metrics;
+            const global = m.items['valoracion_global'];
+            return (
+              <>
+                {/* Resumen */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                  <div className="p-4 rounded-2xl border border-slate-200 bg-slate-50">
+                    <span className="text-[10px] font-bold uppercase text-slate-500 flex items-center gap-1"><Users className="w-3.5 h-3.5" /> Respuestas</span>
+                    <span className="text-2xl font-black text-slate-900 block mt-1">{m.total}</span>
                   </div>
-
-                  {comment.bestFeature && (
-                    <div className="space-y-0.5">
-                      <span className="text-[10px] font-bold text-slate-500 uppercase block">
-                        Aspecto más valorado:
-                      </span>
-                      <p className="text-[11.5px] text-slate-800 bg-white p-2.5 rounded-xl border border-slate-200/80 leading-relaxed">
-                        «{comment.bestFeature}»
-                      </p>
-                    </div>
-                  )}
-
-                  {comment.suggestion && (
-                    <div className="space-y-0.5">
-                      <span className="text-[10px] font-bold text-slate-500 uppercase block">
-                        Propuesta de mejora:
-                      </span>
-                      <p className="text-[11.5px] text-slate-700 bg-amber-50/50 p-2.5 rounded-xl border border-amber-200/60 leading-relaxed italic">
-                        «{comment.suggestion}»
-                      </p>
-                    </div>
-                  )}
-
-                  <span className="text-[10px] text-slate-400 block text-right pt-1">
-                    Registrado el {comment.date}
-                  </span>
+                  <div className={`p-4 rounded-2xl border ${global.mean >= PROJECT_TARGET ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+                    <span className="text-[10px] font-bold uppercase text-slate-500 flex items-center gap-1"><Target className="w-3.5 h-3.5" /> Valoración global</span>
+                    <span className="text-2xl font-black text-slate-900 block mt-1">{global.mean.toFixed(2)} <span className="text-xs font-semibold text-slate-500">/ 5</span></span>
+                    <span className="text-[10.5px] text-slate-600">Objetivo del proyecto: ≥ {PROJECT_TARGET} · {global.mean >= PROJECT_TARGET ? 'alcanzado' : 'no alcanzado'}</span>
+                  </div>
+                  <div className="p-4 rounded-2xl border border-slate-200 bg-slate-50">
+                    <span className="text-[10px] font-bold uppercase text-slate-500">SUS (0-100)</span>
+                    <span className="text-2xl font-black text-slate-900 block mt-1">{m.sus.mean.toFixed(1)}</span>
+                    <span className="text-[10.5px] text-slate-600">± {m.sus.sd.toFixed(1)} · {m.sus.pctAtLeast68}% ≥ 68 (aceptable)</span>
+                  </div>
+                  <div className="p-4 rounded-2xl border border-slate-200 bg-slate-50">
+                    <span className="text-[10px] font-bold uppercase text-slate-500">NPS</span>
+                    <span className="text-2xl font-black text-slate-900 block mt-1">{m.nps.score > 0 ? '+' : ''}{m.nps.score}</span>
+                    <span className="text-[10.5px] text-slate-600">{m.nps.promoters}% promotores · {m.nps.detractors}% detractores</span>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
+
+                {/* Ítems */}
+                <section className="space-y-3">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-slate-800">Ítems del proyecto (media ± DE · % que puntúa 4 o 5)</h3>
+                  {PROJECT_ITEMS.map((it) => {
+                    const s = m.items[it.key];
+                    return <Bar key={it.key} label={it.label} mean={s.mean} sd={s.sd} pct={s.pctAtLeast4} highlight={it.key === 'valoracion_global'} />;
+                  })}
+                  <h3 className="text-xs font-black uppercase tracking-wider text-slate-800 pt-2">Ítems complementarios</h3>
+                  {EXTRA_ITEMS.map((it) => {
+                    const s = m.items[it.key];
+                    return <Bar key={it.key} label={it.label} mean={s.mean} sd={s.sd} pct={s.pctAtLeast4} />;
+                  })}
+                  <p className="text-[10.5px] text-slate-500">La línea vertical marca el objetivo del proyecto (4 sobre 5).</p>
+                </section>
+
+                {/* Perfil */}
+                <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {([['Perfil', m.byProfile], ['Subgrupo', m.bySubgroup]] as const).map(([title, dist]) => (
+                    <div key={title} className="p-4 rounded-2xl border border-slate-200 space-y-1.5">
+                      <h3 className="text-xs font-black uppercase tracking-wider text-slate-800 mb-1">{title}</h3>
+                      {Object.entries(dist as Record<string, number>).sort((a, b) => b[1] - a[1]).map(([k, v]) => (
+                        <div key={k} className="flex justify-between text-[11.5px]">
+                          <span className="text-slate-700">{k}</span>
+                          <span className="font-mono font-bold">{v} ({Math.round((v / m.total) * 100)}%)</span>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </section>
+
+                {/* Comentarios */}
+                <section className="space-y-2">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
+                    <MessageSquare className="w-4 h-4 text-slate-600" /> Comentarios ({m.comments.length})
+                  </h3>
+                  {m.comments.length === 0 && <p className="text-slate-500">Nadie ha dejado comentarios todavía.</p>}
+                  {m.comments.map((c, i) => (
+                    <div key={i} className="p-3 rounded-xl border border-slate-200 bg-slate-50 space-y-1">
+                      <span className="text-[10px] text-slate-500">{c.date} · {c.perfil}</span>
+                      {c.mejor && <p><strong>Lo más útil:</strong> {c.mejor}</p>}
+                      {c.sugerencia && <p><strong>Cambiaría:</strong> {c.sugerencia}</p>}
+                    </div>
+                  ))}
+                </section>
+              </>
+            );
+          })()}
         </div>
 
-        {/* Modal Footer / Export Actions */}
-        <div className="bg-slate-50 p-4 sm:p-5 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
-          <div className="flex items-center gap-2">
-            {onOpenSurvey && (
-              <button
-                onClick={() => {
-                  onClose();
-                  onOpenSurvey();
-                }}
-                className="px-3.5 py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-white font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
-              >
-                <PlusCircle className="w-3.5 h-3.5" />
-                <span>Rellenar Nueva Encuesta (+150 XP)</span>
-              </button>
-            )}
-          </div>
-
-          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-            <button
-              onClick={handleDownloadCSV}
-              className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
-              title="Descargar informe de satisfacción en formato CSV para memorias de innovación docente"
-            >
-              <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Exportar CSV (Memoria Docente)</span>
-            </button>
-
-            <button
-              onClick={handleDownloadJSON}
-              className="px-3 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
-              title="Exportar archivo de datos en JSON"
-            >
-              <Download className="w-3.5 h-3.5 text-blue-600" />
-              <span>JSON</span>
-            </button>
-
-            <button
-              onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-colors cursor-pointer"
-            >
-              Cerrar
-            </button>
-          </div>
+        <div className="p-4 border-t border-slate-200 flex flex-wrap items-center justify-end gap-2 shrink-0">
+          <button
+            onClick={handleDownloadCSV}
+            disabled={result?.status !== 'ok' || result.metrics.total === 0}
+            className="px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 disabled:opacity-50 text-white font-bold text-xs flex items-center gap-2 cursor-pointer"
+          >
+            <FileSpreadsheet className="w-4 h-4" />
+            <span>Descargar respuestas (CSV para Excel)</span>
+          </button>
+          <button onClick={onClose} className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs cursor-pointer">
+            Cerrar
+          </button>
         </div>
       </div>
     </div>
