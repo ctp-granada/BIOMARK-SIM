@@ -1,0 +1,89 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Perfil del estudiante o docente en la plataforma de Bioquímica Médica UGR",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "ID de usuario único de Firebase Auth" },
+        "email": { "type": "string", "description": "Correo institucional UGR (@go.ugr.es o @ugr.es)" },
+        "displayName": { "type": "string", "description": "Nombre y apellidos del estudiante" },
+        "role": { "type": "string", "enum": ["student", "professor", "admin"], "description": "Rol académico en la Facultad" },
+        "faculty": { "type": "string", "description": "Centro académico (Facultad de Medicina UGR)" },
+        "score": { "type": "number", "description": "Puntuación total acumulada" },
+        "xp": { "type": "number", "description": "Puntos de experiencia académica" },
+        "streak": { "type": "number", "description": "Días consecutivos completando casos clínicos" },
+        "currentLevel": { "type": "string", "description": "Nivel clínico asignado" },
+        "unlockedBadges": { "type": "array", "description": "Insignias y competencias desbloqueadas" },
+        "systemStats": { "type": "object", "description": "Rendimiento por sistema orgánico (cardíaco, hepático, etc.)" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Última fecha de actualización" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "ClinicalCase": {
+      "title": "ClinicalCase",
+      "description": "Caso clínico interactivo para resolución diagnóstica en el Hospital Clínico UGR",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Identificador del caso" },
+        "title": { "type": "string", "description": "Título descriptivo del cuadro clínico" },
+        "patient": { "type": "string", "description": "Demografía básica del paciente (edad, sexo)" },
+        "system": { "type": "string", "description": "Sistema patológico principal (cardiac, hepatic, metabolic, renal, pancreatic)" },
+        "difficulty": { "type": "string", "enum": ["básico", "intermedio", "avanzado"], "description": "Nivel de dificultad" },
+        "symptoms": { "type": "array", "description": "Lista de síntomas y signos principales" },
+        "vitals": { "type": "object", "description": "Constantes vitales del paciente" },
+        "correctBiomarkers": { "type": "array", "description": "IDs de los biomarcadores indicados para el caso" },
+        "educationalExplanation": { "type": "string", "description": "Razonamiento fisiopatológico y bioquímico detallado" }
+      },
+      "required": ["id", "title", "system", "difficulty"]
+    },
+    "Biomarker": {
+      "title": "Biomarker",
+      "description": "Ficha técnica de biomarcador analítico de laboratorio clínico",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Identificador del biomarcador" },
+        "name": { "type": "string", "description": "Nombre oficial y acrónimo" },
+        "category": { "type": "string", "description": "Categoría o perfil metabólico" },
+        "referenceRange": { "type": "string", "description": "Valores de referencia e intervalos fisiológicos" },
+        "unit": { "type": "string", "description": "Unidades internacionales de medida" },
+        "cost": { "type": "number", "description": "Coste analítico simulado" },
+        "clinicalUtility": { "type": "string", "description": "Indicaciones clínicas y valor diagnóstico" }
+      },
+      "required": ["id", "name", "category", "referenceRange", "unit"]
+    },
+    "CaseAttempt": {
+      "title": "CaseAttempt",
+      "description": "Registro de resolución de caso clínico por un alumno",
+      "type": "object",
+      "properties": {
+        "attemptId": { "type": "string", "description": "ID del intento" },
+        "userId": { "type": "string", "description": "UID del estudiante" },
+        "caseId": { "type": "string", "description": "ID del caso clínico resuelto" },
+        "scoreEarned": { "type": "number", "description": "Puntos conseguidos" },
+        "isCorrect": { "type": "boolean", "description": "Si la selección fue adecuada" },
+        "cost": { "type": "number", "description": "Gasto presupuestario en analítica" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Marca de tiempo del intento" }
+      },
+      "required": ["userId", "caseId", "scoreEarned", "isCorrect"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "UserProfile" },
+      "description": "Colección de perfiles de usuario y estudiantes"
+    },
+    "/cases/{caseId}": {
+      "schema": { "$ref": "ClinicalCase" },
+      "description": "Colección de casos clínicos del Hospital de la Ciudad Biomédica"
+    },
+    "/biomarkers/{biomarkerId}": {
+      "schema": { "$ref": "Biomarker" },
+      "description": "Catálogo de biomarcadores y pruebas analíticas de la Biblioteca"
+    },
+    "/users/{userId}/attempts/{attemptId}": {
+      "schema": { "$ref": "CaseAttempt" },
+      "description": "Historial de intentos y resolución de casos de cada alumno"
+    }
+  }
+}

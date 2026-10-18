@@ -1,0 +1,6 @@
+{
+  "name": "Bioquímica Médica - Facultad de Medicina UGR",
+  "description": "Portal docente oficial de Bioquímica Médica de la Facultad de Medicina de la Universidad de Granada (UGR) con simulador clínico de biomarcadores y laboratorios interactivos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
