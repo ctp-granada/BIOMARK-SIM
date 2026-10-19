@@ -29,7 +29,9 @@ import {
   Calendar,
   Volume2,
   VolumeX,
-  Star
+  Star,
+  Lock,
+  Check
 } from 'lucide-react';
 import { audioService } from '../utils/audioService';
 
@@ -37,12 +39,12 @@ interface NavbarProps {
   activeModule: ActiveModule;
   setActiveModule: (module: ActiveModule) => void;
   userProgress: UserProgress;
+  hasCompletedSurvey?: boolean;
   onStartTour?: () => void;
   user?: User | null;
   syncStatus?: 'idle' | 'syncing' | 'saved' | 'error';
   onOpenAuthModal?: () => void;
   onSignOut?: () => void;
-  onOpenFirebaseModal?: () => void;
   onOpenSatisfactionSurvey?: () => void;
 }
 
@@ -50,12 +52,12 @@ export const Navbar: React.FC<NavbarProps> = ({
   activeModule,
   setActiveModule,
   userProgress,
+  hasCompletedSurvey = false,
   onStartTour,
   user,
   syncStatus = 'idle',
   onOpenAuthModal,
   onSignOut,
-  onOpenFirebaseModal,
   onOpenSatisfactionSurvey
 }) => {
   const [isMuted, setIsMuted] = React.useState<boolean>(audioService.getIsMuted());
@@ -172,30 +174,34 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Satisfaction Survey Button */}
             {onOpenSatisfactionSurvey && (
-              <button
-                onClick={onOpenSatisfactionSurvey}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-950/80 hover:bg-amber-900 border border-amber-400/60 text-amber-200 hover:text-white text-xs font-bold transition-all shadow-xs cursor-pointer group"
-                title="Encuesta de Satisfacción del Alumnado (Gana +150 XP y +100 €)"
-              >
-                <Star className="w-3.5 h-3.5 text-amber-300 fill-amber-300 group-hover:scale-110 transition-transform" />
-                <span className="hidden sm:inline">Evaluar Plataforma</span>
-                <span className="bg-amber-400 text-amber-950 text-[9px] font-black px-1.5 py-0.2 rounded-full hidden md:inline">
-                  +150 XP
-                </span>
-              </button>
+              hasCompletedSurvey ? (
+                <button
+                  onClick={onOpenSatisfactionSurvey}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-950/80 hover:bg-amber-900 border border-amber-400/60 text-amber-200 hover:text-white text-xs font-bold transition-all shadow-xs cursor-pointer group"
+                  title="Encuesta de Satisfacción completada (Ver informe docente o actualizar)"
+                >
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="hidden sm:inline">Encuesta UGR</span>
+                  <span className="bg-emerald-950 text-emerald-300 border border-emerald-500/30 text-[9px] font-bold px-1.5 py-0.2 rounded-full hidden md:inline">
+                    Completada
+                  </span>
+                </button>
+              ) : (
+                <button
+                  onClick={onOpenSatisfactionSurvey}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-amber-950 text-xs font-black transition-all shadow-sm cursor-pointer animate-pulse ring-2 ring-amber-300/60 group"
+                  title="Encuesta Docente Requerida (PID 26-158) - ¡Gana +150 XP y +100 €!"
+                >
+                  <Lock className="w-3.5 h-3.5 text-amber-950" />
+                  <span>Encuesta Requerida</span>
+                  <span className="bg-amber-950 text-amber-300 text-[9px] font-black px-1.5 py-0.2 rounded-full hidden sm:inline">
+                    +150 XP
+                  </span>
+                </button>
+              )
             )}
 
-            {/* Firebase Hub Button */}
-            {onOpenFirebaseModal && (
-              <button
-                onClick={onOpenFirebaseModal}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-950/70 hover:bg-amber-900 border border-amber-400/50 text-amber-100 hover:text-white text-xs font-semibold transition-all shadow-2xs cursor-pointer"
-                title="Configuración de Firebase Firestore & Hosting UGR"
-              >
-                <Flame className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
-                <span className="hidden sm:inline">Firebase Hub</span>
-              </button>
-            )}
+
 
             {/* Audio Mute/Unmute Toggle Button */}
             <button
@@ -265,6 +271,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                   >
                     <Stethoscope className="w-3.5 h-3.5" />
                     <span>Casos Clínicos</span>
+                    {!hasCompletedSurvey && userProgress.casesAttempted >= 4 && (
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-0.5">
+                        <Lock className="w-2.5 h-2.5 text-amber-700" />
+                        <span>Encuesta</span>
+                      </span>
+                    )}
+                    {!hasCompletedSurvey && userProgress.casesAttempted > 0 && userProgress.casesAttempted < 4 && (
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-slate-100 text-slate-700 border border-slate-300">
+                        {userProgress.casesAttempted}/4
+                      </span>
+                    )}
                   </button>
 
                   {activeModule === 'desafio' && (
@@ -356,9 +373,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                   >
                     <Gamepad2 className="w-3.5 h-3.5" />
                     <span>El Rosco & Minijuegos</span>
-                    <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-white text-emerald-700 border border-emerald-300">
-                      +💰 Dinero
-                    </span>
+                    {!hasCompletedSurvey ? (
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-0.5">
+                        <Lock className="w-2.5 h-2.5 text-amber-700" />
+                        <span>Bloqueado</span>
+                      </span>
+                    ) : (
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-white text-emerald-700 border border-emerald-300">
+                        +💰 Dinero
+                      </span>
+                    )}
                   </button>
 
                   <button

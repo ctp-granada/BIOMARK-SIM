@@ -95,7 +95,9 @@ const CURRICULUM_DATA = {
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const portArgIdx = process.argv.indexOf("--port");
+  const cliPort = portArgIdx !== -1 && process.argv[portArgIdx + 1] ? parseInt(process.argv[portArgIdx + 1], 10) : undefined;
+  const PORT = Number(process.env.PORT) || cliPort || 3000;
 
   app.use(express.json());
 
@@ -314,8 +316,28 @@ Genera la respuesta EXCLUSIVAMENTE como un objeto JSON válido con la siguiente 
     });
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
+  const server = app.listen(PORT, "0.0.0.0", () => {
     console.log(`[BioMarkDx] Servidor ejecutándose en http://localhost:${PORT}`);
+  });
+
+  server.on("error", (err: any) => {
+    if (err.code === "EADDRINUSE") {
+      console.error(`[BioMarkDx] Error: El puerto ${PORT} ya está en uso. Reintentando o liberando proceso.`);
+    } else {
+      console.error("[BioMarkDx] Error en el servidor Express:", err);
+    }
+  });
+
+  process.on("SIGTERM", () => {
+    server.close(() => {
+      process.exit(0);
+    });
+  });
+
+  process.on("SIGINT", () => {
+    server.close(() => {
+      process.exit(0);
+    });
   });
 }
 

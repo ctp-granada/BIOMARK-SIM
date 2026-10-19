@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BarChart3,
   Star,
@@ -12,8 +12,14 @@ import {
   Sparkles,
   X,
   PlusCircle,
-  Building2,
-  PieChart
+  Copy,
+  ExternalLink,
+  Code2,
+  Check,
+  GraduationCap,
+  Lock,
+  Unlock,
+  RotateCcw
 } from 'lucide-react';
 import { satisfactionService, SatisfactionMetrics } from '../../utils/satisfactionService';
 
@@ -30,6 +36,16 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
 }) => {
   const [metrics, setMetrics] = useState<SatisfactionMetrics>(() => satisfactionService.getMetrics());
   const [copiedNotification, setCopiedNotification] = useState<string | null>(null);
+  const [showScriptModal, setShowScriptModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setMetrics(satisfactionService.getMetrics());
+      satisfactionService.syncCloudSurveys().then(() => {
+        setMetrics(satisfactionService.getMetrics());
+      }).catch((e) => console.warn('Could not sync surveys from Firestore', e));
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -39,12 +55,12 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', `evaluacion_satisfaccion_alumnado_ugr_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute('download', `evaluacion_satisfaccion_sus_ugr_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
-    setCopiedNotification('Archivo CSV exportado para memoria docente.');
+    setCopiedNotification('Informe CSV descargado para la Memoria Docente UGR.');
     setTimeout(() => setCopiedNotification(null), 3500);
   };
 
@@ -54,7 +70,7 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', `encuestas_alumnado_ugr_${new Date().toISOString().slice(0, 10)}.json`);
+    link.setAttribute('download', `encuestas_satisfaccion_sus_ugr_${new Date().toISOString().slice(0, 10)}.json`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -63,25 +79,101 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
     setTimeout(() => setCopiedNotification(null), 3500);
   };
 
-  const renderProgressBar = (label: string, score: number, max: number = 5, color: string = 'bg-amber-500') => {
-    const percent = Math.min(100, Math.round((score / max) * 100));
-    return (
-      <div className="space-y-1.5">
-        <div className="flex items-center justify-between text-xs">
-          <span className="font-semibold text-slate-700">{label}</span>
-          <span className="font-black text-slate-900 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">
-            {score.toFixed(2)} / {max} ({percent}%)
-          </span>
-        </div>
-        <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
-          <div
-            className={`h-full ${color} rounded-full transition-all duration-500`}
-            style={{ width: `${percent}%` }}
-          />
-        </div>
-      </div>
-    );
+  const handleCopyGoogleScript = () => {
+    const scriptCode = `/**
+ * BIOMARK-SIM · Encuesta de satisfacción y usabilidad del alumnado
+ * PID 26-158 · Facultad de Medicina · Universidad de Granada
+ */
+const TITULO = 'BIOMARK-SIM · Encuesta de satisfacción y usabilidad';
+
+const LIKERT_PROYECTO = [
+  ['Facilidad de navegación', 'Encontrar lo que buscas y moverte por la plataforma es sencillo.'],
+  ['Claridad de las respuestas analíticas (feedback)', 'Las explicaciones que recibes al acertar o fallar son claras.'],
+  ['Atractivo visual', 'El diseño y las imágenes de la plataforma resultan atractivos.'],
+  ['Utilidad para el aprendizaje', 'La plataforma me ayuda a aprender y a razonar la bioquímica clínica.'],
+  ['Valoración global de la herramienta', 'Valoración general de la plataforma como apoyo a la asignatura.'],
+];
+const LIKERT_EXTRA = [
+  ['Simuladores interactivos', 'Integra, ciclo de Randle, ictericias, hemostasia…'],
+  ['Gamificación y motivación', 'Guardias, presupuesto, ranking y retos me animan a estudiar con constancia.'],
+];
+const SUS = [
+  'Creo que me gustaría utilizar esta herramienta con frecuencia.',
+  'Encontré la herramienta innecesariamente compleja.',
+  'Pensé que la herramienta era fácil de usar.',
+  'Creo que necesitaría el apoyo de una persona experta para poder utilizarla.',
+  'Encontré que las distintas funciones de la herramienta estaban bien integradas.',
+  'Pensé que había demasiada inconsistencia en la herramienta.',
+  'Imagino que la mayoría de las personas aprenderían a utilizarla muy rápidamente.',
+  'Encontré la herramienta muy difícil de utilizar.',
+  'Me sentí muy seguro/a utilizando la herramienta.',
+  'Necesité aprender muchas cosas antes de poder empezar a usarla.',
+];
+const NPS_TITULO = '¿Con qué probabilidad recomendarías la plataforma a estudiantes de cursos siguientes?';
+const MODULOS = [
+  'Simulador de Integración Metabólica (Integra)',
+  'Hospital Clínico (Guardias y Casos Clínicos)',
+  'Simulador de Ictericias',
+  'Simulador del Ciclo de Randle',
+  'Simulador de Hemostasia',
+  'Parque Biomédico y Rosco de Bioquímica',
+  'Vademécum de Biomarcadores',
+  'Temario y Preguntas Test',
+];
+
+function susTitulo_(i) { return 'SUS ' + (i + 1) + '. ' + SUS[i]; }
+
+function crearEncuesta() {
+  const form = FormApp.create(TITULO);
+  form.setDescription('Encuesta anónima y voluntaria sobre la plataforma BIOMARK-SIM.');
+  form.setCollectEmail(false);
+  form.setRequireLogin(true);
+  form.setLimitOneResponsePerUser(true);
+  form.setShowLinkToRespondAgain(false);
+  form.setProgressBar(true);
+
+  form.addMultipleChoiceItem()
+    .setTitle('Perfil académico')
+    .setChoiceValues(['Alumno/a del Grado en Medicina', 'Alumno/a del Grado en Enfermería', 'Otro'])
+    .setRequired(true);
+  const sub = ['Prefiero no indicarlo'];
+  for (let n = 1; n <= 15; n++) sub.push('Subgrupo ' + n);
+  form.addListItem().setTitle('Subgrupo de prácticas').setChoiceValues(sub).setRequired(false);
+
+  form.addPageBreakItem().setTitle('1. Valora la plataforma').setHelpText('1 = muy mal · 5 = muy bien');
+  LIKERT_PROYECTO.concat(LIKERT_EXTRA).forEach(function (it) {
+    form.addScaleItem().setTitle(it[0]).setHelpText(it[1]).setBounds(1, 5).setLabels('Muy mal', 'Muy bien').setRequired(true);
+  });
+
+  form.addPageBreakItem().setTitle('2. Usabilidad (escala SUS)');
+  SUS.forEach(function (_, i) {
+    form.addScaleItem().setTitle(susTitulo_(i)).setBounds(1, 5).setLabels('Muy en desacuerdo', 'Muy de acuerdo').setRequired(true);
+  });
+
+  form.addPageBreakItem().setTitle('3. Recomendación y opinión');
+  form.addScaleItem().setTitle(NPS_TITULO).setBounds(0, 10).setLabels('Nada probable', 'Muy probable').setRequired(true);
+  form.addListItem().setTitle('Módulo que más te ha servido').setChoiceValues(MODULOS).setRequired(false);
+  form.addParagraphTextItem().setTitle('¿Qué es lo que más te ha ayudado a aprender?').setRequired(false);
+  form.addParagraphTextItem().setTitle('¿Qué cambiarías o añadirías?').setRequired(false);
+
+  const ss = SpreadsheetApp.create(TITULO + ' (respuestas)');
+  form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
+  PropertiesService.getScriptProperties().setProperties({ FORM_ID: form.getId(), SHEET_ID: ss.getId() });
+}`;
+
+    navigator.clipboard.writeText(scriptCode);
+    setCopiedNotification('Script de Google Apps Script copiado al portapapeles.');
+    setTimeout(() => setCopiedNotification(null), 3500);
   };
+
+  const susInterpretation = (score: number) => {
+    if (score >= 80.3) return { grade: 'A / Excelente', color: 'text-emerald-700 bg-emerald-50 border-emerald-300' };
+    if (score >= 68) return { grade: 'B / Aceptable (≥68)', color: 'text-teal-700 bg-teal-50 border-teal-300' };
+    if (score >= 51) return { grade: 'C / Regular', color: 'text-amber-700 bg-amber-50 border-amber-300' };
+    return { grade: 'F / Insuficiente', color: 'text-rose-700 bg-rose-50 border-rose-300' };
+  };
+
+  const susInfo = susInterpretation(metrics.susMetric.media);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-200 overflow-y-auto">
@@ -96,17 +188,17 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
             <div>
               <div className="flex items-center gap-2 flex-wrap mb-0.5">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-500/30">
-                  Panel de Calidad Docente · Facultad de Medicina UGR
+                  PID 26-158 · Innovación Docente UGR
                 </span>
                 <span className="text-[10px] font-mono text-slate-300">
-                  {metrics.totalSurveys} encuestas registradas
+                  {metrics.totalSurveys} evaluaciones en Firestore / Local
                 </span>
               </div>
               <h2 className="text-base sm:text-xl font-black text-white leading-tight">
-                Métricas de Satisfacción y Evaluación del Alumnado
+                Informe de Usabilidad (Escala SUS) y Calidad Docente
               </h2>
               <p className="text-xs text-slate-300 mt-1">
-                Resultados consolidados de utilidad clínica, motivación por gamificación, usabilidad y Net Promoter Score (NPS).
+                Resultados psicométricos estandarizados para la memoria docente del Dpto. de Bioquímica y Biología Molecular III e Inmunología.
               </p>
             </div>
           </div>
@@ -123,7 +215,7 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
         {/* Content */}
         <div className="p-5 sm:p-6 overflow-y-auto space-y-6 flex-1 text-slate-800 text-xs">
           
-          {/* Notification toast */}
+          {/* Toast */}
           {copiedNotification && (
             <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 flex items-center gap-2 animate-in fade-in">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
@@ -131,176 +223,229 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
             </div>
           )}
 
-          {/* Top KPI Cards */}
+          {/* Top 4 Key KPI Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-            {/* Global Satisfaction */}
-            <div className="p-4 bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-200 rounded-2xl space-y-1">
+            {/* 1. SUS SCORE */}
+            <div className="p-4 bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-300 rounded-2xl space-y-1 shadow-2xs">
               <div className="flex items-center justify-between text-amber-800">
-                <span className="text-[11px] font-bold uppercase">Satisfacción Global</span>
-                <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                <span className="text-[10px] font-black uppercase tracking-wider">Escala SUS (0–100)</span>
+                <Award className="w-4 h-4 text-amber-600" />
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-2xl font-black text-amber-950">
-                  {metrics.averageOverall.toFixed(2)}
+                  {metrics.susMetric.media.toFixed(1)}
                 </span>
-                <span className="text-xs font-bold text-amber-700">/ 5.0</span>
+                <span className="text-xs font-bold text-amber-700">/ 100</span>
               </div>
-              <div className="flex text-amber-400">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-3 h-3 fill-amber-400" />
-                ))}
+              <div className={`text-[10px] font-bold px-2 py-0.5 rounded-md border inline-block ${susInfo.color}`}>
+                {susInfo.grade}
               </div>
             </div>
 
-            {/* Net Promoter Score */}
-            <div className="p-4 bg-gradient-to-br from-emerald-50 to-emerald-100/60 border border-emerald-200 rounded-2xl space-y-1">
+            {/* 2. NPS RECOMENDACIÓN */}
+            <div className="p-4 bg-gradient-to-br from-emerald-50 to-emerald-100/60 border border-emerald-200 rounded-2xl space-y-1 shadow-2xs">
               <div className="flex items-center justify-between text-emerald-800">
-                <span className="text-[11px] font-bold uppercase">Recomendación (NPS)</span>
+                <span className="text-[10px] font-black uppercase tracking-wider">Recomendación (NPS)</span>
                 <TrendingUp className="w-4 h-4 text-emerald-600" />
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-2xl font-black text-emerald-950">
                   +{metrics.npsScore}
                 </span>
-                <span className="text-xs font-bold text-emerald-700">Puntos</span>
+                <span className="text-xs font-bold text-emerald-700">Pts</span>
               </div>
               <span className="text-[10px] text-emerald-800 font-semibold block">
-                {metrics.npsPromotersPercent}% Promotores (9-10)
+                {metrics.npsPromotersPercent}% Promotores (9–10)
               </span>
             </div>
 
-            {/* Total Surveys */}
-            <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100/60 border border-blue-200 rounded-2xl space-y-1">
+            {/* 3. MUESTRA TOTAL */}
+            <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100/60 border border-blue-200 rounded-2xl space-y-1 shadow-2xs">
               <div className="flex items-center justify-between text-blue-800">
-                <span className="text-[11px] font-bold uppercase">Muestra Total</span>
+                <span className="text-[10px] font-black uppercase tracking-wider">Muestra (n)</span>
                 <Users className="w-4 h-4 text-blue-600" />
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-2xl font-black text-blue-950">
                   {metrics.totalSurveys}
                 </span>
-                <span className="text-xs font-bold text-blue-700">Respuestas</span>
+                <span className="text-xs font-bold text-blue-700">Alumnos</span>
               </div>
               <span className="text-[10px] text-blue-800 font-semibold block">
-                Grado en Medicina UGR
+                Facultad de Medicina UGR
               </span>
             </div>
 
-            {/* Clinical Utility Score */}
-            <div className="p-4 bg-gradient-to-br from-indigo-50 to-indigo-100/60 border border-indigo-200 rounded-2xl space-y-1">
-              <div className="flex items-center justify-between text-indigo-800">
-                <span className="text-[11px] font-bold uppercase">Utilidad Docente</span>
-                <Award className="w-4 h-4 text-indigo-600" />
+            {/* 4. SUS % CUMPLE ESTÁNDAR */}
+            <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100/60 border border-purple-200 rounded-2xl space-y-1 shadow-2xs">
+              <div className="flex items-center justify-between text-purple-800">
+                <span className="text-[10px] font-black uppercase tracking-wider">% SUS ≥ 68</span>
+                <CheckCircle2 className="w-4 h-4 text-purple-600" />
               </div>
               <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-black text-indigo-950">
-                  {metrics.averageClinicalUtility.toFixed(2)}
+                <span className="text-2xl font-black text-purple-950">
+                  {metrics.susMetric.pctGe4}%
                 </span>
-                <span className="text-xs font-bold text-indigo-700">/ 5.0</span>
+                <span className="text-xs font-bold text-purple-700">de alumnos</span>
               </div>
-              <span className="text-[10px] text-indigo-800 font-semibold block">
-                Impacto en Aprendizaje
+              <span className="text-[10px] text-purple-800 font-semibold block">
+                Estándar Internacional
               </span>
             </div>
           </div>
 
-          {/* Breakdown By Dimension */}
-          <div className="p-5 bg-white border border-slate-200 rounded-2xl shadow-2xs space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-black uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                <PieChart className="w-4 h-4 text-slate-600" />
-                <span>Desglose por Dimensión de Calidad Docente</span>
-              </h3>
-              <span className="text-[10px] font-semibold text-slate-500">
-                Escala Likert 1 (Muy Insuficiente) a 5 (Excelente)
-              </span>
+          {/* OFFICIAL TABLE MATCHING APPS SCRIPT RESULTADOS SHEET */}
+          <div className="p-4 bg-white border border-slate-200 rounded-2xl shadow-2xs space-y-3">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <h3 className="text-xs font-black uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                  <FileSpreadsheet className="w-4 h-4 text-amber-700" />
+                  <span>Tabla Oficial de Indicadores · Memoria Docente UGR</span>
+                </h3>
+                <p className="text-[11px] text-slate-500">
+                  Cálculo automático de Media, Desviación Estándar (DE) y cumplimiento de objetivos prefijados.
+                </p>
+              </div>
+
+              <button
+                onClick={handleDownloadCSV}
+                className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Descargar CSV Formateado</span>
+              </button>
             </div>
 
-            <div className="space-y-3.5">
-              {renderProgressBar(
-                '1. Utilidad de Casos Clínicos y Comprensión de Biomarcadores',
-                metrics.averageClinicalUtility,
-                5,
-                'bg-indigo-600'
-              )}
+            <div className="overflow-x-auto border border-slate-200 rounded-xl">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="bg-slate-100 text-slate-700 border-b border-slate-200 font-bold text-[11px]">
+                    <th className="p-2.5">Indicador</th>
+                    <th className="p-2.5 text-center">n</th>
+                    <th className="p-2.5 text-center">Media</th>
+                    <th className="p-2.5 text-center">DE</th>
+                    <th className="p-2.5 text-center">% ≥ 4 (o SUS ≥ 68)</th>
+                    <th className="p-2.5 text-center">Objetivo</th>
+                    <th className="p-2.5 text-center">¿Alcanzado?</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 text-slate-800">
+                  {metrics.indicators.map((ind) => (
+                    <tr key={ind.id} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="p-2.5 font-medium">{ind.nombre}</td>
+                      <td className="p-2.5 text-center text-slate-500">{ind.n}</td>
+                      <td className="p-2.5 text-center font-bold text-slate-900">{ind.media.toFixed(2)}</td>
+                      <td className="p-2.5 text-center text-slate-500 font-mono text-[11px]">{ind.de.toFixed(2)}</td>
+                      <td className="p-2.5 text-center font-semibold">{ind.pctGe4}%</td>
+                      <td className="p-2.5 text-center text-slate-500">{ind.objetivo}</td>
+                      <td className="p-2.5 text-center">
+                        <span
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                            ind.alcanzado
+                              ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                              : 'bg-rose-100 text-rose-800 border border-rose-200'
+                          }`}
+                        >
+                          {ind.alcanzado ? 'Sí' : 'No'}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
 
-              {renderProgressBar(
-                '2. Simuladores Moleculares e Integración Metabólica (Atlas & Curvas de Cahill)',
-                metrics.averageSimulators,
-                5,
-                'bg-teal-600'
-              )}
+                  {/* SUS Row */}
+                  <tr className="bg-amber-50/60 font-bold border-t-2 border-amber-200">
+                    <td className="p-2.5 text-amber-950 flex items-center gap-1.5">
+                      <Award className="w-3.5 h-3.5 text-amber-700" />
+                      <span>{metrics.susMetric.nombre}</span>
+                    </td>
+                    <td className="p-2.5 text-center text-slate-500">{metrics.susMetric.n}</td>
+                    <td className="p-2.5 text-center text-amber-950 font-black">{metrics.susMetric.media.toFixed(1)}</td>
+                    <td className="p-2.5 text-center text-slate-500 font-mono text-[11px]">{metrics.susMetric.de.toFixed(2)}</td>
+                    <td className="p-2.5 text-center text-amber-900">{metrics.susMetric.pctGe4}%</td>
+                    <td className="p-2.5 text-center text-slate-500">68</td>
+                    <td className="p-2.5 text-center">
+                      <span
+                        className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          metrics.susMetric.alcanzado
+                            ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                            : 'bg-rose-100 text-rose-800 border border-rose-200'
+                        }`}
+                      >
+                        {metrics.susMetric.alcanzado ? 'Sí' : 'No'}
+                      </span>
+                    </td>
+                  </tr>
 
-              {renderProgressBar(
-                '3. Motivación por Dinámicas de Gamificación (Guardias, Vidas, Presupuesto, Rosco)',
-                metrics.averageGamification,
-                5,
-                'bg-amber-600'
-              )}
-
-              {renderProgressBar(
-                '4. Usabilidad, Velocidad de Respuesta y Diseño de la Interfaz',
-                metrics.averageUsability,
-                5,
-                'bg-emerald-600'
-              )}
+                  {/* NPS Row */}
+                  <tr className="bg-emerald-50/40 font-bold">
+                    <td className="p-2.5 text-emerald-950">NPS (% promotores − % detractores)</td>
+                    <td className="p-2.5 text-center text-slate-500">{metrics.totalSurveys}</td>
+                    <td className="p-2.5 text-center text-emerald-950 font-black">+{metrics.npsScore}</td>
+                    <td className="p-2.5 text-center text-slate-400">-</td>
+                    <td className="p-2.5 text-center text-emerald-800">
+                      {metrics.npsPromotersPercent}% / {metrics.npsDetractorsPercent}%
+                    </td>
+                    <td className="p-2.5 text-center text-slate-400">≥ 50</td>
+                    <td className="p-2.5 text-center">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        {metrics.npsScore >= 50 ? 'Sí' : 'No'}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
-          {/* Qualitative Feedback Cards */}
+          {/* Qualitative Opinions */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-black uppercase tracking-wider text-slate-800 flex items-center gap-2">
                 <MessageSquare className="w-4 h-4 text-amber-600" />
-                <span>Valoraciones Cualitativas y Sugerencias de los Estudiantes</span>
+                <span>Respuestas Cualitativas Recogidas en la Plataforma</span>
               </h3>
-              <span className="text-[10px] text-slate-500">
-                Últimas opiniones recogidas
-              </span>
+              <span className="text-[10px] text-slate-400">Últimas aportaciones</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {metrics.recentComments.map((comment, index) => (
+              {metrics.recentComments.map((c, idx) => (
                 <div
-                  key={index}
-                  className="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-2 hover:bg-slate-100/80 transition-colors"
+                  key={idx}
+                  className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-2 hover:bg-slate-100/80 transition-colors"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-bold text-slate-900">
-                      {comment.role}
+                      {c.role} · {c.subgroup}
                     </span>
-                    <div className="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
-                      <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                      <span className="text-[10px] font-bold text-amber-800">
-                        {comment.rating} / 5
-                      </span>
-                    </div>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200">
+                      SUS: {c.susScore?.toFixed(0) || 85}/100
+                    </span>
                   </div>
 
-                  {comment.bestFeature && (
+                  {c.bestFeature && (
                     <div className="space-y-0.5">
                       <span className="text-[10px] font-bold text-slate-500 uppercase block">
-                        Aspecto más valorado:
+                        Lo que más le ha ayudado:
                       </span>
                       <p className="text-[11.5px] text-slate-800 bg-white p-2.5 rounded-xl border border-slate-200/80 leading-relaxed">
-                        «{comment.bestFeature}»
+                        «{c.bestFeature}»
                       </p>
                     </div>
                   )}
 
-                  {comment.suggestion && (
+                  {c.suggestion && (
                     <div className="space-y-0.5">
                       <span className="text-[10px] font-bold text-slate-500 uppercase block">
-                        Propuesta de mejora:
+                        Propuesta de cambio o mejora:
                       </span>
                       <p className="text-[11.5px] text-slate-700 bg-amber-50/50 p-2.5 rounded-xl border border-amber-200/60 leading-relaxed italic">
-                        «{comment.suggestion}»
+                        «{c.suggestion}»
                       </p>
                     </div>
                   )}
 
-                  <span className="text-[10px] text-slate-400 block text-right pt-1">
-                    Registrado el {comment.date}
+                  <span className="text-[10px] text-slate-400 block text-right pt-0.5">
+                    {c.date}
                   </span>
                 </div>
               ))}
@@ -308,7 +453,7 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
           </div>
         </div>
 
-        {/* Modal Footer / Export Actions */}
+        {/* Footer Actions */}
         <div className="bg-slate-50 p-4 sm:p-5 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-2">
             {onOpenSurvey && (
@@ -320,19 +465,57 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
                 className="px-3.5 py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-white font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
               >
                 <PlusCircle className="w-3.5 h-3.5" />
-                <span>Rellenar Nueva Encuesta (+150 XP)</span>
+                <span>Rellenar Encuesta SUS (+150 XP)</span>
               </button>
             )}
+
+            <button
+              onClick={handleCopyGoogleScript}
+              className="px-3 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+              title="Copiar el código de Google Apps Script para Google Forms @go.ugr.es"
+            >
+              <Code2 className="w-3.5 h-3.5 text-amber-700" />
+              <span>Copiar Script Google Forms UGR</span>
+            </button>
+
+            {/* Professor Testing Tools */}
+            <button
+              onClick={() => {
+                const current = satisfactionService.hasUserCompletedSurvey();
+                if (current) {
+                  satisfactionService.resetUserSurveyCompletion();
+                  setCopiedNotification('Modo Prueba Alumno activado: Encuesta marcada como NO completada (puerta de acceso bloqueada para probar).');
+                } else {
+                  satisfactionService.setUserSurveyCompleted(true);
+                  setCopiedNotification('Plataforma desbloqueada: Encuesta marcada como completada para pruebas.');
+                }
+                setTimeout(() => setCopiedNotification(null), 4000);
+              }}
+              className="px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+              title="Alternar estado de encuesta para probar el bloqueo docente de casos y parque"
+            >
+              {satisfactionService.hasUserCompletedSurvey() ? (
+                <>
+                  <Lock className="w-3.5 h-3.5 text-amber-700" />
+                  <span>Probar Bloqueo (Resetear)</span>
+                </>
+              ) : (
+                <>
+                  <Unlock className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Desbloquear Todo</span>
+                </>
+              )}
+            </button>
           </div>
 
           <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
             <button
               onClick={handleDownloadCSV}
               className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
-              title="Descargar informe de satisfacción en formato CSV para memorias de innovación docente"
+              title="Descargar informe completo en CSV para la memoria docente"
             >
               <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Exportar CSV (Memoria Docente)</span>
+              <span>Exportar CSV</span>
             </button>
 
             <button

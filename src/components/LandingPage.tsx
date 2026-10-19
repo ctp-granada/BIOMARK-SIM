@@ -32,9 +32,11 @@ import {
   Dices,
   Coins,
   Calendar,
-  Network
+  Network,
+  Lock
 } from 'lucide-react';
 import { CLINICAL_CASES_DATABASE } from '../data/clinicalCases';
+import { satisfactionService } from '../utils/satisfactionService';
 
 interface LandingPageProps {
   onNavigate: (module: ActiveModule) => void;
@@ -407,8 +409,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 onClick={() => onNavigate('juegos')}
                 className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200/90 hover:border-emerald-300 transition-all cursor-pointer shadow-2xs"
               >
-                <Gamepad2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Juegos</span>
+                {!satisfactionService.hasUserCompletedSurvey() ? (
+                  <>
+                    <Lock className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Juegos (Bloqueado)</span>
+                  </>
+                ) : (
+                  <>
+                    <Gamepad2 className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Juegos</span>
+                  </>
+                )}
               </button>
             </div>
           </div>

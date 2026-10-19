@@ -40,11 +40,12 @@ import { InteractiveLabsContainer } from './components/InteractiveLabs/Interacti
 import { GamesHub } from './components/InteractiveLabs/GamesHub';
 import { TeachingMaterialView } from './components/TeachingMaterial/TeachingMaterialView';
 import { PracticasSeminariosView } from './components/PracticasSeminarios/PracticasSeminariosView';
-import { FirebaseHubModal } from './components/Firebase/FirebaseHubModal';
 import { SatisfactionSurveyModal } from './components/Satisfaction/SatisfactionSurveyModal';
 import { SatisfactionMetricsModal } from './components/Satisfaction/SatisfactionMetricsModal';
+import { SatisfactionGateLockScreen } from './components/Satisfaction/SatisfactionGateLockScreen';
+import { satisfactionService } from './utils/satisfactionService';
 import { useSupabaseAuth } from './hooks/useSupabaseAuth';
-import { X } from 'lucide-react';
+import { X, Lock, Sparkles, AlertCircle } from 'lucide-react';
 
 const INITIAL_PROGRESS: UserProgress = {
   score: 0,
@@ -129,9 +130,21 @@ export default function App() {
   // Supabase Auth & Cloud Sync
   const { user, syncStatus, loadCloudProgress, saveCloudProgress, signOut } = useSupabaseAuth();
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [firebaseModalOpen, setFirebaseModalOpen] = useState(false);
   const [satisfactionSurveyOpen, setSatisfactionSurveyOpen] = useState(false);
   const [satisfactionMetricsOpen, setSatisfactionMetricsOpen] = useState(false);
+  const [hasCompletedSurvey, setHasCompletedSurvey] = useState<boolean>(() =>
+    satisfactionService.hasUserCompletedSurvey()
+  );
+  const [surveyGateTriggerReason, setSurveyGateTriggerReason] = useState<
+    'none' | 'access_park' | 'cases_milestone' | 'access_advanced_labs'
+  >('none');
+  const [pendingModuleAfterSurvey, setPendingModuleAfterSurvey] = useState<ActiveModule | null>(null);
+
+  useEffect(() => {
+    return satisfactionService.subscribeToSurveyStatus((status) => {
+      setHasCompletedSurvey(status);
+    });
+  }, []);
 
   // User Progress with localStorage & Supabase persistence
   const [userProgress, setUserProgress] = useState<UserProgress>(() => {
@@ -234,8 +247,50 @@ export default function App() {
     };
   }, [isDailyActiveChallenge, activeModule, isDailyTimerExpired]);
 
+  // Pedagogical Survey Checkpoint Threshold:
+  // Allows up to 4 clinical cases freely and unlimited access to Biblioteca & Simuladores.
+  // Blocks access to Parque Biomédico (juegos) until survey is completed,
+  // and prevents solving more clinical cases (> 4) until survey is completed.
+  const MAX_FREE_CASES_BEFORE_SURVEY = 4;
+
+  // Central Navigation Gatekeeper (Enforces Survey Checkpoint)
+  const handleNavigateWithGate = (targetModule: ActiveModule) => {
+    const isSurveyDone = satisfactionService.hasUserCompletedSurvey();
+
+    // Condition 1: Acceso al Parque Biomédico (juegos):
+    // Bloqueado para todos hasta completar la encuesta de satisfacción y usabilidad
+    if (!isSurveyDone && targetModule === 'juegos') {
+      setPendingModuleAfterSurvey('juegos');
+      setSurveyGateTriggerReason('access_park');
+      setSatisfactionSurveyOpen(true);
+      return;
+    }
+
+    // Condition 2: Continuar resolviendo casos clínicos (desafio / reto-diario) tras 4 casos intentados:
+    if (!isSurveyDone && (targetModule === 'desafio' || targetModule === 'reto-diario') && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) {
+      setPendingModuleAfterSurvey(targetModule);
+      setSurveyGateTriggerReason('cases_milestone');
+      setSatisfactionSurveyOpen(true);
+      return;
+    }
+
+    // Nota pedagógica: La Biblioteca Médica, Temario, Prácticas y Simuladores de Aprendizaje
+    // (laboratorios, integracion-metabolica, biblioteca, docencia) están SIEMPRE disponibles.
+
+    setActiveModule(targetModule);
+  };
+
   // Start standard challenge
   const handleStartChallenge = (c: ClinicalCase) => {
+    const isSurveyDone = satisfactionService.hasUserCompletedSurvey();
+    if (!isSurveyDone && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) {
+      setActiveCase(c);
+      setPendingModuleAfterSurvey('desafio');
+      setSurveyGateTriggerReason('cases_milestone');
+      setSatisfactionSurveyOpen(true);
+      return;
+    }
+
     setActiveCase(c);
     setIsDailyActiveChallenge(false);
     setIsDailyTimerExpired(false);
@@ -246,6 +301,15 @@ export default function App() {
 
   // Start Daily Challenge (2 min timer & 2.0x XP)
   const handleStartDailyChallenge = (c: ClinicalCase) => {
+    const isSurveyDone = satisfactionService.hasUserCompletedSurvey();
+    if (!isSurveyDone && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) {
+      setActiveCase(c);
+      setPendingModuleAfterSurvey('desafio');
+      setSurveyGateTriggerReason('cases_milestone');
+      setSatisfactionSurveyOpen(true);
+      return;
+    }
+
     setActiveCase(c);
     setIsDailyActiveChallenge(true);
     setIsDailyTimerExpired(false);
@@ -639,6 +703,18 @@ export default function App() {
     setIsDailyTimerExpired(false);
     setDailyTimeRemaining(DAILY_CHALLENGE_TOTAL_SECONDS);
 
+    // Pedagogical Survey Checkpoint: After 4 or more cases attempted, require survey to continue
+    const isSurveyDone = satisfactionService.hasUserCompletedSurvey();
+    if (!isSurveyDone && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) {
+      const currentIndex = cases.findIndex((c) => c.id === activeCase.id);
+      const nextIndex = (currentIndex + 1) % cases.length;
+      setActiveCase(cases[nextIndex]);
+      setPendingModuleAfterSurvey('desafio');
+      setSurveyGateTriggerReason('cases_milestone');
+      setSatisfactionSurveyOpen(true);
+      return;
+    }
+
     const currentIndex = cases.findIndex((c) => c.id === activeCase.id);
     const nextIndex = (currentIndex + 1) % cases.length;
     setActiveCase(cases[nextIndex]);
@@ -670,16 +746,76 @@ export default function App() {
       {/* Navigation Header */}
       <Navbar
         activeModule={activeModule}
-        setActiveModule={setActiveModule}
+        setActiveModule={handleNavigateWithGate}
         userProgress={userProgress}
+        hasCompletedSurvey={hasCompletedSurvey}
         onStartTour={handleStartTour}
         user={user}
         syncStatus={syncStatus}
         onOpenAuthModal={() => setAuthModalOpen(true)}
         onSignOut={signOut}
-        onOpenFirebaseModal={() => setFirebaseModalOpen(true)}
-        onOpenSatisfactionSurvey={() => setSatisfactionSurveyOpen(true)}
+        onOpenSatisfactionSurvey={() => {
+          setSurveyGateTriggerReason('none');
+          setSatisfactionSurveyOpen(true);
+        }}
       />
+
+      {/* Institutional Survey Requirement Banner */}
+      {!hasCompletedSurvey && (
+        userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY ? (
+          <div className="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-950 text-white px-4 py-3 border-b border-amber-700/80 shadow-xs animate-in fade-in">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40">
+                  <Lock className="w-4 h-4 text-amber-300" />
+                </div>
+                <div className="text-xs">
+                  <span className="font-extrabold text-amber-200 uppercase tracking-wider text-[10px] block">
+                    Hito Docente Alcanzado · 4 Casos Clínicos Completados (PID 26-158)
+                  </span>
+                  <span className="text-amber-100">
+                    Has completado tus 4 casos de entrenamiento en el Hospital. Para continuar resolviendo más casos clínicos y acceder al <strong>Parque Biomédico</strong>, completa la breve encuesta oficial (~90 seg). La <strong>Biblioteca y Simuladores</strong> siguen abiertos.
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  setSurveyGateTriggerReason('cases_milestone');
+                  setPendingModuleAfterSurvey('desafio');
+                  setSatisfactionSurveyOpen(true);
+                }}
+                className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-amber-950 font-black text-xs shadow-md transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 shrink-0 group"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-amber-900 group-hover:rotate-12 transition-transform" />
+                <span>Completar Encuesta (+150 XP y +100 €)</span>
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-slate-100 px-4 py-2 border-b border-indigo-900/30 shadow-xs animate-in fade-in">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 text-center sm:text-left text-xs">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <span className="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                  Entrenamiento Clínico: {userProgress.casesAttempted}/{MAX_FREE_CASES_BEFORE_SURVEY} Casos
+                </span>
+                <span className="text-slate-300">
+                  Puedes resolver hasta 4 casos y acceder libremente a la <strong>Biblioteca y Simuladores</strong>. El <strong>Parque Biomédico</strong> y casos adicionales se desbloquean con la encuesta docente.
+                </span>
+              </div>
+              <button
+                onClick={() => {
+                  setSurveyGateTriggerReason('none');
+                  setSatisfactionSurveyOpen(true);
+                }}
+                className="px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold text-xs transition-colors cursor-pointer shrink-0 flex items-center gap-1"
+              >
+                <Sparkles className="w-3 h-3 text-amber-900" />
+                <span>Encuesta Docente (+150 XP)</span>
+              </button>
+            </div>
+          </div>
+        )
+      )}
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -689,10 +825,10 @@ export default function App() {
             <GamifiedDashboard
               userProgress={userProgress}
               onResetGuardia={handleResetGuardia}
-              onOpenStats={() => setActiveModule('estadisticas')}
-              onOpenRanking={() => setActiveModule('ranking')}
+              onOpenStats={() => handleNavigateWithGate('estadisticas')}
+              onOpenRanking={() => handleNavigateWithGate('ranking')}
               onGoToGames={() => {
-                setActiveModule('juegos');
+                handleNavigateWithGate('juegos');
               }}
             />
             <AdaptiveProgressBanner userProgress={userProgress} />
@@ -702,17 +838,17 @@ export default function App() {
         {/* Module 0: Pantalla Principal / LandingPage (Hospital, Biblioteca, Parque) */}
         {activeModule === 'inicio' && (
           <LandingPage
-            onNavigate={(mod) => setActiveModule(mod)}
+            onNavigate={(mod) => handleNavigateWithGate(mod)}
             onOpenLab={(lab) => {
               if (lab === 'randle' || lab === 'ictericias' || lab === 'hemostasia' || lab === 'integra') {
                 setSelectedInitialLab(lab);
                 if (lab === 'integra') {
-                  setActiveModule('integracion-metabolica');
+                  handleNavigateWithGate('integracion-metabolica');
                 } else {
-                  setActiveModule('laboratorios');
+                  handleNavigateWithGate('laboratorios');
                 }
               } else {
-                setActiveModule('juegos');
+                handleNavigateWithGate('juegos');
               }
             }}
             onStartTour={handleStartTour}
@@ -724,17 +860,17 @@ export default function App() {
         {/* Module Ciudad: Campus Ciudad Biomédica UGR (Hospital, Biblioteca, Parque Lúdico) */}
         {activeModule === 'ciudad' && (
           <BiomedicalCity
-            onNavigate={(mod) => setActiveModule(mod)}
+            onNavigate={(mod) => handleNavigateWithGate(mod)}
             onOpenLab={(lab) => {
               if (lab === 'randle' || lab === 'ictericias' || lab === 'hemostasia' || lab === 'integra') {
                 setSelectedInitialLab(lab);
                 if (lab === 'integra') {
-                  setActiveModule('integracion-metabolica');
+                  handleNavigateWithGate('integracion-metabolica');
                 } else {
-                  setActiveModule('laboratorios');
+                  handleNavigateWithGate('laboratorios');
                 }
               } else {
-                setActiveModule('juegos');
+                handleNavigateWithGate('juegos');
               }
             }}
             onStartChallenge={handleStartChallenge}
@@ -754,41 +890,65 @@ export default function App() {
             onSelectCase={(c) => setSelectedDetailCase(c)}
             onStartChallenge={handleStartChallenge}
             userProgress={userProgress}
-            onNavigate={(mod) => setActiveModule(mod)}
+            onNavigate={(mod) => handleNavigateWithGate(mod)}
           />
         )}
 
-        {/* Module 2: Challenge Mode */}
+        {/* Module 2: Challenge Mode (Allowed for up to 4 cases; locks when >= MAX_FREE_CASES_BEFORE_SURVEY until survey) */}
         {activeModule === 'desafio' && (
-          <ChallengeMode
-            currentCase={activeCase}
-            userProgress={userProgress}
-            isDailyChallenge={isDailyActiveChallenge}
-            dailyTimeRemaining={dailyTimeRemaining}
-            dailyBonusMultiplier={DAILY_CHALLENGE_MULTIPLIER}
-            isDailyTimerExpired={isDailyTimerExpired}
-            onDailyTimerExpire={() => setIsDailyTimerExpired(true)}
-            onOpenLibraryModal={handleOpenLibraryInChallenge}
-            onDeductBudget={handleDeductBudget}
-            onSubmitAnswer={handleSubmitAnswer}
-            onSubmitLabOrder={handleSubmitLabOrder}
-            consultedLibrary={consultedLibraryInCurrentChallenge}
-            onNextCase={handleNextCase}
-            onBackToCaseList={() => setActiveModule('casos')}
-          />
+          !hasCompletedSurvey && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY ? (
+            <SatisfactionGateLockScreen
+              reason="cases_milestone"
+              onOpenSurvey={() => {
+                setSurveyGateTriggerReason('cases_milestone');
+                setPendingModuleAfterSurvey('desafio');
+                setSatisfactionSurveyOpen(true);
+              }}
+              onBackToHome={() => setActiveModule('inicio')}
+            />
+          ) : (
+            <ChallengeMode
+              currentCase={activeCase}
+              userProgress={userProgress}
+              isDailyChallenge={isDailyActiveChallenge}
+              dailyTimeRemaining={dailyTimeRemaining}
+              dailyBonusMultiplier={DAILY_CHALLENGE_MULTIPLIER}
+              isDailyTimerExpired={isDailyTimerExpired}
+              onDailyTimerExpire={() => setIsDailyTimerExpired(true)}
+              onOpenLibraryModal={handleOpenLibraryInChallenge}
+              onDeductBudget={handleDeductBudget}
+              onSubmitAnswer={handleSubmitAnswer}
+              onSubmitLabOrder={handleSubmitLabOrder}
+              consultedLibrary={consultedLibraryInCurrentChallenge}
+              onNextCase={handleNextCase}
+              onBackToCaseList={() => handleNavigateWithGate('casos')}
+            />
+          )
         )}
 
-        {/* Module 3: Daily Challenge */}
+        {/* Module 3: Daily Challenge (Locks after 4 cases until survey) */}
         {activeModule === 'reto-diario' && (
-          <DailyChallengeView
-            dailyCase={dailyCase}
-            dailyState={dailyState}
-            userProgress={userProgress}
-            onStartDailyChallenge={handleStartDailyChallenge}
-          />
+          !hasCompletedSurvey && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY ? (
+            <SatisfactionGateLockScreen
+              reason="cases_milestone"
+              onOpenSurvey={() => {
+                setSurveyGateTriggerReason('cases_milestone');
+                setPendingModuleAfterSurvey('reto-diario');
+                setSatisfactionSurveyOpen(true);
+              }}
+              onBackToHome={() => setActiveModule('inicio')}
+            />
+          ) : (
+            <DailyChallengeView
+              dailyCase={dailyCase}
+              dailyState={dailyState}
+              userProgress={userProgress}
+              onStartDailyChallenge={handleStartDailyChallenge}
+            />
+          )
         )}
 
-        {/* Module 4: Biblioteca - Simuladores de Apoyo al Aprendizaje (Randle, Ictericias, Hemostasia, Integra) */}
+        {/* Module 4: Biblioteca - Simuladores de Apoyo al Aprendizaje (Randle, Ictericias, Hemostasia) - SIEMPRE ACCESIBLES */}
         {activeModule === 'laboratorios' && (
           <InteractiveLabsContainer
             initialLab={selectedInitialLab}
@@ -796,12 +956,12 @@ export default function App() {
             onEarnBudget={handleEarnBudget}
             onRechargeLife={handleRechargeLife}
             onAddBonusXP={handleAddBonusXP}
-            onNavigate={(mod) => setActiveModule(mod)}
-            onBackToPortal={() => setActiveModule('docencia')}
+            onNavigate={(mod) => handleNavigateWithGate(mod)}
+            onBackToPortal={() => handleNavigateWithGate('docencia')}
           />
         )}
 
-        {/* Module: Biblioteca - Integración Metabólica (Direct Suite) */}
+        {/* Module: Biblioteca - Integración Metabólica (Direct Suite) - SIEMPRE ACCESIBLE */}
         {activeModule === 'integracion-metabolica' && (
           <InteractiveLabsContainer
             initialLab="integra"
@@ -809,20 +969,32 @@ export default function App() {
             onEarnBudget={handleEarnBudget}
             onRechargeLife={handleRechargeLife}
             onAddBonusXP={handleAddBonusXP}
-            onNavigate={(mod) => setActiveModule(mod)}
-            onBackToPortal={() => setActiveModule('docencia')}
+            onNavigate={(mod) => handleNavigateWithGate(mod)}
+            onBackToPortal={() => handleNavigateWithGate('docencia')}
           />
         )}
 
         {/* Module Parque: Zona Lúdica & Minijuegos (Preguntas, Parejas, Pasapalabra) */}
         {activeModule === 'juegos' && (
-          <GamesHub
-            userProgress={userProgress}
-            onEarnBudget={handleEarnBudget}
-            onRechargeLife={handleRechargeLife}
-            onAddBonusXP={handleAddBonusXP}
-            onNavigate={(mod) => setActiveModule(mod)}
-          />
+          !hasCompletedSurvey ? (
+            <SatisfactionGateLockScreen
+              reason="access_park"
+              onOpenSurvey={() => {
+                setSurveyGateTriggerReason('access_park');
+                setPendingModuleAfterSurvey('juegos');
+                setSatisfactionSurveyOpen(true);
+              }}
+              onBackToHome={() => setActiveModule('inicio')}
+            />
+          ) : (
+            <GamesHub
+              userProgress={userProgress}
+              onEarnBudget={handleEarnBudget}
+              onRechargeLife={handleRechargeLife}
+              onAddBonusXP={handleAddBonusXP}
+              onNavigate={(mod) => handleNavigateWithGate(mod)}
+            />
+          )
         )}
 
         {/* Module 5: Teaching Material & Academic Guide */}
@@ -857,9 +1029,9 @@ export default function App() {
         {activeModule === 'ranking' && (
           <Leaderboard
             userProgress={userProgress}
-            onNavigateToCases={() => setActiveModule('casos')}
+            onNavigateToCases={() => handleNavigateWithGate('casos')}
             onNavigateToGames={() => {
-              setActiveModule('juegos');
+              handleNavigateWithGate('juegos');
             }}
           />
         )}
@@ -967,18 +1139,36 @@ export default function App() {
         onClose={() => setAuthModalOpen(false)}
       />
 
-      {/* Firebase Hub Modal (Firestore Database & Hosting Management) */}
-      <FirebaseHubModal
-        isOpen={firebaseModalOpen}
-        onClose={() => setFirebaseModalOpen(false)}
-      />
-
       {/* Student Satisfaction Survey Modal */}
       <SatisfactionSurveyModal
         isOpen={satisfactionSurveyOpen}
-        onClose={() => setSatisfactionSurveyOpen(false)}
+        gateReason={surveyGateTriggerReason}
+        onClose={() => {
+          setSatisfactionSurveyOpen(false);
+          // If closed without completing and this was a gate, reset to safe module if current is locked
+          if (surveyGateTriggerReason !== 'none' && !satisfactionService.hasUserCompletedSurvey()) {
+            if (
+              activeModule === 'juegos' ||
+              (activeModule === 'desafio' && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) ||
+              (activeModule === 'reto-diario' && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY)
+            ) {
+              setActiveModule('inicio');
+            }
+          }
+          setSurveyGateTriggerReason('none');
+          setPendingModuleAfterSurvey(null);
+        }}
+        onCompletedGate={() => {
+          const target = pendingModuleAfterSurvey;
+          setSurveyGateTriggerReason('none');
+          setPendingModuleAfterSurvey(null);
+          setSatisfactionSurveyOpen(false);
+          if (target) {
+            setActiveModule(target);
+          }
+        }}
         onRewardUser={(xp, budget) => {
-          handleAddBonusXP(xp, 'Encuesta de Satisfacción Alumnado');
+          handleAddBonusXP(xp);
           handleEarnBudget(budget);
         }}
         onOpenMetrics={() => setSatisfactionMetricsOpen(true)}

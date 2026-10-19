@@ -66,6 +66,20 @@
         "timestamp": { "type": "string", "format": "date-time", "description": "Marca de tiempo del intento" }
       },
       "required": ["userId", "caseId", "scoreEarned", "isCorrect"]
+    },
+    "SatisfactionSurvey": {
+      "title": "SatisfactionSurvey",
+      "description": "Encuesta de satisfacción y evaluación de calidad docente completada por un estudiante",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Identificador de la encuesta" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Fecha y hora de envío" },
+        "subgroup": { "type": "string", "description": "Subgrupo de prácticas (Subgrupo 1 al 15 o General)" },
+        "academicRole": { "type": "string", "description": "Perfil académico (Alumno Medicina UGR, etc.)" },
+        "ratings": { "type": "object", "description": "Puntuaciones Likert de 1 a 5 y NPS de 0 a 10" },
+        "qualitative": { "type": "object", "description": "Aspectos positivos y propuestas de mejora" }
+      },
+      "required": ["id", "createdAt", "academicRole", "ratings"]
     }
   },
   "firestore": {
@@ -84,6 +98,10 @@
     "/users/{userId}/attempts/{attemptId}": {
       "schema": { "$ref": "CaseAttempt" },
       "description": "Historial de intentos y resolución de casos de cada alumno"
+    },
+    "/satisfaction_surveys/{surveyId}": {
+      "schema": { "$ref": "SatisfactionSurvey" },
+      "description": "Colección global de evaluaciones de satisfacción y calidad docente del alumnado"
     }
   }
 }

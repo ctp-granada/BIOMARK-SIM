@@ -49,5 +49,13 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isAuthenticated();
     }
+
+    // Student Satisfaction Surveys & Quality Assessment:
+    // Students can submit anonymously or authenticated; public read for aggregated teaching metrics
+    match /satisfaction_surveys/{surveyId} {
+      allow create: if true;
+      allow read: if true;
+      allow update, delete: if isAdmin();
+    }
   }
 }
