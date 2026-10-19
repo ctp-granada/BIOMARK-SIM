@@ -18,6 +18,8 @@ const PROJECT_TARGET = 4;
 
 export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> = ({ isOpen, onClose }) => {
   const [result, setResult] = useState<MetricsResult | null>(null);
+  const [reloadKey, setReloadKey] = useState(0);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -25,7 +27,24 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
     setResult(null);
     satisfactionService.fetchMetrics().then((r) => { if (!cancelled) setResult(r); });
     return () => { cancelled = true; };
-  }, [isOpen]);
+  }, [isOpen, reloadKey]);
+
+  const signedInEmail = result ? satisfactionService.currentCoordinatorEmail() : null;
+
+  const handleSignIn = async () => {
+    setAuthError(null);
+    try {
+      await satisfactionService.signInCoordinator();
+      setReloadKey((k) => k + 1);
+    } catch {
+      setAuthError('No se ha podido iniciar sesión. Inténtalo de nuevo.');
+    }
+  };
+
+  const handleSignOut = async () => {
+    await satisfactionService.signOutCoordinator();
+    setReloadKey((k) => k + 1);
+  };
 
   if (!isOpen) return null;
 
@@ -92,6 +111,20 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
             <div className="py-10 text-center space-y-3 max-w-md mx-auto">
               <Lock className="w-8 h-8 text-slate-400 mx-auto" />
               <p className="text-sm text-slate-700">{result.message}</p>
+              {result.status === 'forbidden' && !signedInEmail && (
+                <button onClick={handleSignIn} className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-700 text-white font-bold text-xs cursor-pointer">
+                  Entrar con Google (cuenta UGR)
+                </button>
+              )}
+              {signedInEmail && (
+                <div className="space-y-2">
+                  <p className="text-[11px] text-slate-500">Sesión iniciada como {signedInEmail}</p>
+                  <button onClick={handleSignOut} className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-[11px] cursor-pointer">
+                    Cambiar de cuenta
+                  </button>
+                </div>
+              )}
+              {authError && <p className="text-[11px] text-rose-700">{authError}</p>}
             </div>
           )}
 
@@ -177,6 +210,12 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
         </div>
 
         <div className="p-4 border-t border-slate-200 flex flex-wrap items-center justify-end gap-2 shrink-0">
+          {result?.status === 'ok' && signedInEmail && (
+            <span className="mr-auto text-[11px] text-slate-500">
+              {signedInEmail} ·{' '}
+              <button onClick={handleSignOut} className="underline hover:text-slate-800 cursor-pointer">cerrar sesión</button>
+            </span>
+          )}
           <button
             onClick={handleDownloadCSV}
             disabled={result?.status !== 'ok' || result.metrics.total === 0}

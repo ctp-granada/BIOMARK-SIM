@@ -49,5 +49,54 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isAuthenticated();
     }
+  
+    // ---------------------------------------------------------------------
+    // Encuesta de satisfacción del alumnado (anónima)
+    // Cualquiera puede ENVIAR una respuesta válida; solo la coordinación puede LEERLAS.
+    // Para autorizar a alguien: crear el documento coordinadores_encuesta/{correo} en la consola.
+    // ---------------------------------------------------------------------
+    function isCoordinadorEncuesta() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && exists(/databases/$(database)/documents/coordinadores_encuesta/$(request.auth.token.email));
+    }
+
+    function likert(v) {
+      return v is int && v >= 1 && v <= 5;
+    }
+
+    function textoOpcional(v) {
+      return v == null || (v is string && v.size() <= 2000);
+    }
+
+    function respuestaValida(d) {
+      return d.keys().hasOnly(['created_at', 'perfil', 'subgrupo',
+          'navegacion', 'claridad_feedback', 'atractivo_visual', 'utilidad_aprendizaje', 'valoracion_global',
+          'simuladores', 'gamificacion',
+          'sus_1', 'sus_2', 'sus_3', 'sus_4', 'sus_5', 'sus_6', 'sus_7', 'sus_8', 'sus_9', 'sus_10',
+          'sus_puntuacion', 'nps', 'mejor_aspecto', 'sugerencias', 'modulo_favorito'])
+        && d.created_at == request.time
+        && d.perfil in ['Alumno/a Grado en Medicina', 'Alumno/a Grado en Enfermería', 'Otro']
+        && d.subgrupo is string && d.subgrupo.size() <= 40
+        && likert(d.navegacion) && likert(d.claridad_feedback) && likert(d.atractivo_visual)
+        && likert(d.utilidad_aprendizaje) && likert(d.valoracion_global)
+        && likert(d.simuladores) && likert(d.gamificacion)
+        && likert(d.sus_1) && likert(d.sus_2) && likert(d.sus_3) && likert(d.sus_4) && likert(d.sus_5)
+        && likert(d.sus_6) && likert(d.sus_7) && likert(d.sus_8) && likert(d.sus_9) && likert(d.sus_10)
+        && d.sus_puntuacion is number && d.sus_puntuacion >= 0 && d.sus_puntuacion <= 100
+        && d.nps is int && d.nps >= 0 && d.nps <= 10
+        && textoOpcional(d.mejor_aspecto) && textoOpcional(d.sugerencias)
+        && (d.modulo_favorito == null || (d.modulo_favorito is string && d.modulo_favorito.size() <= 100));
+    }
+
+    match /encuestas_satisfaccion/{respuestaId} {
+      allow create: if respuestaValida(request.resource.data);
+      allow read: if isCoordinadorEncuesta();
+      allow update, delete: if false;
+    }
+
+    match /coordinadores_encuesta/{email} {
+      allow read, write: if false; // solo se gestiona desde la consola de Firebase
+    }
   }
 }

@@ -19,21 +19,27 @@ Perfil (Medicina / Enfermería / Otro) obligatorio; subgrupo opcional.
 - Si la base de datos no está configurada, la encuesta lo avisa y no finge que la respuesta se ha guardado.
 
 ## Puesta en marcha (una sola vez)
-1. Entra en tu proyecto de **Supabase** (el mismo que usa el inicio de sesión de la plataforma).
-2. **SQL Editor → New query**, pega el contenido de `supabase/encuesta_satisfaccion.sql`, cambia `tu_correo@ugr.es` por los correos del equipo de coordinación y pulsa **Run**.
-3. Comprueba que la plataforma tiene configuradas las variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` (en *Project Settings → API* de Supabase). Sin ellas la plataforma usa un servidor ficticio y no se guarda nada.
-4. Crea una cuenta en la plataforma (Iniciar sesión → Registrarse) con uno de los correos de coordinación.
+La encuesta usa **Firebase (Firestore)**. Antes de esta rama, la conexión con Firebase de la plataforma era solo una simulación (la «prueba de conexión» respondía siempre que sí y la carga de datos no escribía nada); ahora la encuesta se conecta de verdad.
 
-Para añadir más coordinadores más tarde:
-```sql
-insert into public.coordinadores_encuesta (email) values ('otro_correo@ugr.es');
-```
+1. **Consola de Firebase → tu proyecto → Configuración del proyecto → Tus apps.** Si no hay una app web, créala (icono `</>`). Copia los valores de «Configuración del SDK».
+2. Añádelos como variables de entorno de la plataforma (en AI Studio, en *Secrets*; en local, en un fichero `.env`):
+   ```
+   VITE_FIREBASE_API_KEY=...
+   VITE_FIREBASE_AUTH_DOMAIN=...
+   VITE_FIREBASE_PROJECT_ID=...
+   VITE_FIREBASE_APP_ID=...
+   ```
+   No son secretos: identifican el proyecto. La seguridad la dan las reglas.
+3. **Firestore Database:** créala si no existe (modo producción, región europea, p. ej. `eur3`).
+4. **Reglas:** publica el contenido de `firestore.rules` (Firestore → Reglas → pegar → Publicar, o `firebase deploy --only firestore:rules`).
+5. **Authentication → Método de acceso → Google:** actívalo. En *Dominios autorizados* añade el dominio donde se publica la plataforma.
+6. **Coordinación:** en Firestore, crea la colección `coordinadores_encuesta` y, dentro, un documento por cada persona autorizada cuyo **ID sea su correo** exacto (p. ej. `nombre@ugr.es`). No hace falta ningún campo.
 
 ## Ver y exportar los resultados
-- En la plataforma, inicia sesión con la cuenta de coordinación y abre **Ver métricas**: medias ± DE, % de respuestas ≥ 4, SUS, NPS, distribución por perfil y subgrupo, y comentarios.
-- **Descargar respuestas (CSV para Excel)** exporta todas las respuestas para el análisis estadístico de la memoria.
-- El alumnado puede enviar la encuesta, pero no puede ver las respuestas de los demás (lo impide la seguridad de Supabase, no solo la interfaz).
+- En la plataforma, abre **Ver métricas** y pulsa **Entrar con Google (cuenta UGR)** con un correo autorizado: medias ± DE, % de respuestas ≥ 4 y objetivo del proyecto, SUS, NPS, distribución por perfil y subgrupo, y comentarios.
+- **Descargar respuestas (CSV para Excel)** exporta todas las respuestas para el análisis estadístico.
+- El alumnado puede enviar la encuesta sin iniciar sesión, pero no puede leer las respuestas (lo impiden las reglas de Firestore, no solo la interfaz). Las respuestas no se pueden modificar ni borrar desde la app.
 
 ## Lo que no cubre
 - El **pre-test / post-test** de razonamiento clínico se hace en PRADO.
-- La **participación** (accesos y casos resueltos) se obtiene del registro de PRADO y del progreso que la plataforma guarda en `user_progress`.
+- La **participación** (accesos y casos resueltos) se obtiene del registro de PRADO; el progreso de cada alumno todavía no se guarda en Firebase.

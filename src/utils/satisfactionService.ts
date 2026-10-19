@@ -1,14 +1,17 @@
 /**
  * Encuesta de satisfacción y usabilidad del alumnado (BIOMARK-SIM)
  *
- * - Las respuestas se guardan de forma ANÓNIMA en la tabla `encuestas_satisfaccion` de Supabase
- *   (ver supabase/encuesta_satisfaccion.sql). No se guarda el usuario ni el correo.
- * - Solo las cuentas de coordinación (tabla `coordinadores_encuesta`) pueden leer los resultados.
+ * - Las respuestas se guardan de forma ANÓNIMA en la colección `encuestas_satisfaccion` de Firestore.
+ *   No se guarda el usuario ni el correo.
+ * - Solo las cuentas de coordinación (documentos en `coordinadores_encuesta/{correo}`) pueden leerlas;
+ *   lo garantizan las reglas de firestore.rules.
  * - No hay respuestas de ejemplo ni valores por defecto: todo lo que aparece en las métricas
  *   procede de respuestas reales.
  */
 
-import { supabase } from '../lib/supabase';
+import { addDoc, collection, getDocs, orderBy, query, serverTimestamp, Timestamp } from 'firebase/firestore';
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { firestore, firebaseAuth, isFirebaseConfigured } from '../lib/firebaseClient';
 
 export type AcademicRole = 'Alumno/a Grado en Medicina' | 'Alumno/a Grado en Enfermería' | 'Otro';
 
@@ -94,11 +97,9 @@ export type MetricsResult =
 
 const USER_COMPLETED_KEY = 'biomark_encuesta_satisfaccion_enviada_v2';
 
-/** ¿Hay una base de datos Supabase real configurada? */
+/** ¿Hay una base de datos Firebase real configurada? */
 export function isSurveyBackendConfigured(): boolean {
-  const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-  const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
-  return !!url && !!key && !url.includes('mock-supabase');
+  return isFirebaseConfigured();
 }
 
 /** Puntuación SUS (0-100): ítems impares (x-1), pares (5-x), suma × 2,5 */
@@ -186,8 +187,10 @@ export const satisfactionService = {
     };
     data.sus.forEach((v, i) => { row[`sus_${i + 1}`] = v; });
 
-    const { error } = await supabase.from('encuestas_satisfaccion').insert(row);
-    if (error) {
+    row.created_at = serverTimestamp();
+    try {
+      await addDoc(collection(firestore(), 'encuestas_satisfaccion'), row);
+    } catch {
       throw new Error('No se ha podido guardar tu respuesta. Comprueba tu conexión e inténtalo de nuevo.');
     }
     try {
@@ -197,29 +200,43 @@ export const satisfactionService = {
     }
   },
 
-  /** Lee todas las respuestas (solo coordinación, controlado por RLS en Supabase). */
+  /** Correo de la cuenta de coordinación con sesión iniciada (o null) */
+  currentCoordinatorEmail(): string | null {
+    if (!isFirebaseConfigured()) return null;
+    return firebaseAuth().currentUser?.email ?? null;
+  },
+
+  async signInCoordinator(): Promise<void> {
+    await signInWithPopup(firebaseAuth(), new GoogleAuthProvider());
+  },
+
+  async signOutCoordinator(): Promise<void> {
+    await signOut(firebaseAuth());
+  },
+
+  /** Lee todas las respuestas. Las reglas de Firestore solo lo permiten a la coordinación. */
   async fetchMetrics(): Promise<MetricsResult> {
     if (!isSurveyBackendConfigured()) {
-      return { status: 'not_configured', message: 'La base de datos de la encuesta no está configurada (faltan VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY).' };
+      return { status: 'not_configured', message: 'La base de datos de la encuesta no está configurada (faltan las variables VITE_FIREBASE_…).' };
     }
-    const { data: sessionData } = await supabase.auth.getSession();
-    if (!sessionData?.session) {
-      return { status: 'forbidden', message: 'Los resultados solo los puede ver la coordinación. Inicia sesión con tu cuenta de coordinación.' };
+    await firebaseAuth().authStateReady();
+    if (!firebaseAuth().currentUser) {
+      return { status: 'forbidden', message: 'Los resultados solo los puede ver la coordinación. Entra con tu cuenta de Google de la UGR.' };
     }
-    const { data, error } = await supabase
-      .from('encuestas_satisfaccion')
-      .select('*')
-      .order('created_at', { ascending: false });
-    if (error) {
+    try {
+      const snap = await getDocs(query(collection(firestore(), 'encuestas_satisfaccion'), orderBy('created_at', 'desc')));
+      const rows = snap.docs.map((d) => {
+        const data = d.data() as Record<string, unknown>;
+        const ts = data.created_at as Timestamp | undefined;
+        return { ...data, id: d.id, created_at: ts?.toDate ? ts.toDate().toISOString() : new Date().toISOString() } as SurveyRow;
+      });
+      return { status: 'ok', metrics: computeMetrics(rows), rows };
+    } catch (e: any) {
+      if (e?.code === 'permission-denied') {
+        return { status: 'forbidden', message: 'Tu cuenta no está autorizada para ver los resultados. Pide a la coordinación que la añada.' };
+      }
       return { status: 'error', message: 'No se han podido leer las respuestas.' };
     }
-    const rows = (data || []) as SurveyRow[];
-    // Con RLS, una cuenta que no es de coordinación recibe 0 filas sin error
-    const { data: isCoord } = await supabase.rpc('es_coordinador_encuesta');
-    if (isCoord === false) {
-      return { status: 'forbidden', message: 'Tu cuenta no está autorizada para ver los resultados. Pide a la coordinación que la añada.' };
-    }
-    return { status: 'ok', metrics: computeMetrics(rows), rows };
   },
 
   toCSV(rows: SurveyRow[]): string {
