@@ -33,7 +33,8 @@ import {
   Coins,
   Calendar,
   Network,
-  Lock
+  Lock,
+  Users
 } from 'lucide-react';
 import { CLINICAL_CASES_DATABASE } from '../data/clinicalCases';
 import { satisfactionService } from '../utils/satisfactionService';
@@ -44,6 +45,9 @@ interface LandingPageProps {
   onStartTour?: () => void;
   userXP?: number;
   completedCasesCount?: number;
+  totalCasesCount?: number;
+  visitorCount?: number;
+  isLiveStats?: boolean;
 }
 
 type DistrictId = 'hospital' | 'biblioteca' | 'parque';
@@ -114,7 +118,7 @@ const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
       }
     ],
     facilities: ['Urgencias & Triaje General', 'Unidad Coronaria', 'Planta de Medicina Interna', 'Laboratorio Central 24h'],
-    stats: '16 Pacientes Activos • 6 Sistemas',
+    stats: `${CLINICAL_CASES_DATABASE.length} Pacientes Activos • 6 Sistemas`,
     themeColor: {
       accent: 'rose-500',
       border: 'border-rose-500/50',
@@ -293,7 +297,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onOpenLab,
   onStartTour,
   userXP = 0,
-  completedCasesCount = 0
+  completedCasesCount = 0,
+  totalCasesCount = CLINICAL_CASES_DATABASE.length,
+  visitorCount = 0,
+  isLiveStats = false
 }) => {
   const [hoveredSpot, setHoveredSpot] = useState<DistrictId | null>(null);
   const [selectedDistrictModal, setSelectedDistrictModal] = useState<DistrictId | null>(null);
@@ -427,8 +434,33 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           {/* Quick Metrics Capsule in Modern Clinical Warm Style */}
           <div 
             id="tour-stats-bar"
-            className="flex items-center gap-3 shrink-0 self-start md:self-center"
+            className="flex items-center gap-3 shrink-0 self-start md:self-center flex-wrap"
           >
+            {/* Total Visits Real-Time Counter */}
+            <div 
+              className="bg-white border border-emerald-200/90 rounded-2xl p-3 flex items-center gap-2.5 shadow-2xs group hover:border-emerald-300 transition-all"
+              title="Visitas totales a la plataforma registradas en Firestore (PID 26-158)"
+            >
+              <div className="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-300/80 text-emerald-700 flex items-center justify-center font-bold text-sm shadow-xs relative">
+                <Users className="w-4 h-4 text-emerald-600" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white animate-pulse" />
+              </div>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block flex items-center gap-1">
+                  <span>Visitas Plataforma</span>
+                  {isLiveStats && (
+                    <span className="text-[9px] font-extrabold text-emerald-600 bg-emerald-50 px-1 rounded">Live</span>
+                  )}
+                </span>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-base font-black text-slate-900 font-mono tracking-tight">
+                    {visitorCount.toLocaleString('es-ES')}
+                  </span>
+                  <span className="text-[10px] font-semibold text-emerald-700">accesos</span>
+                </div>
+              </div>
+            </div>
+
             <div className="bg-white border border-amber-200/80 rounded-2xl p-3 flex items-center gap-2.5 shadow-2xs">
               <div className="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-300/80 text-amber-700 flex items-center justify-center font-bold text-sm shadow-xs">
                 <Sparkles className="w-4 h-4 text-amber-600" />
@@ -454,7 +486,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </span>
                 <div className="flex items-baseline gap-1">
                   <span className="text-base font-black text-slate-900">{completedCasesCount}</span>
-                  <span className="text-xs font-semibold text-slate-500">/ 16</span>
+                  <span className="text-xs font-semibold text-slate-500">/ {totalCasesCount}</span>
                 </div>
               </div>
             </div>

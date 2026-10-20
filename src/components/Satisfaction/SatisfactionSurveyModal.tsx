@@ -227,16 +227,16 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
             <div className="text-xs space-y-0.5">
               <span className="font-black text-amber-200 uppercase tracking-wider text-[10px] block">
                 {gateReason === 'access_park' && '🔒 Desbloqueo de Acceso al Parque Biomédico'}
-                {gateReason === 'cases_milestone' && '🔒 Hito Docente · Requisito tras 4 Casos Clínicos'}
+                {gateReason === 'cases_milestone' && '🔒 ¡Danos tu opinión! · 4 Casos Clínicos Completados'}
                 {gateReason === 'access_advanced_labs' && '🔒 Desbloqueo de Actividades Avanzadas'}
               </span>
               <p className="text-amber-100/90 leading-relaxed text-[11px]">
                 {gateReason === 'access_park' &&
-                  'Para acceder a los minijuegos del Parque (Rosco, Ruleta, etc.) y recargar vidas o presupuesto, es requisito docente completar esta breve encuesta anónima.'}
+                  'Para acceder a los minijuegos del Parque (Rosco, Ruleta, etc.) y recargar vidas o presupuesto, ¡danos tu opinión sobre la plataforma (~90 seg)!'}
                 {gateReason === 'cases_milestone' &&
-                  'Has completado los 4 casos clínicos de entrenamiento en el Hospital. Para continuar resolviendo casos adicionales y acceder al Parque Biomédico, cumplimenta esta breve evaluación de calidad docente (~90 seg). La Biblioteca y Simuladores siguen abiertos.'}
+                  '¡Has completado tus primeros 4 casos clínicos! Para continuar resolviendo más pacientes en el Hospital y acceder al Parque Biomédico, ¡danos tu opinión sobre la plataforma (~90 seg)! La Biblioteca y los Simuladores siguen siempre abiertos.'}
                 {gateReason === 'access_advanced_labs' &&
-                  'Para acceder a estas actividades, completa esta evaluación docente para acreditar la experiencia formativa.'}
+                  'Para acceder a estas actividades, ¡danos tu opinión sobre la plataforma (~90 seg)!'}
               </p>
             </div>
           </div>
@@ -701,8 +701,8 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                         <Send className="w-3.5 h-3.5" />
                         <span>
                           {gateReason !== 'none'
-                            ? 'Enviar Encuesta y Desbloquear Acceso (+150 XP)'
-                            : 'Enviar Encuesta & Ganar +150 XP'}
+                            ? 'Enviar Opinión y Desbloquear Acceso (+150 XP)'
+                            : 'Enviar Opinión & Ganar +150 XP'}
                         </span>
                       </button>
                     </div>

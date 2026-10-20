@@ -212,62 +212,36 @@ export const CaseList: React.FC<CaseListProps> = ({
         </div>
       </div>
 
-      {/* Required Survey Notice Banner if user has attempted >= 4 cases and hasn't answered */}
-      {userProgress && !satisfactionService.hasUserCompletedSurvey() && (
-        userProgress.casesAttempted >= 4 ? (
-          <div className="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 text-white rounded-3xl p-5 border border-amber-500/60 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in">
-            <div className="flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40">
-                <Lock className="w-6 h-6 text-amber-300" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[10px] font-black uppercase tracking-wider bg-amber-950 px-2 py-0.5 rounded text-amber-200 border border-amber-400/30">
-                    Hito Docente (4 Casos Completados)
-                  </span>
-                  <span className="text-xs font-bold text-amber-200">
-                    Encuesta Requerida para Continuar Nuevos Casos
-                  </span>
-                </div>
-                <p className="text-xs text-amber-100/90 leading-relaxed max-w-2xl">
-                  Has completado los 4 casos clínicos de entrenamiento en el Hospital. Para continuar resolviendo casos adicionales del catálogo y desbloquear el acceso al Parque Biomédico, completa la breve encuesta oficial de satisfacción (PID 26-158, ~90 seg). La Biblioteca y los Simuladores siguen siempre disponibles para tu estudio.
-                </p>
-              </div>
+      {/* Notice Banner when user has completed >= 4 cases and hasn't answered */}
+      {userProgress && !satisfactionService.hasUserCompletedSurvey() && userProgress.casesAttempted >= 4 && (
+        <div className="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 text-white rounded-3xl p-5 border border-amber-500/60 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40">
+              <Sparkles className="w-6 h-6 text-amber-300" />
             </div>
-
-            <button
-              onClick={() => onStartChallenge(cases[0])}
-              className="w-full sm:w-auto px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-amber-950 font-black text-xs shadow-md transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-1.5 shrink-0 group"
-            >
-              <Sparkles className="w-4 h-4 text-amber-900 group-hover:rotate-12 transition-transform" />
-              <span>Completar Encuesta (+150 XP y +100 €)</span>
-            </button>
-          </div>
-        ) : (
-          <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-4 border border-indigo-500/30 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3 animate-in fade-in">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center shrink-0 border border-indigo-400/30">
-                <Stethoscope className="w-4 h-4 text-indigo-300" />
-              </div>
-              <div className="text-xs">
-                <span className="font-extrabold text-indigo-300 uppercase tracking-wider text-[10px] block">
-                  Entrenamiento Clínico Libre ({userProgress.casesAttempted}/4 Casos Resueltos)
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-[10px] font-black uppercase tracking-wider bg-amber-950 px-2 py-0.5 rounded text-amber-200 border border-amber-400/30">
+                  ¡Danos tu opinión!
                 </span>
-                <span className="text-slate-300">
-                  Puedes resolver hasta 4 casos y acceder siempre a la Biblioteca y Simuladores. El Parque Biomédico se desbloquea tras responder la encuesta docente.
+                <span className="text-xs font-bold text-amber-200">
+                  ¡Has resuelto tus primeros 4 casos clínicos!
                 </span>
               </div>
+              <p className="text-xs text-amber-100/90 leading-relaxed max-w-2xl">
+                Para poder continuar resolviendo casos en el Hospital y acceder al Parque Biomédico, ¡danos tu opinión sobre la plataforma (~90 seg)! Ganarás +150 XP y +100 € para tus guardias. La Biblioteca y los Simuladores siguen siempre disponibles para tu estudio.
+              </p>
             </div>
-
-            <button
-              onClick={() => onStartChallenge(cases[0])}
-              className="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-amber-950 font-bold text-xs transition-colors cursor-pointer shrink-0 whitespace-nowrap flex items-center gap-1"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-900" />
-              <span>Encuesta Docente (+150 XP)</span>
-            </button>
           </div>
-        )
+
+          <button
+            onClick={() => onStartChallenge(cases[0])}
+            className="w-full sm:w-auto px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-amber-950 font-black text-xs shadow-md transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-1.5 shrink-0 group"
+          >
+            <Sparkles className="w-4 h-4 text-amber-900 group-hover:rotate-12 transition-transform" />
+            <span>¡Danos tu opinión! (+150 XP y +100 €)</span>
+          </button>
+        </div>
       )}
 
       {/* ========================================================================= */}

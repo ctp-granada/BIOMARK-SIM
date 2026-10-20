@@ -45,7 +45,15 @@ import { SatisfactionMetricsModal } from './components/Satisfaction/Satisfaction
 import { SatisfactionGateLockScreen } from './components/Satisfaction/SatisfactionGateLockScreen';
 import { satisfactionService } from './utils/satisfactionService';
 import { useSupabaseAuth } from './hooks/useSupabaseAuth';
-import { X, Lock, Sparkles, AlertCircle } from 'lucide-react';
+import { X, Lock, Sparkles, AlertCircle, Users } from 'lucide-react';
+import { 
+  recordPlatformVisit, 
+  subscribeVisitorStats, 
+  VisitorStats, 
+  VISITOR_COUNTER_BASELINE,
+  getOrCreateStudentProfile,
+  saveStudentRankingToCloud
+} from './lib/firebase';
 
 const INITIAL_PROGRESS: UserProgress = {
   score: 0,
@@ -146,6 +154,31 @@ export default function App() {
     });
   }, []);
 
+  // Platform Visitor Counter (Firebase Firestore Real-Time Sync)
+  const [visitorStats, setVisitorStats] = useState<VisitorStats>(() => {
+    const raw = localStorage.getItem('biomark_cached_visits');
+    const cached = raw ? parseInt(raw, 10) : 0;
+    const cleanVisits = (isNaN(cached) || cached >= 1000) ? 0 : cached;
+    return {
+      totalVisits: cleanVisits,
+      isLive: false
+    };
+  });
+
+  useEffect(() => {
+    // Record platform visit for current browser session
+    recordPlatformVisit();
+
+    // Subscribe to real-time counter changes from Firestore
+    const unsubscribe = subscribeVisitorStats((stats) => {
+      setVisitorStats(stats);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   // User Progress with localStorage & Supabase persistence
   const [userProgress, setUserProgress] = useState<UserProgress>(() => {
     const saved = localStorage.getItem('biomarkdx_progress');
@@ -218,6 +251,42 @@ export default function App() {
       return () => clearTimeout(timer);
     }
   }, [userProgress, user]);
+
+  // Sync genuine student ranking entry to Firebase Firestore whenever a case is solved or attempted
+  useEffect(() => {
+    if (userProgress.casesAttempted > 0 || userProgress.casesCorrect > 0) {
+      const profile = getOrCreateStudentProfile();
+      const userAccuracy =
+        userProgress.casesAttempted > 0
+          ? Math.round((userProgress.casesCorrect / userProgress.casesAttempted) * 100)
+          : 0;
+
+      saveStudentRankingToCloud({
+        studentId: profile.studentId,
+        name: profile.name,
+        subgroup: profile.subgroup,
+        score: userProgress.score,
+        xp: userProgress.xp || userProgress.score,
+        casesSolved: userProgress.casesCorrect,
+        casesAttempted: userProgress.casesAttempted,
+        accuracy: userAccuracy,
+        streak: userProgress.streak,
+        budget: userProgress.budget,
+        badgesCount: userProgress.unlockedBadges?.length || 0,
+        lastCaseTitle: activeCase?.title || 'Caso Clínico',
+        lastSolvedAt: new Date().toISOString()
+      });
+    }
+  }, [
+    userProgress.casesAttempted,
+    userProgress.casesCorrect,
+    userProgress.score,
+    userProgress.xp,
+    userProgress.streak,
+    userProgress.budget,
+    userProgress.unlockedBadges,
+    activeCase?.title
+  ]);
 
   // Countdown timer for Daily Challenge
   useEffect(() => {
@@ -760,61 +829,36 @@ export default function App() {
         }}
       />
 
-      {/* Institutional Survey Requirement Banner */}
-      {!hasCompletedSurvey && (
-        userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY ? (
-          <div className="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-950 text-white px-4 py-3 border-b border-amber-700/80 shadow-xs animate-in fade-in">
-            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40">
-                  <Lock className="w-4 h-4 text-amber-300" />
-                </div>
-                <div className="text-xs">
-                  <span className="font-extrabold text-amber-200 uppercase tracking-wider text-[10px] block">
-                    Hito Docente Alcanzado · 4 Casos Clínicos Completados (PID 26-158)
-                  </span>
-                  <span className="text-amber-100">
-                    Has completado tus 4 casos de entrenamiento en el Hospital. Para continuar resolviendo más casos clínicos y acceder al <strong>Parque Biomédico</strong>, completa la breve encuesta oficial (~90 seg). La <strong>Biblioteca y Simuladores</strong> siguen abiertos.
-                  </span>
-                </div>
+      {/* Institutional Survey Banner (only after completing 4 cases) */}
+      {!hasCompletedSurvey && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY && (
+        <div className="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-950 text-white px-4 py-3 border-b border-amber-700/80 shadow-xs animate-in fade-in">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40">
+                <Sparkles className="w-4 h-4 text-amber-300" />
               </div>
-              <button
-                onClick={() => {
-                  setSurveyGateTriggerReason('cases_milestone');
-                  setPendingModuleAfterSurvey('desafio');
-                  setSatisfactionSurveyOpen(true);
-                }}
-                className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-amber-950 font-black text-xs shadow-md transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 shrink-0 group"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-amber-900 group-hover:rotate-12 transition-transform" />
-                <span>Completar Encuesta (+150 XP y +100 €)</span>
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-slate-100 px-4 py-2 border-b border-indigo-900/30 shadow-xs animate-in fade-in">
-            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 text-center sm:text-left text-xs">
-              <div className="flex items-center gap-2.5 flex-wrap">
-                <span className="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
-                  Entrenamiento Clínico: {userProgress.casesAttempted}/{MAX_FREE_CASES_BEFORE_SURVEY} Casos
+              <div className="text-xs">
+                <span className="font-extrabold text-amber-200 uppercase tracking-wider text-[10px] block">
+                  ¡Danos tu opinión! · 4 Casos Clínicos Completados
                 </span>
-                <span className="text-slate-300">
-                  Puedes resolver hasta 4 casos y acceder libremente a la <strong>Biblioteca y Simuladores</strong>. El <strong>Parque Biomédico</strong> y casos adicionales se desbloquean con la encuesta docente.
+                <span className="text-amber-100">
+                  ¡Has resuelto tus 4 casos clínicos de entrenamiento! Para continuar con nuevos pacientes en el Hospital y acceder al <strong>Parque Biomédico</strong>, ¡danos tu opinión sobre la plataforma (~90 seg)! La <strong>Biblioteca y Simuladores</strong> siguen siempre disponibles.
                 </span>
               </div>
-              <button
-                onClick={() => {
-                  setSurveyGateTriggerReason('none');
-                  setSatisfactionSurveyOpen(true);
-                }}
-                className="px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold text-xs transition-colors cursor-pointer shrink-0 flex items-center gap-1"
-              >
-                <Sparkles className="w-3 h-3 text-amber-900" />
-                <span>Encuesta Docente (+150 XP)</span>
-              </button>
             </div>
+            <button
+              onClick={() => {
+                setSurveyGateTriggerReason('cases_milestone');
+                setPendingModuleAfterSurvey('desafio');
+                setSatisfactionSurveyOpen(true);
+              }}
+              className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-amber-950 font-black text-xs shadow-md transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 shrink-0 group"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-900 group-hover:rotate-12 transition-transform" />
+              <span>¡Danos tu opinión! (+150 XP y +100 €)</span>
+            </button>
           </div>
-        )
+        </div>
       )}
 
       {/* Main Container */}
@@ -854,6 +898,9 @@ export default function App() {
             onStartTour={handleStartTour}
             userXP={userProgress.xp || userProgress.score}
             completedCasesCount={userProgress.casesCorrect}
+            totalCasesCount={cases.length}
+            visitorCount={visitorStats.totalVisits}
+            isLiveStats={visitorStats.isLive}
           />
         )}
 
@@ -1050,6 +1097,17 @@ export default function App() {
           <span>Facultad de Medicina • Universidad de Granada (PTS)</span>
         </div>
         <div className="flex items-center gap-3 text-[10px] text-slate-500 flex-wrap justify-center md:justify-end">
+          {/* Visitor Counter Live Pill */}
+          <div 
+            className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-50 border border-slate-200 text-slate-700 font-semibold shadow-2xs group hover:border-emerald-300 transition-all cursor-default"
+            title="Contador de visitas a la plataforma en tiempo real (Firebase Firestore)"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <Users className="w-3 h-3 text-emerald-600" />
+            <span>Visitas:</span>
+            <span className="font-black text-slate-900 font-mono">{visitorStats.totalVisits.toLocaleString('es-ES')}</span>
+          </div>
+          <span>•</span>
           <span>Departamento de Bioquímica y Biología Molecular III e Inmunología</span>
           <span>•</span>
           <span>Curso 2026/2027</span>
@@ -1095,7 +1153,15 @@ export default function App() {
           dailyBonusApplied={feedbackData.dailyBonusApplied}
           dailyBonusMultiplier={feedbackData.dailyBonusMultiplier}
           dailyTimeTakenSeconds={feedbackData.dailyTimeTakenSeconds}
-          onClose={() => setFeedbackData(null)}
+          onClose={() => {
+            setFeedbackData(null);
+            const isSurveyDone = satisfactionService.hasUserCompletedSurvey();
+            if (!isSurveyDone && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) {
+              setPendingModuleAfterSurvey('desafio');
+              setSurveyGateTriggerReason('cases_milestone');
+              setSatisfactionSurveyOpen(true);
+            }
+          }}
           onNextCase={handleNextCase}
         />
       )}
@@ -1179,6 +1245,8 @@ export default function App() {
         isOpen={satisfactionMetricsOpen}
         onClose={() => setSatisfactionMetricsOpen(false)}
         onOpenSurvey={() => setSatisfactionSurveyOpen(true)}
+        visitorCount={visitorStats.totalVisits}
+        onResetStats={() => setVisitorStats({ totalVisits: 0, isLive: true })}
       />
     </div>
   );

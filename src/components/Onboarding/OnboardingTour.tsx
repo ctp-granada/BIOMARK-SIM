@@ -57,7 +57,7 @@ const TOUR_STEPS: Step[] = [
       <div className="space-y-2">
         <p>
           En el <strong className="text-slate-900">Hospital Universitario</strong> asumirás el papel de médico de guardia ante{' '}
-          <strong className="text-rose-700">16 casos clínicos reales</strong> clasificados por sistemas orgánicos (cardíaco, hepático, metabólico, renal...).
+          <strong className="text-rose-700">31 casos clínicos reales</strong> clasificados por sistemas orgánicos (cardíaco, hepático, metabólico, renal...).
         </p>
         <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px] leading-tight space-y-1">
           <p className="font-bold flex items-center gap-1">

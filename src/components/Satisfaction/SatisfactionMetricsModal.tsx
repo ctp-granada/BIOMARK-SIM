@@ -19,24 +19,34 @@ import {
   GraduationCap,
   Lock,
   Unlock,
-  RotateCcw
+  RotateCcw,
+  Database,
+  CloudDownload,
+  RefreshCw
 } from 'lucide-react';
 import { satisfactionService, SatisfactionMetrics } from '../../utils/satisfactionService';
+import { fetchSatisfactionSurveysFromCloud, resetAllPlatformStatsAndSurveys } from '../../lib/firebase';
 
 interface SatisfactionMetricsModalProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenSurvey?: () => void;
+  visitorCount?: number;
+  onResetStats?: () => void;
 }
 
 export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> = ({
   isOpen,
   onClose,
-  onOpenSurvey
+  onOpenSurvey,
+  visitorCount = 0,
+  onResetStats
 }) => {
   const [metrics, setMetrics] = useState<SatisfactionMetrics>(() => satisfactionService.getMetrics());
   const [copiedNotification, setCopiedNotification] = useState<string | null>(null);
   const [showScriptModal, setShowScriptModal] = useState<boolean>(false);
+  const [downloadingCloudCSV, setDownloadingCloudCSV] = useState<boolean>(false);
+  const [cloudCount, setCloudCount] = useState<number | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -44,6 +54,10 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
       satisfactionService.syncCloudSurveys().then(() => {
         setMetrics(satisfactionService.getMetrics());
       }).catch((e) => console.warn('Could not sync surveys from Firestore', e));
+
+      fetchSatisfactionSurveysFromCloud().then((surveys) => {
+        setCloudCount(surveys.length);
+      }).catch(() => {});
     }
   }, [isOpen]);
 
@@ -62,6 +76,51 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
 
     setCopiedNotification('Informe CSV descargado para la Memoria Docente UGR.');
     setTimeout(() => setCopiedNotification(null), 3500);
+  };
+
+  const handleDownloadFirestoreCSV = async () => {
+    setDownloadingCloudCSV(true);
+    try {
+      setCopiedNotification('Conectando con Firestore y descargando respuestas reales...');
+      const cloudSurveys = await fetchSatisfactionSurveysFromCloud();
+      setCloudCount(cloudSurveys.length);
+
+      if (!cloudSurveys || cloudSurveys.length === 0) {
+        setCopiedNotification('Aviso: Colección Firestore vacía aún. Descargando respuestas combinadas disponibles.');
+        const allSurveys = satisfactionService.getSurveys();
+        const csvContent = satisfactionService.exportFirestoreSurveysToCSV(allSurveys);
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', `respuestas_satisfaccion_ugr_${new Date().toISOString().slice(0, 10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => setCopiedNotification('CSV generado con respuestas locales/benchmark disponibles.'), 1500);
+        return;
+      }
+
+      // Generate complete CSV from Firestore surveys
+      const csvContent = satisfactionService.exportFirestoreSurveysToCSV(cloudSurveys);
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `respuestas_firestore_ugr_bioquimica_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setCopiedNotification(`✅ Descargadas con éxito ${cloudSurveys.length} respuestas recopiladas en Firestore.`);
+      setTimeout(() => setCopiedNotification(null), 4500);
+    } catch (err: any) {
+      console.error('Error al exportar desde Firestore:', err);
+      setCopiedNotification(`Error al conectar con Firestore: ${err?.message || 'Error de red'}`);
+      setTimeout(() => setCopiedNotification(null), 4500);
+    } finally {
+      setDownloadingCloudCSV(false);
+    }
   };
 
   const handleDownloadJSON = () => {
@@ -167,6 +226,9 @@ function crearEncuesta() {
   };
 
   const susInterpretation = (score: number) => {
+    if (metrics.totalSurveys === 0 || score === 0) {
+      return { grade: 'Sin respuestas aún', color: 'text-slate-600 bg-slate-100 border-slate-300' };
+    }
     if (score >= 80.3) return { grade: 'A / Excelente', color: 'text-emerald-700 bg-emerald-50 border-emerald-300' };
     if (score >= 68) return { grade: 'B / Aceptable (≥68)', color: 'text-teal-700 bg-teal-50 border-teal-300' };
     if (score >= 51) return { grade: 'C / Regular', color: 'text-amber-700 bg-amber-50 border-amber-300' };
@@ -223,6 +285,54 @@ function crearEncuesta() {
             </div>
           )}
 
+          {/* Firestore Cloud Data Banner for Professors */}
+          <div className="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/5 border border-amber-300 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-2xs">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                <Database className="w-5 h-5 text-amber-100" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="font-extrabold text-slate-900 text-xs">
+                    Base de Datos Firebase Firestore
+                  </span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Colección: satisfaction_surveys</span>
+                  </span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 flex items-center gap-1">
+                    <Users className="w-3 h-3 text-emerald-700" />
+                    <span>{visitorCount.toLocaleString('es-ES')} Visitas a la Plataforma</span>
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-600 mt-0.5">
+                  {cloudCount !== null
+                    ? `Se han recopilado ${cloudCount} respuesta${cloudCount === 1 ? '' : 's'} de estudiantes en Firestore (nube).`
+                    : 'Consultando respuestas de estudiantes en la base de datos de Firestore...'}
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={handleDownloadFirestoreCSV}
+              disabled={downloadingCloudCSV}
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-extrabold text-xs shadow-sm hover:shadow flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-60 shrink-0"
+              title="Descargar archivo CSV con todas las respuestas recopiladas en Firestore"
+            >
+              {downloadingCloudCSV ? (
+                <>
+                  <RefreshCw className="w-4 h-4 animate-spin text-amber-200" />
+                  <span>Descargando de Firestore...</span>
+                </>
+              ) : (
+                <>
+                  <CloudDownload className="w-4 h-4 text-amber-200" />
+                  <span>Descargar CSV de Firestore</span>
+                </>
+              )}
+            </button>
+          </div>
+
           {/* Top 4 Key KPI Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             {/* 1. SUS SCORE */}
@@ -233,7 +343,7 @@ function crearEncuesta() {
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-2xl font-black text-amber-950">
-                  {metrics.susMetric.media.toFixed(1)}
+                  {metrics.totalSurveys > 0 ? metrics.susMetric.media.toFixed(1) : '0.0'}
                 </span>
                 <span className="text-xs font-bold text-amber-700">/ 100</span>
               </div>
@@ -250,12 +360,12 @@ function crearEncuesta() {
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-2xl font-black text-emerald-950">
-                  +{metrics.npsScore}
+                  {metrics.totalSurveys > 0 ? (metrics.npsScore > 0 ? `+${metrics.npsScore}` : metrics.npsScore) : '0'}
                 </span>
                 <span className="text-xs font-bold text-emerald-700">Pts</span>
               </div>
               <span className="text-[10px] text-emerald-800 font-semibold block">
-                {metrics.npsPromotersPercent}% Promotores (9–10)
+                {metrics.totalSurveys > 0 ? `${metrics.npsPromotersPercent}% Promotores (9–10)` : '0% Promotores'}
               </span>
             </div>
 
@@ -284,7 +394,7 @@ function crearEncuesta() {
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-2xl font-black text-purple-950">
-                  {metrics.susMetric.pctGe4}%
+                  {metrics.totalSurveys > 0 ? `${metrics.susMetric.pctGe4}%` : '0%'}
                 </span>
                 <span className="text-xs font-bold text-purple-700">de alumnos</span>
               </div>
@@ -506,9 +616,45 @@ function crearEncuesta() {
                 </>
               )}
             </button>
+            <button
+              onClick={async () => {
+                setCopiedNotification('Restableciendo contadores y encuestas a CERO...');
+                satisfactionService.clearAllSurveys();
+                await resetAllPlatformStatsAndSurveys();
+                setMetrics(satisfactionService.getMetrics());
+                setCloudCount(0);
+                if (onResetStats) onResetStats();
+                setCopiedNotification('¡Contadores y encuestas reseteados a cero correctamente!');
+                setTimeout(() => setCopiedNotification(null), 4000);
+              }}
+              className="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-800 border border-rose-300 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+              title="Restablecer todos los contadores de visitas y encuestas a cero (Firestore y Local)"
+            >
+              <RotateCcw className="w-3.5 h-3.5 text-rose-700" />
+              <span>Poner a Cero</span>
+            </button>
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap">
+            <button
+              onClick={handleDownloadFirestoreCSV}
+              disabled={downloadingCloudCSV}
+              className="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs disabled:opacity-60"
+              title="Descargar archivo CSV con todas las respuestas recopiladas en Firestore"
+            >
+              {downloadingCloudCSV ? (
+                <RefreshCw className="w-3.5 h-3.5 animate-spin text-amber-200" />
+              ) : (
+                <Database className="w-3.5 h-3.5 text-amber-200" />
+              )}
+              <span>CSV de Firestore</span>
+              {cloudCount !== null && (
+                <span className="bg-amber-950/60 text-amber-200 text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-0.5">
+                  {cloudCount}
+                </span>
+              )}
+            </button>
+
             <button
               onClick={handleDownloadCSV}
               className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"

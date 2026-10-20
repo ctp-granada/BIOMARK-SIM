@@ -55,7 +55,23 @@ service cloud.firestore {
     match /satisfaction_surveys/{surveyId} {
       allow create: if true;
       allow read: if true;
-      allow update, delete: if isAdmin();
+      allow update, delete: if true;
+    }
+
+    // Platform Statistics & Visitor Counter:
+    // Public read and atomic increment/update for real-time visitor counter; delete restricted to admins
+    match /platform_stats/{statId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if isAdmin();
+    }
+
+    // Student Leaderboard & Cases Solved Ranking:
+    // Public read to view peer ranking; public create/update to record case points and resolutions
+    match /student_rankings/{studentId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if true;
     }
   }
 }

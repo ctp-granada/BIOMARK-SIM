@@ -80,6 +80,38 @@
         "qualitative": { "type": "object", "description": "Aspectos positivos y propuestas de mejora" }
       },
       "required": ["id", "createdAt", "academicRole", "ratings"]
+    },
+    "PlatformStats": {
+      "title": "PlatformStats",
+      "description": "Estadísticas globales de uso y contador de visitas a la plataforma",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Identificador de la estadística (ej: visitor_counter)" },
+        "totalVisits": { "type": "number", "description": "Número acumulado de visitas a la plataforma" },
+        "uniqueSessions": { "type": "number", "description": "Número estimado de sesiones únicas" },
+        "lastVisitAt": { "type": "string", "format": "date-time", "description": "Fecha y hora del último acceso" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Última actualización de la estadística" }
+      },
+      "required": ["id", "totalVisits"]
+    },
+    "StudentRanking": {
+      "title": "StudentRanking",
+      "description": "Registro de puntuación y casos resueltos por estudiante para el escalafón público oficial",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string", "description": "Identificador único del estudiante o sesión" },
+        "name": { "type": "string", "description": "Nombre o alias académico del alumno" },
+        "subgroup": { "type": "string", "description": "Subgrupo de prácticas de laboratorio/seminarios" },
+        "score": { "type": "number", "description": "Puntuación total obtenida" },
+        "xp": { "type": "number", "description": "Puntos de experiencia acumulados" },
+        "casesSolved": { "type": "number", "description": "Número de casos clínicos diagnosticados correctamente" },
+        "casesAttempted": { "type": "number", "description": "Número total de casos clínicos abordados" },
+        "accuracy": { "type": "number", "description": "Porcentaje de acierto diagnóstico" },
+        "streak": { "type": "number", "description": "Racha actual de casos correctos" },
+        "lastCaseTitle": { "type": "string", "description": "Título del último caso clínico resuelto" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Fecha del último intento registrado" }
+      },
+      "required": ["studentId", "name", "score", "casesSolved"]
     }
   },
   "firestore": {
@@ -102,6 +134,14 @@
     "/satisfaction_surveys/{surveyId}": {
       "schema": { "$ref": "SatisfactionSurvey" },
       "description": "Colección global de evaluaciones de satisfacción y calidad docente del alumnado"
+    },
+    "/platform_stats/{statId}": {
+      "schema": { "$ref": "PlatformStats" },
+      "description": "Estadísticas agregadas de visitas y uso de la plataforma para analítica docente"
+    },
+    "/student_rankings/{studentId}": {
+      "schema": { "$ref": "StudentRanking" },
+      "description": "Escalafón en tiempo real de alumnos que han resuelto casos clínicos y sus puntuaciones"
     }
   }
 }

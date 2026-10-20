@@ -118,124 +118,15 @@ export function calculateSusScore(answers: number[]): number {
   return Math.min(100, Math.max(0, Math.round(rawSum * 2.5 * 10) / 10));
 }
 
-// Muestra inicial de benchmark calibrada de alumnos de Bioquímica Médica UGR
-const INITIAL_BENCHMARK_SURVEYS: SatisfactionFeedback[] = [
-  {
-    id: 'ugr-survey-001',
-    createdAt: '2026-10-10T11:20:00.000Z',
-    academicRole: 'Alumno/a del Grado en Medicina',
-    subgroup: 'Subgrupo 3',
-    projectRatings: {
-      navegacion: 5,
-      feedback: 5,
-      atractivoVisual: 5,
-      utilidadAprendizaje: 5,
-      valoracionGlobal: 5,
-      simuladoresInteractivos: 5,
-      gamificacionMotivacion: 5
-    },
-    susAnswers: [5, 1, 5, 1, 5, 1, 5, 1, 5, 1], // SUS: 100
-    susScore: 100,
-    recommendationNps: 10,
-    favoriteModule: 'Hospital Clínico (Guardias y Casos Clínicos)',
-    qualitative: {
-      bestFeature: 'La resolución de guardias con el presupuesto clínico y los biomarcadores reales. Te hace pensar como un médico de urgencias.',
-      suggestionsForImprovement: 'Añadir más casos clínicos de patología tiroidea y suprarrenal.'
+// Limpieza inicial de encuestas mock de pruebas previas en el navegador
+if (typeof window !== 'undefined') {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw && (raw.includes('ugr-survey-001') || raw.includes('ugr-survey-'))) {
+      localStorage.removeItem(STORAGE_KEY);
     }
-  },
-  {
-    id: 'ugr-survey-002',
-    createdAt: '2026-10-12T16:45:00.000Z',
-    academicRole: 'Alumno/a del Grado en Medicina',
-    subgroup: 'Subgrupo 7',
-    projectRatings: {
-      navegacion: 5,
-      feedback: 5,
-      atractivoVisual: 4,
-      utilidadAprendizaje: 5,
-      valoracionGlobal: 5,
-      simuladoresInteractivos: 5,
-      gamificacionMotivacion: 4
-    },
-    susAnswers: [4, 2, 5, 1, 4, 2, 5, 1, 4, 2], // SUS: 82.5
-    susScore: 82.5,
-    recommendationNps: 10,
-    favoriteModule: 'Simulador de Integración Metabólica (Integra)',
-    qualitative: {
-      bestFeature: 'El nuevo simulador de Integración Metabólica y las curvas de Cahill. Ver los flujos de sustrato en el cuerpo humano aclara muchísimo el temario.',
-      suggestionsForImprovement: 'Que se puedan exportar las fichas en PDF para imprimirlas antes del examen de seminarios.'
-    }
-  },
-  {
-    id: 'ugr-survey-003',
-    createdAt: '2026-10-14T09:15:00.000Z',
-    academicRole: 'Alumno/a del Grado en Medicina',
-    subgroup: 'Subgrupo 1',
-    projectRatings: {
-      navegacion: 4,
-      feedback: 5,
-      atractivoVisual: 5,
-      utilidadAprendizaje: 5,
-      valoracionGlobal: 5,
-      simuladoresInteractivos: 5,
-      gamificacionMotivacion: 5
-    },
-    susAnswers: [5, 1, 4, 2, 5, 1, 5, 2, 4, 1], // SUS: 85
-    susScore: 85,
-    recommendationNps: 9,
-    favoriteModule: 'Parque Biomédico y Rosco de Bioquímica',
-    qualitative: {
-      bestFeature: 'El minijuego del Rosco de Bioquímica en el Parque y el simulador del ciclo de Randle. Ayuda a fijar conceptos de forma muy entretenida.',
-      suggestionsForImprovement: 'Sería genial tener un modo multijugador en directo para jugar en clase en los seminarios.'
-    }
-  },
-  {
-    id: 'ugr-survey-004',
-    createdAt: '2026-10-15T18:30:00.000Z',
-    academicRole: 'Alumno/a del Grado en Medicina',
-    subgroup: 'Subgrupo 11',
-    projectRatings: {
-      navegacion: 5,
-      feedback: 5,
-      atractivoVisual: 5,
-      utilidadAprendizaje: 5,
-      valoracionGlobal: 5,
-      simuladoresInteractivos: 5,
-      gamificacionMotivacion: 5
-    },
-    susAnswers: [5, 1, 5, 1, 5, 1, 4, 1, 5, 2], // SUS: 90
-    susScore: 90,
-    recommendationNps: 10,
-    favoriteModule: 'Vademécum de Biomarcadores',
-    qualitative: {
-      bestFeature: 'El vademécum de biomarcadores con los rangos convencionales y del Sistema Internacional, más las cinéticas de elevación de troponinas y transaminasas.',
-      suggestionsForImprovement: 'Poder filtrar las preguntas tipo test del temario por nivel de dificultad.'
-    }
-  },
-  {
-    id: 'ugr-survey-005',
-    createdAt: '2026-10-16T14:10:00.000Z',
-    academicRole: 'Alumno/a del Grado en Medicina',
-    subgroup: 'Subgrupo 5',
-    projectRatings: {
-      navegacion: 4,
-      feedback: 4,
-      atractivoVisual: 4,
-      utilidadAprendizaje: 5,
-      valoracionGlobal: 5,
-      simuladoresInteractivos: 5,
-      gamificacionMotivacion: 4
-    },
-    susAnswers: [4, 2, 4, 2, 4, 1, 4, 2, 4, 2], // SUS: 72.5
-    susScore: 72.5,
-    recommendationNps: 9,
-    favoriteModule: 'Hospital Clínico (Guardias y Casos Clínicos)',
-    qualitative: {
-      bestFeature: 'La justificación fisiopatológica detallada de cada prueba de laboratorio y el feedback instantáneo en los errores de prescripción.',
-      suggestionsForImprovement: 'Mantener la plataforma activa para repasar en cursos superiores (3º y 4º de Medicina).'
-    }
-  }
-];
+  } catch {}
+}
 
 export const satisfactionService = {
   getSurveys(): SatisfactionFeedback[] {
@@ -244,13 +135,25 @@ export const satisfactionService = {
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+          // Filtrar cualquier encuesta ficticia de prueba
+          const realSurveys = parsed.filter((s) => s && s.id && !s.id.startsWith('ugr-survey-'));
+          return realSurveys;
         }
       }
     } catch {
       // Fallback
     }
-    return INITIAL_BENCHMARK_SURVEYS;
+    return []; // Cero encuestas iniciales (sin datos ficticios)
+  },
+
+  clearAllSurveys(): void {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(USER_COMPLETED_KEY);
+      this.notifyListeners(false);
+    } catch (e) {
+      console.error(e);
+    }
   },
 
   resetUserSurveyCompletion(): void {
@@ -349,6 +252,44 @@ export const satisfactionService = {
   getMetrics(): SatisfactionMetrics {
     const surveys = this.getSurveys();
     const total = surveys.length;
+
+    if (total === 0) {
+      const indicators: IndicatorMetric[] = LIKERT_PROJECT_ITEMS.map((item) => ({
+        id: item.id,
+        nombre: item.title,
+        n: 0,
+        media: 0,
+        de: 0,
+        pctGe4: 0,
+        objetivo: item.objetivo,
+        alcanzado: false
+      }));
+
+      const susMetric: IndicatorMetric = {
+        id: 'sus',
+        nombre: 'Puntuación SUS Global (System Usability Scale 0–100)',
+        n: 0,
+        media: 0,
+        de: 0,
+        pctGe4: 0,
+        objetivo: 68,
+        alcanzado: false
+      };
+
+      return {
+        totalSurveys: 0,
+        indicators,
+        susMetric,
+        npsScore: 0,
+        npsPromotersPercent: 0,
+        npsPassivesPercent: 0,
+        npsDetractorsPercent: 0,
+        subgroupDistribution: {},
+        roleDistribution: {},
+        favoriteModulesRanking: [],
+        recentComments: []
+      };
+    }
 
     // Helper statistics functions
     const calcMean = (arr: number[]) => (arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0);

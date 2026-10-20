@@ -513,7 +513,7 @@ export const BiomedicalCity: React.FC<BiomedicalCityProps> = ({
                 </span>
                 <div className="grid grid-cols-2 gap-2 text-[11px]">
                   <div className="bg-slate-950 p-2 rounded-xl border border-slate-800/80 text-slate-300">
-                    🚑 <strong>Urgencias & Triaje:</strong> 16 Casos Clínicos
+                    🚑 <strong>Urgencias & Triaje:</strong> {cases?.length || 31} Casos Clínicos
                   </div>
                   <div className="bg-slate-950 p-2 rounded-xl border border-slate-800/80 text-slate-300">
                     💰 <strong>Presupuesto:</strong> 5.000 € y Pruebas
@@ -1184,7 +1184,7 @@ export const BiomedicalCity: React.FC<BiomedicalCityProps> = ({
                       {!satisfactionService.hasUserCompletedSurvey() ? (
                         <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1">
                           <Lock className="w-3 h-3 text-amber-400" />
-                          Bloqueado (Encuesta)
+                          Bloqueado (¡Danos tu opinión!)
                         </span>
                       ) : (
                         <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1">

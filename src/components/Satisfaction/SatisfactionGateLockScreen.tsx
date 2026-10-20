@@ -28,18 +28,18 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
     switch (reason) {
       case 'access_park':
         return {
-          badge: 'Parque Biomédico Bloqueado',
-          title: 'Acceso Restringido al Parque Lúdico',
+          badge: '¡Danos tu opinión!',
+          title: 'Acceso Restringido al Parque Biomédico',
           description:
-            'Para disfrutar de los minijuegos (El Rosco de Bioquímica, Crucigrama y Sopa de Letras) y recargar vidas o presupuesto para tus guardias, debes completar primero la encuesta docente de satisfacción.',
+            'Para disfrutar de los minijuegos (El Rosco de Bioquímica, Crucigrama y Sopa de Letras) y recargar vidas o presupuesto para tus guardias, ¡danos tu opinión sobre la plataforma (~90 seg)!',
           icon: <Trees className="w-8 h-8 text-emerald-400" />
         };
       case 'cases_milestone':
         return {
-          badge: 'Hito Docente (4 Casos Completados)',
-          title: 'Has completado los 4 casos clínicos de prueba',
+          badge: '¡Danos tu opinión!',
+          title: '¡Has completado tus primeros 4 casos clínicos!',
           description:
-            'Has completado los 4 casos clínicos de entrenamiento en el Hospital. Para continuar resolviendo pacientes adicionales y acceder al Parque Biomédico, el equipo docente solicita tu valoración anónima de la plataforma (~90 seg). La Biblioteca y Simuladores continúan abiertos.',
+            'Para poder continuar resolviendo casos en el Hospital y acceder al Parque Biomédico, ¡danos tu opinión sobre la plataforma (~90 seg)! Ganarás +150 XP y +100 € para tus guardias. La Biblioteca y Simuladores siguen siempre abiertos.',
           icon: <Stethoscope className="w-8 h-8 text-rose-400" />
         };
       case 'access_advanced_labs':
@@ -52,10 +52,10 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
         };
       default:
         return {
-          badge: 'Requisito de Calidad Docente',
-          title: 'Encuesta de Satisfacción Oficial',
+          badge: '¡Danos tu opinión!',
+          title: '¡Danos tu opinión sobre la plataforma!',
           description:
-            'Para continuar resolviendo casos clínicos y acceder al parque lúdico, completa la encuesta de satisfacción y usabilidad del PID 26-158 (~90 seg).',
+            'Para continuar resolviendo casos clínicos y acceder al parque lúdico, ¡danos tu opinión sobre la plataforma (~90 seg)! Ganarás +150 XP y +100 €.',
           icon: <Lock className="w-8 h-8 text-amber-400" />
         };
     }
@@ -204,7 +204,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
               className="w-full sm:w-auto px-8 py-3 rounded-2xl bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 hover:from-amber-800 hover:to-amber-800 text-white font-extrabold text-sm shadow-md hover:shadow-lg flex items-center justify-center gap-2 transition-all cursor-pointer ring-2 ring-amber-400/40 group"
             >
               <Sparkles className="w-4 h-4 text-amber-200 group-hover:rotate-12 transition-transform" />
-              <span>Completar Encuesta Ahora y Desbloquear Todo</span>
+              <span>¡Danos tu opinión y desbloquea nuevos casos!</span>
             </button>
           </div>
 
