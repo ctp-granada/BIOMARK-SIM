@@ -1,59 +1,59 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { ActiveModule, ClinicalCase, BiomarkerOption, UserProgress, OrganSystem, DifficultyLevel, LabOrderEvaluation, SystemBadge } from './types';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  ActiveModule,
+  ClinicalCase,
+  BiomarkerOption,
+  UserProgress,
+  DifficultyLevel,
+  OrganSystem,
+  SystemBadge,
+  LabOrderEvaluation
+} from './types';
 import { CLINICAL_CASES_DATABASE } from './data/clinicalCases';
-import { BIOMARKERS_DATABASE } from './data/biomarkers';
-import { getStreakMultiplier } from './utils/gamification';
-import { evaluateLabOrder } from './utils/labOrderEvaluator';
-import { evaluateUserBadges, getNewlyUnlockedBadges } from './data/badges';
-import { 
-  getDailyChallengeCase, 
-  loadDailyChallengeState, 
-  saveDailyChallengeCompletion, 
-  DailyChallengeState 
-} from './utils/dailyChallenge';
-
 import { Navbar } from './components/Navbar';
-import { GamifiedDashboard } from './components/GamifiedDashboard';
-import { AdaptiveProgressBanner } from './components/AdaptiveProgressBanner';
+import { LandingPage } from './components/LandingPage';
+import { BiomedicalCity } from './components/City/BiomedicalCity';
 import { CaseList } from './components/CaseBank/CaseList';
 import { CaseDetailModal } from './components/CaseBank/CaseDetailModal';
 import { ChallengeMode } from './components/Challenge/ChallengeMode';
-import { ImmediateFeedbackModal } from './components/Challenge/ImmediateFeedbackModal';
-import { GuardiaOverModal } from './components/Challenge/GuardiaOverModal';
-import { BadgeUnlockModal } from './components/Stats/BadgeUnlockModal';
-import { BiomarkerLibrary } from './components/Library/BiomarkerLibrary';
-import { UserStatsView } from './components/Stats/UserStatsView';
-import { Leaderboard } from './components/Stats/Leaderboard';
-import { AICaseGeneratorModal } from './components/AICaseGeneratorModal';
-import { DailyChallengeView } from './components/DailyChallenge/DailyChallengeView';
-import { OnboardingTour } from './components/Onboarding/OnboardingTour';
-import { AuthModal } from './components/Auth/AuthModal';
-import { CourseHome } from './components/Portal/CourseHome';
-import { LandingPage } from './components/LandingPage';
-import { BiomedicalCity } from './components/City/BiomedicalCity';
-import { InteractiveLabsContainer } from './components/InteractiveLabs/InteractiveLabsContainer';
-import { GamesHub } from './components/InteractiveLabs/GamesHub';
 import { TeachingMaterialView } from './components/TeachingMaterial/TeachingMaterialView';
 import { PracticasSeminariosView } from './components/PracticasSeminarios/PracticasSeminariosView';
+import { InteractiveLabsContainer } from './components/InteractiveLabs/InteractiveLabsContainer';
+import { MetabolicIntegrationLab } from './components/MetabolicIntegration/MetabolicIntegrationLab';
+import { GamesHub } from './components/InteractiveLabs/GamesHub';
+import { DailyChallengeView } from './components/DailyChallenge/DailyChallengeView';
+import { UserStatsView } from './components/Stats/UserStatsView';
+import { Leaderboard } from './components/Stats/Leaderboard';
 import { SatisfactionSurveyModal } from './components/Satisfaction/SatisfactionSurveyModal';
 import { SatisfactionMetricsModal } from './components/Satisfaction/SatisfactionMetricsModal';
 import { SatisfactionGateLockScreen } from './components/Satisfaction/SatisfactionGateLockScreen';
 import { satisfactionService } from './utils/satisfactionService';
+import { AuthModal } from './components/Auth/AuthModal';
+import { OnboardingTour } from './components/Onboarding/OnboardingTour';
+import { BadgeUnlockModal } from './components/Stats/BadgeUnlockModal';
+import { ImmediateFeedbackModal } from './components/Challenge/ImmediateFeedbackModal';
+import { GuardiaOverModal } from './components/Challenge/GuardiaOverModal';
+import { AICaseGeneratorModal } from './components/AICaseGeneratorModal';
 import { useSupabaseAuth } from './hooks/useSupabaseAuth';
-import { X, Lock, Sparkles, AlertCircle, Users } from 'lucide-react';
-import { 
-  recordPlatformVisit, 
-  subscribeVisitorStats, 
-  VisitorStats, 
-  VISITOR_COUNTER_BASELINE,
+import { evaluateUserBadges, getNewlyUnlockedBadges } from './data/badges';
+import { evaluateLabOrder, getBiomarkerCost } from './utils/labOrderEvaluator';
+import {
+  getDailyChallengeCase,
+  loadDailyChallengeState,
+  saveDailyChallengeCompletion,
+  DailyChallengeState
+} from './utils/dailyChallenge';
+import {
+  recordPlatformVisit,
+  subscribeVisitorStats,
+  VisitorStats,
   getOrCreateStudentProfile,
   saveStudentRankingToCloud
 } from './lib/firebase';
+import { BIOMARKERS_DATABASE } from './data/biomarkers';
+import { audioService } from './utils/audioService';
+
+const STORAGE_PROGRESS_KEY = 'biomark_user_progress_v2';
 
 const INITIAL_PROGRESS: UserProgress = {
   score: 0,
@@ -66,7 +66,6 @@ const INITIAL_PROGRESS: UserProgress = {
   streak: 0,
   currentLevel: 'intermedio',
   libraryConsultations: 0,
-  unlockedBadges: [],
   systemStats: {
     cardiac: { attempted: 0, correct: 0 },
     hepatic: { attempted: 0, correct: 0 },
@@ -75,188 +74,95 @@ const INITIAL_PROGRESS: UserProgress = {
     pancreatic: { attempted: 0, correct: 0 },
     neuromuscular: { attempted: 0, correct: 0 }
   },
-  history: []
+  history: [],
+  unlockedBadges: []
 };
 
-const DAILY_CHALLENGE_TOTAL_SECONDS = 120; // 2 minutes limit
-const DAILY_CHALLENGE_MULTIPLIER = 2.0;    // 2.0x XP
-
-export default function App() {
+export const App: React.FC = () => {
+  // Navigation
   const [activeModule, setActiveModule] = useState<ActiveModule>('inicio');
-  const [selectedInitialLab, setSelectedInitialLab] = useState<'randle' | 'ictericias' | 'hemostasia' | 'integra'>('randle');
-  const [cases, setCases] = useState<ClinicalCase[]>(CLINICAL_CASES_DATABASE);
-  const [activeCase, setActiveCase] = useState<ClinicalCase>(CLINICAL_CASES_DATABASE[0]);
+  const [selectedCaseForDetail, setSelectedCaseForDetail] = useState<ClinicalCase | null>(null);
+  const [currentChallengeCase, setCurrentChallengeCase] = useState<ClinicalCase | null>(null);
+  const [isDailyChallengeActive, setIsDailyChallengeActive] = useState<boolean>(false);
+  const [initialLab, setInitialLab] = useState<'randle' | 'ictericias' | 'hemostasia' | 'carnitina' | 'integra'>('carnitina');
+  const [initialGameTab, setInitialGameTab] = useState<'rosco' | 'trivia' | 'sopa' | 'crucigrama'>('rosco');
+
+  // User Progress & Gamification
+  const [userProgress, setUserProgress] = useState<UserProgress>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem(STORAGE_PROGRESS_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return {
+            ...INITIAL_PROGRESS,
+            ...parsed
+          };
+        }
+      } catch {}
+    }
+    return INITIAL_PROGRESS;
+  });
 
   // Daily Challenge State
   const [dailyState, setDailyState] = useState<DailyChallengeState | null>(() => loadDailyChallengeState());
-  const dailyCase = useMemo(() => getDailyChallengeCase(cases), [cases]);
-  const [isDailyActiveChallenge, setIsDailyActiveChallenge] = useState(false);
-  const [dailyTimeRemaining, setDailyTimeRemaining] = useState(DAILY_CHALLENGE_TOTAL_SECONDS);
-  const [isDailyTimerExpired, setIsDailyTimerExpired] = useState(false);
-  const dailyTimerIntervalRef = useRef<number | null>(null);
+  const dailyCase = getDailyChallengeCase(CLINICAL_CASES_DATABASE);
 
-  // Modals state
-  const [selectedDetailCase, setSelectedDetailCase] = useState<ClinicalCase | null>(null);
-  const [isLibraryOverlayOpen, setIsLibraryOverlayOpen] = useState(false);
-  const [consultedLibraryInCurrentChallenge, setConsultedLibraryInCurrentChallenge] = useState(false);
-  const [aiCaseModalOpen, setAiCaseModalOpen] = useState(false);
-  const [newlyUnlockedBadgeForModal, setNewlyUnlockedBadgeForModal] = useState<SystemBadge | null>(null);
-
-  // Onboarding Guided Tour State (auto-runs on first visit)
-  const [runTour, setRunTour] = useState<boolean>(() => {
-    const hasSeenTour = localStorage.getItem('biomark_onboarding_completed');
-    return !hasSeenTour;
-  });
-
-  const handleStartTour = () => {
-    // If we're not in home / landing page, switch to inicio so all portal features are visible
-    if (activeModule !== 'inicio') {
-      setActiveModule('inicio');
-    }
-    setRunTour(true);
-  };
-
-  const handleFinishTour = () => {
-    setRunTour(false);
-    localStorage.setItem('biomark_onboarding_completed', 'true');
-  };
-
-  // Feedback Modal State
-  const [feedbackData, setFeedbackData] = useState<{
-    caseData: ClinicalCase;
-    selectedOption?: BiomarkerOption | null;
-    labOrderEvaluation?: LabOrderEvaluation | null;
-    consultedLibrary: boolean;
-    scoreEarned: number;
-    streak?: number;
-    newlyUnlockedBadge?: SystemBadge | null;
-    dailyBonusApplied?: boolean;
-    dailyBonusMultiplier?: number;
-    dailyTimeTakenSeconds?: number;
-  } | null>(null);
-
-  // Supabase Auth & Cloud Sync
-  const { user, syncStatus, loadCloudProgress, saveCloudProgress, signOut } = useSupabaseAuth();
+  // Modals & Feedback
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [runTour, setRunTour] = useState(false);
   const [satisfactionSurveyOpen, setSatisfactionSurveyOpen] = useState(false);
   const [satisfactionMetricsOpen, setSatisfactionMetricsOpen] = useState(false);
-  const [hasCompletedSurvey, setHasCompletedSurvey] = useState<boolean>(() =>
-    satisfactionService.hasUserCompletedSurvey()
-  );
-  const [surveyGateTriggerReason, setSurveyGateTriggerReason] = useState<
-    'none' | 'access_park' | 'cases_milestone' | 'access_advanced_labs'
-  >('none');
-  const [pendingModuleAfterSurvey, setPendingModuleAfterSurvey] = useState<ActiveModule | null>(null);
+  const [hasCompletedSurvey, setHasCompletedSurvey] = useState(satisfactionService.hasCompletedSurvey());
+  const [aiCaseModalOpen, setAiCaseModalOpen] = useState(false);
+  const [guardiaOverModalOpen, setGuardiaOverModalOpen] = useState(false);
+  const [newlyUnlockedBadge, setNewlyUnlockedBadge] = useState<SystemBadge | null>(null);
 
+  // Challenge Mode State & Modal
+  const [consultedLibraryInChallenge, setConsultedLibraryInChallenge] = useState(false);
+  const [immediateFeedbackData, setImmediateFeedbackData] = useState<{
+    caseData: ClinicalCase;
+    selectedOption: BiomarkerOption | null;
+    labOrderEvaluation: LabOrderEvaluation | null;
+    scoreEarned: number;
+    streak: number;
+    isDaily: boolean;
+  } | null>(null);
+
+  // Supabase Auth
+  const { user, syncStatus, loadCloudProgress, saveCloudProgress } = useSupabaseAuth();
+
+  // Visitor Counter (Firebase Firestore Real-Time Sync)
+  const [visitorStats, setVisitorStats] = useState<VisitorStats>({
+    totalVisits: 0,
+    isLive: false
+  });
+
+  // Sync visitor stats & record visit on mount
+  useEffect(() => {
+    recordPlatformVisit();
+    const unsubscribe = subscribeVisitorStats((stats) => {
+      setVisitorStats(stats);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Subscribe to satisfaction survey status
   useEffect(() => {
     return satisfactionService.subscribeToSurveyStatus((status) => {
       setHasCompletedSurvey(status);
     });
   }, []);
 
-  // Platform Visitor Counter (Firebase Firestore Real-Time Sync)
-  const [visitorStats, setVisitorStats] = useState<VisitorStats>(() => {
-    const raw = localStorage.getItem('biomark_cached_visits');
-    const cached = raw ? parseInt(raw, 10) : 0;
-    const cleanVisits = (isNaN(cached) || cached >= 1000) ? 0 : cached;
-    return {
-      totalVisits: cleanVisits,
-      isLive: false
-    };
-  });
-
+  // Save progress locally and sync with Firestore ranking
   useEffect(() => {
-    // Record platform visit for current browser session
-    recordPlatformVisit();
-
-    // Subscribe to real-time counter changes from Firestore
-    const unsubscribe = subscribeVisitorStats((stats) => {
-      setVisitorStats(stats);
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
-  // User Progress with localStorage & Supabase persistence
-  const [userProgress, setUserProgress] = useState<UserProgress>(() => {
-    const saved = localStorage.getItem('biomarkdx_progress');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        const migratedBudget = (!parsed.budget || parsed.budget < 1000) ? 5000 : parsed.budget;
-        return {
-          ...INITIAL_PROGRESS,
-          ...parsed,
-          budget: migratedBudget,
-          unlockedBadges: parsed.unlockedBadges || [],
-          systemStats: {
-            ...INITIAL_PROGRESS.systemStats,
-            ...(parsed.systemStats || {})
-          }
-        };
-      } catch (e) {
-        return INITIAL_PROGRESS;
-      }
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_PROGRESS_KEY, JSON.stringify(userProgress));
     }
-    return INITIAL_PROGRESS;
-  });
 
-  // Guarantee that legacy budgets (< 1000 €) are normalized to 5.000 € initial funds
-  useEffect(() => {
-    setUserProgress((prev) => {
-      if (!prev.budget || prev.budget < 1000) {
-        return {
-          ...prev,
-          budget: 5000
-        };
-      }
-      return prev;
-    });
-  }, []);
-
-  // When user logs in, retrieve progress from Supabase if available
-  useEffect(() => {
-    if (user) {
-      loadCloudProgress().then((cloudData) => {
-        if (cloudData) {
-          setUserProgress((current) => {
-            // Pick higher score/xp if local exists
-            const mergedScore = Math.max(current.score || 0, cloudData.score || 0);
-            const mergedXP = Math.max(current.xp || 0, cloudData.xp || 0);
-            const validCloudBudget = (!cloudData.budget || cloudData.budget < 1000) ? 5000 : cloudData.budget;
-            const finalBudget = current.budget >= 1000 ? current.budget : validCloudBudget;
-            return {
-              ...current,
-              ...cloudData,
-              budget: finalBudget,
-              score: mergedScore,
-              xp: mergedXP,
-              unlockedBadges: Array.from(new Set([...(current.unlockedBadges || []), ...(cloudData.unlockedBadges || [])]))
-            };
-          });
-        }
-      });
-    }
-  }, [user]);
-
-  // Sync to localStorage and to Supabase (debounce/whenever userProgress changes)
-  useEffect(() => {
-    localStorage.setItem('biomarkdx_progress', JSON.stringify(userProgress));
-    if (user) {
-      const timer = setTimeout(() => {
-        saveCloudProgress(userProgress);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [userProgress, user]);
-
-  // Sync genuine student ranking entry to Firebase Firestore whenever a case is solved or attempted
-  useEffect(() => {
     if (userProgress.casesAttempted > 0 || userProgress.casesCorrect > 0) {
       const profile = getOrCreateStudentProfile();
-      const userAccuracy =
+      const accuracy =
         userProgress.casesAttempted > 0
           ? Math.round((userProgress.casesCorrect / userProgress.casesAttempted) * 100)
           : 0;
@@ -269,154 +175,79 @@ export default function App() {
         xp: userProgress.xp || userProgress.score,
         casesSolved: userProgress.casesCorrect,
         casesAttempted: userProgress.casesAttempted,
-        accuracy: userAccuracy,
+        accuracy,
         streak: userProgress.streak,
         budget: userProgress.budget,
         badgesCount: userProgress.unlockedBadges?.length || 0,
-        lastCaseTitle: activeCase?.title || 'Caso Clínico',
-        lastSolvedAt: new Date().toISOString()
+        lastSolvedAt: new Date().toLocaleDateString('es-ES')
       });
     }
-  }, [
-    userProgress.casesAttempted,
-    userProgress.casesCorrect,
-    userProgress.score,
-    userProgress.xp,
-    userProgress.streak,
-    userProgress.budget,
-    userProgress.unlockedBadges,
-    activeCase?.title
-  ]);
+  }, [userProgress]);
 
-  // Countdown timer for Daily Challenge
-  useEffect(() => {
-    if (isDailyActiveChallenge && activeModule === 'desafio' && !isDailyTimerExpired) {
-      dailyTimerIntervalRef.current = window.setInterval(() => {
-        setDailyTimeRemaining((prev) => {
-          if (prev <= 1) {
-            setIsDailyTimerExpired(true);
-            if (dailyTimerIntervalRef.current) clearInterval(dailyTimerIntervalRef.current);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
+  // Open Lab helper
+  const handleOpenLab = (lab: 'randle' | 'ictericias' | 'hemostasia' | 'juegos' | 'rosco' | 'integra' | 'carnitina') => {
+    if (lab === 'juegos' || lab === 'rosco') {
+      setInitialGameTab(lab === 'rosco' ? 'rosco' : 'trivia');
+      setActiveModule('juegos');
+    } else if (lab === 'integra') {
+      setActiveModule('integracion-metabolica');
     } else {
-      if (dailyTimerIntervalRef.current) {
-        clearInterval(dailyTimerIntervalRef.current);
-        dailyTimerIntervalRef.current = null;
-      }
+      setInitialLab(lab);
+      setActiveModule('laboratorios');
     }
-
-    return () => {
-      if (dailyTimerIntervalRef.current) {
-        clearInterval(dailyTimerIntervalRef.current);
-        dailyTimerIntervalRef.current = null;
-      }
-    };
-  }, [isDailyActiveChallenge, activeModule, isDailyTimerExpired]);
-
-  // Pedagogical Survey Checkpoint Threshold:
-  // Allows up to 4 clinical cases freely and unlimited access to Biblioteca & Simuladores.
-  // Blocks access to Parque Biomédico (juegos) until survey is completed,
-  // and prevents solving more clinical cases (> 4) until survey is completed.
-  const MAX_FREE_CASES_BEFORE_SURVEY = 4;
-
-  // Central Navigation Gatekeeper (Enforces Survey Checkpoint)
-  const handleNavigateWithGate = (targetModule: ActiveModule) => {
-    const isSurveyDone = satisfactionService.hasUserCompletedSurvey();
-
-    // Condition 1: Acceso al Parque Biomédico (juegos):
-    // Bloqueado para todos hasta completar la encuesta de satisfacción y usabilidad
-    if (!isSurveyDone && targetModule === 'juegos') {
-      setPendingModuleAfterSurvey('juegos');
-      setSurveyGateTriggerReason('access_park');
-      setSatisfactionSurveyOpen(true);
-      return;
-    }
-
-    // Condition 2: Continuar resolviendo casos clínicos (desafio / reto-diario) tras 4 casos intentados:
-    if (!isSurveyDone && (targetModule === 'desafio' || targetModule === 'reto-diario') && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) {
-      setPendingModuleAfterSurvey(targetModule);
-      setSurveyGateTriggerReason('cases_milestone');
-      setSatisfactionSurveyOpen(true);
-      return;
-    }
-
-    // Nota pedagógica: La Biblioteca Médica, Temario, Prácticas y Simuladores de Aprendizaje
-    // (laboratorios, integracion-metabolica, biblioteca, docencia) están SIEMPRE disponibles.
-
-    setActiveModule(targetModule);
   };
 
-  // Start standard challenge
+  // Start Challenge on a Case
   const handleStartChallenge = (c: ClinicalCase) => {
-    const isSurveyDone = satisfactionService.hasUserCompletedSurvey();
-    if (!isSurveyDone && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) {
-      setActiveCase(c);
-      setPendingModuleAfterSurvey('desafio');
-      setSurveyGateTriggerReason('cases_milestone');
-      setSatisfactionSurveyOpen(true);
-      return;
-    }
-
-    setActiveCase(c);
-    setIsDailyActiveChallenge(false);
-    setIsDailyTimerExpired(false);
-    setDailyTimeRemaining(DAILY_CHALLENGE_TOTAL_SECONDS);
-    setConsultedLibraryInCurrentChallenge(false);
+    setSelectedCaseForDetail(null);
+    setCurrentChallengeCase(c);
+    setIsDailyChallengeActive(false);
+    setConsultedLibraryInChallenge(false);
     setActiveModule('desafio');
   };
 
-  // Start Daily Challenge (2 min timer & 2.0x XP)
-  const handleStartDailyChallenge = (c: ClinicalCase) => {
-    const isSurveyDone = satisfactionService.hasUserCompletedSurvey();
-    if (!isSurveyDone && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) {
-      setActiveCase(c);
-      setPendingModuleAfterSurvey('desafio');
-      setSurveyGateTriggerReason('cases_milestone');
-      setSatisfactionSurveyOpen(true);
-      return;
-    }
-
-    setActiveCase(c);
-    setIsDailyActiveChallenge(true);
-    setIsDailyTimerExpired(false);
-    setDailyTimeRemaining(DAILY_CHALLENGE_TOTAL_SECONDS);
-    setConsultedLibraryInCurrentChallenge(false);
+  // Start Daily Challenge
+  const handleStartDailyChallenge = () => {
+    setCurrentChallengeCase(dailyCase);
+    setIsDailyChallengeActive(true);
+    setConsultedLibraryInChallenge(false);
     setActiveModule('desafio');
   };
 
-  // Game over state
-  const [isGuardiaOver, setIsGuardiaOver] = useState(false);
-
-  // Reset Guardia (restore budget to initial funds of 5.000 €)
-  const handleResetGuardia = () => {
-    setUserProgress((prev) => ({
-      ...prev,
-      lives: 3,
-      budget: 5000,
-      streak: 0
-    }));
-    setIsGuardiaOver(false);
+  // Select case for detail modal
+  const handleSelectCase = (c: ClinicalCase) => {
+    setSelectedCaseForDetail(c);
   };
 
-  // Earn budget/money through park minigames (between 250 € and 300 €)
-  const handleEarnBudget = (amount: number = 260) => {
-    setUserProgress((prev) => ({
-      ...prev,
-      budget: Math.min(10000, prev.budget + amount)
-    }));
-    setIsGuardiaOver(false);
+  // Deduct budget
+  const handleDeductBudget = (amount: number, _reason?: string) => {
+    setUserProgress((prev) => {
+      const newBudget = Math.max(0, prev.budget - amount);
+      if (newBudget <= 0) {
+        setGuardiaOverModalOpen(true);
+      }
+      return { ...prev, budget: newBudget };
+    });
   };
 
-  // Backward compatibility alias
+  // Earn budget in games
+  const handleEarnBudget = (amount: number = 250) => {
+    setUserProgress((prev) => ({
+      ...prev,
+      budget: prev.budget + amount
+    }));
+  };
+
+  // Recharge life in games
   const handleRechargeLife = (amount: number = 1) => {
-    handleEarnBudget(amount * 260);
+    setUserProgress((prev) => ({
+      ...prev,
+      lives: Math.min(prev.maxLives, prev.lives + amount)
+    }));
   };
 
-  // Add bonus XP from park minigames and extra activities
-  const handleAddBonusXP = (amount: number) => {
+  // Add bonus XP
+  const handleAddBonusXP = (amount: number, _reason: string) => {
     setUserProgress((prev) => ({
       ...prev,
       xp: (prev.xp || prev.score) + amount,
@@ -424,645 +255,327 @@ export default function App() {
     }));
   };
 
-  // Open library during challenge (costs 120 € interconsulta fee)
-  const handleOpenLibraryInChallenge = () => {
-    if (!consultedLibraryInCurrentChallenge) {
-      setConsultedLibraryInCurrentChallenge(true);
-      setUserProgress((prev) => ({
-        ...prev,
-        budget: Math.max(0, prev.budget - 120)
-      }));
-    }
-    setIsLibraryOverlayOpen(true);
-  };
-
-  // Deduct budget for parameter consultation during challenge
-  const handleDeductBudget = (amount: number, _reason?: string) => {
-    setUserProgress((prev) => ({
-      ...prev,
-      budget: Math.max(0, prev.budget - amount),
-      libraryConsultations: prev.libraryConsultations + 1
-    }));
-    setConsultedLibraryInCurrentChallenge(true);
-  };
-
-  // Handle challenge answer submission
+  // Handle single diagnostic answer submit in challenge mode
   const handleSubmitAnswer = (selectedOption: BiomarkerOption, consultedLibrary: boolean) => {
+    if (!currentChallengeCase) return;
+
     const isCorrect = selectedOption.isCorrect;
+    const isDaily = isDailyChallengeActive;
+    const baseScore = isCorrect ? (isDaily ? 300 : 150) : 30;
 
-    // Base XP calculation
-    let baseScore = isCorrect ? 100 : 0;
-    const diffMultiplier =
-      activeCase.difficulty === 'experto' ? 1.5 : activeCase.difficulty === 'avanzado' ? 1.25 : 1.0;
-    
-    // Apply streak multiplier
-    const streakInfo = getStreakMultiplier(userProgress.streak);
-    let earned = Math.round(baseScore * diffMultiplier * streakInfo.multiplier);
-
-    // Apply Daily Challenge 2.0x multiplier if solved within the 2 minute window
-    let dailyBonusApplied = false;
-    let timeTaken = DAILY_CHALLENGE_TOTAL_SECONDS - dailyTimeRemaining;
-    if (isDailyActiveChallenge && isCorrect && !isDailyTimerExpired) {
-      earned = Math.round(earned * DAILY_CHALLENGE_MULTIPLIER);
-      dailyBonusApplied = true;
-
-      // Save completion in localStorage state
-      const newState = saveDailyChallengeCompletion(
-        activeCase.id,
-        earned,
-        timeTaken,
-        DAILY_CHALLENGE_MULTIPLIER
-      );
-      setDailyState(newState);
+    audioService.playSubmit();
+    if (isCorrect) {
+      setTimeout(() => audioService.playSuccess(), 200);
+    } else {
+      setTimeout(() => audioService.playError(), 200);
     }
 
-    // Apply 10 XP penalty if library was consulted
-    if (isCorrect && consultedLibrary) {
-      earned = Math.max(0, earned - 10);
-    }
-
-    let budgetAfter = userProgress.budget;
-    let newlyEarnedBadge: SystemBadge | null = null;
-
-    // Update progress state
     setUserProgress((prev) => {
-      const prevBadges = evaluateUserBadges(prev);
-
       const newStreak = isCorrect ? prev.streak + 1 : 0;
+      const newScore = prev.score + baseScore;
+      const newXp = (prev.xp || prev.score) + baseScore;
+      const newCorrect = isCorrect ? prev.casesCorrect + 1 : prev.casesCorrect;
       const newAttempted = prev.casesAttempted + 1;
-      const newCorrect = prev.casesCorrect + (isCorrect ? 1 : 0);
-      const newScore = prev.score + earned;
-      const newXP = (prev.xp || prev.score) + earned;
 
-      let newBudget = prev.budget;
-      if (isCorrect) {
-        newBudget = Math.min(10000, prev.budget + 150); // +150 € bonificación por acierto diagnóstico certero
-      } else {
-        newBudget = Math.max(0, prev.budget - 350); // -350 € coste de manejo clínico/fármacos por sospecha errónea
-      }
-      budgetAfter = newBudget;
-
-      // Update system stats
-      const sys = activeCase.system;
-      const currentSysStats = prev.systemStats[sys] || { attempted: 0, correct: 0 };
-      const updatedSysStats = {
-        attempted: currentSysStats.attempted + 1,
-        correct: currentSysStats.correct + (isCorrect ? 1 : 0)
-      };
-
-      // Calculate new adaptive difficulty level
-      const sysAccuracy = Math.round((updatedSysStats.correct / updatedSysStats.attempted) * 100);
-      let newLevel: DifficultyLevel = prev.currentLevel;
-
-      if (newStreak >= 3 || sysAccuracy >= 80) {
-        newLevel = prev.currentLevel === 'intermedio' ? 'avanzado' : 'experto';
-      } else if (sysAccuracy < 50 && updatedSysStats.attempted >= 2) {
-        newLevel = 'intermedio';
-      }
-
-      // Evaluate new badges
-      const newBadges = evaluateUserBadges({
-        ...prev,
-        score: newScore,
-        xp: newXP,
-        lives: prev.lives,
-        budget: newBudget,
-        casesAttempted: newAttempted,
-        casesCorrect: newCorrect,
-        streak: newStreak,
-        currentLevel: newLevel,
-        systemStats: {
-          ...prev.systemStats,
-          [sys]: updatedSysStats
+      const system = currentChallengeCase.system;
+      const systemStats = {
+        ...prev.systemStats,
+        [system]: {
+          attempted: (prev.systemStats[system]?.attempted || 0) + 1,
+          correct: (prev.systemStats[system]?.correct || 0) + (isCorrect ? 1 : 0)
         }
-      });
-      const unlockedList = getNewlyUnlockedBadges(prevBadges, newBadges);
-      if (unlockedList.length > 0) {
-        newlyEarnedBadge = unlockedList[0];
-      }
-
-      // Record history
-      const historyItem = {
-        caseId: activeCase.id,
-        caseTitle: activeCase.title,
-        system: activeCase.system,
-        difficulty: activeCase.difficulty,
-        selectedBiomarkerId: selectedOption.id,
-        selectedBiomarkerName: selectedOption.biomarkerName,
-        isCorrect,
-        consultedLibrary,
-        scoreEarned: earned,
-        timestamp: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-        badgeUnlocked: newlyEarnedBadge ? newlyEarnedBadge.title : undefined
       };
 
-      const candidateProgress: UserProgress = {
+      const newHistory = [
+        {
+          caseId: currentChallengeCase.id,
+          caseTitle: currentChallengeCase.title,
+          system,
+          isCorrect,
+          scoreEarned: baseScore,
+          timestamp: new Date().toISOString()
+        },
+        ...prev.history
+      ];
+
+      const updatedProgress: UserProgress = {
         ...prev,
         score: newScore,
-        xp: newXP,
-        lives: prev.lives,
-        budget: newBudget,
-        casesAttempted: newAttempted,
+        xp: newXp,
         casesCorrect: newCorrect,
+        casesAttempted: newAttempted,
         streak: newStreak,
-        currentLevel: newLevel,
-        libraryConsultations: prev.libraryConsultations + (consultedLibrary ? 1 : 0),
-        systemStats: {
-          ...prev.systemStats,
-          [sys]: updatedSysStats
-        },
-        history: [historyItem, ...prev.history]
+        systemStats,
+        history: newHistory
       };
 
-      if (unlockedList.length > 0) {
-        const newBadgeIds = unlockedList.map((b) => b.id);
-        candidateProgress.unlockedBadges = Array.from(
-          new Set([...(prev.unlockedBadges || []), ...newBadgeIds])
+      // Check badge unlocks
+      const prevBadges = evaluateUserBadges(prev);
+      const nextBadges = evaluateUserBadges(updatedProgress);
+      const newlyUnlocked = getNewlyUnlockedBadges(prevBadges, nextBadges);
+      if (newlyUnlocked.length > 0) {
+        setNewlyUnlockedBadge(newlyUnlocked[0]);
+        updatedProgress.unlockedBadges = Array.from(
+          new Set([...(prev.unlockedBadges || []), newlyUnlocked[0].id])
         );
       }
 
-      return candidateProgress;
+      return updatedProgress;
     });
 
-    // Stop timer
-    if (dailyTimerIntervalRef.current) {
-      clearInterval(dailyTimerIntervalRef.current);
-      dailyTimerIntervalRef.current = null;
+    if (isDaily) {
+      saveDailyChallengeCompletion(currentChallengeCase.id, baseScore, 60, isCorrect ? 1.5 : 1.0);
+      setDailyState(loadDailyChallengeState());
     }
 
-    // Check if Guardia is Over (0 budget / fondos agotados)
-    if (!isCorrect && budgetAfter <= 0) {
-      setIsGuardiaOver(true);
-    } else {
-      // Trigger immediate feedback modal
-      const nextStreak = isCorrect ? userProgress.streak + 1 : 0;
-      setFeedbackData({
-        caseData: activeCase,
-        selectedOption,
-        labOrderEvaluation: null,
-        consultedLibrary,
-        scoreEarned: earned,
-        streak: nextStreak,
-        newlyUnlockedBadge: newlyEarnedBadge,
-        dailyBonusApplied,
-        dailyBonusMultiplier: DAILY_CHALLENGE_MULTIPLIER,
-        dailyTimeTakenSeconds: timeTaken
-      });
-    }
+    setImmediateFeedbackData({
+      caseData: currentChallengeCase,
+      selectedOption,
+      labOrderEvaluation: null,
+      scoreEarned: baseScore,
+      streak: isCorrect ? userProgress.streak + 1 : 0,
+      isDaily
+    });
   };
 
-  // Handle multi-biomarker lab order submission
+  // Handle multi-biomarker lab order submit in challenge mode
   const handleSubmitLabOrder = (orderedBiomarkerIds: string[], consultedLibrary: boolean) => {
-    const evalResult = evaluateLabOrder(activeCase, orderedBiomarkerIds, BIOMARKERS_DATABASE);
-    const isFullyCorrect = evalResult.isFullyCorrect;
-    const isPartiallyCorrect = evalResult.isPartiallyCorrect;
+    if (!currentChallengeCase) return;
 
-    // Multi-order score calculation based on precision and efficiency
-    let baseScore = evalResult.accuracyScore;
-    const diffMultiplier =
-      activeCase.difficulty === 'experto' ? 1.5 : activeCase.difficulty === 'avanzado' ? 1.25 : 1.0;
-    
-    // Efficiency bonus (+20% if budget efficiency >= 80)
-    let efficiencyBonus = evalResult.budgetEfficiencyScore >= 80 ? 1.2 : 1.0;
+    const evaluation = evaluateLabOrder(currentChallengeCase, orderedBiomarkerIds, BIOMARKERS_DATABASE);
+    const isOptimal = evaluation.isOptimal;
+    const score = evaluation.score;
 
-    const streakInfo = getStreakMultiplier(userProgress.streak);
-    let earned = Math.round(baseScore * diffMultiplier * efficiencyBonus * (isFullyCorrect ? streakInfo.multiplier : 1.0));
-
-    // Apply Daily Challenge 2.0x multiplier if fully correct and within the 2 minute window
-    let dailyBonusApplied = false;
-    let timeTaken = DAILY_CHALLENGE_TOTAL_SECONDS - dailyTimeRemaining;
-    if (isDailyActiveChallenge && isFullyCorrect && !isDailyTimerExpired) {
-      earned = Math.round(earned * DAILY_CHALLENGE_MULTIPLIER);
-      dailyBonusApplied = true;
-
-      const newState = saveDailyChallengeCompletion(
-        activeCase.id,
-        earned,
-        timeTaken,
-        DAILY_CHALLENGE_MULTIPLIER
-      );
-      setDailyState(newState);
+    audioService.playSubmit();
+    if (isOptimal) {
+      setTimeout(() => audioService.playSuccess(), 200);
+    } else {
+      setTimeout(() => audioService.playWarning(), 200);
     }
-
-    // Apply 10 XP penalty if library was consulted
-    if (consultedLibrary && earned > 10) {
-      earned -= 10;
-    }
-
-    let budgetAfter = userProgress.budget;
-    let newlyEarnedBadge: SystemBadge | null = null;
 
     setUserProgress((prev) => {
-      const prevBadges = evaluateUserBadges(prev);
-
-      const newStreak = isFullyCorrect ? prev.streak + 1 : 0;
+      const newStreak = isOptimal ? prev.streak + 1 : 0;
+      const newScore = prev.score + score;
+      const newXp = (prev.xp || prev.score) + score;
+      const newCorrect = isOptimal ? prev.casesCorrect + 1 : prev.casesCorrect;
       const newAttempted = prev.casesAttempted + 1;
-      const newCorrect = prev.casesCorrect + (isFullyCorrect ? 1 : 0);
-      const newScore = prev.score + earned;
-      const newXP = (prev.xp || prev.score) + earned;
 
-      // Deduct order cost from budget, but reward correct diagnostic performance
-      let newBudget = Math.max(0, prev.budget - evalResult.totalBudgetCost);
-      if (isFullyCorrect) {
-        newBudget = Math.min(10000, newBudget + 200); // +200 € bonificación por protocolo analítico de alta eficiencia
-      }
-      budgetAfter = newBudget;
-
-      // Update system stats
-      const sys = activeCase.system;
-      const currentSysStats = prev.systemStats[sys] || { attempted: 0, correct: 0 };
-      const updatedSysStats = {
-        attempted: currentSysStats.attempted + 1,
-        correct: currentSysStats.correct + (isFullyCorrect ? 1 : 0)
-      };
-
-      // Evaluate new badges
-      const newBadges = evaluateUserBadges({
-        ...prev,
-        score: newScore,
-        xp: newXP,
-        lives: prev.lives,
-        budget: newBudget,
-        casesAttempted: newAttempted,
-        casesCorrect: newCorrect,
-        streak: newStreak,
-        systemStats: {
-          ...prev.systemStats,
-          [sys]: updatedSysStats
+      const system = currentChallengeCase.system;
+      const systemStats = {
+        ...prev.systemStats,
+        [system]: {
+          attempted: (prev.systemStats[system]?.attempted || 0) + 1,
+          correct: (prev.systemStats[system]?.correct || 0) + (isOptimal ? 1 : 0)
         }
-      });
-      const unlockedList = getNewlyUnlockedBadges(prevBadges, newBadges);
-      if (unlockedList.length > 0) {
-        newlyEarnedBadge = unlockedList[0];
-      }
-
-      // History Record
-      const historyItem = {
-        caseId: activeCase.id,
-        caseTitle: activeCase.title,
-        system: activeCase.system,
-        difficulty: activeCase.difficulty,
-        selectedBiomarkerId: orderedBiomarkerIds.join(','),
-        selectedBiomarkerName: `Petición Multianalítica (${orderedBiomarkerIds.length} biomarcadores)`,
-        isCorrect: isFullyCorrect,
-        consultedLibrary,
-        scoreEarned: earned,
-        timestamp: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-        isMultiOrder: true,
-        orderedBiomarkerCount: orderedBiomarkerIds.length,
-        badgeUnlocked: newlyEarnedBadge ? newlyEarnedBadge.title : undefined
       };
 
-      const candidateProgress: UserProgress = {
+      const newHistory = [
+        {
+          caseId: currentChallengeCase.id,
+          caseTitle: currentChallengeCase.title,
+          system,
+          isCorrect: isOptimal,
+          scoreEarned: score,
+          timestamp: new Date().toISOString(),
+          isMultiOrder: true,
+          orderedBiomarkerCount: orderedBiomarkerIds.length
+        },
+        ...prev.history
+      ];
+
+      const updatedProgress: UserProgress = {
         ...prev,
         score: newScore,
-        xp: newXP,
-        lives: prev.lives,
-        budget: newBudget,
-        casesAttempted: newAttempted,
+        xp: newXp,
         casesCorrect: newCorrect,
+        casesAttempted: newAttempted,
         streak: newStreak,
-        libraryConsultations: prev.libraryConsultations + (consultedLibrary ? 1 : 0),
-        systemStats: {
-          ...prev.systemStats,
-          [sys]: updatedSysStats
-        },
-        history: [historyItem, ...prev.history]
+        systemStats,
+        history: newHistory
       };
 
-      if (unlockedList.length > 0) {
-        const newBadgeIds = unlockedList.map((b) => b.id);
-        candidateProgress.unlockedBadges = Array.from(
-          new Set([...(prev.unlockedBadges || []), ...newBadgeIds])
+      // Check badges
+      const prevBadges = evaluateUserBadges(prev);
+      const nextBadges = evaluateUserBadges(updatedProgress);
+      const newlyUnlocked = getNewlyUnlockedBadges(prevBadges, nextBadges);
+      if (newlyUnlocked.length > 0) {
+        setNewlyUnlockedBadge(newlyUnlocked[0]);
+        updatedProgress.unlockedBadges = Array.from(
+          new Set([...(prev.unlockedBadges || []), newlyUnlocked[0].id])
         );
       }
 
-      return candidateProgress;
+      return updatedProgress;
     });
 
-    // Stop timer
-    if (dailyTimerIntervalRef.current) {
-      clearInterval(dailyTimerIntervalRef.current);
-      dailyTimerIntervalRef.current = null;
-    }
-
-    if (budgetAfter <= 0) {
-      setIsGuardiaOver(true);
-    } else {
-      const nextStreak = isFullyCorrect ? userProgress.streak + 1 : 0;
-      setFeedbackData({
-        caseData: activeCase,
-        selectedOption: null,
-        labOrderEvaluation: evalResult,
-        consultedLibrary,
-        scoreEarned: earned,
-        streak: nextStreak,
-        newlyUnlockedBadge: newlyEarnedBadge,
-        dailyBonusApplied,
-        dailyBonusMultiplier: DAILY_CHALLENGE_MULTIPLIER,
-        dailyTimeTakenSeconds: timeTaken
-      });
-    }
+    setImmediateFeedbackData({
+      caseData: currentChallengeCase,
+      selectedOption: null,
+      labOrderEvaluation: evaluation,
+      scoreEarned: score,
+      streak: isOptimal ? userProgress.streak + 1 : 0,
+      isDaily: false
+    });
   };
 
-  // Next Case Navigation
+  // Next case after feedback
   const handleNextCase = () => {
-    setFeedbackData(null);
-    setIsDailyActiveChallenge(false);
-    setIsDailyTimerExpired(false);
-    setDailyTimeRemaining(DAILY_CHALLENGE_TOTAL_SECONDS);
-
-    // Pedagogical Survey Checkpoint: After 4 or more cases attempted, require survey to continue
-    const isSurveyDone = satisfactionService.hasUserCompletedSurvey();
-    if (!isSurveyDone && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) {
-      const currentIndex = cases.findIndex((c) => c.id === activeCase.id);
-      const nextIndex = (currentIndex + 1) % cases.length;
-      setActiveCase(cases[nextIndex]);
-      setPendingModuleAfterSurvey('desafio');
-      setSurveyGateTriggerReason('cases_milestone');
-      setSatisfactionSurveyOpen(true);
+    setImmediateFeedbackData(null);
+    if (isDailyChallengeActive) {
+      setActiveModule('reto-diario');
+      setIsDailyChallengeActive(false);
       return;
     }
-
-    const currentIndex = cases.findIndex((c) => c.id === activeCase.id);
-    const nextIndex = (currentIndex + 1) % cases.length;
-    setActiveCase(cases[nextIndex]);
-    setConsultedLibraryInCurrentChallenge(false);
-    setActiveModule('desafio');
+    const currentIndex = CLINICAL_CASES_DATABASE.findIndex(
+      (c) => c.id === currentChallengeCase?.id
+    );
+    const nextIndex = (currentIndex + 1) % CLINICAL_CASES_DATABASE.length;
+    setCurrentChallengeCase(CLINICAL_CASES_DATABASE[nextIndex]);
+    setConsultedLibraryInChallenge(false);
   };
 
-  // Add AI Generated Case
-  const handleCaseGeneratedByAI = (newCase: ClinicalCase) => {
-    setCases((prev) => [newCase, ...prev]);
-    setActiveCase(newCase);
-    setIsDailyActiveChallenge(false);
-    setConsultedLibraryInCurrentChallenge(false);
-    setActiveModule('desafio');
-  };
-
-  // Reset Progress
+  // Reset progress
   const handleResetProgress = () => {
-    if (window.confirm('¿Está seguro de que desea restablecer todo su progreso y puntuaciones?')) {
+    if (window.confirm('¿Deseas reiniciar tu progreso personal en este navegador?')) {
       setUserProgress(INITIAL_PROGRESS);
-      localStorage.removeItem('biomarkdx_progress');
-      localStorage.removeItem('biomark_daily_challenge');
-      setDailyState(null);
+      localStorage.removeItem(STORAGE_PROGRESS_KEY);
     }
   };
 
+  const totalCasesCount = CLINICAL_CASES_DATABASE.length; // Exactly 31!
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col">
-      {/* Navigation Header */}
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 selection:bg-amber-100 selection:text-amber-900">
+      {/* 1. Main Navigation Bar with Institutional Gold Header and Audio Controls */}
       <Navbar
         activeModule={activeModule}
-        setActiveModule={handleNavigateWithGate}
+        setActiveModule={setActiveModule}
         userProgress={userProgress}
         hasCompletedSurvey={hasCompletedSurvey}
-        onStartTour={handleStartTour}
+        onStartTour={() => setRunTour(true)}
         user={user}
         syncStatus={syncStatus}
         onOpenAuthModal={() => setAuthModalOpen(true)}
-        onSignOut={signOut}
-        onOpenSatisfactionSurvey={() => {
-          setSurveyGateTriggerReason('none');
-          setSatisfactionSurveyOpen(true);
-        }}
+        onSignOut={() => setAuthModalOpen(true)}
+        onOpenSatisfactionSurvey={() => setSatisfactionSurveyOpen(true)}
       />
 
-      {/* Institutional Survey Banner (only after completing 4 cases) */}
-      {!hasCompletedSurvey && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY && (
-        <div className="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-950 text-white px-4 py-3 border-b border-amber-700/80 shadow-xs animate-in fade-in">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40">
-                <Sparkles className="w-4 h-4 text-amber-300" />
-              </div>
-              <div className="text-xs">
-                <span className="font-extrabold text-amber-200 uppercase tracking-wider text-[10px] block">
-                  ¡Danos tu opinión! · 4 Casos Clínicos Completados
-                </span>
-                <span className="text-amber-100">
-                  ¡Has resuelto tus 4 casos clínicos de entrenamiento! Para continuar con nuevos pacientes en el Hospital y acceder al <strong>Parque Biomédico</strong>, ¡danos tu opinión sobre la plataforma (~90 seg)! La <strong>Biblioteca y Simuladores</strong> siguen siempre disponibles.
-                </span>
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setSurveyGateTriggerReason('cases_milestone');
-                setPendingModuleAfterSurvey('desafio');
-                setSatisfactionSurveyOpen(true);
-              }}
-              className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-amber-950 font-black text-xs shadow-md transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 shrink-0 group"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-900 group-hover:rotate-12 transition-transform" />
-              <span>¡Danos tu opinión! (+150 XP y +100 €)</span>
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Gamified Status Dashboard & Adaptive Progress Banner (Exclusively in Challenge Mode) */}
-        {activeModule === 'desafio' && (
-          <>
-            <GamifiedDashboard
-              userProgress={userProgress}
-              onResetGuardia={handleResetGuardia}
-              onOpenStats={() => handleNavigateWithGate('estadisticas')}
-              onOpenRanking={() => handleNavigateWithGate('ranking')}
-              onGoToGames={() => {
-                handleNavigateWithGate('juegos');
-              }}
-            />
-            <AdaptiveProgressBanner userProgress={userProgress} />
-          </>
-        )}
-
-        {/* Module 0: Pantalla Principal / LandingPage (Hospital, Biblioteca, Parque) */}
+      {/* 2. Main Content Routing */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:py-8">
+        {/* INICIO: Landing Page */}
         {activeModule === 'inicio' && (
           <LandingPage
-            onNavigate={(mod) => handleNavigateWithGate(mod)}
-            onOpenLab={(lab) => {
-              if (lab === 'randle' || lab === 'ictericias' || lab === 'hemostasia' || lab === 'integra') {
-                setSelectedInitialLab(lab);
-                if (lab === 'integra') {
-                  handleNavigateWithGate('integracion-metabolica');
-                } else {
-                  handleNavigateWithGate('laboratorios');
-                }
-              } else {
-                handleNavigateWithGate('juegos');
-              }
-            }}
-            onStartTour={handleStartTour}
+            onNavigate={setActiveModule}
+            onOpenLab={handleOpenLab}
+            onStartTour={() => setRunTour(true)}
             userXP={userProgress.xp || userProgress.score}
             completedCasesCount={userProgress.casesCorrect}
-            totalCasesCount={cases.length}
+            totalCasesCount={totalCasesCount}
             visitorCount={visitorStats.totalVisits}
             isLiveStats={visitorStats.isLive}
           />
         )}
 
-        {/* Module Ciudad: Campus Ciudad Biomédica UGR (Hospital, Biblioteca, Parque Lúdico) */}
+        {/* CIUDAD BIOMÉDICA UGR */}
         {activeModule === 'ciudad' && (
           <BiomedicalCity
-            onNavigate={(mod) => handleNavigateWithGate(mod)}
-            onOpenLab={(lab) => {
-              if (lab === 'randle' || lab === 'ictericias' || lab === 'hemostasia' || lab === 'integra') {
-                setSelectedInitialLab(lab);
-                if (lab === 'integra') {
-                  handleNavigateWithGate('integracion-metabolica');
-                } else {
-                  handleNavigateWithGate('laboratorios');
-                }
-              } else {
-                handleNavigateWithGate('juegos');
-              }
-            }}
+            onNavigate={setActiveModule}
+            onOpenLab={handleOpenLab}
             onStartChallenge={handleStartChallenge}
-            onStartDailyChallenge={() => handleStartDailyChallenge(dailyCase)}
+            onStartDailyChallenge={handleStartDailyChallenge}
             userProgress={userProgress}
-            cases={cases}
-            onAddXP={handleAddBonusXP}
+            cases={CLINICAL_CASES_DATABASE}
+            onAddXP={(amt) => handleAddBonusXP(amt, 'Trivia Ciudad')}
             onEarnBudget={handleEarnBudget}
             onRechargeLife={handleRechargeLife}
           />
         )}
 
-        {/* Module 1: Case Bank (BIOMARK-SIM) */}
+        {/* HOSPITAL: Casos Clínicos (31 Casos) */}
         {activeModule === 'casos' && (
           <CaseList
-            cases={cases}
-            onSelectCase={(c) => setSelectedDetailCase(c)}
+            cases={CLINICAL_CASES_DATABASE}
+            onSelectCase={handleSelectCase}
             onStartChallenge={handleStartChallenge}
+            onOpenAICaseModal={() => setAiCaseModalOpen(true)}
             userProgress={userProgress}
-            onNavigate={(mod) => handleNavigateWithGate(mod)}
+            onNavigate={setActiveModule}
           />
         )}
 
-        {/* Module 2: Challenge Mode (Allowed for up to 4 cases; locks when >= MAX_FREE_CASES_BEFORE_SURVEY until survey) */}
-        {activeModule === 'desafio' && (
-          !hasCompletedSurvey && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY ? (
-            <SatisfactionGateLockScreen
-              reason="cases_milestone"
-              onOpenSurvey={() => {
-                setSurveyGateTriggerReason('cases_milestone');
-                setPendingModuleAfterSurvey('desafio');
-                setSatisfactionSurveyOpen(true);
-              }}
-              onBackToHome={() => setActiveModule('inicio')}
-            />
-          ) : (
-            <ChallengeMode
-              currentCase={activeCase}
-              userProgress={userProgress}
-              isDailyChallenge={isDailyActiveChallenge}
-              dailyTimeRemaining={dailyTimeRemaining}
-              dailyBonusMultiplier={DAILY_CHALLENGE_MULTIPLIER}
-              isDailyTimerExpired={isDailyTimerExpired}
-              onDailyTimerExpire={() => setIsDailyTimerExpired(true)}
-              onOpenLibraryModal={handleOpenLibraryInChallenge}
-              onDeductBudget={handleDeductBudget}
-              onSubmitAnswer={handleSubmitAnswer}
-              onSubmitLabOrder={handleSubmitLabOrder}
-              consultedLibrary={consultedLibraryInCurrentChallenge}
-              onNextCase={handleNextCase}
-              onBackToCaseList={() => handleNavigateWithGate('casos')}
-            />
-          )
-        )}
-
-        {/* Module 3: Daily Challenge (Locks after 4 cases until survey) */}
-        {activeModule === 'reto-diario' && (
-          !hasCompletedSurvey && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY ? (
-            <SatisfactionGateLockScreen
-              reason="cases_milestone"
-              onOpenSurvey={() => {
-                setSurveyGateTriggerReason('cases_milestone');
-                setPendingModuleAfterSurvey('reto-diario');
-                setSatisfactionSurveyOpen(true);
-              }}
-              onBackToHome={() => setActiveModule('inicio')}
-            />
-          ) : (
-            <DailyChallengeView
-              dailyCase={dailyCase}
-              dailyState={dailyState}
-              userProgress={userProgress}
-              onStartDailyChallenge={handleStartDailyChallenge}
-            />
-          )
-        )}
-
-        {/* Module 4: Biblioteca - Simuladores de Apoyo al Aprendizaje (Randle, Ictericias, Hemostasia) - SIEMPRE ACCESIBLES */}
-        {activeModule === 'laboratorios' && (
-          <InteractiveLabsContainer
-            initialLab={selectedInitialLab}
+        {/* DESAFÍO / MODO GUARDIA EN VIVO */}
+        {activeModule === 'desafio' && currentChallengeCase && (
+          <ChallengeMode
+            currentCase={currentChallengeCase}
             userProgress={userProgress}
-            onEarnBudget={handleEarnBudget}
-            onRechargeLife={handleRechargeLife}
-            onAddBonusXP={handleAddBonusXP}
-            onNavigate={(mod) => handleNavigateWithGate(mod)}
-            onBackToPortal={() => handleNavigateWithGate('docencia')}
+            isDailyChallenge={isDailyChallengeActive}
+            onOpenLibraryModal={() => {
+              setConsultedLibraryInChallenge(true);
+              setActiveModule('biblioteca');
+            }}
+            onDeductBudget={handleDeductBudget}
+            onSubmitAnswer={handleSubmitAnswer}
+            onSubmitLabOrder={handleSubmitLabOrder}
+            consultedLibrary={consultedLibraryInChallenge}
+            onNextCase={handleNextCase}
+            onBackToCaseList={() => setActiveModule('casos')}
           />
         )}
 
-        {/* Module: Biblioteca - Integración Metabólica (Direct Suite) - SIEMPRE ACCESIBLE */}
-        {activeModule === 'integracion-metabolica' && (
-          <InteractiveLabsContainer
-            initialLab="integra"
-            userProgress={userProgress}
-            onEarnBudget={handleEarnBudget}
-            onRechargeLife={handleRechargeLife}
-            onAddBonusXP={handleAddBonusXP}
-            onNavigate={(mod) => handleNavigateWithGate(mod)}
-            onBackToPortal={() => handleNavigateWithGate('docencia')}
-          />
-        )}
-
-        {/* Module Parque: Zona Lúdica & Minijuegos (Preguntas, Parejas, Pasapalabra) */}
-        {activeModule === 'juegos' && (
-          !hasCompletedSurvey ? (
-            <SatisfactionGateLockScreen
-              reason="access_park"
-              onOpenSurvey={() => {
-                setSurveyGateTriggerReason('access_park');
-                setPendingModuleAfterSurvey('juegos');
-                setSatisfactionSurveyOpen(true);
-              }}
-              onBackToHome={() => setActiveModule('inicio')}
-            />
-          ) : (
-            <GamesHub
-              userProgress={userProgress}
-              onEarnBudget={handleEarnBudget}
-              onRechargeLife={handleRechargeLife}
-              onAddBonusXP={handleAddBonusXP}
-              onNavigate={(mod) => handleNavigateWithGate(mod)}
-            />
-          )
-        )}
-
-        {/* Module 5: Teaching Material & Academic Guide */}
-        {activeModule === 'docencia' && (
+        {/* BIBLIOTECA & MATERIAL DOCENTE OFICIAL UGR */}
+        {(activeModule === 'biblioteca' || activeModule === 'docencia') && (
           <TeachingMaterialView />
         )}
 
-        {/* Module: Prácticas y Seminarios (Calendario & Organización Docente UGR) */}
+        {/* PRÁCTICAS Y SEMINARIOS (CRONOGRAMA & CALENDARIO) */}
         {activeModule === 'practicas-seminarios' && (
           <PracticasSeminariosView />
         )}
 
-        {/* Module 6: Biomarker Reference Library */}
-        {activeModule === 'biblioteca' && (
-          <BiomarkerLibrary
-            biomarkers={BIOMARKERS_DATABASE}
-            activeCase={activeCase}
+        {/* SIMULADORES Y LABORATORIOS INTERACTIVOS (INCLUYENDO LA LANZADERA ROTA) */}
+        {activeModule === 'laboratorios' && (
+          <InteractiveLabsContainer
+            initialLab={initialLab}
+            onBackToPortal={() => setActiveModule('biblioteca')}
+            onNavigate={setActiveModule}
+            userProgress={userProgress}
+            onEarnBudget={handleEarnBudget}
+            onRechargeLife={handleRechargeLife}
+            onAddBonusXP={handleAddBonusXP}
           />
         )}
 
-        {/* Module 7: User Progress & Statistics */}
+        {/* ATLAS DE INTEGRACIÓN METABÓLICA */}
+        {activeModule === 'integracion-metabolica' && (
+          <MetabolicIntegrationLab
+            onBackToPortal={() => setActiveModule('biblioteca')}
+            onNavigate={setActiveModule}
+          />
+        )}
+
+        {/* PARQUE BIOMÉDICO & MINIJUEGOS (EL ROSCO, SOPA, CRUCIGRAMA) */}
+        {activeModule === 'juegos' && (
+          <GamesHub
+            userProgress={userProgress}
+            initialTab={initialGameTab}
+            onEarnBudget={handleEarnBudget}
+            onRechargeLife={handleRechargeLife}
+            onAddBonusXP={handleAddBonusXP}
+            onNavigate={setActiveModule}
+          />
+        )}
+
+        {/* RETO DIARIO */}
+        {activeModule === 'reto-diario' && (
+          <DailyChallengeView
+            dailyCase={dailyCase}
+            dailyState={dailyState}
+            userProgress={userProgress}
+            onStartDailyChallenge={handleStartChallenge}
+          />
+        )}
+
+        {/* ESTADÍSTICAS DEL ALUMNO */}
         {activeModule === 'estadisticas' && (
           <UserStatsView
             userProgress={userProgress}
@@ -1072,182 +585,144 @@ export default function App() {
           />
         )}
 
-        {/* Module 8: Global Student Leaderboard (Top 10 & Clinical Escalafón) */}
+        {/* RANKING & CUADRO DE HONOR DE ESTUDIANTES */}
         {activeModule === 'ranking' && (
           <Leaderboard
             userProgress={userProgress}
-            onNavigateToCases={() => handleNavigateWithGate('casos')}
-            onNavigateToGames={() => {
-              handleNavigateWithGate('juegos');
-            }}
+            onNavigateToCases={() => setActiveModule('casos')}
+            onNavigateToGames={() => setActiveModule('juegos')}
           />
         )}
       </main>
 
-      {/* Footer: Official UGR Faculty of Medicine Accreditation & Teaching Innovation Project */}
-      <footer className="h-auto py-3 bg-white border-t border-slate-200 px-6 flex flex-col md:flex-row items-center justify-between text-[11px] text-slate-600 font-medium shrink-0 mt-auto gap-2.5">
-        <div className="flex items-center gap-2 text-slate-700 flex-wrap justify-center md:justify-start">
-          <span className="font-bold text-slate-900">Bioquímica Médica</span>
-          <span>•</span>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-300 font-bold text-[10px]">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-            Trabajo del Proyecto de Innovación Docente 26-158
-          </span>
-          <span>•</span>
-          <span>Facultad de Medicina • Universidad de Granada (PTS)</span>
-        </div>
-        <div className="flex items-center gap-3 text-[10px] text-slate-500 flex-wrap justify-center md:justify-end">
-          {/* Visitor Counter Live Pill */}
-          <div 
-            className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-50 border border-slate-200 text-slate-700 font-semibold shadow-2xs group hover:border-emerald-300 transition-all cursor-default"
-            title="Contador de visitas a la plataforma en tiempo real (Firebase Firestore)"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <Users className="w-3 h-3 text-emerald-600" />
-            <span>Visitas:</span>
-            <span className="font-black text-slate-900 font-mono">{visitorStats.totalVisits.toLocaleString('es-ES')}</span>
+      {/* 3. Footer with Institutional UGR Identity, PID 26-158 and Live Visitor Counter */}
+      <footer className="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800 mt-12">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-1 text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start gap-2 text-white font-bold text-sm">
+              <span>Universidad de Granada · Facultad de Medicina</span>
+            </div>
+            <p className="text-[11px] text-slate-400">
+              Departamento de Bioquímica y Biología Molecular III e Inmunología · Proyecto de Innovación Docente PID 26-158.
+            </p>
           </div>
-          <span>•</span>
-          <span>Departamento de Bioquímica y Biología Molecular III e Inmunología</span>
-          <span>•</span>
-          <span>Curso 2026/2027</span>
+
+          <div className="flex items-center gap-4 flex-wrap justify-center">
+            {/* Visitor Counter Live Pill */}
+            <div
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700 text-xs"
+              title="Contador de visitas en tiempo real conectado a Firebase Firestore"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Visitas: <strong className="text-white font-mono">{visitorStats.totalVisits.toLocaleString('es-ES')}</strong></span>
+            </div>
+
+            <button
+              onClick={() => setSatisfactionSurveyOpen(true)}
+              className="text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+            >
+              <span>Encuesta de Calidad</span>
+            </button>
+
+            <button
+              onClick={() => setSatisfactionMetricsOpen(true)}
+              className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+            >
+              <span>Panel del Profesorado</span>
+            </button>
+          </div>
         </div>
       </footer>
 
-      {/* Modal: Case Details */}
+      {/* 4. Modals */}
+      {/* Case Detail Modal */}
       <CaseDetailModal
-        caseData={selectedDetailCase}
-        onClose={() => setSelectedDetailCase(null)}
+        caseData={selectedCaseForDetail}
+        onClose={() => setSelectedCaseForDetail(null)}
         onStartChallenge={handleStartChallenge}
       />
 
-      {/* Modal / Drawer: Library Overlay during Challenge */}
-      {isLibraryOverlayOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative">
-            <button
-              onClick={() => setIsLibraryOverlayOpen(false)}
-              className="absolute top-4 right-4 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            <BiomarkerLibrary
-              biomarkers={BIOMARKERS_DATABASE}
-              isChallengeModeContext={true}
-              activeCase={activeCase}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Modal: Immediate Biochemical Feedback */}
-      {feedbackData && (
+      {/* Immediate Diagnostic Feedback Modal */}
+      {immediateFeedbackData && (
         <ImmediateFeedbackModal
-          currentCase={feedbackData.caseData}
-          selectedOption={feedbackData.selectedOption}
-          labOrderEvaluation={feedbackData.labOrderEvaluation}
-          consultedLibrary={feedbackData.consultedLibrary}
-          scoreEarned={feedbackData.scoreEarned}
-          streak={feedbackData.streak ?? userProgress.streak}
-          newlyUnlockedBadge={feedbackData.newlyUnlockedBadge}
-          dailyBonusApplied={feedbackData.dailyBonusApplied}
-          dailyBonusMultiplier={feedbackData.dailyBonusMultiplier}
-          dailyTimeTakenSeconds={feedbackData.dailyTimeTakenSeconds}
-          onClose={() => {
-            setFeedbackData(null);
-            const isSurveyDone = satisfactionService.hasUserCompletedSurvey();
-            if (!isSurveyDone && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) {
-              setPendingModuleAfterSurvey('desafio');
-              setSurveyGateTriggerReason('cases_milestone');
-              setSatisfactionSurveyOpen(true);
-            }
-          }}
+          currentCase={immediateFeedbackData.caseData}
+          selectedOption={immediateFeedbackData.selectedOption}
+          labOrderEvaluation={immediateFeedbackData.labOrderEvaluation}
+          consultedLibrary={consultedLibraryInChallenge}
+          scoreEarned={immediateFeedbackData.scoreEarned}
+          streak={immediateFeedbackData.streak}
+          dailyBonusApplied={immediateFeedbackData.isDaily}
+          onClose={() => setImmediateFeedbackData(null)}
           onNextCase={handleNextCase}
         />
       )}
 
-      {/* Modal: Badge Unlocked Celebration */}
-      <BadgeUnlockModal
-        badge={newlyUnlockedBadgeForModal}
-        onClose={() => setNewlyUnlockedBadgeForModal(null)}
-        onViewGallery={() => {
-          setNewlyUnlockedBadgeForModal(null);
-          setActiveModule('estadisticas');
-        }}
-      />
-
-      {/* Modal: AI Case Generator */}
-      <AICaseGeneratorModal
-        isOpen={aiCaseModalOpen}
-        onClose={() => setAiCaseModalOpen(false)}
-        onCaseGenerated={handleCaseGeneratedByAI}
-      />
-
-      {/* Modal: Guardia Over / Game Over */}
+      {/* Guardia Over / Budget Exhausted Modal */}
       <GuardiaOverModal
-        isOpen={isGuardiaOver}
-        onRestartGuardia={handleResetGuardia}
+        isOpen={guardiaOverModalOpen}
+        onRestartGuardia={() => {
+          setUserProgress((prev) => ({ ...prev, budget: 5000, lives: 3 }));
+          setGuardiaOverModalOpen(false);
+        }}
         onGoToGames={() => {
-          setIsGuardiaOver(false);
+          setGuardiaOverModalOpen(false);
           setActiveModule('juegos');
         }}
       />
 
-      {/* Guided Onboarding Tour with react-joyride */}
+      {/* Onboarding Joyride Tour */}
       <OnboardingTour
         run={runTour}
-        onFinishTour={handleFinishTour}
+        onFinishTour={() => setRunTour(false)}
       />
 
-      {/* Auth Modal for Supabase Student Login / Register */}
+      {/* Badge Unlock Celebration Modal */}
+      <BadgeUnlockModal
+        badge={newlyUnlockedBadge}
+        onClose={() => setNewlyUnlockedBadge(null)}
+        onViewGallery={() => {
+          setNewlyUnlockedBadge(null);
+          setActiveModule('estadisticas');
+        }}
+      />
+
+      {/* Auth Modal */}
       <AuthModal
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
       />
 
-      {/* Student Satisfaction Survey Modal */}
-      <SatisfactionSurveyModal
-        isOpen={satisfactionSurveyOpen}
-        gateReason={surveyGateTriggerReason}
-        onClose={() => {
-          setSatisfactionSurveyOpen(false);
-          // If closed without completing and this was a gate, reset to safe module if current is locked
-          if (surveyGateTriggerReason !== 'none' && !satisfactionService.hasUserCompletedSurvey()) {
-            if (
-              activeModule === 'juegos' ||
-              (activeModule === 'desafio' && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY) ||
-              (activeModule === 'reto-diario' && userProgress.casesAttempted >= MAX_FREE_CASES_BEFORE_SURVEY)
-            ) {
-              setActiveModule('inicio');
-            }
-          }
-          setSurveyGateTriggerReason('none');
-          setPendingModuleAfterSurvey(null);
+      {/* AI Case Generator Modal */}
+      <AICaseGeneratorModal
+        isOpen={aiCaseModalOpen}
+        onClose={() => setAiCaseModalOpen(false)}
+        onCaseGenerated={(newCase) => {
+          setAiCaseModalOpen(false);
+          handleStartChallenge(newCase);
         }}
-        onCompletedGate={() => {
-          const target = pendingModuleAfterSurvey;
-          setSurveyGateTriggerReason('none');
-          setPendingModuleAfterSurvey(null);
-          setSatisfactionSurveyOpen(false);
-          if (target) {
-            setActiveModule(target);
-          }
-        }}
-        onRewardUser={(xp, budget) => {
-          handleAddBonusXP(xp);
-          handleEarnBudget(budget);
-        }}
-        onOpenMetrics={() => setSatisfactionMetricsOpen(true)}
       />
 
-      {/* Student Satisfaction & Quality Metrics Modal */}
+      {/* Student Satisfaction & SUS Survey Modal */}
+      <SatisfactionSurveyModal
+        isOpen={satisfactionSurveyOpen}
+        onClose={() => setSatisfactionSurveyOpen(false)}
+        onSurveySubmitted={() => {
+          setHasCompletedSurvey(true);
+        }}
+      />
+
+      {/* Teaching Metrics & Quality Modal (For Professors) */}
       <SatisfactionMetricsModal
         isOpen={satisfactionMetricsOpen}
         onClose={() => setSatisfactionMetricsOpen(false)}
-        onOpenSurvey={() => setSatisfactionSurveyOpen(true)}
+        onOpenSurvey={() => {
+          setSatisfactionMetricsOpen(false);
+          setSatisfactionSurveyOpen(true);
+        }}
         visitorCount={visitorStats.totalVisits}
-        onResetStats={() => setVisitorStats({ totalVisits: 0, isLive: true })}
       />
     </div>
   );
-}
+};
+
+export default App;

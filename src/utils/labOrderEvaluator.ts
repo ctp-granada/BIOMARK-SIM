@@ -192,6 +192,13 @@ export const evaluateLabOrder = (
   }
 
   return {
+    isOptimal: isFullyCorrect,
+    score: accuracyScore,
+    orderedCount: orderedBiomarkerIds.length,
+    costTotal: totalBudgetCost,
+    overRequestedCount: redundant.length,
+    underRequestedCount: missingEssential.length,
+    feedback: [clinicalSummary],
     isFullyCorrect,
     isPartiallyCorrect,
     accuracyScore,

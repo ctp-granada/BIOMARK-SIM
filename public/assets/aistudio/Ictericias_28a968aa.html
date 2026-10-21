@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Clínico Interactivo de Ictericias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f1f5f9;
+        }
+       .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 4px rgba(0,0,0,0.2);
+        }
+       .slider-thumb::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 4px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="bg-indigo-950 text-white shadow-md border-b border-indigo-900 sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-indigo-600 text-white p-2 rounded-lg font-bold text-xl shadow-inner">
+                    🩺
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">CLINICAL SIMULATOR</h1>
+                    <p class="text-xs text-indigo-300">Diagnóstico Diferencial del Síndrome Ictérico</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-300">Perfil del Paciente:</span>
+                <div class="inline-flex rounded-lg p-0.5 bg-indigo-900 border border-indigo-800">
+                    <button id="btn-adult" onclick="setProfile('adult')" class="px-3 py-1.5 rounded-md text-xs font-bold transition-all bg-indigo-600 text-white shadow">
+                        Adulto
+                    </button>
+                    <button id="btn-neonatal" onclick="setProfile('neonatal')" class="px-3 py-1.5 rounded-md text-xs font-bold transition-all text-indigo-300 hover:text-white">
+                        Neonato
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-7xl">
+        
+        <section class="lg:col-span-5 flex flex-col gap-6">
+            
+            <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200">
+                <h2 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                    🎯 Casos Clínicos de Referencia (Presets)
+                </h2>
+                <div id="presets-container" class="grid grid-cols-2 gap-2">
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200 flex flex-col gap-5">
+                <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between border-b pb-3 border-slate-100">
+                    <span>🧪 Analítica de Sangre</span>
+                    <button onclick="resetSliders()" class="text-xs text-indigo-600 hover:text-indigo-800 font-bold transition-colors">
+                        Restablecer
+                    </button>
+                </h3>
+
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="font-semibold text-slate-700">Bilirrubina Total (BT)</span>
+                        <span class="font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded" id="val-bt">1.0 mg/dL</span>
+                    </div>
+                    <input type="range" id="slide-bt" min="0.1" max="30" step="0.1" value="1.0" oninput="onBTInput(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider-thumb">
+                    <span class="text-[10px] text-slate-400">Rango normal: 0.2 - 1.2 mg/dL</span>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="font-semibold text-slate-700">Bilirrubina Directa / Conjugada (BD)</span>
+                        <span class="font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded" id="val-bd">0.2 mg/dL</span>
+                    </div>
+                    <input type="range" id="slide-bd" min="0.0" max="30" step="0.1" value="0.2" oninput="onBDInput(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider-thumb">
+                    <span class="text-[10px] text-slate-400">Rango normal: 0.0 - 0.3 mg/dL</span>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="font-semibold text-slate-700">AST / TGO</span>
+                        <span class="font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded" id="val-ast">25 U/L</span>
+                    </div>
+                    <input type="range" id="slide-ast" min="10" max="2000" step="10" value="25" oninput="onASTInput(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider-thumb">
+                    <span class="text-[10px] text-slate-400">Rango normal: 0 - 40 U/L</span>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="font-semibold text-slate-700">ALT / TGP</span>
+                        <span class="font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded" id="val-alt">20 U/L</span>
+                    </div>
+                    <input type="range" id="slide-alt" min="10" max="2000" step="10" value="20" oninput="onALTInput(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider-thumb">
+                    <span class="text-[10px] text-slate-400">Rango normal: 0 - 41 U/L</span>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="font-semibold text-slate-700">Fosfatasa Alcalina (FA)</span>
+                        <span class="font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded" id="val-alp">80 U/L</span>
+                    </div>
+                    <input type="range" id="slide-alp" min="30" max="1000" step="10" value="80" oninput="onALPInput(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider-thumb">
+                    <span class="text-[10px] text-slate-400">Rango normal: 30 - 120 U/L (Varía en niños)</span>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="font-semibold text-slate-700">Gamma-Glutamil Transferasa (GGT)</span>
+                        <span class="font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded" id="val-ggt">25 U/L</span>
+                    </div>
+                    <input type="range" id="slide-ggt" min="5" max="800" step="5" value="25" oninput="onGGTInput(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider-thumb">
+                    <span class="text-[10px] text-slate-400">Rango normal: 5 - 61 U/L</span>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="font-semibold text-slate-700">Albúmina Sérica</span>
+                        <span class="font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded" id="val-alb">4.2 g/dL</span>
+                    </div>
+                    <input type="range" id="slide-alb" min="1.0" max="5.5" step="0.1" value="4.2" oninput="onAlbInput(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider-thumb">
+                    <span class="text-[10px] text-slate-400">Rango normal: 3.5 - 5.2 g/dL</span>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="font-semibold text-slate-700">INR (Tiempo de Protrombina)</span>
+                        <span class="font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded" id="val-inr">1.0</span>
+                    </div>
+                    <input type="range" id="slide-inr" min="0.8" max="6.0" step="0.1" value="1.0" oninput="onINRInput(this.value)" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider-thumb">
+                    <span class="text-[10px] text-slate-400">Rango normal: 0.8 - 1.2</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="lg:col-span-7 flex flex-col gap-6">
+            
+            <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200 flex flex-col gap-5">
+                <div class="flex items-center gap-3">
+                    <span class="text-3xl" id="diag-emoji">✅</span>
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Juicio Presuntivo</span>
+                        <h2 class="text-xl font-bold text-indigo-900" id="diag-title">Metabolismo Normal de la Bilirrubina</h2>
+                    </div>
+                </div>
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 text-sm text-slate-600 leading-relaxed" id="diag-desc">
+                    Los valores simulados se encuentran dentro de la normalidad fisiológica de un paciente adulto sano.
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200 flex flex-col justify-between gap-4">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider border-b pb-2 border-slate-100">
+                        💩 Excreción Visual y Tira de Orina
+                    </h3>
+                    
+                    <div class="flex justify-around items-center py-4">
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="relative w-16 h-20 bg-slate-50 border-4 border-slate-300 rounded-b-2xl rounded-t-sm shadow-inner flex items-end overflow-hidden">
+                                <div id="urine-fluid" class="w-full h-1/2 bg-yellow-200 transition-all duration-500"></div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-600">Orina</span>
+                            <span class="text-[10px] text-slate-400 font-semibold" id="urine-text">Pajizo / Normal</span>
+                        </div>
+
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-20 h-20 flex items-center justify-center text-5xl filter transition-all duration-500" id="stool-visual">
+                                💩
+                            </div>
+                            <span class="text-xs font-bold text-slate-600">Heces</span>
+                            <span class="text-[10px] text-slate-400 font-semibold" id="stool-text">Marrón / Normal</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex flex-col gap-1.5 text-xs text-slate-500">
+                        <div class="flex justify-between">
+                            <span class="font-semibold">Bilirrubina en orina:</span>
+                            <span id="strip-bil" class="font-bold text-slate-700">Negativo</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-semibold">Urobilinógeno en orina:</span>
+                            <span id="strip-uro" class="font-bold text-slate-700">Normal (0.1 - 1.0 mg/dL)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200 flex flex-col gap-4">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider border-b pb-2 border-slate-100">
+                        📊 Balance de Fracciones
+                    </h3>
+                    <div class="relative w-full h-44 flex items-center justify-center">
+                        <canvas id="fractionsChart"></canvas>
+                    </div>
+                    <div class="flex justify-between text-xs text-slate-400 font-bold px-2">
+                        <span class="text-yellow-600" id="legend-bi">Indirecta: --%</span>
+                        <span class="text-cyan-600" id="legend-bd">Directa: --%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="neonatal-panel" class="hidden bg-white rounded-2xl shadow-sm p-6 border border-amber-200 bg-amber-50/20 flex flex-col gap-5">
+                <h3 class="text-sm font-black text-amber-800 uppercase tracking-wider flex items-center gap-2">
+                    👶 Evaluación Clínica Neonatal
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-3">
+                        <div class="p-3 bg-white border border-amber-100 rounded-xl">
+                            <span class="text-[10px] font-bold text-amber-500 uppercase">Progresión Cefalocaudal (Kramer)</span>
+                            <h4 class="text-sm font-bold text-slate-800 mt-1" id="kramer-zone">Zona I: Cabeza y Cara</h4>
+                            <p class="text-xs text-slate-500 mt-1" id="kramer-desc">Bilirrubina esperable menor de 5 mg/dL.</p>
+                        </div>
+                        <div class="p-3 bg-white border border-amber-100 rounded-xl">
+                            <span class="text-[10px] font-bold text-amber-500 uppercase">Riesgo de Daño Neurológico</span>
+                            <h4 class="text-sm font-bold text-slate-800 mt-1" id="risk-neuro">Bajo Riesgo de Neurotoxicidad</h4>
+                            <p class="text-xs text-slate-500 mt-1" id="risk-neuro-desc">La bilirrubina está ligada de forma segura a la albúmina.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-amber-100 flex flex-col gap-3">
+                        <div class="flex justify-between items-center border-b pb-2 border-slate-100">
+                            <span class="text-xs font-bold text-slate-700 uppercase">Escala BIND (Puntuación)</span>
+                            <span class="bg-amber-600 text-white font-black text-xs px-2 py-0.5 rounded-full" id="bind-total">Score: 0/9</span>
+                        </div>
+                        
+                        <div class="flex flex-col gap-2 text-xs">
+                            <label class="font-bold text-slate-600">Estado Mental</label>
+                            <select id="bind-mental" onchange="updateNeonatal()" class="w-full p-1.5 border border-slate-200 rounded bg-slate-50 text-slate-700">
+                                <option value="0">0 - Normal</option>
+                                <option value="1">1 - Somnoliento, mala succión</option>
+                                <option value="2">2 - Letargia, irritable, succión pobre</option>
+                                <option value="3">3 - Semicoma, convulsiones, no se alimenta</option>
+                            </select>
+
+                            <label class="font-bold text-slate-600">Tono Muscular</label>
+                            <select id="bind-tone" onchange="updateNeonatal()" class="w-full p-1.5 border border-slate-200 rounded bg-slate-50 text-slate-700">
+                                <option value="0">0 - Normal</option>
+                                <option value="1">1 - Hipotonía leve o moderada</option>
+                                <option value="2">2 - Hipertonía / Hipotonía fluctuante</option>
+                                <option value="3">3 - Retrocolis y opistótonos severos</option>
+                            </select>
+
+                            <label class="font-bold text-slate-600">Patrón de Llanto</label>
+                            <select id="bind-cry" onchange="updateNeonatal()" class="w-full p-1.5 border border-slate-200 rounded bg-slate-50 text-slate-700">
+                                <option value="0">0 - Normal</option>
+                                <option value="1">1 - Tono ligeramente agudo al estimular</option>
+                                <option value="2">2 - Persistentemente chillón e inconsolable</option>
+                                <option value="3">3 - Llanto sibilante, débil o ausente</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-200 flex flex-col gap-3">
+                <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider border-b pb-2 border-slate-100">
+                    💡 Perla Fisiopatológica
+                </h3>
+                <div class="text-xs text-slate-600 leading-relaxed space-y-2" id="clinical-perla">
+                    Para diferenciar si una prolongación del Tiempo de Protrombina (TP) se debe a colestasis obstructiva (mala absorción de vitamina K) o a una insuficiencia hepatocelular grave, se utiliza la **Prueba de Koller** (administración de vitamina K parenteral). Si el TP corrige en 24 horas, el parénquima hepático está sano; de lo contrario, se confirma la pérdida de la función de síntesis celular.
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-500 py-6 text-center text-xs border-t border-slate-800 mt-8">
+        <div class="container mx-auto px-6">
+            <p>© 2026 Clinical Data Hub. Desarrollado como recurso didáctico interactivo para medicina y fisiopatología.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentProfile = 'adult';
+        let chartInstance = null;
+
+        // Declaración corregida de los presets clínicos de referencia
+        const presets = {
+            adult: [
+                { name: "Normalidad Fisiológica", bt: 0.8, bd: 0.2, ast: 25, alt: 20, alp: 80, ggt: 25, alb: 4.2, inr: 1.0 },
+                { name: "S. Gilbert (Benigno Indirecto)", bt: 2.8, bd: 0.2, ast: 25, alt: 20, alp: 75, ggt: 20, alb: 4.3, inr: 1.0 },
+                { name: "Anemia Hemolítica (Prehepática)", bt: 5.5, bd: 0.4, ast: 45, alt: 35, alp: 90, ggt: 30, alb: 4.0, inr: 1.0 },
+                { name: "Hepatitis Viral Aguda (Hepática)", bt: 12.0, bd: 6.5, ast: 1250, alt: 1450, alp: 180, ggt: 110, alb: 3.8, inr: 1.1 },
+                { name: "Falla Hepática Fulminante", bt: 18.0, bd: 9.0, ast: 1850, alt: 2100, alp: 190, ggt: 130, alb: 2.4, inr: 3.2 },
+                { name: "Coledocolitiasis (Obstrucción)", bt: 14.5, bd: 11.2, ast: 120, alt: 95, alp: 480, ggt: 320, alb: 4.1, inr: 1.1 },
+                { name: "Cáncer Páncreas (Colestasis)", bt: 22.0, bd: 17.5, ast: 140, alt: 110, alp: 620, ggt: 480, alb: 3.1, inr: 1.4 },
+                { name: "Síndrome Dubin-Johnson", bt: 4.2, bd: 3.1, ast: 25, alt: 22, alp: 85, ggt: 25, alb: 4.1, inr: 1.0 }
+            ],
+            neonatal: [
+                { name: "Fisiológica Neonatal (Normal)", bt: 6.0, bd: 0.3, ast: 30, alt: 25, alp: 120, ggt: 40, alb: 3.5, inr: 1.0 },
+                { name: "Hemólisis por Incompatibilidad", bt: 16.5, bd: 0.5, ast: 60, alt: 45, alp: 140, ggt: 45, alb: 3.2, inr: 1.1 },
+                { name: "Hiperbilirrubinemia Crítica", bt: 24.5, bd: 0.8, ast: 70, alt: 50, alp: 150, ggt: 50, alb: 3.0, inr: 1.1 },
+                { name: "Atresia de Vías Biliares", bt: 12.5, bd: 8.2, ast: 180, alt: 160, alp: 550, ggt: 290, alb: 3.2, inr: 1.2 }
+            ]
+        };
+
+        function setProfile(profile) {
+            currentProfile = profile;
+            
+            const btnAdult = document.getElementById('btn-adult');
+            const btnNeo = document.getElementById('btn-neonatal');
+            const neoPanel = document.getElementById('neonatal-panel');
+
+            if (profile === 'adult') {
+                btnAdult.className = "px-3 py-1.5 rounded-md text-xs font-bold transition-all bg-indigo-600 text-white shadow";
+                btnNeo.className = "px-3 py-1.5 rounded-md text-xs font-bold transition-all text-indigo-300 hover:text-white";
+                neoPanel.classList.add('hidden');
+            } else {
+                btnNeo.className = "px-3 py-1.5 rounded-md text-xs font-bold transition-all bg-indigo-600 text-white shadow";
+                btnAdult.className = "px-3 py-1.5 rounded-md text-xs font-bold transition-all text-indigo-300 hover:text-white";
+                neoPanel.classList.remove('hidden');
+            }
+
+            renderPresets();
+            applyPreset(0);
+        }
+
+        function renderPresets() {
+            const container = document.getElementById('presets-container');
+            container.innerHTML = '';
+            
+            presets[currentProfile].forEach((preset, index) => {
+                const btn = document.createElement('button');
+                btn.className = "px-3 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-left truncate transition-all";
+                btn.textContent = preset.name;
+                btn.onclick = () => applyPreset(index);
+                container.appendChild(btn);
+            });
+        }
+
+        function applyPreset(index) {
+            const data = presets[currentProfile][index];
+            
+            document.getElementById('slide-bt').value = data.bt;
+            document.getElementById('slide-bd').value = data.bd;
+            document.getElementById('slide-ast').value = data.ast;
+            document.getElementById('slide-alt').value = data.alt;
+            document.getElementById('slide-alp').value = data.alp;
+            document.getElementById('slide-ggt').value = data.ggt;
+            document.getElementById('slide-alb').value = data.alb;
+            document.getElementById('slide-inr').value = data.inr;
+
+            if (currentProfile === 'neonatal') {
+                document.getElementById('bind-mental').value = "0";
+                document.getElementById('bind-tone').value = "0";
+                document.getElementById('bind-cry').value = "0";
+            }
+
+            updateAll();
+        }
+
+        function resetSliders() {
+            applyPreset(0);
+        }
+
+        function onBTInput(v) {
+            document.getElementById('val-bt').textContent = parseFloat(v).toFixed(1) + " mg/dL";
+            const slideBD = document.getElementById('slide-bd');
+            if (parseFloat(slideBD.value) > parseFloat(v)) {
+                slideBD.value = v;
+                document.getElementById('val-bd').textContent = parseFloat(v).toFixed(1) + " mg/dL";
+            }
+            updateAll();
+        }
+
+        function onBDInput(v) {
+            const bt = parseFloat(document.getElementById('slide-bt').value);
+            if (parseFloat(v) > bt) {
+                document.getElementById('slide-bt').value = v;
+                document.getElementById('val-bt').textContent = parseFloat(v).toFixed(1) + " mg/dL";
+            }
+            document.getElementById('val-bd').textContent = parseFloat(v).toFixed(1) + " mg/dL";
+            updateAll();
+        }
+
+        function onASTInput(v) { document.getElementById('val-ast').textContent = v + " U/L"; updateAll(); }
+        function onALTInput(v) { document.getElementById('val-alt').textContent = v + " U/L"; updateAll(); }
+        function onALPInput(v) { document.getElementById('val-alp').textContent = v + " U/L"; updateAll(); }
+        function onGGTInput(v) { document.getElementById('val-ggt').textContent = v + " U/L"; updateAll(); }
+        function onAlbInput(v) { document.getElementById('val-alb').textContent = parseFloat(v).toFixed(1) + " g/dL"; updateAll(); }
+        function onINRInput(v) { document.getElementById('val-inr').textContent = parseFloat(v).toFixed(1); updateAll(); }
+
+        function updateAll() {
+            const bt = parseFloat(document.getElementById('slide-bt').value);
+            const bd = parseFloat(document.getElementById('slide-bd').value);
+            const ast = parseInt(document.getElementById('slide-ast').value);
+            const alt = parseInt(document.getElementById('slide-alt').value);
+            const alp = parseInt(document.getElementById('slide-alp').value);
+            const ggt = parseInt(document.getElementById('slide-ggt').value);
+            const alb = parseFloat(document.getElementById('slide-alb').value);
+            const inr = parseFloat(document.getElementById('slide-inr').value);
+
+            const bi = Math.max(0, bt - bd);
+            const ratioBD = bt > 0? (bd / bt) * 100 : 0;
+            const ratioBI = 100 - ratioBD;
+
+            document.getElementById('legend-bi').textContent = `Indirecta: ${ratioBI.toFixed(0)}%`;
+            document.getElementById('legend-bd').textContent = `Directa: ${ratioBD.toFixed(0)}%`;
+
+            diagnose(bt, bd, bi, ratioBD, ast, alt, alp, ggt, alb, inr);
+            updateChart(ratioBI, ratioBD);
+
+            if (currentProfile === 'neonatal') {
+                updateNeonatal();
+            }
+        }
+
+        function diagnose(bt, bd, bi, ratioBD, ast, alt, alp, ggt, alb, inr) {
+            let emoji = '✅';
+            let title = 'Metabolismo Normal';
+            let desc = '';
+            let perla = '';
+            
+            let urineColor = 'bg-yellow-200';
+            let urineText = 'Normal';
+            let stoolEmoji = '💩';
+            let stoolText = 'Normal (Marrón)';
+            
+            let stripBil = 'Negativo';
+            let stripUro = 'Normal (0.1 - 1.0 mg/dL)';
+
+            if (bt <= 1.2) {
+                emoji = '✅';
+                title = currentProfile === 'adult'? 'Metabolismo Normal de la Bilirrubina' : 'Neonato con Bilirrubina Normal';
+                desc = 'Los parámetros se encuentran dentro de los rangos fisiológicos óptimos en sangre, orina y materias fecales.';
+                perla = 'La bilirrubina sérica normal en un adulto es inferior a 1.2 mg/dL. La ictericia es clínicamente visible solo cuando las cifras superan los 2.0 a 2.5 mg/dL, manifestándose primero en las escleróticas debido a su alta afinidad por la elastina.';
+            } else {
+                emoji = '🟡';
+                
+                if (ratioBD < 20) {
+                    if (alt <= 80 && ast <= 80 && alp <= 150) {
+                        if (bt < 4.0 && currentProfile === 'adult') {
+                            title = 'Síndrome de Gilbert Presuntivo';
+                            desc = 'Hiperbilirrubinemia indirecta leve y aislada. Condición de herencia autosómica recesiva caracterizada por una reducción (~30%) de la enzima UGT1A1. Es totalmente benigna y asintomática.';
+                            perla = 'En el Síndrome de Gilbert no existe anemia ni reticulocitosis. Los niveles normales de transaminasas descartan daño celular primario. La ictericia se puede exacerbar por el ayuno, estrés o deshidratación.';
+                        } else if (bt > 5.0 && currentProfile === 'adult') {
+                            title = 'Síndrome de Crigler-Najjar (Tipo I o II)';
+                            desc = 'Hereditario y muy infrecuente. Caracterizado por un déficit severo (Tipo II, fenobarbital sensible) o abolición total (Tipo I, alto riesgo de kernícterus) de la actividad conjugadora de la UGT1A1.';
+                            perla = 'El tipo I no responde al fenobarbital y el tratamiento de mantenimiento requiere fototerapia prolongada de por vida o trasplante de hígado de emergencia.';
+                        } else {
+                            title = 'Ictericia Prehepática (Hemólisis)';
+                            desc = 'Elevación de bilirrubina libre debido a la destrucción masiva de eritrocitos (como en anemias hemolíticas, esferocitosis o incompatibilidad Rh). Supera la capacidad máxima del hígado.';
+                            perla = 'Al ser insoluble en agua y transportarse unida a albúmina, la bilirrubina no conjugada no puede ser filtrada por el glomérulo. La tira urinaria dará negativo para bilirrubina.';
+                        }
+                    } else {
+                        title = 'Ictericia Prehepática con Estrés Hepático';
+                        desc = 'La elevación de bilirrubina indirecta coexiste con aumentos leves o moderados de transaminasas por congestión o hipoxia tisular.';
+                    }
+                    
+                    urineColor = 'bg-yellow-300';
+                    urineText = 'Amarillo Intenso';
+                    stoolEmoji = '💩';
+                    stoolText = 'Pleiocromía Fecal (Muy Oscuro)';
+                    stripBil = 'Negativo';
+                    stripUro = 'ELEVADO (> 3.0 mg/dL)';
+                }
+                else if (ratioBD >= 20 && (alt > 150 || ast > 150)) {
+                    emoji = '🟠';
+                    title = 'Ictericia Hepática (Daño Hepatocelular)';
+                    desc = 'El daño celular (lisis de hepatocitos) compromete todas las fases de la bilirrubina (captación, conjugación y excreción). Causado clásicamente por hepatitis agudas (virales o medicamentosas) o cirrosis.';
+                    perla = 'Las transaminasas elevadas en miles sugieren daño hepatocelular agudo (isquemia, tóxicos como paracetamol). Una relación AST/ALT mayor de 2 es común en hepatitis alcohólica.';
+
+                    if (inr >= 1.5 && alb < 3.0) {
+                        emoji = '🚨';
+                        title = 'Insuficiencia Hepática / Falla Hepática';
+                        desc += ' El INR prolongado y la albúmina disminuida confirman la pérdida verdadera de la capacidad de síntesis biológica del hígado. Requiere manejo de cuidados intensivos.';
+                    }
+
+                    urineColor = 'bg-amber-800';
+                    urineText = 'Coluria (Color Té)';
+                    stoolEmoji = '💩';
+                    stoolText = 'Normal / Ligeramente Pálido';
+                    stripBil = 'Positivo (++)';
+                    stripUro = 'Moderadamente Elevado';
+                }
+                else if (ratioBD >= 50 && alp > 250 && ggt > 120) {
+                    emoji = '🔴';
+                    title = 'Ictericia Posthepática (Obstructiva / Colestasis)';
+                    desc = 'Interrupción del flujo biliar por un obstáculo físico (cálculos en el colédoco, tumores de páncreas o de la vía biliar). La bilirrubina conjugada refluye de forma masiva al torrente sinusoidal.';
+                    perla = 'La colestasis extrahepática prolongada se asocia con prurito intenso debido a la acumulación de ácidos biliares en el tejido cutáneo, requiriendo de descompresión quirúrgica o endoscópica.';
+
+                    urineColor = 'bg-amber-950';
+                    urineText = 'Coluria Intensa (Cola)';
+                    stoolEmoji = '⚪';
+                    stoolText = 'Acolia Completa (Heces Blancas)';
+                    stripBil = 'Positivo (+++)';
+                    stripUro = 'AUSENTE (0.0 mg/dL)';
+                }
+                else if (ratioBD >= 50 && alt <= 80 && ast <= 80) {
+                    title = 'Síndrome de Dubin-Johnson / Rotor';
+                    desc = 'Condiciones benignas hereditarias asociadas a la elevación de bilirrubina directa por fallas de transportadores de excreción apical (MRP2 en Dubin-Johnson) o recaptación basolateral (OATP1B en Rotor).';
+                    perla = 'El síndrome de Dubin-Johnson tiñe el hígado de negro de forma característica por depósitos de tipo lipofuscina, mientras que la histología de Rotor es completamente normal.';
+                    
+                    urineColor = 'bg-amber-700';
+                    urineText = 'Coluria Moderada';
+                    stripBil = 'Positivo (+)';
+                    stripUro = 'Disminuido o Normal';
+                }
+                else {
+                    title = 'Patrón de Ictericia Mixta';
+                    desc = 'Coexisten alteraciones mixtas de la analítica. Puede ser debida a una colestasis intrahepática o daño hepatocelular en fase de recuperación.';
+                }
+            }
+
+            const urineFluid = document.getElementById('urine-fluid');
+            urineFluid.className = `w-full transition-all duration-500 ${urineColor}`;
+            if (urineColor === 'bg-yellow-200') urineFluid.style.height = "30%";
+            else if (urineColor === 'bg-yellow-300') urineFluid.style.height = "50%";
+            else urineFluid.style.height = "85%";
+
+            document.getElementById('urine-text').textContent = urineText;
+            
+            const stoolVis = document.getElementById('stool-visual');
+            stoolVis.textContent = stoolEmoji;
+            if (stoolEmoji === '⚪') {
+                stoolVis.className = "w-20 h-20 flex items-center justify-center text-5xl filter brightness-100 transition-all duration-500 bg-slate-200 rounded-full border border-slate-300 shadow-inner";
+            } else {
+                stoolVis.className = "w-20 h-20 flex items-center justify-center text-5xl filter transition-all duration-500";
+                if (stoolText.includes('Pleiocromía')) {
+                    stoolVis.style.filter = "brightness(40%)";
+                } else {
+                    stoolVis.style.filter = "brightness(100%)";
+                }
+            }
+            document.getElementById('stool-text').textContent = stoolText;
+
+            document.getElementById('strip-bil').textContent = stripBil;
+            document.getElementById('strip-uro').textContent = stripUro;
+            if (stripBil.includes('Positivo')) {
+                document.getElementById('strip-bil').className = "font-bold text-amber-700";
+            } else {
+                document.getElementById('strip-bil').className = "font-bold text-slate-700";
+            }
+            if (stripUro.includes('AUSENTE')) {
+                document.getElementById('strip-uro').className = "font-bold text-red-600";
+            } else if (stripUro.includes('ELEVADO')) {
+                document.getElementById('strip-uro').className = "font-bold text-yellow-600";
+            } else {
+                document.getElementById('strip-uro').className = "font-bold text-slate-700";
+            }
+
+            document.getElementById('diag-emoji').textContent = emoji;
+            document.getElementById('diag-title').textContent = title;
+            document.getElementById('diag-desc').textContent = desc;
+            document.getElementById('clinical-perla').textContent = perla;
+        }
+
+        function updateNeonatal() {
+            const bt = parseFloat(document.getElementById('slide-bt').value);
+            const bd = parseFloat(document.getElementById('slide-bd').value);
+            
+            let zone = 'Zona I';
+            let zoneDesc = 'Limitada a cara y cabeza. Bilirrubina esperable menor de 5 mg/dL.';
+            if (bt >= 5 && bt <= 12) {
+                zone = 'Zona II';
+                zoneDesc = 'Tronco superior (hasta el ombligo). Bilirrubina esperable de 5 a 12 mg/dL.';
+            } else if (bt > 12 && bt <= 15) {
+                zone = 'Zona III';
+                zoneDesc = 'Abdomen inferior y rodillas. Bilirrubina esperable de 8 a 16 mg/dL.';
+            } else if (bt > 15 && bt <= 18) {
+                zone = 'Zona IV';
+                zoneDesc = 'Porción proximal de extremidades. Bilirrubina esperable de 10 a 18 mg/dL.';
+            } else if (bt > 18) {
+                zone = 'Zona V';
+                zoneDesc = 'Afectación distal completa (palmas y plantas). Bilirrubina esperable mayor de 15 mg/dL.';
+            }
+            document.getElementById('kramer-zone').textContent = zone;
+            document.getElementById('kramer-desc').textContent = zoneDesc;
+
+            let risk = 'Bajo Riesgo de Neurotoxicidad';
+            let riskDesc = 'La bilirrubina está unida de forma segura a la albúmina sérica.';
+            if (bt > 15 && bt < 20) {
+                risk = 'Riesgo Intermedio / Indicación de Fototerapia';
+                riskDesc = 'La BNC libre puede aumentar. Se requiere fototerapia para evitar el depósito tisular.';
+            } else if (bt >= 20) {
+                risk = 'Alto Riesgo de Kernícterus';
+                riskDesc = 'La BNC supera la albúmina, pudiendo atravesar la barrera hematoencefálica desprovista de mielina.';
+            }
+            document.getElementById('risk-neuro').textContent = risk;
+            document.getElementById('risk-neuro-desc').textContent = riskDesc;
+            
+            if (bt >= 20) {
+                document.getElementById('risk-neuro').className = "text-sm font-bold text-red-600 mt-1 animate-pulse";
+            } else if (bt > 15) {
+                document.getElementById('risk-neuro').className = "text-sm font-bold text-amber-600 mt-1";
+            } else {
+                document.getElementById('risk-neuro').className = "text-sm font-bold text-slate-800 mt-1";
+            }
+
+            const mental = parseInt(document.getElementById('bind-mental').value);
+            const tone = parseInt(document.getElementById('bind-tone').value);
+            const cry = parseInt(document.getElementById('bind-cry').value);
+            const total = mental + tone + cry;
+
+            document.getElementById('bind-total').textContent = `Score: ${total}/9`;
+            if (total >= 7) {
+                document.getElementById('bind-total').className = "bg-red-600 text-white font-black text-xs px-2 py-0.5 rounded-full animate-bounce";
+            } else if (total >= 4) {
+                document.getElementById('bind-total').className = "bg-amber-600 text-white font-black text-xs px-2 py-0.5 rounded-full";
+            } else if (total > 0) {
+                document.getElementById('bind-total').className = "bg-yellow-500 text-white font-black text-xs px-2 py-0.5 rounded-full";
+            } else {
+                document.getElementById('bind-total').className = "bg-slate-500 text-white font-black text-xs px-2 py-0.5 rounded-full";
+            }
+        }
+
+        function updateChart(indirect, direct) {
+            const ctx = document.getElementById('fractionsChart').getContext('2d');
+            
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Indirecta', 'Directa'],
+                    datasets: [{
+                        data: [indirect, direct],
+                        backgroundColor: ['#eab308', '#06b6d4'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw.toFixed(0)}%`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+
+        window.onload = function() {
+            setProfile('adult');
+        };
+    </script>
+</body>
+</html>

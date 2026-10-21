@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemostasia y Coagulación: Plataforma Interactiva de Bioquímica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .pulse-slow { animation: pulseSlow 4s infinite ease-in-out; }
+        @keyframes pulseSlow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+
+        .factor-node {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .active-factor {
+            background-color: #be123c !important; /* rose-700 */
+            color: white !important;
+            border-color: #f43f5e !important;
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.6);
+            transform: scale(1.08);
+        }
+
+        .active-connector {
+            background-color: #f43f5e !important;
+            box-shadow: 0 0 8px rgba(244, 63, 94, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased overflow-x-hidden hide-scroll">
+
+    <!-- Chosen Palette: Warm Neutrals & Crimson Accents (bg-stone-50, text-stone-800, bg-rose-700, text-rose-800, bg-teal-700) -->
+    
+    <!-- Application Structure Plan: 
+         Esta versión integra todo el contenido científico de forma estructurada mediante un menú superior de navegación rápida y pestañas adaptativas. 
+         Se divide en 5 grandes bloques temáticos:
+         1. Fundamentos y Pared Vascular (Hemostasia vs Trombosis, Vasoconstricción y Factores Endoteliales).
+         2. Tríada de Virchow (Los tres determinantes del riesgo trombótico patológico).
+         3. La Plaqueta (Glicoproteínas de membrana, Gránulos alfa y densos con gráficos y Patologías asociadas).
+         4. Señalización Molecular (PLC, Receptores ADP, Calcio y el balance del AMPc).
+         5. Simulador de Coagulación (Animación de las vías extrínseca e intrínseca, factores de contacto, cininógeno y precalicreína).
+    -->
+    
+    <!-- Visualization & Content Choices:
+         - Hemostasia vs Trombosis: Tarjetas comparativas con códigos de color lógicos (Teal para fisiológico, Rose para patológico).
+         - Tríada de Virchow: Grafo triangular interactivo con selección de nodos.
+         - Gránulos: Gráfico de dona (Doughnut) de Chart.js integrado de forma responsiva.
+         - Receptores y Señalización: Simulador interactivo de estado de activación celular (Estado Reposo / Estado Activado) que demuestra cómo cambia el AMPc y el Calcio intracelular.
+         - Cascada de Coagulación: Mapa de flujo interactivo animado paso a paso para evitar el uso de Mermaid.
+    -->
+    
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="fixed top-0 left-0 w-full bg-white border-b border-stone-200 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <span class="text-3xl">🩸</span>
+                    <div>
+                        <span class="font-black text-rose-800 text-lg tracking-tight uppercase block leading-none">Hemostasia & Coagulación</span>
+                        <span class="text-[10px] text-stone-500 font-semibold tracking-wider uppercase">Plataforma Médica Interactiva</span>
+                    </div>
+                </div>
+                <div class="hidden lg:flex space-x-6 items-center">
+                    <button onclick="scrollToSection('fundamentos')" class="text-stone-600 hover:text-rose-800 px-3 py-2 text-sm font-semibold transition-colors">Vaso & Endotelio</button>
+                    <button onclick="scrollToSection('virchow')" class="text-stone-600 hover:text-rose-800 px-3 py-2 text-sm font-semibold transition-colors">Tríada de Virchow</button>
+                    <button onclick="scrollToSection('plaqueta')" class="text-stone-600 hover:text-rose-800 px-3 py-2 text-sm font-semibold transition-colors">Anatomía Plaquetaria</button>
+                    <button onclick="scrollToSection('senalizacion')" class="text-stone-600 hover:text-rose-800 px-3 py-2 text-sm font-semibold transition-colors">Señalización (PLC/AMPc)</button>
+                    <button onclick="scrollToSection('cascada-coag')" class="bg-rose-700 hover:bg-rose-800 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-sm transition-colors">Simulador de Coagulación</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
+
+        <!-- INTRODUCCIÓN Y CONTEXTO -->
+        <header class="text-center max-w-3xl mx-auto space-y-4 fade-in">
+            <div class="inline-block bg-rose-100 text-rose-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">Bioquímica Médica Fisiopatológica</div>
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-stone-900 tracking-tight">El Equilibrio Sangre-Vaso</h1>
+            <p class="text-lg text-stone-600 leading-relaxed">
+                Estudio sistemático de los mecanismos moleculares que mantienen la fluidez de la sangre o detienen su salida ante una brecha mecánica en la vasculatura.
+            </p>
+        </header>
+
+        <!-- SECCIÓN 1: FUNDAMENTOS Y FISIOLOGÍA VASCULAR -->
+        <section id="fundamentos" class="scroll-mt-24 pt-4 fade-in">
+            <div class="border-b border-stone-200 pb-4 mb-6">
+                <h2 class="text-3xl font-bold text-stone-900">1. Fundamentos de la Pared Vascular</h2>
+                <p class="text-stone-600 mt-1">Diferencias clave entre el estado fisiológico y patológico, y la respuesta refleja de los vasos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-2xl">🛡️</span>
+                        <h3 class="text-xl font-bold text-teal-800">Hemostasia (Fisiológico)</h3>
+                    </div>
+                    <p class="text-stone-600 leading-relaxed text-sm">
+                        La <strong>hemostasia</strong> es el conjunto de mecanismos fisiológicos diseñados para detener la pérdida de sangre tras un daño en los vasos sanguíneos. Es una respuesta rápida, sumamente localizada y regulada de manera precisa. Consiste en la formación de un tapón hemostático temporal en el sitio del daño mecánico.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-2xl">⚠️</span>
+                        <h3 class="text-xl font-bold text-rose-800">Trombosis (Patológico)</h3>
+                    </div>
+                    <p class="text-stone-600 leading-relaxed text-sm">
+                        La <strong>trombosis</strong> es el equivalente patológico de la hemostasia. Ocurre cuando se forma un agregado hemático sólido (trombo) dentro de la luz de un vaso sanguíneo intacto (no lesionado) o cuando se desencadena una respuesta de coagulación desproporcionada ante un daño menor, obstruyendo el flujo sanguíneo tisular.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Vasoconstricción -->
+                <div class="bg-stone-900 text-stone-100 p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs uppercase tracking-wider block mb-2">Respuesta Física Inmediata</span>
+                        <h3 class="text-2xl font-bold mb-4">La Vasoconstricción</h3>
+                        <p class="text-stone-300 text-sm leading-relaxed mb-4">
+                            Ante la ruptura del vaso, la vasoconstricción local reduce instantáneamente el flujo y la pérdida hemática, facilitando que las plaquetas se adhieran a la brecha. Se produce mediante tres mecanismos principales:
+                        </p>
+                        <ul class="space-y-3 text-xs text-stone-300">
+                            <li class="flex items-start gap-2">
+                                <span class="text-rose-400 font-bold">1. Reflejo Miogénico:</span> Contracción automática del músculo liso en respuesta directa al estiramiento o daño.
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-rose-400 font-bold">2. Reflejo Nociceptivo:</span> Impulsos nerviosos locales generados por el dolor.
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-rose-400 font-bold">3. Factores Humorales:</span> Liberación masiva de <strong>Endotelina-1</strong> (por el endotelio dañado) y de <strong>Tromboxano A2 (TXA2)</strong> y Serotonina (por las plaquetas activadas).
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-stone-800 text-stone-400 text-[11px] italic">
+                        La vasoconstricción inicial disminuye el área de sección del vaso, reteniendo temporalmente la sangre en el compartimento intravascular.
+                    </div>
+                </div>
+
+                <!-- Factores Antitrombóticos -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-stone-200">
+                    <span class="text-teal-700 font-bold text-xs uppercase tracking-wider block mb-2">Homeostasis del Vaso Sano</span>
+                    <h3 class="text-2xl font-bold text-stone-900 mb-4">Barreras Antitrombóticas del Endotelio</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                        El endotelio intacto actúa activamente como una superficie antiadhesiva y anticoagulante mediante la secreción y exposición de componentes bioactivos específicos:
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-4 bg-teal-50/50 rounded-xl border border-teal-100">
+                            <h4 class="font-bold text-teal-800 text-sm mb-1">Óxido Nítrico (NO) & Prostaciclina (PGI2)</h4>
+                            <p class="text-stone-600 text-xs">Potentes vasodilatadores e inhibidores fisiológicos directos de la adhesión y agregación de las plaquetas.</p>
+                        </div>
+                        <div class="p-4 bg-teal-50/50 rounded-xl border border-teal-100">
+                            <h4 class="font-bold text-teal-800 text-sm mb-1">Trombomodulina</h4>
+                            <p class="text-stone-600 text-xs">Se une a la trombina y altera su especificidad, permitiéndole activar a la Proteína C para degradar los factores Va y VIIIa.</p>
+                        </div>
+                        <div class="p-4 bg-teal-50/50 rounded-xl border border-teal-100">
+                            <h4 class="font-bold text-teal-800 text-sm mb-1">Moléculas Símil-Heparina</h4>
+                            <p class="text-stone-600 text-xs">Proteoglicanos que se unen a la Antitrombina III circulante y potencian mil veces su capacidad para inactivar la trombina y el factor Xa.</p>
+                        </div>
+                        <div class="p-4 bg-teal-50/50 rounded-xl border border-teal-100">
+                            <h4 class="font-bold text-teal-800 text-sm mb-1">TFPI (Inhibidor de la Vía del FT)</h4>
+                            <p class="text-stone-600 text-xs">Proteína que bloquea de forma directa el complejo enzimático inicial Factor Tisular - Factor VIIa en la vía extrínseca.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: TRÍADA DE VIRCHOW -->
+        <section id="virchow" class="scroll-mt-24 pt-12 border-t border-stone-200">
+            <div class="border-b border-stone-200 pb-4 mb-8">
+                <h2 class="text-3xl font-bold text-stone-900">2. Patología de la Trombosis: Tríada de Virchow</h2>
+                <p class="text-stone-600 mt-1">Los tres pilares postulados por Rudolf Virchow que gobiernan la patogénesis de la formación anormal de coágulos.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <!-- Triángulo Gráfico Interactivo -->
+                <div class="relative w-80 h-80 flex-shrink-0 mx-auto lg:mx-0">
+                    <div class="absolute inset-0 border-[3px] border-stone-300 rounded-lg rotate-45 transform scale-75 opacity-10"></div>
+                    
+                    <button onclick="selectVirchow('lesion')" id="btn-v-lesion" class="absolute -top-4 left-1/2 -translate-x-1/2 w-28 h-28 bg-stone-900 text-white rounded-full flex flex-col items-center justify-center shadow-md hover:scale-105 transition-transform z-10 p-2 text-center">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-rose-400">Pilar I</span>
+                        <span class="text-xs font-bold leading-tight">Lesión Endotelial</span>
+                    </button>
+                    
+                    <button onclick="selectVirchow('flujo')" id="btn-v-flujo" class="absolute -bottom-4 -left-4 w-28 h-28 bg-stone-900 text-white rounded-full flex flex-col items-center justify-center shadow-md hover:scale-105 transition-transform z-10 p-2 text-center">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-blue-400">Pilar II</span>
+                        <span class="text-xs font-bold leading-tight">Flujo de Sangre Anómalo</span>
+                    </button>
+
+                    <button onclick="selectVirchow('hiper')" id="btn-v-hiper" class="absolute -bottom-4 -right-4 w-28 h-28 bg-stone-900 text-white rounded-full flex flex-col items-center justify-center shadow-md hover:scale-105 transition-transform z-10 p-2 text-center">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-amber-400">Pilar III</span>
+                        <span class="text-xs font-bold leading-tight">Hipercoagulabilidad</span>
+                    </button>
+
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="text-rose-800/10 font-extrabold text-5xl tracking-widest uppercase pointer-events-none">TROMBO</span>
+                    </div>
+                </div>
+
+                <!-- Detalles de Selección -->
+                <div class="flex-grow w-full">
+                    <div id="virchow-details" class="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm min-h-[280px] flex flex-col justify-center fade-in">
+                        <div class="text-center text-stone-500">
+                            <span class="text-4xl block mb-2">👆</span>
+                            <p class="font-bold text-stone-700">Explora la Fisiopatología</p>
+                            <p class="text-sm">Selecciona uno de los pilares del triángulo interactivo para desglosar sus mecanismos moleculares y su significación clínica.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: LA PLAQUETA (GLICOPROTEÍNAS, GRÁNULOS Y PATOLOGÍAS) -->
+        <section id="plaqueta" class="scroll-mt-24 pt-12 border-t border-stone-200">
+            <div class="border-b border-stone-200 pb-4 mb-8">
+                <h2 class="text-3xl font-bold text-stone-900">3. Fisiología y Anatomía Plaquetaria</h2>
+                <p class="text-stone-600 mt-1">Análisis detallado de sus receptores de membrana, el contenido interno de sus gránulos y las patologías plaquetarias.</p>
+            </div>
+
+            <!-- Interactivo Plaqueta -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+                <div class="lg:col-span-5 bg-white p-8 rounded-2xl border border-stone-200 flex flex-col items-center justify-center">
+                    <span class="text-stone-400 font-bold text-[10px] uppercase tracking-wider mb-4">Haga clic en las estructuras moleculares</span>
+                    
+                    <div class="relative w-80 h-80 flex-shrink-0">
+                        <!-- Cuerpo de la plaqueta -->
+                        <div class="absolute inset-4 bg-rose-50 border-4 border-rose-300 rounded-[45%] pulse-slow flex items-center justify-center shadow-inner">
+                            <span class="text-rose-300/60 font-black text-2xl uppercase tracking-widest">Citosol</span>
+                        </div>
+
+                        <!-- Hotspots Glicoproteínas -->
+                        <button onclick="selectPlatelet('gp1b')" class="absolute top-2 left-1/4 -translate-x-1/2 bg-blue-600 text-white font-bold text-xs px-2 py-1 rounded-md shadow-md hover:scale-110 transition-transform">GPIb-IX-V</button>
+                        <button onclick="selectPlatelet('gp2b3a')" class="absolute top-1/2 -right-2 bg-teal-600 text-white font-bold text-xs px-2 py-1 rounded-md shadow-md hover:scale-110 transition-transform">GPIIb/IIIa</button>
+                        <button onclick="selectPlatelet('gp1a2a')" class="absolute bottom-4 left-1/3 bg-indigo-600 text-white font-bold text-xs px-2 py-1 rounded-md shadow-md hover:scale-110 transition-transform">GPIa/IIa & GPVI</button>
+
+                        <!-- Hotspots Gránulos -->
+                        <button onclick="selectPlatelet('alfa')" class="absolute top-1/3 left-1/3 bg-stone-300 border border-stone-400 text-stone-700 font-bold text-xs w-12 h-12 rounded-full flex items-center justify-center shadow-inner hover:bg-stone-200 transition-colors">Gránulo α</button>
+                        <button onclick="selectPlatelet('denso')" class="absolute bottom-1/3 right-1/3 bg-stone-800 text-stone-100 font-bold text-xs w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:bg-stone-700 transition-colors">Gránulo δ</button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div id="platelet-details" class="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm h-full flex flex-col justify-center fade-in">
+                        <div class="text-stone-500 text-center">
+                            <span class="text-3xl block mb-2">🔍</span>
+                            <p class="font-bold">Microentorno de la Plaqueta</p>
+                            <p class="text-sm">Haga clic en cualquiera de las glicoproteínas de membrana o gránulos internos para examinar su bioquímica.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráfico de Gránulos y Patologías -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Visualización Bioquímica de Gránulos -->
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-stone-900 mb-2">Composición Molecular de los Gránulos</h3>
+                        <p class="text-xs text-stone-500 mb-4">Los gránulos densos y los gránulos alfa almacenan solutos cruciales para la hemostasia primaria y la coagulación enzimática secundaria.</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="compositionChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Tabla de Patologías -->
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-stone-900 mb-4">Patologías Hemorrágicas Hereditarias</h3>
+                    <div class="space-y-4">
+                        <div class="p-3 bg-stone-50 rounded-xl border-l-4 border-rose-600 text-xs">
+                            <span class="font-bold text-stone-900 text-sm block mb-1">Síndrome de Bernard-Soulier</span>
+                            <p class="text-stone-600">Deficiencia hereditaria de la glicoproteína <strong>GPIb-IX-V</strong>. Provoca macrotrombocitopenia y una incapacidad absoluta de las plaquetas para adherirse al vWF.</p>
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-xl border-l-4 border-rose-600 text-xs">
+                            <span class="font-bold text-stone-900 text-sm block mb-1">Tromboastenia de Glanzmann</span>
+                            <p class="text-stone-600">Defecto congénito cuantitativo o cualitativo del receptor <strong>GPIIb/IIIa</strong>. Las plaquetas se adhieren normalmente pero no pueden unirse al Fibrinógeno, impidiendo la agregación.</p>
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-xl border-l-4 border-rose-600 text-xs">
+                            <span class="font-bold text-stone-900 text-sm block mb-1">Síndrome de la Plaqueta Gris</span>
+                            <p class="text-stone-600">Ausencia congénita selectiva de los <strong>Gránulos Alfa (α)</strong>. Las plaquetas presentan un característico color grisáceo al frotis por falta de tinción y defectos de agregación.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: SEÑALIZACIÓN MOLECULAR -->
+        <section id="senalizacion" class="scroll-mt-24 pt-12 border-t border-stone-200">
+            <div class="border-b border-stone-200 pb-4 mb-8">
+                <h2 class="text-3xl font-bold text-stone-900">4. Vías de Señalización Intracelular y Segundos Mensajeros</h2>
+                <p class="text-stone-600 mt-1">Análisis de la cascada bioquímica plaquetaria gobernada por la Fosfolipasa C, Receptores purinérgicos y el balance de AMPc.</p>
+            </div>
+
+            <!-- Simulador Dinámico de Activación: Reposo vs Activación -->
+            <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm mb-8">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8 border-b border-stone-100 pb-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-stone-900">Simulador de Estado Plaquetario</h3>
+                        <p class="text-xs text-stone-500">Mueva el selector para comparar el microentorno bioquímico de una plaqueta en reposo con el de una activada.</p>
+                    </div>
+                    <!-- Toggle Switch -->
+                    <div class="flex items-center bg-stone-100 p-1.5 rounded-full border border-stone-200">
+                        <button onclick="setPlateletState('reposo')" id="btn-state-reposo" class="px-4 py-2 text-xs font-bold rounded-full transition-all bg-teal-600 text-white shadow-sm">Plaqueta en Reposo</button>
+                        <button onclick="setPlateletState('activado')" id="btn-state-activado" class="px-4 py-2 text-xs font-bold rounded-full transition-all text-stone-600">Plaqueta Activada</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <!-- Caja AMPc -->
+                    <div class="p-6 rounded-xl border border-stone-200 bg-stone-50 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold uppercase text-stone-400 block mb-2">Nivel de AMPc</span>
+                            <span id="txt-state-ampc-val" class="text-3xl font-black text-teal-700 block mb-2">ALTO (Freno)</span>
+                        </div>
+                        <p id="txt-state-ampc-desc" class="text-xs text-stone-600 leading-relaxed mt-2">La Adenilato Ciclasa activa (estimulada por PGI2 endotelial) mantiene niveles de AMPc elevados, activando la PKA, la cual promueve el secuestro de Calcio en el sistema tubular denso.</p>
+                    </div>
+
+                    <!-- Caja Calcio -->
+                    <div class="p-6 rounded-xl border border-stone-200 bg-stone-50 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold uppercase text-stone-400 block mb-2">Calcio Citosólico [Ca²⁺]</span>
+                            <span id="txt-state-calcio-val" class="text-3xl font-black text-stone-400 block mb-2">BAJO (&lt;0.1 µM)</span>
+                        </div>
+                        <p id="txt-state-calcio-desc" class="text-xs text-stone-600 leading-relaxed mt-2">El calcio se mantiene resguardado en los almacenes intracelulares del sistema tubular denso. El citoesqueleto plaquetario está relajado y la forma es discoidal lisa.</p>
+                    </div>
+
+                    <!-- Caja Forma/Cambio -->
+                    <div class="p-6 rounded-xl border border-stone-200 bg-stone-50 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold uppercase text-stone-400 block mb-2">Estado Físico</span>
+                            <span id="txt-state-forma-val" class="text-3xl font-black text-teal-700 block mb-2">DISCO LISO</span>
+                        </div>
+                        <p id="txt-state-forma-desc" class="text-xs text-stone-600 leading-relaxed mt-2">Las integrinas de agregación GPIIb/IIIa mantienen una conformación cerrada e inactiva de baja afinidad por el fibrinógeno. No se produce agregación.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Vía PLC -->
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm text-sm">
+                    <h3 class="text-xl font-bold text-stone-900 mb-4 border-b pb-2">Señalización por Fosfolipasa C (PLC)</h3>
+                    <p class="text-stone-600 leading-relaxed mb-4">
+                        La unión de ligandos de fuerte activación como la <strong>Trombina</strong> (vía receptores PAR1/PAR4) o el <strong>Colágeno</strong> (vía receptor GPVI) activa la subunidad Gq, la cual a su vez moviliza a la enzima efectora de membrana <strong>PLC-β</strong> o <strong>PLC-γ</strong>:
+                    </p>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-stone-50 rounded-lg border-l-4 border-rose-700">
+                            <strong class="text-rose-900 block">Hidrólisis del PIP2:</strong>
+                            La PLC hidroliza de forma directa el fosfatidilinositol 4,5-bifosfato (PIP2) de la membrana para dar origen a dos segundos mensajeros claves: <strong>IP3</strong> y <strong>DAG</strong>.
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-lg border-l-4 border-rose-700">
+                            <strong class="text-rose-900 block">IP3 (Inositol 1,4,5-trifosfato):</strong>
+                            Difunde por el citosol y se une a sus receptores específicos en la membrana del sistema tubular denso (STD), provocando la liberación rápida y masiva de depósitos de <strong>Calcio (Ca²⁺)</strong>.
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-lg border-l-4 border-rose-700">
+                            <strong class="text-rose-900 block">DAG (Diacilglicerol):</strong>
+                            Permanece anclado en la bicapa lipídica de la membrana celular donde recluta y activa, junto con el Calcio, a la <strong>Proteína Quinasa C (PKC)</strong>, que fosforila proteínas promotoras de la degranulación celular.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receptores ADP -->
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm text-sm">
+                    <h3 class="text-xl font-bold text-stone-900 mb-4 border-b pb-2">Receptores Purinérgicos para ADP (P2Y1 y P2Y12)</h3>
+                    <p class="text-stone-600 leading-relaxed mb-4">
+                        El nucleótido ADP segregado por los gránulos densos actúa como un crucial amplificador de retroalimentación a través de dos receptores transmembrana específicos:
+                    </p>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-blue-50/50 rounded-xl border border-blue-100">
+                            <h4 class="font-bold text-blue-900 text-base mb-1">Receptor P2Y1 (Acoplado a Gq)</h4>
+                            <p class="text-stone-600 text-xs">Su estimulación activa la cascada de la PLC, iniciando la primera movilización de calcio. Es el encargado de provocar el cambio conformacional inicial plaquetario (pseudópodos) y el primer amago de agregación.</p>
+                        </div>
+                        <div class="p-4 bg-teal-50/50 rounded-xl border border-teal-100">
+                            <h4 class="font-bold text-teal-900 text-base mb-1">Receptor P2Y12 (Acoplado a Gi)</h4>
+                            <p class="text-stone-600 text-xs">Su estimulación <strong>inhibe a la Adenilato Ciclasa</strong>, disminuyendo la producción interna de AMPc. Esto desbloquea el estado de reposo, consolida la degranulación y estabiliza permanentemente el coágulo plaquetario. Es la diana farmacológica de las tienopiridinas (Clopidogrel, Prasugrel, Ticagrelor).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: CASCADA DE COAGULACIÓN Y SISTEMA DE CONTACTO -->
+        <section id="cascada-coag" class="scroll-mt-24 pt-12 border-t border-stone-200">
+            <div class="border-b border-stone-200 pb-4 mb-8">
+                <h2 class="text-3xl font-bold text-stone-900">5. Bioquímica de la Coagulación (Hemostasia Secundaria)</h2>
+                <p class="text-stone-600 mt-1">Exploración detallada de la cascada enzimática con el sistema de contacto (Cininógeno y Precalicreína) y simulador paso a paso.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="text-amber-600 font-bold text-xs uppercase tracking-wider block mb-1">Fase de Amplificación</span>
+                        <h3 class="text-xl font-bold text-stone-900 mb-3">El Sistema de Contacto</h3>
+                        <p class="text-stone-600 text-xs leading-relaxed mb-4">
+                            La vía intrínseca de la coagulación se inicia mediante el contacto con superficies cargadas negativamente. Este complejo de activación requiere de cofactores específicos: el <strong>Cininógeno de Alto Peso Molecular (HMWK)</strong> y la <strong>Precalicreína</strong> (que es escindida a Calicreína por el Factor XIIa).
+                        </p>
+                        <p class="text-stone-600 text-xs leading-relaxed">
+                            El HMWK sirve como un andamio molecular no catalítico que ancla la precalicreína y al Factor XI de forma directa sobre las superficies celulares o el colágeno expuesto, acelerando exponencialmente la velocidad de activación del Factor XII, asegurando la amplificación local de la cascada.
+                        </p>
+                    </div>
+                    <div class="mt-4 p-3 bg-stone-50 rounded-lg text-stone-500 text-[11px] italic">
+                        La Calicreína también puede escindir el HMWK para liberar Bradicinina, un potente mediador de la inflamación y la vasodilatación.
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-stone-900 text-stone-100 p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-rose-400 font-bold text-xs uppercase tracking-wider block mb-1">Simulador de Reacción Enzimática</span>
+                        <h3 class="text-2xl font-bold mb-4">Visualizador del Proceso de Cascada</h3>
+                        <p class="text-stone-300 text-sm mb-6">Elija iniciar una de las dos vías fisiológicas para observar cómo los zimógenos se transforman secuencialmente en enzimas activas.</p>
+                        
+                        <div class="flex flex-wrap gap-4 mb-6">
+                            <button onclick="runSimulation('ext')" class="bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold px-4 py-3 rounded-xl transition-all shadow-md flex-1">Activar Vía Extrínseca (Tisular)</button>
+                            <button onclick="runSimulation('int')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-3 rounded-xl transition-all shadow-md flex-1">Activar Vía Intrínseca (Contacto)</button>
+                            <button onclick="resetSimulation()" class="border border-stone-700 hover:bg-stone-800 text-stone-400 text-xs font-bold px-4 py-3 rounded-xl transition-all">Reiniciar</button>
+                        </div>
+                    </div>
+
+                    <div id="sim-narrative" class="p-4 bg-stone-800 rounded-xl border border-stone-700 min-h-[120px] flex items-center justify-center text-center">
+                        <span class="text-stone-500 text-sm">Seleccione una vía para iniciar el modelado tridimensional y cinético de los factores de coagulación.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel de Mapeo Gráfico de la Cascada -->
+            <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm relative overflow-hidden">
+                <div class="absolute inset-0 bg-stone-50/20 pointer-events-none" style="background-image: radial-gradient(#e5e7eb 1.5px, transparent 1.5px); background-size: 24px 24px;"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10 text-center font-mono font-bold text-xs text-stone-600">
+                    
+                    <!-- Columna Intrínseca -->
+                    <div class="space-y-4 p-4 bg-stone-50 rounded-xl border border-stone-100 flex flex-col items-center">
+                        <span class="text-blue-600 text-[10px] uppercase font-bold block mb-2">Vía Intrínseca (Contacto)</span>
+                        <div id="f-XII" class="factor-node p-3 border-2 border-stone-200 rounded-lg w-full bg-white text-stone-400">Factor XII (Zimógeno)</div>
+                        <div class="text-stone-400 text-base">↓</div>
+                        <div id="f-XI" class="factor-node p-3 border-2 border-stone-200 rounded-lg w-full bg-white text-stone-400">Factor XI (HMWK/Precalicreína)</div>
+                        <div class="text-stone-400 text-base">↓</div>
+                        <div id="f-IX" class="factor-node p-3 border-2 border-stone-200 rounded-lg w-full bg-white text-stone-400">Factor IX (Zimógeno)</div>
+                        <div class="text-stone-400 text-base">↓</div>
+                        <div id="f-VIII" class="factor-node p-3 border-2 border-stone-200 rounded-lg w-full bg-white text-stone-400">Factor VIII (Cofactor)</div>
+                    </div>
+
+                    <!-- Columna Común -->
+                    <div class="space-y-4 p-4 bg-stone-50 rounded-xl border border-stone-100 flex flex-col items-center justify-end">
+                        <span class="text-rose-600 text-[10px] uppercase font-bold block mb-2">Vía Común (Fibrinogénesis)</span>
+                        
+                        <div id="f-X" class="factor-node p-4 border-2 border-stone-200 rounded-xl w-full bg-white text-stone-500 font-black text-sm">Factor X (Zimógeno clave)</div>
+                        <div class="text-stone-400 text-base">↓</div>
+                        <div id="f-V" class="factor-node p-3 border-2 border-stone-200 rounded-lg w-full bg-white text-stone-400">Factor V (Cofactor)</div>
+                        <div class="text-stone-400 text-base">↓</div>
+                        <div id="f-II" class="factor-node p-4 border-2 border-stone-200 rounded-xl w-full bg-white text-stone-500 font-black text-sm">Protrombina (II)</div>
+                        <div class="text-stone-400 text-base">↓</div>
+                        <div id="f-I" class="factor-node p-4 border-2 border-stone-300 rounded-xl w-full bg-stone-900 text-stone-100 font-black text-sm uppercase">Red de Fibrina</div>
+                    </div>
+
+                    <!-- Columna Extrínseca -->
+                    <div class="space-y-4 p-4 bg-stone-50 rounded-xl border border-stone-100 flex flex-col items-center">
+                        <span class="text-orange-600 text-[10px] uppercase font-bold block mb-2">Vía Extrínseca (Rápida)</span>
+                        <div id="f-FT" class="factor-node p-3 border-2 border-stone-200 rounded-lg w-full bg-white text-stone-400">Factor Tisular (III)</div>
+                        <div class="text-stone-400 text-base">↓</div>
+                        <div id="f-VII" class="factor-node p-3 border-2 border-stone-200 rounded-lg w-full bg-white text-stone-400">Factor VII (Zimógeno)</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-stone-200 mt-16 py-12 text-center text-stone-500 text-xs">
+        <p class="font-bold mb-1">HemostasiaLab - Herramienta Educativa Universitaria de Bioquímica y Hematología</p>
+        <p>Facultad de Medicina, Universidad de Granada (UGR). Desarrollado para el análisis interactivo de conceptos fisiológicos y de patología circulatoria.</p>
+    </footer>
+
+    <script>
+        // DATA OBJECTS
+        const virchowData = {
+            'lesion': {
+                title: 'Lesión Endotelial (Pilar I)',
+                subtitle: 'El disparador biológico primordial',
+                desc: 'Es el factor desencadenante más crítico para la trombosis arterial. Al romperse el revestimiento endotelial sano, se expone de forma inmediata el colágeno subendotelial y el Factor Tisular de la pared vascular profunda.',
+                impact: 'Este fenómeno provoca la adhesión instantánea de las plaquetas mediada por el Factor de von Willebrand (vWF), y pone en marcha la cascada de la coagulación mediante la vía extrínseca.'
+            },
+            'flujo': {
+                title: 'Alteraciones del Flujo Sanguíneo (Pilar II)',
+                subtitle: 'Turbulencia y Estasis',
+                desc: 'Tanto la estasis (enfermedad venosa, reposo prolongado) como la turbulencia (estrechamientos arteriales, bifurcaciones) alteran el flujo de cizalladura laminar de la sangre normal.',
+                impact: 'Estas anomalías físicas impiden que los factores de coagulación activados se diluyan de forma natural en el torrente sanguíneo circundante, facilitando la retención de plaquetas y acelerando la nidación de trombos.'
+            },
+            'hiper': {
+                title: 'Hipercoagulabilidad (Pilar III)',
+                subtitle: 'Trombofilia adquirida o hereditaria',
+                desc: 'Cualquier alteración patológica sistémica de las vías hemostáticas que predisponga activamente a la trombosis.',
+                impact: 'Incluye defectos hereditarios específicos de los factores naturales de regulación (como la mutación del Factor V de Leiden, la deficiencia hereditaria de antitrombina III, o mutaciones que cursan con baja de Proteína C/S) y condiciones adquiridas de riesgo (como el cáncer metastásico y el embarazo).'
+            }
+        };
+
+        const plateletData = {
+            'gp1b': {
+                title: 'Glicoproteína GPIb-IX-V',
+                type: 'Receptor de Adhesión Primaria',
+                desc: 'El receptor encargado de anclarse de forma inicial al Factor de von Willebrand (vWF) expuesto en la matriz subendotelial. Es fundamental para fijar las plaquetas circulantes, especialmente bajo grandes velocidades de cizalla del flujo de la sangre.',
+                pathology: 'Su ausencia congénita parcial o total da lugar al Síndrome de Bernard-Soulier (plaquetas gigantes y defectos de coagulación).'
+            },
+            'gp2b3a': {
+                title: 'Glicoproteína GPIIb/IIIa (Integrina αIIbβ3)',
+                type: 'Receptor de Agregación Cohesiva',
+                desc: 'Es el receptor plaquetario más numeroso. Ante la activación, su estructura molecular sufre un cambio conformacional drástico (activación de dentro hacia fuera), lo que le permite enlazarse ávidamente al Fibrinógeno plasmático para formar puentes entre plaquetas adyacentes.',
+                pathology: 'Su deficiencia congénita causa la Tromboastenia de Glanzmann (agregación plaquetaria ausente).'
+            },
+            'gp1a2a': {
+                title: 'GPIa/IIa e Integrina GPVI',
+                type: 'Receptores directos del Colágeno',
+                desc: 'Permiten que la plaqueta interactúe directamente con las fibras de colágeno expuestas en el subendotelio del vaso sanguíneo roto para estabilizar el anclaje.',
+                pathology: 'Su ausencia causa un incremento severo en el tiempo de sangrado.'
+            },
+            'alfa': {
+                title: 'Gránulos Alfa (α)',
+                type: 'Orgánulos de Almacenamiento Proteico',
+                desc: 'Orgánulos vesiculares abundantes cargados con macromoléculas funcionales: Factor de von Willebrand, Fibrinógeno de alta pureza, Factor V y PDGF (factor de crecimiento derivado de plaquetas para regenerar el vaso).',
+                pathology: 'Su escasez causa el Síndrome de la Plaqueta Gris.'
+            },
+            'denso': {
+                title: 'Gránulos Densos (δ)',
+                type: 'Orgánulos de Moléculas Pequeñas',
+                desc: 'Almacenan moléculas de activación alostérica: <strong>ADP y ATP</strong>, Serotonina (agente vasoconstrictor) y altas concentraciones de <strong>Calcio (Ca²⁺)</strong>.',
+                pathology: 'El Calcio es expulsado al medio extracelular para actuar como cofactor de unión de los factores de coagulación sobre la superficie plaquetaria cargada negativamente.'
+            }
+        };
+
+        // RENDER VIRCHOW DETAILS
+        function selectVirchow(key) {
+            const data = virchowData[key];
+            const container = document.getElementById('virchow-details');
+            
+            // Highlight button states
+            document.getElementById('btn-v-lesion').classList.replace('bg-rose-700', 'bg-stone-900');
+            document.getElementById('btn-v-flujo').classList.replace('bg-blue-700', 'bg-stone-900');
+            document.getElementById('btn-v-hiper').classList.replace('bg-amber-700', 'bg-stone-900');
+
+            if (key === 'lesion') document.getElementById('btn-v-lesion').classList.replace('bg-stone-900', 'bg-rose-700');
+            if (key === 'flujo') document.getElementById('btn-v-flujo').classList.replace('bg-stone-900', 'bg-blue-700');
+            if (key === 'hiper') document.getElementById('btn-v-hiper').classList.replace('bg-stone-900', 'bg-amber-700');
+
+            container.classList.remove('fade-in');
+            void container.offsetWidth; // Force reflow
+            
+            container.innerHTML = `
+                <div class="fade-in">
+                    <span class="text-xs font-bold uppercase text-stone-400 block mb-1">${data.subtitle}</span>
+                    <h3 class="text-2xl font-black text-stone-900 mb-4">${data.title}</h3>
+                    <p class="text-stone-700 text-sm leading-relaxed mb-4">${data.desc}</p>
+                    <div class="p-4 bg-stone-50 rounded-xl border border-stone-200">
+                        <strong class="text-xs text-rose-800 uppercase block mb-1">Mecanismo Fisiopatológico:</strong>
+                        <p class="text-xs text-stone-600 leading-relaxed">${data.impact}</p>
+                    </div>
+                </div>
+            `;
+            container.classList.add('fade-in');
+        }
+
+        // RENDER PLATELET DETAILS
+        function selectPlatelet(key) {
+            const data = plateletData[key];
+            const container = document.getElementById('platelet-details');
+            
+            container.classList.remove('fade-in');
+            void container.offsetWidth;
+
+            container.innerHTML = `
+                <div class="fade-in">
+                    <span class="text-xs font-bold uppercase text-rose-600 block mb-1">${data.type}</span>
+                    <h3 class="text-2xl font-black text-stone-900 mb-3">${data.title}</h3>
+                    <p class="text-stone-700 text-sm leading-relaxed mb-4">${data.desc}</p>
+                    <div class="p-4 bg-rose-50 rounded-xl border border-rose-100">
+                        <strong class="text-xs text-rose-900 uppercase block mb-1">Impacto Clínico / Patología Relacionada:</strong>
+                        <p class="text-xs text-stone-600 leading-relaxed">${data.pathology}</p>
+                    </div>
+                </div>
+            `;
+            container.classList.add('fade-in');
+        }
+
+        // CONTROL PLATELET BIOCHEMICAL STATE
+        function setPlateletState(state) {
+            const bReposo = document.getElementById('btn-state-reposo');
+            const bActivado = document.getElementById('btn-state-activado');
+            
+            const txtAMPcVal = document.getElementById('txt-state-ampc-val');
+            const txtAMPcDesc = document.getElementById('txt-state-ampc-desc');
+            const txtCalcioVal = document.getElementById('txt-state-calcio-val');
+            const txtCalcioDesc = document.getElementById('txt-state-calcio-desc');
+            const txtFormaVal = document.getElementById('txt-state-forma-val');
+            const txtFormaDesc = document.getElementById('txt-state-forma-desc');
+
+            if (state === 'reposo') {
+                bReposo.className = "px-4 py-2 text-xs font-bold rounded-full transition-all bg-teal-600 text-white shadow-sm";
+                bActivado.className = "px-4 py-2 text-xs font-bold rounded-full transition-all text-stone-600 hover:bg-stone-50";
+
+                txtAMPcVal.innerText = "ALTO (Freno)";
+                txtAMPcVal.className = "text-3xl font-black text-teal-700 block mb-2";
+                txtAMPcDesc.innerText = "La adenilato ciclasa (AC) activa genera abundante AMPc intracelular, estimulando de forma constante a la Proteinasa Quinasa A (PKA). La PKA promueve de forma constante el bombeo de Calcio libre hacia el sistema tubular denso.";
+
+                txtCalcioVal.innerText = "BAJO (<0.1 µM)";
+                txtCalcioVal.className = "text-3xl font-black text-stone-400 block mb-2";
+                txtCalcioDesc.innerText = "El Calcio libre citosólico permanece estrictamente secuestrado. El citoesqueleto se mantiene sin contracción, dando a la plaqueta su forma fisiológica de disco plano y liso.";
+
+                txtFormaVal.innerText = "DISCO LISO";
+                txtFormaVal.className = "text-3xl font-black text-teal-700 block mb-2";
+                txtFormaDesc.innerText = "Las integrinas de membrana como la GPIIb/IIIa mantienen de forma estricta sus bisagras en configuración cerrada, impidiendo la unión del fibrinógeno plasmático.";
+            } else {
+                bReposo.className = "px-4 py-2 text-xs font-bold rounded-full transition-all text-stone-600 hover:bg-stone-50";
+                bActivado.className = "px-4 py-2 text-xs font-bold rounded-full transition-all bg-rose-700 text-white shadow-sm";
+
+                txtAMPcVal.innerText = "BAJO (Activación)";
+                txtAMPcVal.className = "text-3xl font-black text-rose-700 block mb-2";
+                txtAMPcDesc.innerText = "Los receptores acoplados a proteína Gi (como el receptor de ADP P2Y12) apagan la Adenilato Ciclasa. La drástica caída del AMPc inhibe la PKA, liberando el freno bioquímico del calcio.";
+
+                txtCalcioVal.innerText = "ALTO (>1.0 µM)";
+                txtCalcioVal.className = "text-3xl font-black text-rose-700 block mb-2";
+                txtCalcioDesc.innerText = "La vía del IP3 fuerza la salida rápida del Calcio (Ca²⁺) del retículo plaquetario al citoplasma. El aumento masivo de calcio deforma el citoesqueleto y activa a la Miosina Quinasa para iniciar la degranulación.";
+
+                txtFormaVal.innerText = "FILÓPODOS ACTIVOS";
+                txtFormaVal.className = "text-3xl font-black text-rose-700 block mb-2";
+                txtFormaDesc.innerText = "La degranulación y fosforilación cambian la conformación de la integrina GPIIb/IIIa a su estado abierto de alta afinidad, uniendo de forma activa puentes de Fibrinógeno.";
+            }
+        }
+
+        // SIMULATOR OF COAGULATION CASCADE
+        const simulationSteps = {
+            ext: [
+                { id: 'f-FT', text: 'Paso 1: Traumatismo tisular. Se expone de forma directa el Factor Tisular (III) al flujo sanguíneo.' },
+                { id: 'f-VII', text: 'Paso 2: El Factor Tisular une y activa al Factor VII (complejo tenasa extrínseca, FT-VIIa).' },
+                { id: 'f-X', text: 'Paso 3: El complejo enzimático FT-VIIa rompe por proteólisis directa al Factor X, activándolo (Xa).' },
+                { id: 'f-V', text: 'Paso 4: El Factor Xa recluta de forma alostérica a su cofactor esencial, el Factor V activado (Va).' },
+                { id: 'f-II', text: 'Paso 5: El complejo protrombinasa (Xa-Va-Ca²⁺) corta enzimáticamente la Protrombina en Trombina (IIa).' },
+                { id: 'f-I', text: 'Paso 6: La Trombina cataliza la conversión del Fibrinógeno soluble en fibras cruzadas de Fibrina insoluble, consolidando la red del coágulo.' }
+            ],
+            int: [
+                { id: 'f-XII', text: 'Paso 1: Contacto de la sangre con superficies negativas subendoteliales. El Factor XII (Hageman) se autoactiva (XIIa) junto con el HMWK y la precalicreína.' },
+                { id: 'f-XI', text: 'Paso 2: El Factor XIIa escinde al Factor XI de forma directa para formar XIa.' },
+                { id: 'f-IX', text: 'Paso 3: El Factor XIa cataliza la conversión enzimática del Factor IX en IXa.' },
+                { id: 'f-VIII', text: 'Paso 4: El Factor IXa se asocia con el Factor VIIIa para constituir el complejo tenasa intrínseco sobre la superficie de la plaqueta.' },
+                { id: 'f-X', text: 'Paso 5: El complejo tenasa intrínseco (IXa-VIIIa) activa de forma masiva el Factor X a Xa.' },
+                { id: 'f-V', text: 'Paso 6: El Factor Xa de la vía común recluta al cofactor Factor Va sobre la membrana.' },
+                { id: 'f-II', text: 'Paso 7: El complejo protrombinasa convierte de forma rápida Protrombina en Trombina.' },
+                { id: 'f-I', text: 'Paso 8: La Trombina forma filamentos insolubles de Fibrina para conformar la red del coágulo.' }
+            ]
+        };
+
+        let activeTimers = [];
+
+        function runSimulation(route) {
+            resetSimulation();
+            const steps = simulationSteps[route];
+            const narrativeBox = document.getElementById('sim-narrative');
+
+            steps.forEach((step, index) => {
+                const timer = setTimeout(() => {
+                    const node = document.getElementById(step.id);
+                    if (node) {
+                        node.classList.add('active-factor');
+                    }
+                    narrativeBox.innerHTML = `<span class="text-white text-sm font-bold block mb-1">Paso ${index + 1}:</span><span class="text-stone-300 text-xs">${step.text}</span>`;
+                }, index * 1200);
+                activeTimers.push(timer);
+            });
+        }
+
+        function resetSimulation() {
+            activeTimers.forEach(timer => clearTimeout(timer));
+            activeTimers = [];
+            
+            document.querySelectorAll('.factor-node').forEach(node => {
+                node.classList.remove('active-factor');
+            });
+
+            document.getElementById('sim-narrative').innerHTML = '<span class="text-stone-500 text-sm">Seleccione una vía para iniciar el modelado tridimensional y cinético de los factores de coagulación.</span>';
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // INITIALIZATION
+        document.addEventListener('DOMContentLoaded', () => {
+            // Render Chart.js
+            const ctx = document.getElementById('compositionChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Fibrinógeno (Gránulo α)',
+                        'Factor vWF (Gránulo α)',
+                        'Factores Crecimiento - PDGF (Gránulo α)',
+                        'Nucleótidos - ADP/ATP (Gránulo δ)',
+                        'Serotonina (Gránulo δ)',
+                        'Iones Calcio - Ca²⁺ (Gránulo δ)'
+                    ],
+                    datasets: [{
+                        data: [30, 20, 15, 20, 5, 10],
+                        backgroundColor: [
+                            'rgba(190, 18, 60, 0.85)',  // Rose 700
+                            'rgba(225, 29, 72, 0.7)',   // Rose 600
+                            'rgba(244, 63, 94, 0.55)',   // Rose 500
+                            'rgba(31, 41, 55, 0.95)',    // Gray 800
+                            'rgba(55, 65, 81, 0.85)',    // Gray 700
+                            'rgba(245, 158, 11, 0.9)'    // Amber 500
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: '#1f2937',
+                                font: { size: 10, family: 'sans-serif' },
+                                boxWidth: 12
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>

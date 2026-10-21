@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { RandleCycleLab } from './RandleCycleLab';
 import { JaundiceSimulatorLab } from './JaundiceSimulatorLab';
 import { HemostasisLab } from './HemostasisLab';
+import { CarnitineShuttleLab } from './CarnitineShuttleLab';
 import { MetabolicIntegrationLab } from '../MetabolicIntegration/MetabolicIntegrationLab';
 import { UserProgress, ActiveModule } from '../../types';
-import { RefreshCw, Droplets, FlaskConical, ArrowLeft, BookOpen, Trees, Network } from 'lucide-react';
+import { RefreshCw, Droplets, FlaskConical, ArrowLeft, BookOpen, Trees, Network, Dna } from 'lucide-react';
 
 interface InteractiveLabsContainerProps {
-  initialLab?: 'randle' | 'ictericias' | 'hemostasia' | 'integra';
+  initialLab?: 'randle' | 'ictericias' | 'hemostasia' | 'carnitina' | 'integra';
   onBackToPortal?: () => void;
   userProgress?: UserProgress;
   onEarnBudget?: (amount?: number) => void;
@@ -25,10 +26,10 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
   onAddBonusXP,
   onNavigate = () => {}
 }) => {
-  const [selectedLab, setSelectedLab] = useState<'randle' | 'ictericias' | 'hemostasia' | 'integra'>(initialLab);
+  const [selectedLab, setSelectedLab] = useState<'randle' | 'ictericias' | 'hemostasia' | 'carnitina' | 'integra'>(initialLab);
 
   useEffect(() => {
-    if (initialLab && (initialLab === 'randle' || initialLab === 'ictericias' || initialLab === 'hemostasia' || initialLab === 'integra')) {
+    if (initialLab && (initialLab === 'randle' || initialLab === 'ictericias' || initialLab === 'hemostasia' || initialLab === 'carnitina' || initialLab === 'integra')) {
       setSelectedLab(initialLab);
     }
   }, [initialLab]);
@@ -99,6 +100,19 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
             </button>
 
             <button
+              onClick={() => setSelectedLab('carnitina')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                selectedLab === 'carnitina'
+                  ? 'bg-indigo-600 text-white shadow-xs font-bold'
+                  : 'text-slate-600 hover:text-indigo-900 hover:bg-indigo-50'
+              }`}
+            >
+              <Dna className={`w-3.5 h-3.5 ${selectedLab === 'carnitina' ? 'text-white' : 'text-indigo-600'}`} />
+              <span>Lanzadera de Carnitina</span>
+              <span className="text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.2 rounded-full uppercase">Nuevo</span>
+            </button>
+
+            <button
               onClick={() => setSelectedLab('integra')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 selectedLab === 'integra'
@@ -107,7 +121,7 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
               }`}
             >
               <Network className={`w-3.5 h-3.5 ${selectedLab === 'integra' ? 'text-white' : 'text-teal-600'}`} />
-              <span>Integración Metabólica</span>
+              <span>Integración Metabólica (Integra)</span>
             </button>
           </div>
 
@@ -128,6 +142,7 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
         {selectedLab === 'randle' && <RandleCycleLab />}
         {selectedLab === 'ictericias' && <JaundiceSimulatorLab />}
         {selectedLab === 'hemostasia' && <HemostasisLab />}
+        {selectedLab === 'carnitina' && <CarnitineShuttleLab />}
         {selectedLab === 'integra' && (
           <MetabolicIntegrationLab
             hideExternalHeader={true}

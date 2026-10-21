@@ -1,6 +1,8 @@
 {
-  "name": "Bioquímica Médica - Facultad de Medicina UGR",
-  "description": "Portal docente oficial de Bioquímica Médica de la Facultad de Medicina de la Universidad de Granada (UGR) con simulador clínico de biomarcadores y laboratorios interactivos.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "name": "Bioquímica Médica UGR - Casos Clínicos y Simuladores",
+  "description": "Plataforma de simulación clínica, biomarcadores y metabolismo de la Facultad de Medicina de la Universidad de Granada (PID 26-158).",
+  "version": "1.0.0",
+  "author": "Departamento de Bioquímica y Biología Molecular III e Inmunología",
+  "permissions": [],
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

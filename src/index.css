@@ -1,62 +1,9 @@
 @import "tailwindcss";
 
-@keyframes flow-forward {
-  from {
-    stroke-dashoffset: 24;
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes flow-reverse {
-  from {
-    stroke-dashoffset: 0;
-  }
-  to {
-    stroke-dashoffset: 24;
-  }
-}
-
-.animate-flow {
-  animation: flow-forward 1.4s linear infinite;
-}
-
-.animate-flow-fast {
-  animation: flow-forward 0.7s linear infinite;
-}
-
-.animate-flow-slow {
-  animation: flow-forward 2.5s linear infinite;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 9999px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-@keyframes metabolix-fade-in {
-  from { opacity: 0; transform: translateY(3px); }
-  to { opacity: 1; transform: none; }
-}
-
-.metabolix-fade {
-  animation: metabolix-fade-in 0.35s ease-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .metabolix-fade { animation: none; }
 }

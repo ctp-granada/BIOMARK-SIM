@@ -38,7 +38,7 @@ import { satisfactionService } from '../../utils/satisfactionService';
 
 interface BiomedicalCityProps {
   onNavigate: (module: ActiveModule) => void;
-  onOpenLab?: (lab: 'randle' | 'ictericias' | 'hemostasia' | 'juegos' | 'rosco' | 'integra') => void;
+  onOpenLab?: (lab: 'randle' | 'ictericias' | 'hemostasia' | 'juegos' | 'rosco' | 'integra' | 'carnitina') => void;
   onStartChallenge?: (caseData: ClinicalCase) => void;
   onStartDailyChallenge?: () => void;
   userProgress: UserProgress;

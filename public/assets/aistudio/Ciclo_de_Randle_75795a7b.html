@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Ciclo de Randle: Navegador Metabólico Interactivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Chosen Palette: Warm Neutrals (Stone/Zinc) with Amber (Fasting/Fat) and Emerald (Postprandial/Glucose) accents. -->
+    <!-- Application Structure Plan: Dashboard interactivo que alterna entre estados de Ayuno y Postprandio para ilustrar la competencia de sustratos. -->
+    <!-- Visualization & Content Choices: 
+         1. Toggle Global: Controla el contexto metabólico.
+         2. Respuesta por Órgano: Detalle de la CAT-1 y Malonil-CoA.
+         3. Origen del Acetil-CoA: Se añade información sobre la procedencia prioritaria del Acetil-CoA (Grasas vs Glucosa). -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 400px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 300px; 
+            max-height: 400px; 
+        }
+        @media (min-width: 768px) { 
+            .chart-container { height: 350px; } 
+        }
+        
+        .transition-colors-fast {
+            transition-property: background-color, border-color, color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <header class="bg-white shadow-sm border-b border-stone-200 sticky top-0 z-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <h1 class="text-2xl font-bold text-stone-900 flex items-center gap-2">
+                <span class="text-3xl">🔄</span> El Ciclo de Randle
+            </h1>
+            <p class="text-sm text-stone-500 mt-1">Competencia metabólica: El origen del Acetil-CoA y la regulación enzimática.</p>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 w-full">
+
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-stone-100">
+            <h2 class="text-xl font-semibold mb-3 text-stone-800">Mecanismo de Selección de Combustible</h2>
+            <p class="text-stone-600 leading-relaxed mb-4">
+                El <strong>Ciclo de Randle</strong> explica cómo la célula elige qué "quemar". En el ayuno, la desinhibición de la <strong>CAT-1</strong> prioriza las grasas. En el postprandio, el <strong>Malonil-CoA</strong> bloquea la entrada de grasas para priorizar la glucosa.
+            </p>
+            <p class="text-stone-600 leading-relaxed">
+                Observe cómo cambia la <strong>procedencia del Acetil-CoA</strong>: un nodo central donde convergen ambas vías y se ejerce el control metabólico.
+            </p>
+        </section>
+
+        <section class="flex flex-col items-center justify-center space-y-6 bg-stone-100 p-8 rounded-3xl border border-stone-200">
+            <h3 class="text-lg font-medium text-stone-600 uppercase tracking-wider">Estado Metabólico Actual</h3>
+            <div class="flex p-1 bg-white rounded-full shadow-inner border border-stone-200">
+                <button id="btn-ayuno" class="px-8 py-3 rounded-full font-bold text-lg transition-all duration-300 bg-amber-500 text-white shadow-md transform scale-105" onclick="setMetabolicState('ayuno')">
+                    ⏳ Ayuno
+                </button>
+                <button id="btn-postprandio" class="px-8 py-3 rounded-full font-bold text-lg text-stone-500 hover:text-stone-700 transition-all duration-300" onclick="setMetabolicState('postprandio')">
+                    🍽️ Postprandio
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-3xl mt-6 text-center">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 transition-colors-fast" id="hormone-insulin-card">
+                    <p class="text-sm text-stone-500 font-semibold uppercase">Insulina</p>
+                    <p class="text-2xl font-bold mt-1" id="hormone-insulin-val">⬇️ Baja</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 transition-colors-fast" id="hormone-glucagon-card">
+                    <p class="text-sm text-stone-500 font-semibold uppercase">Glucagón</p>
+                    <p class="text-2xl font-bold mt-1" id="hormone-glucagon-val">⬆️ Alto</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-100 transition-colors-fast" id="hormone-fuel-card">
+                    <p class="text-sm text-stone-500 font-semibold uppercase">Origen Acetil-CoA</p>
+                    <p class="text-xl font-bold mt-1" id="hormone-fuel-val">Beta-oxidación</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-stone-800">Análisis Tisular</h2>
+                <p class="text-stone-600 mt-2">Distribución de la carga metabólica y señales de bloqueo recíproco.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl shadow-sm border-l-4 p-6 transition-colors-fast border-amber-500" id="card-musculo">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold flex items-center gap-2">💪 Músculo Esquelético</h3>
+                        <span class="px-3 py-1 text-xs font-bold rounded-full bg-stone-100 text-stone-600 uppercase tracking-wider" id="tag-musculo">Ayuno</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm text-stone-500 font-semibold uppercase">Entrada de Sustrato</p>
+                            <p class="text-lg font-medium text-stone-800" id="act-musculo">Activación de CAT-1 por baja de Malonil-CoA</p>
+                        </div>
+                        <div class="bg-stone-50 p-4 rounded-lg">
+                            <p class="text-sm font-semibold text-stone-700 mb-1">Procedencia Acetil-CoA:</p>
+                            <p class="text-sm text-stone-600" id="mech-musculo">Derivado prioritariamente de la beta-oxidación de ácidos grasos libres (AGL). El exceso de Acetil-CoA resultante inhibe la Piruvato Deshidrogenasa (PDH).</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-stone-500 font-semibold uppercase">Efecto Randle</p>
+                            <p class="text-stone-700 font-medium" id="res-musculo">La alta relación Acetil-CoA/CoA bloquea la oxidación de glucosa.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border-l-4 p-6 transition-colors-fast border-amber-500" id="card-adiposo">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold flex items-center gap-2">🟡 Tejido Adiposo</h3>
+                        <span class="px-3 py-1 text-xs font-bold rounded-full bg-stone-100 text-stone-600 uppercase tracking-wider" id="tag-adiposo">Proveedor</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm text-stone-500 font-semibold uppercase">Actividad Metabólica</p>
+                            <p class="text-lg font-medium text-stone-800" id="act-adiposo">Lipólisis (LSH activa)</p>
+                        </div>
+                        <div class="bg-stone-50 p-4 rounded-lg">
+                            <p class="text-sm font-semibold text-stone-700 mb-1">Función en el ciclo:</p>
+                            <p class="text-sm text-stone-600" id="mech-adiposo">Suministra los AGL que circularán hacia el músculo para ser oxidados y generar el Acetil-CoA que frenará el consumo de glucosa.</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-stone-500 font-semibold uppercase">Resultado</p>
+                            <p class="text-stone-700 font-medium" id="res-adiposo">Aumento de AGL plasmáticos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border-l-4 p-6 transition-colors-fast border-amber-500" id="card-higado">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold flex items-center gap-2">🩸 Hígado</h3>
+                        <span class="px-3 py-1 text-xs font-bold rounded-full bg-stone-100 text-stone-600 uppercase tracking-wider" id="tag-higado">Regulador</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm text-stone-500 font-semibold uppercase">Acetil-CoA Hepático</p>
+                            <p class="text-lg font-medium text-stone-800" id="act-higado">Generado por Beta-oxidación</p>
+                        </div>
+                        <div class="bg-stone-50 p-4 rounded-lg">
+                            <p class="text-sm font-semibold text-stone-700 mb-1">Mecanismo:</p>
+                            <p class="text-sm text-stone-600" id="mech-higado">El Acetil-CoA de las grasas activa la Piruvato Carboxilasa, desviando el piruvato hacia la Gluconeogénesis en lugar de la oxidación.</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-stone-500 font-semibold uppercase">Salida</p>
+                            <p class="text-stone-700 font-medium" id="res-higado">Mantenimiento de la glucemia y producción de cuerpos cetónicos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border-l-4 p-6 transition-colors-fast border-amber-500" id="card-corazon">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold flex items-center gap-2">🫀 Corazón</h3>
+                        <span class="px-3 py-1 text-xs font-bold rounded-full bg-stone-100 text-stone-600 uppercase tracking-wider" id="tag-corazon">Vital</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm text-stone-500 font-semibold uppercase">Uso Energético</p>
+                            <p class="text-lg font-medium text-stone-800" id="act-corazon">Preferencia por AGL</p>
+                        </div>
+                        <div class="bg-stone-50 p-4 rounded-lg">
+                            <p class="text-sm font-semibold text-stone-700 mb-1">Bioquímica:</p>
+                            <p class="text-sm text-stone-600" id="mech-corazon">La CAT-1 activa permite un flujo masivo de grasas. El Acetil-CoA de origen lipídico satura el ciclo de Krebs e inhibe la entrada de piruvato.</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-stone-500 font-semibold uppercase">Eficiencia</p>
+                            <p class="text-stone-700 font-medium" id="res-corazon">Ahorro absoluto de glucosa sanguínea.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-stone-100">
+            <div>
+                <h2 class="text-2xl font-bold text-stone-800 mb-2">Competencia Enzimática</h2>
+                <p class="text-stone-600 mb-6">Visualización del flujo dominante hacia el Acetil-CoA mitocondrial.</p>
+                
+                <div class="relative p-6 bg-stone-50 rounded-xl border border-stone-200 h-64 flex flex-col justify-center">
+                    
+                    <div id="flow-ayuno" class="absolute inset-0 flex flex-col items-center justify-center p-4 transition-opacity duration-500 opacity-100">
+                        <div class="flex w-full items-center justify-between px-8">
+                            <div class="text-center w-1/3">
+                                <div class="bg-stone-200 text-stone-400 p-2 rounded-lg font-bold">Glucólisis</div>
+                                <div class="text-xs text-stone-400 mt-1">(Piruvato)</div>
+                                <div class="text-2xl my-1 text-stone-300">⬇️</div>
+                                <div class="border-2 border-red-500 text-red-500 p-1 rounded-lg font-bold text-[10px]">PDH INHIBIDA</div>
+                            </div>
+                            <div class="w-1/3 flex flex-col items-center">
+                                <div class="text-2xl mb-1">🏁</div>
+                                <div class="bg-stone-800 text-white p-2 rounded-lg font-bold text-xs">Acetil-CoA</div>
+                            </div>
+                            <div class="text-center w-1/3">
+                                <div class="bg-amber-100 text-amber-700 border-2 border-amber-500 p-2 rounded-lg font-bold shadow-md">Beta-oxidación</div>
+                                <div class="text-xs text-amber-600 mt-1">CAT-1 ACTIVA</div>
+                                <div class="text-2xl my-1 text-amber-500 font-bold">⬇️</div>
+                                <div class="bg-amber-500 text-white p-1 rounded-lg font-bold text-[10px]">ORIGEN PRINCIPAL</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="flow-postprandio" class="absolute inset-0 flex flex-col items-center justify-center p-4 transition-opacity duration-500 opacity-0 pointer-events-none">
+                        <div class="flex w-full items-center justify-between px-8">
+                            <div class="text-center w-1/3">
+                                <div class="bg-emerald-100 text-emerald-700 border-2 border-emerald-500 p-2 rounded-lg font-bold shadow-md">Glucólisis</div>
+                                <div class="text-xs text-emerald-600 mt-1">(Piruvato)</div>
+                                <div class="text-2xl my-1 text-emerald-500 font-bold">⬇️</div>
+                                <div class="bg-emerald-500 text-white p-1 rounded-lg font-bold text-[10px]">ORIGEN PRINCIPAL</div>
+                            </div>
+                            <div class="w-1/3 flex flex-col items-center">
+                                <div class="text-2xl mb-1">🏁</div>
+                                <div class="bg-stone-800 text-white p-2 rounded-lg font-bold text-xs">Acetil-CoA</div>
+                            </div>
+                            <div class="text-center w-1/3">
+                                <div class="bg-stone-200 text-stone-400 p-2 rounded-lg font-bold">Beta-oxidación</div>
+                                <div class="text-2xl my-1 text-stone-300">⬇️</div>
+                                <div class="border-2 border-red-500 text-red-500 p-1 rounded-lg font-bold text-[10px]">CAT-1 INHIBIDA</div>
+                                <div class="text-[9px] text-red-400 mt-1">(por Malonil-CoA)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="flex flex-col">
+                <h2 class="text-2xl font-bold text-stone-800 mb-2">Fuentes de Energía (%)</h2>
+                <p class="text-stone-600 mb-6">Contribución al pool de Acetil-CoA en el músculo.</p>
+                <div class="chart-container bg-stone-50 rounded-xl border border-stone-200 p-4 flex-grow flex items-center justify-center">
+                    <canvas id="fuelChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-900 text-stone-400 py-6 text-center text-sm">
+        <p>Ciclo de Randle: Navegador Metabólico Interactivo.</p>
+    </footer>
+
+    <script>
+        const appData = {
+            ayuno: {
+                colors: { border: 'border-amber-500', bg: 'bg-amber-50', text: 'text-amber-700' },
+                hormones: {
+                    insulin: '⬇️ Baja',
+                    glucagon: '⬆️ Alto',
+                    fuel: 'Beta-oxidación',
+                    fuelColor: 'text-amber-600'
+                },
+                organs: {
+                    musculo: {
+                        act: 'Activación de CAT-1 por baja de Malonil-CoA',
+                        mech: 'El Acetil-CoA procede de la beta-oxidación de AGL. Este aumento de Acetil-CoA y Citrato inhibe la PDH y la PFK-1.',
+                        res: 'La oxidación de grasas bloquea el uso de glucosa.'
+                    },
+                    adiposo: {
+                        act: 'Lipólisis (LSH activa)',
+                        mech: 'Suministra los AGL necesarios para generar el pool de Acetil-CoA lipídico en otros tejidos.',
+                        res: 'Aumento de AGL plasmáticos.'
+                    },
+                    higado: {
+                        act: 'Beta-oxidación y Gluconeogénesis',
+                        mech: 'El Acetil-CoA de origen graso activa la Piruvato Carboxilasa para producir glucosa endógena.',
+                        res: 'Producción de glucosa y cuerpos cetónicos.'
+                    },
+                    corazon: {
+                        act: 'Oxidación de Ácidos Grasos',
+                        mech: 'La CAT-1 activa asegura que el Acetil-CoA provenga de lípidos, inhibiendo la entrada de piruvato a la mitocondria.',
+                        res: 'Ahorro absoluto de glucosa.'
+                    }
+                },
+                chartData: [15, 85],
+                chartLabels: ['Vía Glucolítica', 'Beta-oxidación']
+            },
+            postprandio: {
+                colors: { border: 'border-emerald-500', bg: 'bg-emerald-50', text: 'text-emerald-700' },
+                hormones: {
+                    insulin: '⬆️ Alta',
+                    glucagon: '⬇️ Bajo',
+                    fuel: 'Glucólisis-Piruvato',
+                    fuelColor: 'text-emerald-600'
+                },
+                organs: {
+                    musculo: {
+                        act: 'Inhibición de CAT-1 por Malonil-CoA',
+                        mech: 'El Acetil-CoA procede de la descarboxilación del piruvato (glucólisis). La insulina activa la PDH.',
+                        res: 'El flujo de glucosa domina la producción de energía.'
+                    },
+                    adiposo: {
+                        act: 'Lipogénesis (almacén)',
+                        mech: 'La insulina frena la salida de AGL. Se detiene el suministro de grasas para oxidación.',
+                        res: 'Captación de glucosa y síntesis de TG.'
+                    },
+                    higado: {
+                        act: 'Glucólisis y Síntesis de Novo',
+                        mech: 'El Acetil-CoA se deriva de la glucosa y se utiliza para la síntesis de ácidos grasos (Lipogénesis de novo).',
+                        res: 'Almacenamiento y exportación de VLDL.'
+                    },
+                    corazon: {
+                        act: 'Aumento del uso de Glucosa',
+                        mech: 'La formación de Malonil-CoA inhibe la CAT-1, reduciendo el Acetil-CoA lipídico a favor del derivado de glucosa.',
+                        res: 'Flexibilidad metabólica ante la abundancia.'
+                    }
+                },
+                chartData: [80, 20],
+                chartLabels: ['Vía Glucolítica', 'Beta-oxidación']
+            }
+        };
+
+        let fuelChartInstance = null;
+
+        function initChart() {
+            const ctx = document.getElementById('fuelChart').getContext('2d');
+            fuelChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: appData.ayuno.chartLabels,
+                    datasets: [{
+                        data: appData.ayuno.chartData,
+                        backgroundColor: ['#10b981', '#f59e0b'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+
+        function updateUIElements(stateKey) {
+            const data = appData[stateKey];
+            
+            const btnAyuno = document.getElementById('btn-ayuno');
+            const btnPostprandio = document.getElementById('btn-postprandio');
+            
+            if(stateKey === 'ayuno') {
+                btnAyuno.className = "px-8 py-3 rounded-full font-bold text-lg transition-all duration-300 bg-amber-500 text-white shadow-md transform scale-105";
+                btnPostprandio.className = "px-8 py-3 rounded-full font-bold text-lg text-stone-500 hover:text-stone-700 transition-all duration-300 bg-transparent";
+                document.getElementById('flow-ayuno').classList.remove('opacity-0', 'pointer-events-none');
+                document.getElementById('flow-postprandio').classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                btnPostprandio.className = "px-8 py-3 rounded-full font-bold text-lg transition-all duration-300 bg-emerald-500 text-white shadow-md transform scale-105";
+                btnAyuno.className = "px-8 py-3 rounded-full font-bold text-lg text-stone-500 hover:text-stone-700 transition-all duration-300 bg-transparent";
+                document.getElementById('flow-postprandio').classList.remove('opacity-0', 'pointer-events-none');
+                document.getElementById('flow-ayuno').classList.add('opacity-0', 'pointer-events-none');
+            }
+
+            document.getElementById('hormone-insulin-val').textContent = data.hormones.insulin;
+            document.getElementById('hormone-glucagon-val').textContent = data.hormones.glucagon;
+            const fuelEl = document.getElementById('hormone-fuel-val');
+            fuelEl.textContent = data.hormones.fuel;
+            fuelEl.className = `text-xl font-bold mt-1 transition-colors-fast ${data.hormones.fuelColor}`;
+
+            ['musculo', 'adiposo', 'higado', 'corazon'].forEach(organ => {
+                const card = document.getElementById(`card-${organ}`);
+                card.classList.remove('border-amber-500', 'border-emerald-500');
+                card.classList.add(data.colors.border);
+                document.getElementById(`act-${organ}`).textContent = data.organs[organ].act;
+                document.getElementById(`mech-${organ}`).textContent = data.organs[organ].mech;
+                document.getElementById(`res-${organ}`).textContent = data.organs[organ].res;
+            });
+
+            if(fuelChartInstance) {
+                fuelChartInstance.data.labels = data.chartLabels;
+                fuelChartInstance.data.datasets[0].data = data.chartData;
+                fuelChartInstance.update();
+            }
+        }
+
+        function setMetabolicState(state) {
+            updateUIElements(state);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initChart();
+            setMetabolicState('ayuno');
+        });
+    </script>
+</body>
+</html>

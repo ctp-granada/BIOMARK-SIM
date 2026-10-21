@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>La lanzadera rota - Defectos de la entrada de ácidos grasos en la mitocondria</title>
+<style>
+  :root {
+    --bg: #0b1020;
+    --panel: #141c33;
+    --panel-2: #1b2647;
+    --border: #283763;
+    --text: #e6ecff;
+    --text-dim: #94a3cc;
+    --accent: #5e81f4;
+    --accent-glow: rgba(94, 129, 244, 0.35);
+    --warn: #ff9f43;
+    --danger: #ee5253;
+    --success: #10ac84;
+    --cytosol: #14203d;
+    --m-out: #4f2d7f;
+    --ims: #2a1b4e;
+    --m-in: #7a284e;
+    --matrix: #3d152a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 16px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.45;
+  }
+  header { max-width: 1300px; margin: 0 auto 16px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; }
+  h1 { font-size: 1.5rem; margin: 0; color: #fff; font-weight: 700; letter-spacing: -0.02em; }
+  .subtitle { font-size: 0.85rem; color: var(--text-dim); margin-top: 2px; }
+  .layout {
+    max-width: 1300px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 310px 1fr 340px;
+    gap: 16px;
+  }
+  @media (max-width: 1100px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+  }
+  .card-title {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-dim); font-weight: 700;
+    margin: 0 0 10px 0; display: flex; align-items: center; justify-content: space-between;
+  }
+  .def-btn {
+    display: block; width: 100%; text-align: left;
+    background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 10px; margin-bottom: 6px;
+    cursor: pointer; font-size: 0.82rem; transition: all 0.15s ease;
+  }
+  .def-btn:hover { border-color: var(--accent); background: #22305a; }
+  .def-btn.active {
+    border-color: var(--accent);
+    background: linear-gradient(90deg, rgba(94,129,244,0.25), rgba(94,129,244,0.05));
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .def-btn .sub { font-size: 0.72rem; color: var(--text-dim); display: block; margin-top: 2px; }
+  .def-btn.active .sub { color: #cfd8f6; }
+  .toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
+  .seg-btn {
+    background: var(--panel-2); color: var(--text-dim);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 7px; font-size: 0.78rem; cursor: pointer; text-align: center;
+    transition: all 0.15s;
+  }
+  .seg-btn.active { background: var(--accent); color: #fff; font-weight: 600; border-color: var(--accent); }
+  .switch-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 10px; background: var(--panel-2); border-radius: 8px; margin-bottom: 6px;
+    font-size: 0.8rem;
+  }
+  .switch-row input { cursor: pointer; }
+  .svg-wrap {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 8px;
+    position: relative;
+    overflow-x: auto;
+  }
+  svg { display: block; width: 100%; height: auto; min-width: 620px; }
+  .lab-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem;
+  }
+  .lab-row:last-child { border-bottom: none; }
+  .lab-val { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.82rem; font-weight: 700; }
+  .val-normal { color: #a5b4fc; }
+  .val-high   { color: var(--danger); }
+  .val-low    { color: #38bdf8; }
+  .val-zero   { color: #64748b; }
+  .badge {
+    font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-transform: uppercase;
+  }
+  .badge-danger { background: rgba(238,82,83,0.2); color: var(--danger); border: 1px solid rgba(238,82,83,0.4); }
+  .badge-warn   { background: rgba(255,159,67,0.2); color: var(--warn); border: 1px solid rgba(255,159,67,0.4); }
+  .badge-ok     { background: rgba(16,172,132,0.2); color: var(--success); border: 1px solid rgba(16,172,132,0.4); }
+  .organ-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-top: 10px; }
+  .organ-cell {
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 8px; font-size: 0.75rem;
+  }
+  .organ-cell .name { font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
+  .pearl {
+    background: linear-gradient(135deg, rgba(255,159,67,0.12), rgba(94,129,244,0.1));
+    border-left: 3px solid var(--warn);
+    padding: 8px 10px; border-radius: 6px; font-size: 0.78rem; margin-top: 8px; color: #ffdcb5;
+  }
+  .quiz-box {
+    background: var(--panel-2); border: 1px dashed var(--accent); border-radius: 8px; padding: 10px; margin-top: 10px; font-size: 0.8rem;
+  }
+  .quiz-opt {
+    display: block; width: 100%; text-align: left;
+    background: var(--panel); border: 1px solid var(--border);
+    color: var(--text); padding: 6px 8px; border-radius: 6px; margin-top: 4px;
+    font-size: 0.75rem; cursor: pointer;
+  }
+  .quiz-opt:hover { border-color: var(--accent); }
+  .tab-bar { display: flex; gap: 4px; margin-bottom: 8px; }
+  .tab-bar button {
+    flex: 1; background: transparent; border: none; color: var(--text-dim);
+    padding: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer;
+    border-bottom: 2px solid transparent; text-transform: uppercase;
+  }
+  .tab-bar button.active { color: var(--text); border-color: var(--accent); }
+  .legend-item { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; color: var(--text-dim); margin-right: 12px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .hot { cursor: pointer; transition: filter 0.15s; outline: none; }
+  .hot:hover { filter: brightness(1.35) drop-shadow(0 0 6px var(--accent)); }
+  .hot.sel { filter: brightness(1.5) drop-shadow(0 0 10px #ff9f43); }
+  .popover {
+    position: absolute; z-index: 30; width: 280px;
+    background: #182245; border: 1px solid var(--accent);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 0 1px var(--accent-glow);
+    border-radius: 10px; padding: 12px; font-size: 0.78rem; color: var(--text);
+  }
+  .popover h4 { margin: 0 0 4px; font-size: 0.85rem; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+  .popover .close-btn { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 1rem; padding: 0 4px; }
+  .popover .close-btn:hover { color: #fff; }
+  .popover .gene { font-family: ui-monospace, monospace; font-size: 0.7rem; color: #a5b4fc; margin-bottom: 6px; }
+  .popover .role { color: var(--text-dim); font-size: 0.74rem; margin-bottom: 6px; }
+  .popover .status { font-weight: 700; padding: 4px 6px; border-radius: 4px; font-size: 0.72rem; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>La lanzadera rota</h1>
+    <div class="subtitle">Defectos de la entrada de ácidos grasos en la mitocondria &middot; Bioquímica Médica</div>
+  </div>
+  <div>
+    <span class="legend-item"><span class="legend-dot" style="background:#4ade80"></span> Normal</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#ff9f43"></span> Afectado</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#ee5253"></span> Bloqueo</span>
+    <span class="legend-item"><span class="legend-dot" style="background:#38bdf8"></span> Desviado</span>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- Col 1: Controles -->
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <div class="card">
+      <div class="card-title">1. Defecto molecular</div>
+      <button class="def-btn active" data-def="normal">
+        <strong>Normal (Control sano)</strong>
+        <span class="sub">Lanzadera íntegra &middot; Todos los transportadores activos</span>
+      </button>
+      <button class="def-btn" data-def="pcd">
+        <strong>PCD &middot; Deficiencia de OCTN2</strong>
+        <span class="sub">SLC22A5 &middot; Pérdida renal masiva &middot; Carnitina plasmática &lt; 5 &mu;M</span>
+      </button>
+      <button class="def-btn" data-def="cpt1a">
+        <strong>Deficiencia de CPT1A (Hepática)</strong>
+        <span class="sub">CPT1A &middot; Carnitina libre alta &middot; Sin acilcarnitinas de C16/C18</span>
+      </button>
+      <button class="def-btn" data-def="cact">
+        <strong>Deficiencia de CACT</strong>
+        <span class="sub">SLC25A20 &middot; Bloqueo translocasa &middot; C16 y C18:1 muy altas</span>
+      </button>
+      <button class="def-btn" data-def="cpt2n">
+        <strong>Deficiencia de CPT2 neonatal/infantil</strong>
+        <span class="sub">CPT2 grave &middot; Hepatocardiomuscular &middot; C16/C18:1 altas</span>
+      </button>
+      <button class="def-btn" data-def="cpt2a">
+        <strong>Deficiencia de CPT2 miopática del adulto</strong>
+        <span class="sub">CPT2 parcial &middot; Rabdomiólisis de esfuerzo &middot; Orina marrón</span>
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">2. Estado metabólico</div>
+      <div class="toggle-grid">
+        <button class="seg-btn active" data-state="basal">Postprandial / Reposo<br><span style="font-size:0.68rem;opacity:0.8;">Glucosa disponible</span></button>
+        <button class="seg-btn" data-state="estres">Ayuno / Infección / Ejercicio<br><span style="font-size:0.68rem;opacity:0.8;">Dependencia de AG</span></button>
+      </div>
+
+      <div class="card-title" style="margin-top:10px;">3. Terapéutica</div>
+      <label class="switch-row">
+        <span>Suplemento de L-carnitina</span>
+        <input type="checkbox" id="chk-carn">
+      </label>
+      <label class="switch-row">
+        <span>Triglicéridos de cadena media (MCT)</span>
+        <input type="checkbox" id="chk-mct">
+      </label>
+    </div>
+
+    <div class="card">
+      <div class="card-title">4. Modo Detective Clínico</div>
+      <div class="quiz-box">
+        <div id="case-text" style="font-size:0.78rem; line-height:1.4; color:#fff;"></div>
+        <div id="case-options" style="margin-top:6px;"></div>
+        <div id="case-feedback" style="margin-top:8px; font-size:0.74rem; display:none;"></div>
+      </div>
+      <button id="btn-next-case" class="def-btn" style="margin-top:8px; text-align:center;">Siguiente caso clínico &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Col 2: Esquema central -->
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <div class="svg-wrap" id="svgScroll">
+      <div id="popover" class="popover" hidden>
+        <h4><span id="popTitle">Elemento</span><button class="close-btn" id="popX">&times;</button></h4>
+        <div class="gene" id="popGene"></div>
+        <div class="role" id="popRole"></div>
+        <div class="status" id="popStatus"></div>
+      </div>
+
+      <svg viewBox="0 0 820 620" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gradCyto" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#14203d"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
+          <linearGradient id="gradMOM" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b1d60"/><stop offset="100%" stop-color="#4f2d7f"/></linearGradient>
+          <linearGradient id="gradIMS" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1e1338"/><stop offset="100%" stop-color="#2a1b4e"/></linearGradient>
+          <linearGradient id="gradMIM" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5a1836"/><stop offset="100%" stop-color="#7a284e"/></linearGradient>
+          <linearGradient id="gradMat" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2d0f1e"/><stop offset="100%" stop-color="#3d152a"/></linearGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="3" result="c"/><feMerge><feMergeNode in="c"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#5e81f4"/>
+          </marker>
+          <marker id="arr-crit" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#ee5253"/>
+          </marker>
+          <marker id="arr-mct" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#10ac84"/>
+          </marker>
+        </defs>
+
+        <!-- Compartimentos -->
+        <rect x="10" y="50" width="790" height="110" rx="10" fill="url(#gradCyto)" stroke="#2b3b6b"/>
+        <text x="25" y="75" fill="#7dd3fc" font-size="12" font-weight="700" letter-spacing="1">CITOSOL / MEMBRANA PLASMÁTICA</text>
+
+        <rect x="10" y="175" width="790" height="40" rx="6" fill="url(#gradMOM)" stroke="#6b3ba8"/>
+        <text x="25" y="199" fill="#d8b4fe" font-size="11" font-weight="700">MEMBRANA MITOCONDRIAL EXTERNA (MOM)</text>
+
+        <rect x="10" y="225" width="790" height="85" rx="6" fill="url(#gradIMS)" stroke="#4c2c85"/>
+        <text x="25" y="245" fill="#c084fc" font-size="11" font-weight="700">ESPACIO INTERMEMBRANA (IMS)</text>
+
+        <rect x="10" y="320" width="790" height="45" rx="6" fill="url(#gradMIM)" stroke="#a23b68"/>
+        <text x="25" y="347" fill="#f472b6" font-size="11" font-weight="700">MEMBRANA MITOCONDRIAL INTERNA (MIM)</text>
+
+        <rect x="10" y="375" width="790" height="230" rx="10" fill="url(#gradMat)" stroke="#831843"/>
+        <text x="25" y="400" fill="#fda4af" font-size="12" font-weight="700" letter-spacing="1">MATRIZ MITOCONDRIAL (&beta;-OXIDACIÓN)</text>
+
+        <!-- Transportador OCTN2 -->
+        <g id="hot-octn2" class="hot" data-k="octn2" tabindex="0">
+          <rect id="node-octn2" x="35" y="90" width="70" height="50" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <text x="70" y="112" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">OCTN2</text>
+          <text x="70" y="127" text-anchor="middle" fill="#94a3b8" font-size="9">SLC22A5</text>
+        </g>
+        <path d="M 15 115 L 35 115" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)" fill="none"/>
+        <text x="18" y="105" fill="#38bdf8" font-size="9" font-weight="600">Carnitina ext.</text>
+        <path d="M 105 115 L 140 115" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)" fill="none"/>
+
+        <!-- Pool citosólico de Carnitina -->
+        <g id="hot-carn-cyto" class="hot" data-k="carn_cyto" tabindex="0">
+          <ellipse id="node-carn-cyto" cx="180" cy="115" rx="40" ry="22" fill="#0369a1" stroke="#38bdf8" stroke-width="1.5"/>
+          <text x="180" y="115" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Carnitina</text>
+          <text x="180" y="127" text-anchor="middle" fill="#bae6fd" font-size="8">libre citosol</text>
+        </g>
+
+        <!-- Activación de AG: Acil-CoA sintetasa -->
+        <g id="hot-acs" class="hot" data-k="acs" tabindex="0">
+          <rect id="node-acs" x="420" y="90" width="85" height="46" rx="8" fill="#1e293b" stroke="#60a5fa" stroke-width="1.5"/>
+          <text x="462" y="110" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Acil-CoA sint.</text>
+          <text x="462" y="124" text-anchor="middle" fill="#94a3b8" font-size="8">AG &rarr; Acil-CoA</text>
+        </g>
+        <text x="320" y="110" fill="#93c5fd" font-size="10">AG cadena larga</text>
+        <path d="M 390 113 L 420 113" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arr)" fill="none"/>
+
+        <!-- Pool Acil-CoA citosol -->
+        <g id="hot-lc-acylcoa" class="hot" data-k="lc_acylcoa" tabindex="0">
+          <ellipse id="node-acylcoa" cx="565" cy="113" rx="45" ry="22" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1.5"/>
+          <text x="565" y="112" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">LC-Acil-CoA</text>
+          <text x="565" y="124" text-anchor="middle" fill="#bfdbfe" font-size="8">(Palmitoil-CoA)</text>
+        </g>
+        <path d="M 505 113 L 520 113" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arr)" fill="none"/>
+
+        <!-- CPT1A en MOM -->
+        <g id="hot-cpt1a" class="hot" data-k="cpt1a" tabindex="0">
+          <rect id="node-cpt1a" x="330" y="170" width="95" height="50" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="2"/>
+          <text x="377" y="192" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">CPT1A</text>
+          <text x="377" y="206" text-anchor="middle" fill="#d8b4fe" font-size="8.5">Carnitina palmitoil-T1</text>
+        </g>
+
+        <!-- Convergencia a CPT1A -->
+        <path d="M 220 115 Q 310 135 340 170" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+        <path d="M 540 132 Q 450 150 410 170" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+        <text x="245" y="145" fill="#38bdf8" font-size="8">+ Carnitina</text>
+        <text x="475" y="145" fill="#60a5fa" font-size="8">+ LC-Acil-CoA</text>
+        <text x="432" y="195" fill="#a855f7" font-size="8">&rarr; CoA-SH libre</text>
+
+        <!-- Producto CPT1A: Acilcarnitina en IMS -->
+        <g id="hot-acylcarn" class="hot" data-k="acylcarn" tabindex="0">
+          <ellipse id="node-acylcarn" cx="377" cy="270" rx="60" ry="24" fill="#581c87" stroke="#c084fc" stroke-width="1.5"/>
+          <text x="377" y="267" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Acilcarnitina</text>
+          <text x="377" y="280" text-anchor="middle" fill="#e9d5ff" font-size="8.5">Palmitoilcarnitina (C16)</text>
+        </g>
+        <path d="M 377 220 L 377 246" stroke="#c084fc" stroke-width="2" marker-end="url(#arr)" fill="none"/>
+
+        <!-- Translocasa CACT en MIM -->
+        <g id="hot-cact" class="hot" data-k="cact" tabindex="0">
+          <rect id="node-cact" x="325" y="318" width="105" height="50" rx="8" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+          <text x="377" y="338" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">CACT</text>
+          <text x="377" y="352" text-anchor="middle" fill="#fda4af" font-size="8.5">SLC25A20 &middot; Antiporte</text>
+        </g>
+        <path d="M 360 294 L 360 318" stroke="#f43f5e" stroke-width="2" marker-end="url(#arr)" fill="none"/>
+        <path d="M 395 318 L 395 294" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr)" fill="none"/>
+        <text x="280" y="306" fill="#f43f5e" font-size="8.5">Acilcarnitina &darr;</text>
+        <text x="403" y="306" fill="#38bdf8" font-size="8.5">&uarr; Carnitina</text>
+
+        <!-- Matriz: Acilcarnitina entrada -->
+        <g id="hot-acylcarn-mat" class="hot" data-k="acylcarn_mat" tabindex="0">
+          <ellipse id="node-acylcarn-mat" cx="300" cy="425" rx="55" ry="22" fill="#581c87" stroke="#c084fc" stroke-width="1.5"/>
+          <text x="300" y="423" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="700">LC-Acilcarnitina</text>
+          <text x="300" y="435" text-anchor="middle" fill="#e9d5ff" font-size="8">(Matriz)</text>
+        </g>
+        <path d="M 350 368 L 320 405" stroke="#f43f5e" stroke-width="1.5" marker-end="url(#arr)" fill="none"/>
+
+        <!-- CPT2 en cara interna MIM -->
+        <g id="hot-cpt2" class="hot" data-k="cpt2" tabindex="0">
+          <rect id="node-cpt2" x="420" y="380" width="95" height="50" rx="8" fill="#1e293b" stroke="#e11d48" stroke-width="2"/>
+          <text x="467" y="401" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">CPT2</text>
+          <text x="467" y="415" text-anchor="middle" fill="#fca5a5" font-size="8.5">Reconvierte a Acil-CoA</text>
+        </g>
+        <path d="M 355 425 L 420 410" stroke="#c084fc" stroke-width="1.5" marker-end="url(#arr)" fill="none"/>
+
+        <!-- Carnitina liberada en matriz vuelve a CACT -->
+        <g id="hot-carn-mat" class="hot" data-k="carn_mat" tabindex="0">
+          <ellipse id="node-carn-mat" cx="420" cy="485" rx="42" ry="20" fill="#0369a1" stroke="#38bdf8" stroke-width="1.5"/>
+          <text x="420" y="485" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="700">Carnitina</text>
+          <text x="420" y="496" text-anchor="middle" fill="#bae6fd" font-size="7.5">reciclable</text>
+        </g>
+        <path d="M 450 430 Q 435 455 428 465" stroke="#38bdf8" stroke-width="1.5" fill="none"/>
+        <path d="M 410 465 Q 395 400 395 368" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arr)" fill="none"/>
+
+        <!-- Producto final en matriz: Acil-CoA listo para beta-oxidación -->
+        <g id="hot-acylcoa-mat" class="hot" data-k="acylcoa_mat" tabindex="0">
+          <ellipse id="node-acylcoa-mat" cx="590" cy="425" rx="55" ry="24" fill="#831843" stroke="#f472b6" stroke-width="2"/>
+          <text x="590" y="422" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">LC-Acil-CoA</text>
+          <text x="590" y="435" text-anchor="middle" fill="#fbcfe8" font-size="8.5">Palmitoil-CoA (Matriz)</text>
+        </g>
+        <path d="M 515 405 L 540 415" stroke="#f472b6" stroke-width="1.5" marker-end="url(#arr)" fill="none"/>
+
+        <!-- Bloque Beta-oxidación -->
+        <g id="hot-betaox" class="hot" data-k="betaox" tabindex="0">
+          <rect id="node-betaox" x="510" y="490" width="160" height="95" rx="10" fill="#1f1322" stroke="#ec4899" stroke-width="2"/>
+          <text x="590" y="512" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">&beta;-OXIDACIÓN</text>
+          <text x="590" y="528" text-anchor="middle" fill="#f472b6" font-size="9">(VLCAD, MCAD, TFP...)</text>
+          <text x="590" y="548" text-anchor="middle" fill="#fbcfe8" font-size="9.5">&darr; Acetil-CoA + NADH + FADH&#8322;</text>
+          <text x="590" y="565" text-anchor="middle" fill="#fef08a" font-size="9" font-weight="700">CETOGÉNESIS &bull; ATP &bull; GLUCONEO</text>
+        </g>
+        <path d="M 590 449 L 590 490" stroke="#f472b6" stroke-width="2" marker-end="url(#arr)" fill="none"/>
+
+        <!-- BYPASS MCT (directo a matriz) -->
+        <g id="grp-mct" opacity="0.25">
+          <path d="M 720 115 L 720 480" stroke="#10ac84" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arr-mct)" fill="none"/>
+          <rect x="660" y="270" width="125" height="50" rx="8" fill="#064e3b" stroke="#10ac84" stroke-width="1.5"/>
+          <text x="722" y="290" text-anchor="middle" fill="#6ee7b7" font-size="10" font-weight="700">BYPASS MCT (C8-C10)</text>
+          <text x="722" y="305" text-anchor="middle" fill="#a7f3d0" font-size="8">Difusión libre (sin carnitina)</text>
+        </g>
+
+        <!-- Vía alternativa tóxica: Omega-oxidación citosólica -->
+        <g id="grp-omega" opacity="0.2">
+          <path d="M 610 115 Q 700 135 700 150" stroke="#f97316" stroke-width="2" stroke-dasharray="4,3" fill="none"/>
+          <rect x="635" y="140" width="150" height="30" rx="6" fill="#431407" stroke="#f97316" stroke-width="1"/>
+          <text x="710" y="158" text-anchor="middle" fill="#fdba74" font-size="8.5">&omega;-oxidación &rarr; Ác. Dicarboxílicos</text>
+        </g>
+
+        <!-- Bloqueos visuales (cruz roja) -->
+        <g id="block-octn2" display="none">
+          <circle cx="70" cy="115" r="22" fill="#ee5253" opacity="0.85"/>
+          <path d="M 57 102 L 83 128 M 83 102 L 57 128" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+        </g>
+        <g id="block-cpt1a" display="none">
+          <circle cx="377" cy="195" r="22" fill="#ee5253" opacity="0.85"/>
+          <path d="M 364 182 L 390 208 M 390 182 L 364 208" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+        </g>
+        <g id="block-cact" display="none">
+          <circle cx="377" cy="343" r="22" fill="#ee5253" opacity="0.85"/>
+          <path d="M 364 330 L 390 356 M 390 330 L 364 356" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+        </g>
+        <g id="block-cpt2" display="none">
+          <circle cx="467" cy="405" r="22" fill="#ee5253" opacity="0.85"/>
+          <path d="M 454 392 L 480 418 M 480 392 L 454 418" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+        </g>
+        <g id="block-cpt2a-partial" display="none">
+          <circle cx="467" cy="405" r="22" fill="#ff9f43" opacity="0.85"/>
+          <text x="467" y="411" text-anchor="middle" fill="#000" font-size="14" font-weight="900">~20%</text>
+        </g>
+
+        <!-- Fuga renal PCD -->
+        <g id="renal-leak" display="none">
+          <path d="M 70 140 L 70 165" stroke="#ee5253" stroke-width="2" marker-end="url(#arr-crit)" fill="none"/>
+          <text x="75" y="160" fill="#ee5253" font-size="8" font-weight="700">Fuga renal carnitina</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Afectación por Órganos -->
+    <div class="card">
+      <div class="card-title">Afectación tisular en este escenario</div>
+      <div class="organ-grid">
+        <div class="organ-cell" id="org-higado">
+          <div class="name"><span>Hígado</span><span class="badge badge-ok" id="badge-higado">Normal</span></div>
+          <div style="font-size:0.7rem;color:var(--text-dim);margin-top:3px;" id="txt-higado">Oxidación de AG adecuada.</div>
+        </div>
+        <div class="organ-cell" id="org-corazon">
+          <div class="name"><span>Corazón</span><span class="badge badge-ok" id="badge-corazon">Normal</span></div>
+          <div style="font-size:0.7rem;color:var(--text-dim);margin-top:3px;" id="txt-corazon">Dependencia del 70% de AG.</div>
+        </div>
+        <div class="organ-cell" id="org-musculo">
+          <div class="name"><span>M. Esquelético</span><span class="badge badge-ok" id="badge-musculo">Normal</span></div>
+          <div style="font-size:0.7rem;color:var(--text-dim);margin-top:3px;" id="txt-musculo">Reserva para ejercicio.</div>
+        </div>
+        <div class="organ-cell" id="org-rinon">
+          <div class="name"><span>Riñón</span><span class="badge badge-ok" id="badge-rinon">Normal</span></div>
+          <div style="font-size:0.7rem;color:var(--text-dim);margin-top:3px;" id="txt-rinon">Reabsorción carnitina 95%.</div>
+        </div>
+        <div class="organ-cell" id="org-cerebro">
+          <div class="name"><span>Cerebro</span><span class="badge badge-ok" id="badge-cerebro">Normal</span></div>
+          <div style="font-size:0.7rem;color:var(--text-dim);margin-top:3px;" id="txt-cerebro">Glucosa y cetonas ok.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Col 3: Analítica y Fisiopatología -->
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <div class="card">
+      <div class="card-title">Perfil analítico en plasma y orina</div>
+      <div class="lab-row">
+        <span>Glucosa</span>
+        <span class="lab-val val-normal" id="lab-glucosa">85 mg/dL</span>
+      </div>
+      <div class="lab-row">
+        <span>Cuerpos cetónicos (acetoacetato/&beta;OHB)</span>
+        <span class="lab-val val-normal" id="lab-cetonas">Positivos</span>
+      </div>
+      <div class="lab-row" style="background:rgba(94,129,244,0.06);">
+        <span><strong>Carnitina libre plasmática (C0)</strong></span>
+        <span class="lab-val val-normal" id="lab-carnLibre">42 &mu;mol/L</span>
+      </div>
+      <div class="lab-row">
+        <span>Acilcarnitinas de cadena larga (C16, C18:1)</span>
+        <span class="lab-val val-normal" id="lab-acilLC">Normales</span>
+      </div>
+      <div class="lab-row">
+        <span>Cociente (C16 + C18:1) / C2</span>
+        <span class="lab-val val-normal" id="lab-ratio">0.03</span>
+      </div>
+      <div class="lab-row">
+        <span>Carnitina en orina (fracción excretada)</span>
+        <span class="lab-val val-normal" id="lab-carnOrina">&lt; 2.5%</span>
+      </div>
+      <div class="lab-row">
+        <span>Ácidos dicarboxílicos en orina (C6-C10)</span>
+        <span class="lab-val val-normal" id="lab-dicarb">Negativos</span>
+      </div>
+      <div class="lab-row">
+        <span>Creatina quinasa (CK total)</span>
+        <span class="lab-val val-normal" id="lab-ck">95 U/L</span>
+      </div>
+      <div class="lab-row">
+        <span>Mioglobina en orina</span>
+        <span class="lab-val val-normal" id="lab-mioglobina">Negativa</span>
+      </div>
+      <div class="lab-row">
+        <span>Amonio plasmático</span>
+        <span class="lab-val val-normal" id="lab-amonio">32 &mu;mol/L</span>
+      </div>
+      <div class="lab-row">
+        <span>Transaminasas (AST / ALT)</span>
+        <span class="lab-val val-normal" id="lab-transam">22 / 20 U/L</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tab-bar">
+        <button class="active" data-tab="perlas">Perlas MIR / UGR</button>
+        <button data-tab="matriz">Matriz diagnóstica</button>
+        <button data-tab="algoritmo">Algoritmo</button>
+      </div>
+
+      <div id="tab-perlas">
+        <div class="pearl" id="txt-pearl">
+          <strong>Regla de oro:</strong> Si la hipoglucemia cursa <em>sin cetonuria</em> (o muy baja para el grado de ayuno), piensa siempre en un defecto de la &beta;-oxidación o de la lanzadera de carnitina.
+        </div>
+        <div style="font-size:0.75rem; color:var(--text-dim); margin-top:8px;" id="txt-mechanism">
+          <!-- Mecanismo específico -->
+        </div>
+      </div>
+
+      <div id="tab-matriz" style="display:none; font-size:0.7rem;">
+        <table style="width:100%; border-collapse:collapse; color:var(--text);">
+          <tr style="border-bottom:1px solid var(--border); color:var(--text-dim);">
+            <th style="text-align:left; padding:4px;">Defecto</th>
+            <th>C0</th>
+            <th>C16/C18</th>
+            <th>MCT</th>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+            <td style="padding:4px;"><strong>PCD (OCTN2)</strong></td>
+            <td style="color:#38bdf8;">&lt; 5 &mu;M</td>
+            <td>Bajas</td>
+            <td style="color:#10ac84;">No crítico*</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+            <td style="padding:4px;"><strong>CPT1A</strong></td>
+            <td style="color:var(--danger);">&uarr;&uarr; Alta</td>
+            <td style="color:#38bdf8;">Indetect.</td>
+            <td style="color:#10ac84;">&iexcl;Sí!</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+            <td style="padding:4px;"><strong>CACT</strong></td>
+            <td style="color:#38bdf8;">Baja</td>
+            <td style="color:var(--danger);">&uarr;&uarr;&uarr; Muy alta</td>
+            <td style="color:#10ac84;">&iexcl;Sí!</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+            <td style="padding:4px;"><strong>CPT2 neo</strong></td>
+            <td style="color:#38bdf8;">Baja</td>
+            <td style="color:var(--danger);">&uarr;&uarr;&uarr; Muy alta</td>
+            <td style="color:#10ac84;">&iexcl;Sí!</td>
+          </tr>
+          <tr>
+            <td style="padding:4px;"><strong>CPT2 adulto</strong></td>
+            <td>Normal/&darr;</td>
+            <td>&uarr; en crisis</td>
+            <td style="color:#10ac84;">Dieta/MCT</td>
+          </tr>
+        </table>
+        <div style="font-size:0.68rem; color:var(--text-dim); margin-top:6px;">*En PCD, el pilar es la L-carnitina a dosis masivas (100-300 mg/kg/d). En CPT1A, la carnitina no sirve (ya está alta).</div>
+      </div>
+
+      <div id="tab-algoritmo" style="display:none; font-size:0.74rem; line-height:1.5;">
+        <ol style="margin:0; padding-left:18px;">
+          <li><strong>Hipoglucemia hipocetósica:</strong> confirma fallo de &beta;-oxidación.</li>
+          <li><strong>Mide carnitina libre (C0):</strong>
+            <br>&bull; Si &lt; 5 &mu;M &rarr; <strong>PCD (OCTN2)</strong>. Revisa excreción urinaria.
+            <br>&bull; Si muy alta &rarr; <strong>CPT1A</strong>.
+          </li>
+          <li><strong>Mide acilcarnitinas de cadena larga (C16, C18:1):</strong>
+            <br>&bull; Si muy altas con C0 baja/normal &rarr; <strong>CACT</strong> o <strong>CPT2</strong>.
+          </li>
+          <li><strong>Diferencia CACT vs CPT2:</strong> clínica precoz/arritmias (ambas graves), ratio C16+C18:1/C2 y secuenciación genética de <em>SLC25A20</em> vs <em>CPT2</em>.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+const S = { d: 'normal', s: 'basal', carn: false, mct: false };
+
+const CASES = [
+  {
+    t: "Lactante de 7 meses con gastroenteritis y ayuno de 14 horas. Llega en coma con glucosa 28 mg/dL, cetonuria negativa y amonio de 140 &mu;mol/L. La carnitina libre plasmática es de 2.1 &mu;mol/L (muy disminuida) y en orina se detecta una fracción de excreción de carnitina del 38% (fuga renal masiva).",
+    opts: [
+      { id: 'pcd', l: 'Deficiencia primaria de carnitina (OCTN2 / SLC22A5)', ok: true, exp: '¡Correcto! La carnitina plasmática < 5 μM combinada con fuga renal masiva de carnitina es patognomónica de mutación en OCTN2 (PCD).' },
+      { id: 'cpt1a', l: 'Deficiencia de CPT1A hepática', ok: false, exp: 'Falso. En la deficiencia de CPT1A la carnitina libre plasmática está normal o muy ELEVADA, nunca baja.' },
+      { id: 'cpt2a', l: 'Deficiencia de CPT2 del adulto', ok: false, exp: 'Falso. Esta forma debuta en jóvenes/adultos con rabdomiólisis tras ejercicio prolongado, no con hipoglucemia hipocetósica infantil grave.' }
+    ]
+  },
+  {
+    t: "Neonato de 4 días con letargia, hepatomegalia e hipoglucemia de 22 mg/dL con cetonas en orina indetectables. El cribado neonatal (MS/MS) muestra carnitina libre (C0) marcadamente elevada (98 &mu;mol/L), pero niveles indetectables de palmitoilcarnitina (C16) y estearoilcarnitina (C18).",
+    opts: [
+      { id: 'cpt1a', l: 'Deficiencia de CPT1A', ok: true, exp: '¡Excelente! CPT1A sintetiza acilcarnitinas a partir de carnitina libre y acil-CoA. Al estar bloqueada, la carnitina libre se acumula y no se generan C16 ni C18.' },
+      { id: 'cact', l: 'Deficiencia de translocasa CACT', ok: false, exp: 'Falso. En el defecto de CACT, CPT1A funciona y acumula grandes cantidades de acilcarnitinas C16 y C18:1.' },
+      { id: 'pcd', l: 'Deficiencia de OCTN2', ok: false, exp: 'Falso. En OCTN2 la carnitina libre es prácticamente cero, jamás elevada.' }
+    ]
+  },
+  {
+    t: "Varón de 19 años, estudiante de Medicina en la UGR, que tras correr una media maratón en ayunas nota dolor muscular intenso, debilidad y orinas de color 'coca-cola'. En urgencias: glucosa 78 mg/dL, CK 68.000 U/L y mioglobinuria positiva.",
+    opts: [
+      { id: 'cpt2a', l: 'Deficiencia de CPT2 del adulto (forma miopática)', ok: true, exp: '¡Exacto! Es la causa más frecuente de rabdomiólisis hereditaria por defecto lipídico. La actividad enzimática residual (~20%) basta en reposo pero colapsa en ejercicio prolongado.' },
+      { id: 'pcd', l: 'Deficiencia primaria de carnitina', ok: false, exp: 'Falso. La forma típica de PCD debuta en la infancia con miocardiopatía dilatada o crisis hipoglucémica, no como rabdomiólisis pura inducida por maratón.' },
+      { id: 'cpt1a', l: 'Deficiencia de CPT1A', ok: false, exp: 'Falso. CPT1A es hepática y no causa afectación del músculo esquelético (el músculo usa la isoforma CPT1B, que está intacta).' }
+    ]
+  },
+  {
+    t: "Recién nacido que a las 36 horas de vida presenta taquicardia ventricular, cardiomegalia y coma. El perfil de acilcarnitinas muestra una elevación extrema de C16 y C18:1 con carnitina libre muy baja. El cociente (C16 + C18:1)/C2 es de 1.8 (muy elevado).",
+    opts: [
+      { id: 'cact', l: 'Deficiencia de CACT o CPT2 neonatal grave', ok: true, exp: '¡Correcto! Ambas entidades comparten el perfil idéntico de bloqueo de entrada a la matriz (acumulan acilcarnitinas de cadena larga). Se requiere secuenciación genética para distinguir SLC25A20 vs CPT2.' },
+      { id: 'cpt1a', l: 'Deficiencia de CPT1A', ok: false, exp: 'Falso. CPT1A no puede producir C16 ni C18:1, por lo que estarían extremadamente bajas.' },
+      { id: 'normal', l: 'Cardiopatía congénita estructural', ok: false, exp: 'Falso. El perfil bioquímico con elevación patognomónica de acilcarnitinas de cadena larga demuestra un error innato del metabolismo.' }
+    ]
+  },
+  {
+    t: "¿Por qué los triglicéridos de cadena media (MCT, C8-C10) son terapéuticos en los defectos de CPT1A, CACT y CPT2, pero NO salvan la miocardiopatía de la deficiencia de OCTN2?",
+    opts: [
+      { id: 'mct_exp', l: 'Porque los AG de cadena media no usan la lanzadera para entrar a la matriz, pero el corazón con OCTN2 mutado sigue sufriendo déficit intracelular de carnitina para detoxificar', ok: true, exp: '¡Brillante! Los MCT entran por difusión pasiva sin usar CPT1/CACT/CPT2. En OCTN2, además de sustrato energético, la falta de carnitina produce fallo cardíaco por alteración de la homeostasis mitocondrial; el pilar indiscutible es suplementar L-carnitina.' },
+      { id: 'mct_no', l: 'Porque los MCT inhiben a CPT1A por retroalimentación alostérica', ok: false, exp: 'Falso. Los MCT no inhiben CPT1A; simplemente la puentean.' },
+      { id: 'mct_fake', l: 'Porque los MCT no se pueden oxidar en el hígado de los mamíferos', ok: false, exp: 'Falso. Los MCT se oxidan ávidamente en el hígado generando cuerpos cetónicos.' }
+    ]
+  }
+];
+
+let curCase = 0;
+const $ = id => document.getElementById(id);
+
+function computeLabs(){
+  const d=S.d, st=S.s;
+  const v = {
+    glucosa: 85, cetonas: 'Positivos',
+    carnLibre: 42, acilLC: 'Normales',
+    ratio: 0.03, carnOrina: '< 2.5%', dicarb: 'Negativos',
+    ck: 95, mioglobina: 'Negativa', amonio: 32, transam: '22 / 20'
+  };
+  const notes = {};
+
+  if(d==='normal'){
+    if(st==='estres'){ v.glucosa=72; v.cetonas='Muy positivos (++++)'; v.carnLibre=38; v.acilLC='Leve aumento fisiológico'; v.ratio=0.06; v.ck=140; }
+  } else if(d==='pcd'){
+    v.carnLibre = 2.8; notes.carnLibre = 'Patognomónico: < 5 μM por fallo del transportador';
+    v.carnOrina = '35% (Fuga renal)'; notes.carnOrina = 'Incapaz de reabsorber en túbulo proximal';
+    v.acilLC = 'Muy bajas / Indetectables'; notes.acilLC = 'Sin carnitina no hay acilcarnitinas';
+    v.ratio = 0.01;
+    if(st==='estres'){
+      v.glucosa = 28; notes.glucosa = 'Hipoglucemia severa';
+      v.cetonas = 'Indetectables (Hipocetósica)'; notes.cetonas = 'Fallo masivo de cetogénesis';
+      v.amonio = 165; v.transam = '340 / 410'; v.ck = 520; v.dicarb = 'Positivos (C6-C10)';
+    }
+  } else if(d==='cpt1a'){
+    v.carnLibre = 110; notes.carnLibre = 'Acumulada: no se gasta en esterificar acilos';
+    v.acilLC = 'Indetectables'; notes.acilLC = 'Bloqueo previo a su síntesis';
+    v.ratio = '< 0.01';
+    if(st==='estres'){
+      v.glucosa = 32; v.cetonas = 'Negativos'; v.amonio = 180; v.transam = '420 / 380'; v.dicarb = 'Positivos (++++)';
+    }
+  } else if(d==='cact'){
+    v.carnLibre = 8.5; notes.carnLibre = 'Secuestrada como acilcarnitina';
+    v.acilLC = 'Muy elevadas (C16, C18:1)'; notes.acilLC = 'CPT1A funciona pero el producto no puede entrar';
+    v.ratio = 1.65; notes.ratio = 'Extremadamente patológico (> 0.2)';
+    v.ck = st==='estres' ? 2400 : 180;
+    if(st==='estres'){
+      v.glucosa = 26; v.cetonas = 'Negativos'; v.amonio = 220; v.transam = '560 / 610'; v.dicarb = 'Positivos (+++)';
+    }
+  } else if(d==='cpt2n'){
+    v.carnLibre = 9.2; v.acilLC = 'Muy elevadas (C16, C18:1)'; notes.acilLC = 'No se reconvierten a Acil-CoA en matriz';
+    v.ratio = 1.45; v.ck = st==='estres' ? 4200 : 210;
+    if(st==='estres'){
+      v.glucosa = 24; v.cetonas = 'Negativos'; v.amonio = 210; v.transam = '680 / 720'; v.dicarb = 'Positivos (+++)';
+    }
+  } else if(d==='cpt2a'){
+    v.carnLibre = 28; v.ratio = 0.08;
+    if(st==='estres'){
+      v.glucosa = 74; v.cetonas = 'Trazas / Inadecuadamente bajas';
+      v.acilLC = 'Elevadas (C16, C18:1 en crisis)';
+      v.ck = '48.000 (Rabdomiólisis)'; notes.ck = 'Lisis muscular masiva';
+      v.mioglobina = 'Positiva ++++ (Orina marrón)'; notes.mioglobina = 'Riesgo de fracaso renal agudo';
+      v.transam = '310 / 120 (AST > ALT por origen muscular)';
+    }
+  }
+
+  if(S.carn && d==='pcd'){
+    v.carnLibre = 35;
+    notes.carnLibre = 'Las dosis altas de L-carnitina la normalizan.'; notes.acilLC = ''; notes.dicarb = ''; notes.cetonas = st==='estres' ? 'La β-oxidación vuelve a funcionar.' : '';
+    notes.carnOrina = 'La fuga renal persiste: el tratamiento es de por vida.';
+  }
+  if(S.mct && st==='estres' && d!=='normal' && !(d==='pcd'&&S.carn)){
+    if((v.glucosa||0)<0){ v.glucosa = 0; notes.glucosa = 'Los AG de cadena media aportan acetil-CoA y energía para la gluconeogénesis.'; }
+    if(d!=='cpt2a'){ v.cetonas = 1; notes.cetonas = 'Los AG de cadena media son cetogénicos.'; }
+    if(v.amonio) v.amonio = 0;
+    if(v.ck) v.ck = Math.max(0,v.ck-1);
+    if(v.mioglobina) v.mioglobina = Math.max(0,v.mioglobina-1);
+    if(v.transam) v.transam = Math.max(0,v.transam-1);
+    if(v.acilLC>0) notes.acilLC = 'Siguen altas: el bloqueo de cadena larga no cambia.';
+  }
+  return {v, notes};
+}
+
+function organs(){
+  const d=S.d, st=S.s, crisis = st==='estres';
+  const mctFix = S.mct && crisis && d!=='normal';
+  const O = {higado:['ok','Normal',''], corazon:['ok','Normal',''], musculo:['ok','Normal',''], rinon:['ok','Normal',''], cerebro:['ok','Normal','']};
+  const set=(k,s,t)=>{O[k]=[s, s==='ok'?'Normal':s==='warn'?'Afectado':'Grave', t];};
+  if(d==='normal'){
+    set('higado','ok', crisis?'Oxida AG; produce glucosa y cuerpos cetónicos.':'Almacena glucógeno; oxidación de AG moderada.');
+    set('corazon','ok','Usa AG como combustible principal.');
+    set('musculo','ok', crisis?'Oxida AG y cuerpos cetónicos.':'Usa glucosa y AG.');
+    set('rinon','ok','Reabsorbe la carnitina filtrada por OCTN2.');
+    set('cerebro','ok', crisis?'Usa cuerpos cetónicos además de glucosa.':'Usa glucosa.');
+  } else if(d==='pcd'){
+    set('rinon','danger','OCTN2 defectuoso: excreta el 30-40% de la carnitina filtrada.');
+    if(crisis && !S.carn){
+      set('higado','danger','Esteatosis microvesicular, fallo de gluconeogénesis y cetogénesis.');
+      set('corazon','danger','Miocardiopatía dilatada progresiva por déficit crítico de carnitina.');
+      set('musculo','warn','Hipotonía y debilidad muscular progresiva.');
+      set('cerebro','danger','Encefalopatía hipoglucémica hipocetósica / hiperamoniémica.');
+    } else if(S.carn){
+      set('higado','ok','Normalizado con L-carnitina.');
+      set('corazon','ok','Miocardiopatía revertida con suplementación oral continua.');
+      set('musculo','ok','Fuerza recuperada.');
+      set('cerebro','ok','Protegido.');
+      set('rinon','warn','La fuga renal persiste: requiere carnitina de por vida.');
+    }
+  } else if(d==='cpt1a'){
+    set('rinon','ok','Reabsorción de carnitina intacta (de hecho, carnitina plasmática muy alta).');
+    set('musculo','ok','Normal: el músculo expresa la isoforma CPT1B, que está intacta.');
+    set('corazon','ok','Corazón protegido: expresa CPT1B y CPT1C.');
+    if(crisis && !mctFix){
+      set('higado','danger','Hepatomegalia masiva, esteatosis y colapso de la cetogénesis.');
+      set('cerebro','danger','Encefalopatía tipo Reye con hiperamoniemia e hipoglucemia.');
+    } else if(mctFix){
+      set('higado','warn','MCT puentea CPT1A &rarr; aporta acetil-CoA y cetonas.');
+      set('cerebro','ok','Protegido por los cuerpos cetónicos derivados de MCT.');
+    }
+  } else if(d==='cact' || d==='cpt2n'){
+    if(crisis && !mctFix){
+      set('corazon','danger','Cardiomiopatía hipertrófica/dilatada, arritmias ventriculares graves, muerte súbita.');
+      set('higado','danger','Hepatomegalia, colapso cetogénico e hiperamoniemia.');
+      set('musculo','danger','Rabdomiólisis precoz, debilidad e hipotonía severa.');
+      set('cerebro','danger','Encefalopatía y coma.');
+    } else if(mctFix){
+      set('corazon','warn','MCT aporta energía, pero persiste acúmulo tóxico de acilos.');
+      set('higado','warn','Gluconeogénesis restablecida por MCT.');
+      set('cerebro','ok','Protegido con normoglucemia y cetonas.');
+    }
+  } else if(d==='cpt2a'){
+    set('higado','ok','Hígado protegido: la actividad residual (~20%) evita hipoglucemias.');
+    set('corazon','ok','Corazón habitualmente indemne.');
+    set('rinon', crisis?'danger':'ok', crisis?'Riesgo de Fracaso Renal Agudo por depósito de mioglobina.':'Normal.');
+    set('musculo', crisis?'danger':'ok', crisis?'Rabdomiólisis masiva inducida por ejercicio / frío / ayuno.':'Asintomático entre crisis.');
+    set('cerebro','ok','Cerebro respetado.');
+  }
+  return O;
+}
+
+function pearls(){
+  const d=S.d;
+  if(d==='normal'){
+    return {
+      p: '<strong>Fisiología:</strong> La membrana mitocondrial interna es totalmente impermeable a la Coenzima A y a los acil-CoA. Por eso los ácidos grasos de más de 12 carbonos requieren obligatoriamente la lanzadera de carnitina.',
+      m: 'En ayuno, la caída de insulina y la baja de malonil-CoA desinhiben a la CPT1, activando la entrada de ácidos grasos para generar acetil-CoA, ATP y cuerpos cetónicos.'
+    };
+  }
+  if(d==='pcd'){
+    return {
+      p: '<strong>Clave diagnóstica:</strong> Carnitina libre plasmática &lt; 5 &mu;M con fuga renal aumentada. Tratamiento salvador: L-carnitina oral a dosis masivas (100-300 mg/kg/día). Revierte la miocardiopatía dilatada.',
+      m: 'Mutación en <em>SLC22A5</em> (OCTN2). Impide la captación celular y la reabsorción tubular renal de carnitina. El riñón normal reabsorbe el 95% de la carnitina filtrada; en PCD se pierde en orina.'
+    };
+  }
+  if(d==='cpt1a'){
+    return {
+      p: '<strong>Clave diagnóstica:</strong> Carnitina libre plasmática ELEVADA con acilcarnitinas C16/C18 indetectables. El músculo NO se afecta porque usa la isoforma CPT1B.',
+      m: 'CPT1A está en el hígado. Al no poder unir la carnitina al palmitoil-CoA, la carnitina libre se acumula en sangre. Tratamiento: evitar ayuno, dieta rica en hidratos y triglicéridos de cadena media (MCT).'
+    };
+  }
+  if(d==='cact'){
+    return {
+      p: '<strong>Clave diagnóstica:</strong> Acilcarnitinas C16 y C18:1 marcadamente elevadas con carnitina libre baja. Cursa con cardiomiopatía y arritmias neonatales muy precoces y graves.',
+      m: 'Mutación en <em>SLC25A20</em>. CPT1A funciona y fabrica palmitoilcarnitina, pero esta no puede atravesar la MIM hacia la matriz ni intercambiarse por carnitina libre.'
+    };
+  }
+  if(d==='cpt2n'){
+    return {
+      p: '<strong>Clave diagnóstica:</strong> Perfil idéntico a CACT en MS/MS (C16 y C18:1 muy altas). Forma neonatal con dismorfia renal/cerebral o infantil con fallo multiorgánico.',
+      m: 'Mutación grave en <em>CPT2</em>. La acilcarnitina entra en la matriz pero no puede desprenderse de la carnitina para regenerar acil-CoA. La carnitina queda atrapada dentro de la matriz.'
+    };
+  }
+  if(d==='cpt2a'){
+    return {
+      p: '<strong>Regla MIR:</strong> Varón joven con dolor muscular y orina color coñac tras ejercicio extenuante o ayuno prolongado. CK en decenas de miles. Es el defecto lipídico más común en adultos.',
+      m: 'Mutación p.Ser113Leu con actividad residual (~20-25%). La función es suficiente para la vida diaria pero insuficiente ante demanda energética máxima de &beta;-oxidación muscular.'
+    };
+  }
+}
+
+function render(){
+  document.querySelectorAll('.def-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.def === S.d);
+  });
+  document.querySelectorAll('.seg-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.state === S.s);
+  });
+  $('chk-carn').checked = S.carn;
+  $('chk-mct').checked = S.mct;
+
+  $('block-octn2').style.display = S.d === 'pcd' ? 'block' : 'none';
+  $('renal-leak').style.display = S.d === 'pcd' ? 'block' : 'none';
+  $('block-cpt1a').style.display = S.d === 'cpt1a' ? 'block' : 'none';
+  $('block-cact').style.display = S.d === 'cact' ? 'block' : 'none';
+  $('block-cpt2').style.display = S.d === 'cpt2n' ? 'block' : 'none';
+  $('block-cpt2a-partial').style.display = S.d === 'cpt2a' ? 'block' : 'none';
+
+  $('grp-mct').setAttribute('opacity', S.mct ? '1' : '0.2');
+  $('grp-omega').setAttribute('opacity', (S.d !== 'normal' && S.s === 'estres') ? '1' : '0.15');
+
+  const { v } = computeLabs();
+  const setLab = (id, val, cls) => {
+    const el = $(id);
+    el.textContent = val;
+    el.className = 'lab-val ' + (cls || 'val-normal');
+  };
+
+  const isStress = S.s === 'estres';
+  setLab('lab-glucosa', (typeof v.glucosa === 'number' ? v.glucosa + ' mg/dL' : v.glucosa), v.glucosa < 50 ? 'val-high' : 'val-normal');
+  setLab('lab-cetonas', v.cetonas, (v.cetonas.indexOf('Neg') >= 0 || v.cetonas.indexOf('Indet') >= 0) && isStress ? 'val-high' : 'val-normal');
+  setLab('lab-carnLibre', v.carnLibre + ' μmol/L', v.carnLibre < 10 ? 'val-low' : (v.carnLibre > 80 ? 'val-high' : 'val-normal'));
+  setLab('lab-acilLC', v.acilLC, v.acilLC.indexOf('elevad') >= 0 || v.acilLC.indexOf('Elevad') >= 0 ? 'val-high' : (v.acilLC.indexOf('bajas') >= 0 ? 'val-low' : 'val-normal'));
+  setLab('lab-ratio', v.ratio, v.ratio > 0.2 ? 'val-high' : 'val-normal');
+  setLab('lab-carnOrina', v.carnOrina, v.carnOrina.indexOf('Fuga') >= 0 ? 'val-high' : 'val-normal');
+  setLab('lab-dicarb', v.dicarb, v.dicarb.indexOf('Posit') >= 0 ? 'val-high' : 'val-normal');
+  setLab('lab-ck', (typeof v.ck === 'number' ? v.ck + ' U/L' : v.ck), typeof v.ck === 'string' || v.ck > 1000 ? 'val-high' : 'val-normal');
+  setLab('lab-mioglobina', v.mioglobina, v.mioglobina.indexOf('Posit') >= 0 ? 'val-high' : 'val-normal');
+  setLab('lab-amonio', v.amonio + ' μmol/L', v.amonio > 80 ? 'val-high' : 'val-normal');
+  setLab('lab-transam', v.transam + ' U/L', v.transam.indexOf('/') >= 0 && parseInt(v.transam) > 100 ? 'val-high' : 'val-normal');
+
+  const O = organs();
+  ['higado', 'corazon', 'musculo', 'rinon', 'cerebro'].forEach(k => {
+    const [st, lbl, txt] = O[k];
+    const b = $('badge-' + k);
+    b.textContent = lbl;
+    b.className = 'badge ' + (st === 'ok' ? 'badge-ok' : (st === 'warn' ? 'badge-warn' : 'badge-danger'));
+    $('txt-' + k).innerHTML = txt;
+  });
+
+  const P = pearls();
+  $('txt-pearl').innerHTML = P.p;
+  $('txt-mechanism').innerHTML = P.m;
+}
+
+function renderCase(){
+  const c = CASES[curCase];
+  $('case-text').innerHTML = '<strong>Caso ' + (curCase + 1) + '/' + CASES.length + ':</strong> ' + c.t;
+  const box = $('case-options');
+  box.innerHTML = '';
+  $('case-feedback').style.display = 'none';
+
+  c.opts.forEach(o => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.innerHTML = o.l;
+    btn.onclick = () => {
+      const fb = $('case-feedback');
+      fb.style.display = 'block';
+      if(o.ok){
+        fb.innerHTML = '<span style="color:var(--success); font-weight:700;">' + o.exp + '</span>';
+        btn.style.borderColor = 'var(--success)';
+        btn.style.background = 'rgba(16,172,132,0.15)';
+      } else {
+        fb.innerHTML = '<span style="color:var(--danger); font-weight:700;">' + o.exp + '</span>';
+        btn.style.borderColor = 'var(--danger)';
+      }
+    };
+    box.appendChild(btn);
+  });
+}
+
+document.querySelectorAll('.def-btn[data-def]').forEach(b => {
+  b.addEventListener('click', () => {
+    S.d = b.dataset.def;
+    if(S.d === 'pcd') S.carn = true; else S.carn = false;
+    if(S.d === 'cpt1a' || S.d === 'cact') S.mct = true; else S.mct = false;
+    render();
+  });
+});
+
+document.querySelectorAll('.seg-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    S.s = b.dataset.state;
+    render();
+  });
+});
+
+$('chk-carn').addEventListener('change', e => { S.carn = e.target.checked; render(); });
+$('chk-mct').addEventListener('change', e => { S.mct = e.target.checked; render(); });
+
+document.querySelectorAll('.tab-bar button').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.tab-bar button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    $('tab-perlas').style.display = b.dataset.tab === 'perlas' ? 'block' : 'none';
+    $('tab-matriz').style.display = b.dataset.tab === 'matriz' ? 'block' : 'none';
+    $('tab-algoritmo').style.display = b.dataset.tab === 'algoritmo' ? 'block' : 'none';
+  });
+});
+
+$('btn-next-case').addEventListener('click', () => {
+  curCase = (curCase + 1) % CASES.length;
+  renderCase();
+});
+
+const EXPL = {
+  octn2: ['OCTN2 (SLC22A5)', 'Transportador de alta afinidad dependiente de Na⁺ en membrana plasmática. Reabsorbe carnitina en túbulo renal proximal y la introduce en miocitos. Su mutación produce la Deficiencia Primaria de Carnitina (PCD).'],
+  carn_cyto: ['Carnitina libre citosólica', 'Molécula zwitteriónica derivada de lisina y metionina. Acepta acilos de cadena larga para permitir su paso mitocondrial.'],
+  acs: ['Acil-CoA sintetasa (ACS)', 'Enzima de la membrana externa que activa los ácidos grasos libres consumiendo ATP y CoA-SH, generando Acil-CoA de cadena larga.'],
+  lc_acylcoa: ['LC-Acil-CoA citosólico', 'Forma activada de los ácidos grasos. No puede atravesar la membrana mitocondrial interna por sí misma.'],
+  cpt1a: ['CPT1A (Carnitina Palmitoiltransferasa 1A)', 'Enzima clave reguladora en la membrana mitocondrial externa. Transfiere el acilo a la carnitina, liberando CoA. Es inhibida alostéricamente por el Malonil-CoA.'],
+  acylcarn: ['Acilcarnitina (Palmitoilcarnitina, C16)', 'Éster neutro capaz de interactuar con la translocasa para cruzar la membrana interna.'],
+  cact: ['CACT (SLC25A20)', 'Carnitina-acilcarnitina translocasa. Antiporte en la MIM: introduce una molécula de acilcarnitina a la matriz y expulsa una carnitina libre al IMS.'],
+  cpt2: ['CPT2 (Carnitina Palmitoiltransferasa 2)', 'Enzima en la cara interna de la MIM. Regenera el Acil-CoA dentro de la matriz y libera la carnitina para ser devuelta por CACT.'],
+  acylcarn_mat: ['Acilcarnitina en matriz', 'Sustrato directo de CPT2. En los defectos de CPT2 se acumula dentro de la mitocondria.'],
+  carn_mat: ['Carnitina reciclada', 'Carnitina liberada por CPT2 en la matriz, necesaria para alimentar el intercambio con CACT.'],
+  acylcoa_mat: ['Acil-CoA en matriz', 'Sustrato directo de la primera deshidrogenasa (VLCAD/LCAD) del ciclo de la β-oxidación mitocondrial.'],
+  betaox: ['β-oxidación mitocondrial', 'Ciclo de 4 reacciones repetidas que acorta el ácido graso en 2 carbonos por vuelta, rindiendo Acetil-CoA, NADH y FADH₂ para la cadena respiratoria y la cetogénesis.']
+};
+
+let popKey = null;
+const pop = $('popover');
+
+function openPop(el){
+  popKey = el.dataset.k;
+  fillPop();
+  pop.hidden = false;
+  placePop(el);
+  document.querySelectorAll('.hot').forEach(h => h.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function fillPop(){
+  if(!popKey) return;
+  const [title, desc] = EXPL[popKey];
+  $('popTitle').textContent = title;
+  $('popGene').textContent = popKey.toUpperCase();
+  $('popRole').textContent = desc;
+
+  let st = 'Normal / Activo';
+  let color = '#4ade80';
+  if(S.d === 'pcd' && popKey === 'octn2'){ st = 'BLOQUEADO (OCTN2 mutado)'; color = '#ee5253'; }
+  if(S.d === 'cpt1a' && popKey === 'cpt1a'){ st = 'BLOQUEADO (CPT1A mutada)'; color = '#ee5253'; }
+  if(S.d === 'cact' && popKey === 'cact'){ st = 'BLOQUEADO (Translocasa CACT mutada)'; color = '#ee5253'; }
+  if((S.d === 'cpt2n' || S.d === 'cpt2a') && popKey === 'cpt2'){ st = S.d === 'cpt2a' ? 'PARCIAL (~20% actividad)' : 'BLOQUEADO (CPT2 grave)'; color = S.d === 'cpt2a' ? '#ff9f43' : '#ee5253'; }
+
+  const statusEl = $('popStatus');
+  statusEl.textContent = 'Estado actual: ' + st;
+  statusEl.style.background = color + '22';
+  statusEl.style.color = color;
+  statusEl.style.border = '1px solid ' + color + '55';
+}
+
+function placePop(el){
+  const r = el.getBoundingClientRect();
+  const parent = $('svgScroll').getBoundingClientRect();
+  let top = r.bottom - parent.top + 8;
+  let left = r.left - parent.left + (r.width / 2) - 140;
+  if(left < 10) left = 10;
+  if(left + 290 > parent.width) left = parent.width - 300;
+  pop.style.top = top + 'px';
+  pop.style.left = left + 'px';
+}
+
+function closePop(){
+  pop.hidden = true;
+  popKey = null;
+  document.querySelectorAll('.hot').forEach(h => h.classList.remove('sel'));
+}
+
+document.querySelectorAll('.hot').forEach(h => {
+  h.setAttribute('role', 'button');
+  h.setAttribute('aria-label', EXPL[h.dataset.k][1]);
+  h.addEventListener('click', ev => {
+    ev.stopPropagation();
+    if(popKey === h.dataset.k){ closePop(); } else openPop(h);
+  });
+});
+
+$('popX').addEventListener('click', closePop);
+pop.addEventListener('click', ev => ev.stopPropagation());
+document.addEventListener('click', () => { if(!pop.hidden) closePop(); });
+
+render();
+renderCase();
+})();
+</script>
+</body>
+</html>

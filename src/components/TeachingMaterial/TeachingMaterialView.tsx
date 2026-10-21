@@ -17,11 +17,15 @@ import {
   FlaskConical,
   RefreshCw,
   Droplets,
-  Calendar
+  Calendar,
+  Dna,
+  Network
 } from 'lucide-react';
 import { RandleCycleLab } from '../InteractiveLabs/RandleCycleLab';
 import { JaundiceSimulatorLab } from '../InteractiveLabs/JaundiceSimulatorLab';
 import { HemostasisLab } from '../InteractiveLabs/HemostasisLab';
+import { CarnitineShuttleLab } from '../InteractiveLabs/CarnitineShuttleLab';
+import { MetabolicIntegrationLab } from '../MetabolicIntegration/MetabolicIntegrationLab';
 import { PracticasSeminariosView } from '../PracticasSeminarios/PracticasSeminariosView';
 
 interface SyllabusTopic {
@@ -234,7 +238,7 @@ const QUIZ_QUESTIONS: QuizItem[] = [
 
 export const TeachingMaterialView: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'temario' | 'practicas-seminarios' | 'simuladores' | 'autoevaluacion' | 'bibliografia' | 'guia'>('temario');
-  const [selectedSimulator, setSelectedSimulator] = useState<'randle' | 'ictericias' | 'hemostasia'>('randle');
+  const [selectedSimulator, setSelectedSimulator] = useState<'randle' | 'ictericias' | 'hemostasia' | 'carnitina' | 'integra'>('randle');
   const [userAnswers, setUserAnswers] = useState<Record<number, number>>({});
   const [showExplanations, setShowExplanations] = useState<Record<number, boolean>>({});
   const [searchFilter, setSearchFilter] = useState('');
@@ -454,6 +458,30 @@ export const TeachingMaterialView: React.FC = () => {
                 <Droplets className="w-3.5 h-3.5" />
                 <span>Hemostasia</span>
               </button>
+
+              <button
+                onClick={() => setSelectedSimulator('carnitina')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  selectedSimulator === 'carnitina'
+                    ? 'bg-blue-600 text-white shadow-xs font-bold'
+                    : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50'
+                }`}
+              >
+                <Dna className="w-3.5 h-3.5 text-indigo-300" />
+                <span>Lanzadera Carnitina</span>
+              </button>
+
+              <button
+                onClick={() => setSelectedSimulator('integra')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  selectedSimulator === 'integra'
+                    ? 'bg-teal-700 text-white shadow-xs font-bold'
+                    : 'text-slate-600 hover:text-teal-900 hover:bg-teal-50'
+                }`}
+              >
+                <Network className="w-3.5 h-3.5 text-teal-400" />
+                <span>Integración (Integra)</span>
+              </button>
             </div>
           </div>
 
@@ -462,6 +490,8 @@ export const TeachingMaterialView: React.FC = () => {
             {selectedSimulator === 'randle' && <RandleCycleLab />}
             {selectedSimulator === 'ictericias' && <JaundiceSimulatorLab />}
             {selectedSimulator === 'hemostasia' && <HemostasisLab />}
+            {selectedSimulator === 'carnitina' && <CarnitineShuttleLab />}
+            {selectedSimulator === 'integra' && <MetabolicIntegrationLab hideExternalHeader={true} />}
           </div>
         </div>
       )}

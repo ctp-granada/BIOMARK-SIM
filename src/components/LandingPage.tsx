@@ -41,7 +41,7 @@ import { satisfactionService } from '../utils/satisfactionService';
 
 interface LandingPageProps {
   onNavigate: (module: ActiveModule) => void;
-  onOpenLab?: (lab: 'randle' | 'ictericias' | 'hemostasia' | 'juegos' | 'rosco' | 'integra') => void;
+  onOpenLab?: (lab: 'randle' | 'ictericias' | 'hemostasia' | 'juegos' | 'rosco' | 'integra' | 'carnitina') => void;
   onStartTour?: () => void;
   userXP?: number;
   completedCasesCount?: number;
@@ -68,7 +68,7 @@ interface DistrictInfo {
     label: string;
     sublabel: string;
     target: ActiveModule;
-    labType?: 'randle' | 'ictericias' | 'hemostasia' | 'juegos' | 'rosco' | 'integra';
+    labType?: 'randle' | 'ictericias' | 'hemostasia' | 'juegos' | 'rosco' | 'integra' | 'carnitina';
     icon: typeof Stethoscope;
   }>;
   facilities: string[];
@@ -168,9 +168,9 @@ const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
       },
       {
         label: 'Simuladores y Apoyo al Aprendizaje',
-        sublabel: 'Ciclo de Randle, Simulador de Ictericias y Hemostasia',
+        sublabel: 'Lanzadera de Carnitina, Ciclo de Randle, Ictericias y Hemostasia',
         target: 'laboratorios',
-        labType: 'randle',
+        labType: 'carnitina',
         icon: FlaskConical
       },
       {
