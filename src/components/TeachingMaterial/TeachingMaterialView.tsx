@@ -27,6 +27,13 @@ import { HemostasisLab } from '../InteractiveLabs/HemostasisLab';
 import { CarnitineShuttleLab } from '../InteractiveLabs/CarnitineShuttleLab';
 import { MetabolicIntegrationLab } from '../MetabolicIntegration/MetabolicIntegrationLab';
 import { PracticasSeminariosView } from '../PracticasSeminarios/PracticasSeminariosView';
+import { VademecumView } from './VademecumView';
+import { ActiveModule } from '../../types';
+
+export interface TeachingMaterialViewProps {
+  initialTab?: 'temario' | 'vademecum' | 'practicas-seminarios' | 'simuladores' | 'autoevaluacion' | 'bibliografia' | 'guia';
+  onNavigate?: (module: ActiveModule) => void;
+}
 
 interface SyllabusTopic {
   number: number;
@@ -236,8 +243,8 @@ const QUIZ_QUESTIONS: QuizItem[] = [
   }
 ];
 
-export const TeachingMaterialView: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'temario' | 'practicas-seminarios' | 'simuladores' | 'autoevaluacion' | 'bibliografia' | 'guia'>('temario');
+export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ initialTab = 'temario', onNavigate }) => {
+  const [activeTab, setActiveTab] = useState<'temario' | 'vademecum' | 'practicas-seminarios' | 'simuladores' | 'autoevaluacion' | 'bibliografia' | 'guia'>(initialTab);
   const [selectedSimulator, setSelectedSimulator] = useState<'randle' | 'ictericias' | 'hemostasia' | 'carnitina' | 'integra'>('randle');
   const [userAnswers, setUserAnswers] = useState<Record<number, number>>({});
   const [showExplanations, setShowExplanations] = useState<Record<number, boolean>>({});
@@ -286,7 +293,8 @@ export const TeachingMaterialView: React.FC = () => {
       {/* Sub-Navigation Tabs */}
       <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200 overflow-x-auto">
         {[
-          { id: 'temario', label: 'Temario', icon: BookOpen },
+          { id: 'temario', label: 'Temario Oficial', icon: BookOpen },
+          { id: 'vademecum', label: 'Vademécum de Biomarcadores', icon: Droplets },
           { id: 'practicas-seminarios', label: 'Prácticas y Seminarios (Calendario & Organización)', icon: Calendar },
           { id: 'simuladores', label: 'Simuladores (Apoyo al Aprendizaje)', icon: FlaskConical },
           { id: 'autoevaluacion', label: 'Autoevaluación Test', icon: HelpCircle },
@@ -396,6 +404,13 @@ export const TeachingMaterialView: React.FC = () => {
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* TAB 2: VADEMÉCUM DE BIOMARCADORES */}
+      {activeTab === 'vademecum' && (
+        <div className="animate-fadeIn">
+          <VademecumView embedded={true} onNavigate={onNavigate} />
         </div>
       )}
 

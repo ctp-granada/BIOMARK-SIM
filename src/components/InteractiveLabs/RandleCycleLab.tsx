@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Chart as ChartJS, registerables } from 'chart.js';
+import { BiochemicalInfoTooltip } from '../BiochemicalInfoTooltip';
 
 ChartJS.register(...registerables);
 
@@ -170,13 +171,21 @@ export const RandleCycleLab: React.FC = () => {
     <div className="bg-stone-50 text-stone-800 font-sans antialiased min-h-screen flex flex-col rounded-2xl shadow-sm overflow-hidden">
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-stone-200 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <h1 className="text-2xl font-bold text-stone-900 flex items-center gap-2">
-            <span className="text-3xl">🔄</span> El Ciclo de Randle
-          </h1>
-          <p className="text-sm text-stone-500 mt-1">
-            Competencia metabólica: El origen del Acetil-CoA y la regulación enzimática.
-          </p>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <h1 className="text-2xl font-bold text-stone-900 flex items-center gap-2">
+              <span className="text-3xl">🔄</span> El Ciclo de Randle
+              <BiochemicalInfoTooltip
+                title="Ciclo Glucosa - Ácidos Grasos (Randle)"
+                mechanism="Competencia recíproca entre glucosa y ácidos grasos descrita por Philip Randle (1963). Cuando la célula oxida masivamente lípidos, el exceso de Acetil-CoA y Citrato bloquea alostéricamente a la Piruvato Deshidrogenasa (PDH) y a la PFK-1, ahorrando glucosa. En abundancia nutricional, la síntesis de Malonil-CoA frena a la CAT-1, priorizando el uso de carbohidratos."
+                molecularKey="CAT-1 (Carnitina palmitoiltransferasa 1) • PDH (Piruvato Deshidrogenasa) • Malonil-CoA"
+                clinicalRelevance="Mecanismo clave alterado en la resistencia a la insulina y diabetes mellitus tipo 2, donde la lipotoxicidad frena crónicamente el consumo celular de glucosa."
+              />
+            </h1>
+            <p className="text-sm text-stone-500 mt-1">
+              Competencia metabólica: El origen del Acetil-CoA y la regulación enzimática.
+            </p>
+          </div>
         </div>
       </header>
 
@@ -184,7 +193,14 @@ export const RandleCycleLab: React.FC = () => {
       <main className="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 w-full">
         {/* Intro Section */}
         <section className="bg-white p-6 rounded-2xl shadow-sm border border-stone-100">
-          <h2 className="text-xl font-semibold mb-3 text-stone-800">Mecanismo de Selección de Combustible</h2>
+          <div className="flex items-center justify-between gap-2 mb-3">
+            <h2 className="text-xl font-semibold text-stone-800">Mecanismo de Selección de Combustible</h2>
+            <BiochemicalInfoTooltip
+              title="Selección de Sustratos y Nodo Acetil-CoA"
+              mechanism="El Acetil-CoA mitocondrial es la encrucijada donde convergen la descarboxilación del piruvato (glucosa) y la beta-oxidación (grasas). La velocidad de entrada depende de la apertura o bloqueo de la CAT-1 externa y del estado de fosforilación de la PDH."
+              molecularKey="Acetil-CoA mitocondrial • Citrato citosólico"
+            />
+          </div>
           <p className="text-stone-600 leading-relaxed mb-4">
             El <strong>Ciclo de Randle</strong> explica cómo la célula elige qué "quemar". En el ayuno, la desinhibición de la <strong>CAT-1</strong> prioriza las grasas. En el postprandio, el <strong>Malonil-CoA</strong> bloquea la entrada de grasas para priorizar la glucosa.
           </p>
@@ -195,7 +211,14 @@ export const RandleCycleLab: React.FC = () => {
 
         {/* Metabolic State Selector */}
         <section className="flex flex-col items-center justify-center space-y-6 bg-stone-100 p-8 rounded-3xl border border-stone-200">
-          <h3 className="text-lg font-medium text-stone-600 uppercase tracking-wider">Estado Metabólico Actual</h3>
+          <div className="flex items-center gap-2">
+            <h3 className="text-lg font-medium text-stone-600 uppercase tracking-wider">Estado Metabólico Actual</h3>
+            <BiochemicalInfoTooltip
+              title="Conmutador Hormonal Insulina vs Glucagón"
+              mechanism="La relación molar Insulina/Glucagón dicta la fosforilación de enzimas maestras. La insulina activa a la Acetil-CoA Carboxilasa (ACC) produciendo Malonil-CoA (inhibidor de CAT-1) e induce a la PDH fosfatasa. El glucagón eleva el AMPc, activa a la PKA y a la lipasa sensible a hormonas (LSH), inundando el plasma de ácidos grasos."
+              molecularKey="ACC (Acetil-CoA Carboxilasa) • PKA • LSH"
+            />
+          </div>
           <div className="flex p-1 bg-white rounded-full shadow-inner border border-stone-200">
             <button
               onClick={() => setMetabolicState('ayuno')}
@@ -240,9 +263,18 @@ export const RandleCycleLab: React.FC = () => {
 
         {/* Tissue Analysis */}
         <section>
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-stone-800">Análisis Tisular</h2>
-            <p className="text-stone-600 mt-2">Distribución de la carga metabólica y señales de bloqueo recíproco.</p>
+          <div className="mb-6 flex items-center justify-between gap-4 flex-wrap">
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-2xl font-bold text-stone-800">Análisis Tisular</h2>
+                <BiochemicalInfoTooltip
+                  title="Especialización y Cooperación Tisular"
+                  mechanism="El tejido adiposo actúa como proveedor de AGL mediante la lipólisis; el músculo esquelético y cardíaco modulan su flexibilidad metabólica adaptando la captación de sustratos según la disponibilidad; el hígado desvía el piruvato hacia la gluconeogénesis al estar saturada la beta-oxidación y exporta cuerpos cetónicos."
+                  molecularKey="GLUT4 • LSH adiposa • Piruvato Carboxilasa hepática"
+                />
+              </div>
+              <p className="text-stone-600 mt-1">Distribución de la carga metabólica y señales de bloqueo recíproco.</p>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -347,7 +379,14 @@ export const RandleCycleLab: React.FC = () => {
         {/* Enzymatic Competition and Energy Chart */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-stone-100">
           <div>
-            <h2 className="text-2xl font-bold text-stone-800 mb-2">Competencia Enzimática</h2>
+            <div className="flex items-center gap-2 mb-1">
+              <h2 className="text-2xl font-bold text-stone-800">Competencia Enzimática</h2>
+              <BiochemicalInfoTooltip
+                title="Regulación Alostérica del Complejo PDH y CAT-1"
+                mechanism="La PDH quinasa (PDK) es activada alostéricamente por alta relación Acetil-CoA/CoA y NADH/NAD⁺ derivados de la beta-oxidación, fosforilando e inactivando la subunidad E1 de la PDH. A la inversa, en el postprandio el Malonil-CoA citosólico bloquea la cara externa de CAT-1 impidiendo la entrada de acil-CoA a la matriz."
+                molecularKey="PDH Quinasa (PDK) • PDH Fosfatasa (PDP) • CAT-1"
+              />
+            </div>
             <p className="text-stone-600 mb-6">Visualización del flujo dominante hacia el Acetil-CoA mitocondrial.</p>
 
             <div className="relative p-6 bg-stone-50 rounded-xl border border-stone-200 h-64 flex flex-col justify-center overflow-hidden">

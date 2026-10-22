@@ -17,6 +17,7 @@ import { CaseList } from './components/CaseBank/CaseList';
 import { CaseDetailModal } from './components/CaseBank/CaseDetailModal';
 import { ChallengeMode } from './components/Challenge/ChallengeMode';
 import { TeachingMaterialView } from './components/TeachingMaterial/TeachingMaterialView';
+import { VademecumView } from './components/TeachingMaterial/VademecumView';
 import { PracticasSeminariosView } from './components/PracticasSeminarios/PracticasSeminariosView';
 import { InteractiveLabsContainer } from './components/InteractiveLabs/InteractiveLabsContainer';
 import { MetabolicIntegrationLab } from './components/MetabolicIntegration/MetabolicIntegrationLab';
@@ -522,9 +523,20 @@ export const App: React.FC = () => {
           />
         )}
 
-        {/* BIBLIOTECA & MATERIAL DOCENTE OFICIAL UGR */}
-        {(activeModule === 'biblioteca' || activeModule === 'docencia') && (
-          <TeachingMaterialView />
+        {/* TEMARIO DOCENTE OFICIAL UGR */}
+        {activeModule === 'docencia' && (
+          <TeachingMaterialView
+            initialTab="temario"
+            onNavigate={setActiveModule}
+          />
+        )}
+
+        {/* VADEMÉCUM OFICIAL DE BIOMARCADORES */}
+        {activeModule === 'biblioteca' && (
+          <VademecumView
+            onBackToPortal={() => setActiveModule('inicio')}
+            onNavigate={setActiveModule}
+          />
         )}
 
         {/* PRÁCTICAS Y SEMINARIOS (CRONOGRAMA & CALENDARIO) */}

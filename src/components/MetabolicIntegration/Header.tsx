@@ -1,5 +1,6 @@
 import React from 'react';
 import { Activity, BookOpen, Clock, Network, Table2 } from 'lucide-react';
+import { BiochemicalInfoTooltip } from '../BiochemicalInfoTooltip';
 
 export type ActiveTab = 'atlas' | 'timeline' | 'quiz';
 export type ReferenceTool = 'hormones' | 'muscle_bioenergetics' | 'ampk_sensor' | 'hormonal_regulation' | 'organ_matrix';
@@ -32,11 +33,17 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onSelectTab, onOpenGl
             <div className="w-9 h-9 rounded-xl bg-teal-700 flex items-center justify-center text-white shadow-sm">
               <Activity className="w-5 h-5 text-teal-100" />
             </div>
-            <div>
+            <div className="flex items-center gap-2">
               <span className="text-lg font-bold tracking-tight text-slate-900 whitespace-nowrap">Integra</span>
-              <span className="hidden md:inline-block text-xs text-slate-400 ml-2 font-medium">
+              <span className="hidden md:inline-block text-xs text-slate-400 font-medium">
                 Integración metabólica
               </span>
+              <BiochemicalInfoTooltip
+                title="Integración Metabólica Interorgánica"
+                mechanism="La homeostasis energética global depende de la comunicación coordinada entre órganos (hígado como procesador central, tejido adiposo como almacén de triglicéridos, músculo como consumidor de ATP y cerebro con requerimiento obligatorio de glucosa/cuerpos cetónicos). Este atlas modela los flujos metabólicos en las cinco fases de Cahill del ciclo alimentación-ayuno y en estados fisiopatológicos (diabetes, ejercicio extremo)."
+                molecularKey="Relación Insulina/Glucagón • AMPK (Sensor energético) • mTOR • Cuerpos cetónicos"
+                clinicalRelevance="Fundamental para entender la adaptación bioquímica al ayuno prolongado, la cetoacidosis diabética y el síndrome metabólico."
+              />
             </div>
           </div>
 

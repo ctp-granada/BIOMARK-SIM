@@ -11,6 +11,7 @@ import {
   Stethoscope,
   Info
 } from 'lucide-react';
+import { BiochemicalInfoTooltip } from '../BiochemicalInfoTooltip';
 
 export const CarnitineShuttleLab: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -44,12 +45,18 @@ export const CarnitineShuttleLab: React.FC = () => {
               </span>
             </div>
 
-            <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
+            <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2 flex-wrap">
               <span>🧬 La Lanzadera Rota</span>
               <span className="text-sm font-normal text-indigo-200 hidden sm:inline">|</span>
               <span className="text-sm font-semibold text-indigo-200 hidden sm:inline">
                 Defectos del Transporte Mitocondrial de Ácidos Grasos
               </span>
+              <BiochemicalInfoTooltip
+                title="Lanzadera de Carnitina y Beta-Oxidación Mitocondrial"
+                mechanism="Los ácidos grasos de cadena larga (>12 carbonos) no pueden atravesar la membrana mitocondrial interna impermeable. La carnitina palmitoiltransferasa 1 (CPT1 / CAT-1) en la membrana externa transfiere el acilo a carnitina para formar acilcarnitina. La carnitina-acilcarnitina translocasa (CACT) intercambia acilcarnitina por carnitina libre hacia la matriz, donde la CPT2 regenera Acil-CoA para alimentar la beta-oxidación. Los defectos en OCTN2, CPT1, CACT o CPT2 bloquean el uso energético de grasas durante el ayuno, causando hipoglucemia hipocetósica, esteatosis hepática, mioglobinuria y rabdomiólisis."
+                molecularKey="OCTN2 (Transportador) • CPT1 (Inhibida por Malonil-CoA) • CACT • CPT2"
+                clinicalRelevance="El bloqueo de la beta-oxidación priva al hígado del Acetil-CoA necesario para activar a la Piruvato Carboxilasa (gluconeogénesis) y para sintetizar cuerpos cetónicos, explicando la hipoglucemia hipocetósica típica."
+              />
             </h1>
 
             <p className="text-xs text-slate-300 leading-relaxed">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Chart as ChartJS, registerables } from 'chart.js';
+import { BiochemicalInfoTooltip } from '../BiochemicalInfoTooltip';
 
 ChartJS.register(...registerables);
 
@@ -335,7 +336,15 @@ export const JaundiceSimulatorLab: React.FC = () => {
               🩺
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight">CLINICAL SIMULATOR</h1>
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl font-bold tracking-tight">CLINICAL SIMULATOR</h1>
+                <BiochemicalInfoTooltip
+                  title="Metabolismo y Fisiopatología de la Bilirrubina"
+                  mechanism="La bilirrubina no conjugada (BNC / indirecta) deriva del catabolismo del grupo hemo de eritrocitos senescentes (~80%) en el bazo. Es hidrofóbica y viaja ligada a albúmina. En el hepatocito se conjuga con ácido glucurónico por la enzima UGT1A1 a bilirrubina conjugada (BD / directa, soluble en agua), excretándose activamente al canalículo biliar vía MRP2."
+                  molecularKey="Hemo oxigenasa • UGT1A1 • MRP2 (ABCC2)"
+                  clinicalRelevance="Permite diferenciar ictericia prehepática (hemólisis/Gilbert), hepática (citolisis) y posthepática (colestasis obstructiva)."
+                />
+              </div>
               <p className="text-xs text-indigo-300">Diagnóstico Diferencial del Síndrome Ictérico</p>
             </div>
           </div>
@@ -395,7 +404,14 @@ export const JaundiceSimulatorLab: React.FC = () => {
           {/* Sliders Analítica de Sangre */}
           <div className="bg-white rounded-2xl shadow-sm p-6 border border-slate-200 flex flex-col gap-5">
             <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between border-b pb-3 border-slate-100">
-              <span>🧪 Analítica de Sangre</span>
+              <span className="flex items-center gap-1.5">
+                <span>🧪 Analítica de Sangre</span>
+                <BiochemicalInfoTooltip
+                  title="Patrones Bioquímicos: Citolisis vs Colestasis"
+                  mechanism="AST y ALT reflejan daño directo a la membrana del hepatocito (citolisis). FA y GGT reflejan síntesis e inducción ante estasis de bilis en canalículos (colestasis). La albúmina sérica y el INR (tiempo de protrombina) valoran la función de síntesis biológica verdadera del parénquima."
+                  molecularKey="AST / ALT (Transaminasas) • FA / GGT • Albúmina / INR"
+                />
+              </span>
               <button
                 onClick={resetSliders}
                 className="text-xs text-indigo-600 hover:text-indigo-800 font-bold transition-colors cursor-pointer"
@@ -606,9 +622,16 @@ export const JaundiceSimulatorLab: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Excreción Visual */}
             <div className="bg-white rounded-2xl shadow-sm p-6 border border-slate-200 flex flex-col justify-between gap-4">
-              <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider border-b pb-2 border-slate-100">
-                💩 Excreción Visual y Tira de Orina
-              </h3>
+              <div className="flex items-center justify-between border-b pb-2 border-slate-100">
+                <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">
+                  💩 Excreción Visual y Tira de Orina
+                </h3>
+                <BiochemicalInfoTooltip
+                  title="Bases Bioquímicas de Coluria y Acolia"
+                  mechanism="La BNC (indirecta) no filtra por el glomérulo renal por estar unida a albúmina (tira negativa). La BD (directa) es hidrosoluble y filtra cuando aumenta en sangre, tiñendo la orina de color té o caoba (coluria). En la colestasis obstructiva, al no llegar bilirrubina al intestino, las bacterias colónicas no pueden sintetizar estercobilina (color marrón de las heces), produciendo heces blancas (acolia) y ausencia de urobilinógeno urinario."
+                  molecularKey="Filtración glomerular de BD • Estercobilina fecal • Urobilina urinaria"
+                />
+              </div>
 
               <div className="flex justify-around items-center py-4">
                 {/* Vaso de orina */}
@@ -677,9 +700,16 @@ export const JaundiceSimulatorLab: React.FC = () => {
 
             {/* Balance de Fracciones Chart */}
             <div className="bg-white rounded-2xl shadow-sm p-6 border border-slate-200 flex flex-col gap-4">
-              <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider border-b pb-2 border-slate-100">
-                📊 Balance de Fracciones
-              </h3>
+              <div className="flex items-center justify-between border-b pb-2 border-slate-100">
+                <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">
+                  📊 Balance de Fracciones
+                </h3>
+                <BiochemicalInfoTooltip
+                  title="Fraccionamiento de Bilirrubina"
+                  mechanism="Un porcentaje de Bilirrubina Directa <20% apunta a causa prehepática (hemólisis o defecto congénito de conjugación como Gilbert/Crigler-Najjar). Un porcentaje >50% con elevación de FA y GGT define patrón colestásico obstructivo."
+                  molecularKey="Fracción BD / BT"
+                />
+              </div>
               <div className="relative w-full h-44 flex items-center justify-center">
                 <canvas ref={chartCanvasRef} />
               </div>
@@ -693,9 +723,17 @@ export const JaundiceSimulatorLab: React.FC = () => {
           {/* Panel Neonatal */}
           {profile === 'neonatal' && (
             <div className="bg-white rounded-2xl shadow-sm p-6 border border-amber-200 bg-amber-50/20 flex flex-col gap-5">
-              <h3 className="text-sm font-black text-amber-800 uppercase tracking-wider flex items-center gap-2">
-                👶 Evaluación Clínica Neonatal
-              </h3>
+              <div className="flex items-center justify-between gap-2">
+                <h3 className="text-sm font-black text-amber-800 uppercase tracking-wider flex items-center gap-2">
+                  👶 Evaluación Clínica Neonatal
+                </h3>
+                <BiochemicalInfoTooltip
+                  title="Ictericia Neonatal y Encefalopatía Bilirrubínica"
+                  mechanism="En el recién nacido confluyen poliglobulia fisiológica, menor vida media eritrocitaria y actividad inmadura de la UGT1A1 (~1% del adulto). Si la BNC libre supera la capacidad de unión de la albúmina, atraviesa la barrera hematoencefálica lipófila inmadura y se deposita en los núcleos de la base (globo pálido, subtalámico), provocando neurotoxicidad y Kernícterus."
+                  molecularKey="UGT1A1 neonatal • Albúmina libre • Escala Kramer & BIND"
+                  clinicalRelevance="La fototerapia fotoisomeriza la bilirrubina 4Z,15Z a lumirrubina soluble 4E,15E que se excreta sin necesidad de conjugación."
+                />
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-3">

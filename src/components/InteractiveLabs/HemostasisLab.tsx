@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Chart as ChartJS, registerables } from 'chart.js';
+import { BiochemicalInfoTooltip } from '../BiochemicalInfoTooltip';
 
 ChartJS.register(...registerables);
 
@@ -273,8 +274,14 @@ export const HemostasisLab: React.FC = () => {
           <div className="inline-block bg-rose-100 text-rose-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider">
             Bioquímica Médica Fisiopatológica
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-stone-900 tracking-tight">
-            El Equilibrio Sangre-Vaso
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-stone-900 tracking-tight flex items-center justify-center gap-3 flex-wrap">
+            <span>El Equilibrio Sangre-Vaso</span>
+            <BiochemicalInfoTooltip
+              title="Hemostasia Fisiológica vs Trombosis"
+              mechanism="La hemostasia es un proceso biofísico y enzimático finamente autorregulado que mantiene la sangre líquida en vasos íntegros y genera rápidamente un tapón insoluble de fibrina y plaquetas ante una lesión. Si el freno antitrombótico endotelial falla, se produce trombosis patológica."
+              molecularKey="Endotelio • Plaquetas • Cascada de Factores Zimogénicos"
+              clinicalRelevance="Mantiene la permeabilidad vascular previniendo tanto la hemorragia letal como el infarto o embolia arterial/venosa."
+            />
           </h1>
           <p className="text-lg text-stone-600 leading-relaxed">
             Estudio sistemático de los mecanismos moleculares que mantienen la fluidez de la sangre o detienen su salida ante una brecha mecánica en la vasculatura.
@@ -284,7 +291,14 @@ export const HemostasisLab: React.FC = () => {
         {/* SECTION 1: FUNDAMENTOS Y FISIOLOGÍA VASCULAR */}
         <section id="fundamentos" className="scroll-mt-24 pt-4">
           <div className="border-b border-stone-200 pb-4 mb-6">
-            <h2 className="text-3xl font-bold text-stone-900">1. Fundamentos de la Pared Vascular</h2>
+            <div className="flex items-center gap-2.5">
+              <h2 className="text-3xl font-bold text-stone-900">1. Fundamentos de la Pared Vascular</h2>
+              <BiochemicalInfoTooltip
+                title="Vasorregulación y Barreras Endoteliales"
+                mechanism="El endotelio sano expresa heparán sulfato (acelerador de Antitrombina III), trombomodulina (activa la Proteína C para destruir FVa/FVIIIa), prostaciclina (PGI2) y óxido nítrico (NO, estimulador de GMPc). Al romperse, se expone colágeno subendotelial y Factor Tisular (FT) y se secreta endotelina-1 vasoespástica."
+                molecularKey="NO • PGI2 • Trombomodulina • TFPI"
+              />
+            </div>
             <p className="text-stone-600 mt-1">
               Diferencias clave entre el estado fisiológico y patológico, y la respuesta refleja de los vasos.
             </p>
@@ -388,7 +402,14 @@ export const HemostasisLab: React.FC = () => {
         {/* SECTION 2: TRÍADA DE VIRCHOW */}
         <section id="virchow" className="scroll-mt-24 pt-12 border-t border-stone-200">
           <div className="border-b border-stone-200 pb-4 mb-8">
-            <h2 className="text-3xl font-bold text-stone-900">2. Patología de la Trombosis: Tríada de Virchow</h2>
+            <div className="flex items-center gap-2.5">
+              <h2 className="text-3xl font-bold text-stone-900">2. Patología de la Trombosis: Tríada de Virchow</h2>
+              <BiochemicalInfoTooltip
+                title="Bases Fisiopatológicas de Virchow (1856)"
+                mechanism="La trombogénesis patológica resulta de la confluencia de tres factores: 1) Lesión endotelial (exposición de FT y colágeno); 2) Flujo hemático anómalo (estasis que impide la dilución y aclaramiento de factores activados, o turbulencia que cizalla el endotelio); 3) Hipercoagulabilidad (desequilibrio congénito o adquirido pro-coagulante)."
+                molecularKey="Factor V Leiden • Antitrombina III • Proteína C/S"
+              />
+            </div>
             <p className="text-stone-600 mt-1">
               Los tres pilares postulados por Rudolf Virchow que gobiernan la patogénesis de la formación anormal de coágulos.
             </p>
@@ -456,7 +477,14 @@ export const HemostasisLab: React.FC = () => {
         {/* SECTION 3: LA PLAQUETA */}
         <section id="plaqueta" className="scroll-mt-24 pt-12 border-t border-stone-200">
           <div className="border-b border-stone-200 pb-4 mb-8">
-            <h2 className="text-3xl font-bold text-stone-900">3. Fisiología y Anatomía Plaquetaria</h2>
+            <div className="flex items-center gap-2.5">
+              <h2 className="text-3xl font-bold text-stone-900">3. Fisiología y Anatomía Plaquetaria</h2>
+              <BiochemicalInfoTooltip
+                title="Adhesión, Secreción y Agregación Plaquetaria"
+                mechanism="Bajo flujo laminar, el vWF multímero se ancla al colágeno y captura a la GPIb-IX-V plaquetaria. La señalización intracelular induce la degranulación de gránulos densos (ADP, Ca²⁺) y alfa (vWF, fibrinógeno), desencadenando la activación de 'dentro a fuera' de la integrina GPIIb/IIIa para formar puentes cruzados con fibrinógeno."
+                molecularKey="GPIb-IX-V • GPIIb/IIIa (αIIbβ3) • vWF • Fibrinógeno"
+              />
+            </div>
             <p className="text-stone-600 mt-1">
               Análisis detallado de sus receptores de membrana, el contenido interno de sus gránulos y las patologías plaquetarias.
             </p>
@@ -590,7 +618,15 @@ export const HemostasisLab: React.FC = () => {
         {/* SECTION 4: SEÑALIZACIÓN MOLECULAR */}
         <section id="senalizacion" className="scroll-mt-24 pt-12 border-t border-stone-200">
           <div className="border-b border-stone-200 pb-4 mb-8">
-            <h2 className="text-3xl font-bold text-stone-900">4. Vías de Señalización Intracelular y Segundos Mensajeros</h2>
+            <div className="flex items-center gap-2.5">
+              <h2 className="text-3xl font-bold text-stone-900">4. Vías de Señalización Intracelular y Segundos Mensajeros</h2>
+              <BiochemicalInfoTooltip
+                title="Acoplamiento Gq-PLC vs Gi-AMPc"
+                mechanism="Los agonistas fuertes (Trombina vía PAR1/4, Colágeno vía GPVI) activan a la PLC-β/γ, generando IP3 (que abre canales de Ca²⁺ en el sistema tubular denso) y DAG (que activa a la PKC). El ADP vía P2Y12 se acopla a Gi e inhibe la adenilato ciclasa, reduciendo el AMPc y suprimiendo el freno de la PKA."
+                molecularKey="Gq-PLCβ/γ • IP3 / DAG • Gi-P2Y12 • AMPc / PKA"
+                clinicalRelevance="Diana clave del Clopidogrel, Prasugrel y Ticagrelor para evitar trombosis arterial."
+              />
+            </div>
             <p className="text-stone-600 mt-1">
               Análisis de la cascada bioquímica plaquetaria gobernada por la Fosfolipasa C, Receptores purinérgicos y el balance de AMPc.
             </p>
@@ -741,7 +777,14 @@ export const HemostasisLab: React.FC = () => {
         {/* SECTION 5: CASCADA DE COAGULACIÓN */}
         <section id="cascada-coag" className="scroll-mt-24 pt-12 border-t border-stone-200">
           <div className="border-b border-stone-200 pb-4 mb-8">
-            <h2 className="text-3xl font-bold text-stone-900">5. Bioquímica de la Coagulación (Hemostasia Secundaria)</h2>
+            <div className="flex items-center gap-2.5">
+              <h2 className="text-3xl font-bold text-stone-900">5. Bioquímica de la Coagulación (Hemostasia Secundaria)</h2>
+              <BiochemicalInfoTooltip
+                title="Cascada Enzimática y Complejos de Membrana"
+                mechanism="Amplificación catalítica secuencial por serina proteasas dependientes de vitamina K y Ca²⁺. El complejo Tenasa extrínseco (FT-VIIa) y el Tenasa intrínseco (IXa-VIIIa) activan al Factor X. El complejo Protrombinasa (Xa-Va-Ca²⁺-PL) corta a la protrombina generando una explosión de trombina (IIa), que polimeriza el fibrinógeno en fibrina estabilizada por el FXIIIa."
+                molecularKey="Tenasa intrínseca (IXa-VIIIa) • Protrombinasa (Xa-Va) • Trombina"
+              />
+            </div>
             <p className="text-stone-600 mt-1">
               Exploración detallada de la cascada enzimática con el sistema de contacto (Cininógeno y Precalicreína) y simulador paso a paso.
             </p>
