@@ -30,7 +30,7 @@ import { SatisfactionMetricsModal } from './components/Satisfaction/Satisfaction
 import { SatisfactionGateLockScreen } from './components/Satisfaction/SatisfactionGateLockScreen';
 import { satisfactionService } from './utils/satisfactionService';
 import { AuthModal } from './components/Auth/AuthModal';
-import { OnboardingTour } from './components/Onboarding/OnboardingTour';
+import { OnboardingTour, DONT_SHOW_TOUR_STORAGE_KEY } from './components/Onboarding/OnboardingTour';
 import { BadgeUnlockModal } from './components/Stats/BadgeUnlockModal';
 import { ImmediateFeedbackModal } from './components/Challenge/ImmediateFeedbackModal';
 import { GuardiaOverModal } from './components/Challenge/GuardiaOverModal';
@@ -153,6 +153,23 @@ export const App: React.FC = () => {
     return satisfactionService.subscribeToSurveyStatus((status) => {
       setHasCompletedSurvey(status);
     });
+  }, []);
+
+  // Auto-launch explanatory tour on entrance if user has not chosen to hide it
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const dontShow = localStorage.getItem(DONT_SHOW_TOUR_STORAGE_KEY);
+        if (dontShow !== 'true') {
+          const timer = setTimeout(() => {
+            setRunTour(true);
+          }, 650);
+          return () => clearTimeout(timer);
+        }
+      } catch (err) {
+        console.warn('Could not read tour preference', err);
+      }
+    }
   }, []);
 
   // Save progress locally and sync with Firestore ranking

@@ -221,12 +221,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Quick Tour Button */}
             {onStartTour && (
               <button
+                id="tour-navbar-tutorial-btn"
                 onClick={onStartTour}
-                className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-900/50 hover:bg-amber-900/80 border border-amber-500/40 text-amber-100 hover:text-white text-xs font-medium transition-all cursor-pointer"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-900/50 hover:bg-amber-900/80 border border-amber-500/40 text-amber-100 hover:text-white text-xs font-medium transition-all cursor-pointer shadow-2xs"
                 title="Iniciar Tutorial Rápido Guiado (Hospital, Biblioteca, Juegos)"
               >
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                <span className="hidden lg:inline">Tutorial Rápido</span>
+                <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                <span className="hidden sm:inline">Tutorial Rápido</span>
               </button>
             )}
           </div>

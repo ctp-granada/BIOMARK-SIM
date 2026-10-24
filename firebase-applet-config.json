@@ -1,4 +1,12 @@
 {
   "projectId": "woven-outlet-bn2tx",
-  "firestoreDatabaseId": "ai-studio-bioqumicamdicafa-c9e49523-2c5f-4fd5-9a8e-dfdee9d5ec44"
+  "appId": "1:10403054459:web:9c39cad968a493e002f3de",
+  "apiKey": "AIzaSyBHIqXdmQ7lIkqhkHdqFPfrvpwlXl_Znjw",
+  "authDomain": "woven-outlet-bn2tx.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-bioqumicamdicafa-c9e49523-2c5f-4fd5-9a8e-dfdee9d5ec44",
+  "storageBucket": "woven-outlet-bn2tx.firebasestorage.app",
+  "messagingSenderId": "10403054459",
+  "measurementId": "",
+  "oAuthClientId": "10403054459-jup4opda3q0rqnlph5kjnoaggmc9kbij.apps.googleusercontent.com",
+  "recaptchaSiteKey": ""
 }

@@ -159,12 +159,30 @@ const ROSCO_QUESTIONS: RoscoQuestion[] = [
   }
 ];
 
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+};
+
+const generateShuffledMap = (): Record<number, string[]> => {
+  const map: Record<number, string[]> = {};
+  ROSCO_QUESTIONS.forEach((q, idx) => {
+    map[idx] = shuffleArray(q.options);
+  });
+  return map;
+};
+
 export const RoscoGame: React.FC<RoscoGameProps> = ({
   onEarnBudget,
   onAddBonusXP
 }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [answersStatus, setAnswersStatus] = useState<Record<number, 'correct' | 'wrong' | 'passed'>>({});
+  const [shuffledOptionsMap, setShuffledOptionsMap] = useState<Record<number, string[]>>(generateShuffledMap);
   const [timeLeft, setTimeLeft] = useState<number>(180); // 3 minutes
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
@@ -191,6 +209,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
   }, [isPlaying, timeLeft, isFinished]);
 
   const handleStartGame = () => {
+    setShuffledOptionsMap(generateShuffledMap());
     setAnswersStatus({});
     setCurrentIndex(0);
     setTimeLeft(180);
@@ -287,6 +306,10 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
   };
 
   const currentQ = ROSCO_QUESTIONS[currentIndex];
+  // Opciones barajadas aleatoriamente por pregunta para que la respuesta correcta no esté siempre arriba a la izquierda
+  const displayedOptions = (currentQ && shuffledOptionsMap[currentIndex])
+    ? shuffledOptionsMap[currentIndex]
+    : currentQ ? currentQ.options : [];
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
@@ -424,7 +447,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
                   Comienza por {currentQ.letter} • {currentQ.system}
                 </span>
                 <span className="text-xs text-slate-400">
-                  Definición Catedrática de Laboratorio
+                  Definición
                 </span>
               </div>
             </div>
@@ -441,9 +464,9 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
             "{currentQ.definition}"
           </div>
 
-          {/* Options Grid */}
+          {/* Options Grid - Opciones barajadas aleatoriamente */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {currentQ.options.map((opt) => (
+            {displayedOptions.map((opt) => (
               <button
                 key={opt}
                 onClick={() => handleAnswer(opt)}
