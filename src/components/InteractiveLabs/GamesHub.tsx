@@ -36,6 +36,7 @@ interface GamesHubProps {
   userProgress: UserProgress;
   initialTab?: MinigameTab;
   onEarnBudget?: (amount?: number) => void;
+  onDeductBudget?: (amount: number, reason?: string) => void;
   onRechargeLife?: (amount?: number) => void;
   onAddBonusXP: (amount: number, reason: string) => void;
   onNavigate: (module: ActiveModule) => void;
@@ -239,6 +240,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
   userProgress,
   initialTab,
   onEarnBudget,
+  onDeductBudget,
   onRechargeLife,
   onAddBonusXP,
   onNavigate
@@ -853,6 +855,8 @@ export const GamesHub: React.FC<GamesHubProps> = ({
       {/* ========================================================= */}
       {activeTab === 'rosco' && (
         <RoscoGame
+          currentBudget={userProgress.budget}
+          onDeductBudget={onDeductBudget}
           onEarnBudget={onEarnBudget}
           onAddBonusXP={onAddBonusXP}
         />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   X,
   Star,
@@ -61,6 +61,14 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
   const [submitting, setSubmitting] = useState(false);
   const [submittedSuccess, setSubmittedSuccess] = useState(false);
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleRatingChange = (id: keyof ProjectRatings, val: number) => {
@@ -117,14 +125,18 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl relative my-8">
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
+    <div
+      ref={scrollContainerRef}
+      className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/70 backdrop-blur-sm p-3 sm:p-6"
+    >
+      <div className="min-h-full flex items-start justify-center py-6 sm:py-10">
+        <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-slate-200 shadow-2xl relative">
+          <button
+            onClick={onClose}
+            className="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
 
         {submittedSuccess ? (
           <div className="text-center py-12 space-y-4">
@@ -252,26 +264,30 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
             </div>
 
             {/* Qualitative Feedback */}
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Lo que más valoras de la plataforma:</label>
-                <input
-                  type="text"
+                <label className="text-xs font-bold text-slate-700 block mb-1.5">
+                  Lo que más valoras de la plataforma:
+                </label>
+                <textarea
+                  rows={2}
                   value={bestFeature}
                   onChange={(e) => setBestFeature(e.target.value)}
                   placeholder="Ej. La interactividad de la lanzadera rota y el feedback inmediato..."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-800"
+                  className="w-full bg-slate-50 focus:bg-white border border-slate-200 focus:border-indigo-500 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all resize-y"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Sugerencias de mejora para próximas ediciones:</label>
-                <input
-                  type="text"
+                <label className="text-xs font-bold text-slate-700 block mb-1.5">
+                  Sugerencias de mejora para próximas ediciones:
+                </label>
+                <textarea
+                  rows={2}
                   value={suggestions}
                   onChange={(e) => setSuggestions(e.target.value)}
                   placeholder="Ej. Añadir más casos de enfermedades raras o integración con seminarios..."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-800"
+                  className="w-full bg-slate-50 focus:bg-white border border-slate-200 focus:border-indigo-500 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all resize-y"
                 />
               </div>
             </div>
@@ -281,7 +297,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50"
+                className="px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer"
               >
                 Cancelar
               </button>
@@ -296,6 +312,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
             </div>
           </form>
         )}
+        </div>
       </div>
     </div>
   );

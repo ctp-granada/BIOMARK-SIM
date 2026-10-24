@@ -588,6 +588,7 @@ export const App: React.FC = () => {
             userProgress={userProgress}
             initialTab={initialGameTab}
             onEarnBudget={handleEarnBudget}
+            onDeductBudget={handleDeductBudget}
             onRechargeLife={handleRechargeLife}
             onAddBonusXP={handleAddBonusXP}
             onNavigate={setActiveModule}
