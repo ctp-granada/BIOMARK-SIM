@@ -363,13 +363,16 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
   onEarnBudget,
   onAddBonusXP
 }) => {
+  const INITIAL_TIME_SECONDS = 90;
+  const TIMEOUT_PENALTY_BUDGET = 100;
   const HINT_BUDGET_COST = 50;
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [answersStatus, setAnswersStatus] = useState<Record<number, 'correct' | 'wrong' | 'passed'>>({});
-  const [timeLeft, setTimeLeft] = useState<number>(180); // 3 minutes
+  const [timeLeft, setTimeLeft] = useState<number>(INITIAL_TIME_SECONDS);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
+  const [isTimeout, setIsTimeout] = useState<boolean>(false);
   const [rewardClaimed, setRewardClaimed] = useState<boolean>(false);
 
   // Budget & Hint State
@@ -396,15 +399,25 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
     }
   }, [currentIndex, isPlaying, isFinished]);
 
-  // Timer loop
+  // Timer loop with 90s countdown and penalty on timeout
   useEffect(() => {
     let interval: number | null = null;
     if (isPlaying && timeLeft > 0 && !isFinished) {
       interval = window.setInterval(() => {
         setTimeLeft((prev) => {
           if (prev <= 1) {
+            // Reached zero: Time out penalty and force restart
+            setIsTimeout(true);
             setIsFinished(true);
             setIsPlaying(false);
+            audioService.playError();
+            if (onDeductBudget) {
+              onDeductBudget(
+                TIMEOUT_PENALTY_BUDGET,
+                'Penalización: Tiempo agotado en el Rosco (-100 €)'
+              );
+            }
+            setLocalBudget((b) => Math.max(0, b - TIMEOUT_PENALTY_BUDGET));
             return 0;
           }
           return prev - 1;
@@ -414,13 +427,14 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isPlaying, timeLeft, isFinished]);
+  }, [isPlaying, timeLeft, isFinished, onDeductBudget]);
 
   const handleStartGame = () => {
     setAnswersStatus({});
     setCurrentIndex(0);
-    setTimeLeft(180);
+    setTimeLeft(INITIAL_TIME_SECONDS);
     setIsFinished(false);
+    setIsTimeout(false);
     setRewardClaimed(false);
     setUserAnswer('');
     setLastFeedback(null);
@@ -606,8 +620,15 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
             <span>{localBudget} €</span>
           </div>
 
-          <div className="px-3.5 py-1.5 rounded-xl bg-slate-100 border border-slate-200 font-mono font-bold text-xs text-slate-700 flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-slate-500" />
+          <div
+            className={`px-3.5 py-1.5 rounded-xl font-mono font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs ${
+              isPlaying && timeLeft <= 15
+                ? 'bg-rose-100 border-2 border-rose-400 text-rose-700 animate-pulse ring-2 ring-rose-400/30'
+                : 'bg-slate-100 border border-slate-200 text-slate-700'
+            }`}
+            title="Cuenta atrás de 90 segundos. ¡Al llegar a cero se penaliza el presupuesto y se reinicia la partida!"
+          >
+            <Clock className={`w-3.5 h-3.5 ${isPlaying && timeLeft <= 15 ? 'text-rose-600 animate-spin' : 'text-slate-500'}`} />
             <span>
               {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
             </span>
@@ -619,7 +640,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
               className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
             >
               <Play className="w-4 h-4 fill-white" />
-              <span>Iniciar Rosco</span>
+              <span>Iniciar Rosco (90s)</span>
             </button>
           )}
 
@@ -653,36 +674,76 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
         </div>
       </div>
 
-      {/* Finished Summary View */}
+      {/* Finished or Timeout View */}
       {isFinished ? (
-        <div className="bg-slate-50 rounded-2xl border border-slate-200 p-8 text-center space-y-4">
-          <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto shadow-md">
-            <Trophy className="w-8 h-8" />
-          </div>
-
-          <h3 className="text-xl font-black text-slate-900">
-            ¡Rosco Metabólico Completado!
-          </h3>
-
-          <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
-            Has logrado <span className="font-bold text-emerald-600">{correctCount}</span> aciertos y <span className="font-bold text-rose-600">{wrongCount}</span> fallos en esta ronda de vocabulario clínico de la A a la Z.
-          </p>
-
-          {!rewardClaimed ? (
-            <button
-              onClick={handleClaimReward}
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 mx-auto cursor-pointer transition-all active:scale-95"
-            >
-              <Wallet className="w-4 h-4" />
-              <span>Acreditar Recompensas de Guardia (+Presupuesto & XP)</span>
-            </button>
-          ) : (
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-100 border border-emerald-300 text-emerald-800 font-bold text-xs">
-              <CheckCircle2 className="w-4 h-4" />
-              <span>¡Recompensas sumadas a tu perfil con éxito!</span>
+        isTimeout ? (
+          /* Timeout Penalty & Forced Restart Screen */
+          <div className="bg-rose-50 rounded-2xl border-2 border-rose-300 p-8 text-center space-y-4 shadow-sm animate-fadeIn">
+            <div className="w-16 h-16 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center mx-auto shadow-md border border-rose-200">
+              <Clock className="w-8 h-8 text-rose-600 animate-pulse" />
             </div>
-          )}
-        </div>
+
+            <div className="space-y-1">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-rose-200/80 text-rose-900 border border-rose-300 shadow-xs">
+                ⏰ ¡Tiempo Agotado! (0:00)
+              </span>
+              <h3 className="text-2xl font-black text-slate-900 pt-1">
+                La guardia no esperó: tiempo límite alcanzado
+              </h3>
+            </div>
+
+            <p className="text-xs sm:text-sm text-slate-700 max-w-md mx-auto leading-relaxed">
+              El temporizador de 90 segundos ha llegado a cero antes de completar el rosco. Se ha aplicado una sanción de guardia de{' '}
+              <strong className="text-rose-700 font-black font-mono bg-rose-100 px-2 py-0.5 rounded border border-rose-200">
+                -{TIMEOUT_PENALTY_BUDGET} €
+              </strong>{' '}
+              en tu presupuesto.
+            </p>
+
+            <div className="p-3 bg-white/90 rounded-xl border border-rose-200 max-w-sm mx-auto text-xs text-slate-600 shadow-xs">
+              ⚠️ La partida se ha bloqueado. Debes <strong className="text-slate-900">reiniciar la partida</strong> para restablecer el rosco con un nuevo contador de 90 segundos.
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={handleStartGame}
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-sm shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2 mx-auto cursor-pointer transition-all active:scale-95"
+              >
+                <RotateCcw className="w-4 h-4" />
+                <span>Reiniciar Partida Obligatoria (90s)</span>
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-slate-50 rounded-2xl border border-slate-200 p-8 text-center space-y-4">
+            <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto shadow-md">
+              <Trophy className="w-8 h-8" />
+            </div>
+
+            <h3 className="text-xl font-black text-slate-900">
+              ¡Rosco Metabólico Completado!
+            </h3>
+
+            <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+              Has logrado <span className="font-bold text-emerald-600">{correctCount}</span> aciertos y <span className="font-bold text-rose-600">{wrongCount}</span> fallos en esta ronda de vocabulario clínico de la A a la Z.
+            </p>
+
+            {!rewardClaimed ? (
+              <button
+                onClick={handleClaimReward}
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 mx-auto cursor-pointer transition-all active:scale-95"
+              >
+                <Wallet className="w-4 h-4" />
+                <span>Acreditar Recompensas de Guardia (+Presupuesto & XP)</span>
+              </button>
+            ) : (
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-100 border border-emerald-300 text-emerald-800 font-bold text-xs">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>¡Recompensas sumadas a tu perfil con éxito!</span>
+              </div>
+            )}
+          </div>
+        )
       ) : (
         /* The Circular Rosco (Wheel of Alphabet) */
         <div className="relative w-full max-w-[560px] aspect-square mx-auto my-2 flex items-center justify-center select-none">
@@ -873,14 +934,14 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
                   Rosco de Bioquímica Clínica
                 </h4>
                 <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed max-w-xs mx-auto">
-                  25 letras con definiciones de laboratorio médico. Escribe tu respuesta en el cuadrito o usa el botón de Pista (-50 €) para revelar la 2ª letra.
+                  25 letras de laboratorio. Tienes <strong className="text-amber-300 font-bold">90 segundos</strong> de cuenta atrás: ¡si el tiempo llega a cero se penalizan <strong className="text-rose-400 font-bold">-100 €</strong> de presupuesto y deberás reiniciar! Usa <strong className="text-cyan-300 font-bold">Pista (-50 €)</strong> si dudas con una letra.
                 </p>
                 <button
                   onClick={handleStartGame}
-                  className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs inline-flex items-center gap-2 shadow-md cursor-pointer transition-all"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs inline-flex items-center gap-2 shadow-md cursor-pointer transition-all active:scale-95"
                 >
                   <Play className="w-4 h-4 fill-white" />
-                  <span>Comenzar Rosco</span>
+                  <span>Comenzar Rosco (90s)</span>
                 </button>
               </div>
             )}

@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { UserProgress, OrganSystem } from '../../types';
 import { evaluateUserBadges } from '../../data/badges';
 import { getPlayerRank, getStreakMultiplier } from '../../utils/gamification';
 import { MilestoneTimeline } from './MilestoneTimeline';
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ReferenceLine
+} from 'recharts';
 import {
   Trophy,
   Activity,
@@ -17,7 +27,10 @@ import {
   Layers,
   Sparkles,
   BookOpen,
-  Star
+  Star,
+  TrendingUp,
+  Zap,
+  HelpCircle
 } from 'lucide-react';
 
 interface UserStatsViewProps {
@@ -51,6 +64,81 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
     { key: 'pancreatic', label: 'Pancreático & Digestivo', color: 'bg-teal-500' }
   ];
 
+  const [chartViewMode, setChartViewMode] = useState<'cumulative' | 'delta'>('cumulative');
+
+  // Compute chronologically sorted chart data from userProgress history
+  const chartData = useMemo(() => {
+    const history = userProgress.history || [];
+    if (history.length === 0) return [];
+
+    const sorted = [...history].sort((a, b) => {
+      const tA = new Date(a.timestamp).getTime() || 0;
+      const tB = new Date(b.timestamp).getTime() || 0;
+      return tA - tB;
+    });
+
+    let runningTotal = 0;
+    const points = [
+      {
+        index: 0,
+        caseNumber: 'Inicio',
+        cumulativeXP: 0,
+        scoreEarned: 0,
+        caseTitle: 'Punto de partida',
+        isCorrect: true,
+        system: 'Línea base',
+        dateFormatted: 'Día 1',
+        biomarker: '-'
+      }
+    ];
+
+    sorted.forEach((item, idx) => {
+      runningTotal += (item.scoreEarned || 0);
+      const dateObj = new Date(item.timestamp);
+      const isValid = !isNaN(dateObj.getTime());
+      const dateFormatted = isValid
+        ? `${dateObj.getDate()} ${dateObj.toLocaleDateString('es-ES', { month: 'short' })}`
+        : `Caso #${idx + 1}`;
+      const timeFormatted = isValid
+        ? dateObj.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })
+        : '';
+
+      points.push({
+        index: idx + 1,
+        caseNumber: `#${idx + 1}`,
+        cumulativeXP: runningTotal,
+        scoreEarned: item.scoreEarned || 0,
+        caseTitle: item.caseTitle || `Caso Clínico #${idx + 1}`,
+        isCorrect: item.isCorrect,
+        system: item.system,
+        dateFormatted: `${dateFormatted}${timeFormatted ? ' ' + timeFormatted : ''}`,
+        biomarker: item.selectedBiomarkerName || ''
+      });
+    });
+
+    return points;
+  }, [userProgress.history]);
+
+  // Summary metrics for the score history
+  const historyStats = useMemo(() => {
+    const history = userProgress.history || [];
+    const count = history.length;
+    const correctCount = history.filter((h) => h.isCorrect).length;
+    const totalEarned = history.reduce((sum, h) => sum + (h.scoreEarned || 0), 0);
+    const avgEarned = count > 0 ? Math.round(totalEarned / count) : 0;
+    const maxEarned = count > 0 ? Math.max(...history.map((h) => h.scoreEarned || 0)) : 0;
+    const accuracyPct = count > 0 ? Math.round((correctCount / count) * 100) : 0;
+
+    return {
+      count,
+      correctCount,
+      totalEarned,
+      avgEarned,
+      maxEarned,
+      accuracyPct
+    };
+  }, [userProgress.history]);
+
   return (
     <div className="space-y-6">
       {/* Header Banner */}
@@ -66,6 +154,12 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
           <p className="text-xs text-slate-500 mt-1">
             Métricas de precisión, gestión de guardias e historial de resoluciones de casos clínicos.
           </p>
+          <div className="flex items-center gap-2 mt-2.5">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[11px] font-bold">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              Sincronizado con Firebase Firestore (Progreso y Encuestas)
+            </span>
+          </div>
         </div>
 
         {onResetProgress && (
@@ -175,6 +269,227 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
             {Math.round((unlockedBadges.length / badges.length) * 100)}% de maestría
           </p>
         </div>
+      </div>
+
+      {/* Evolución de Puntuación (Score Evolution Line Chart con recharts) */}
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
+              <TrendingUp className="w-4 h-4" />
+              <span>Analítica del Desempeño Clínico</span>
+            </div>
+            <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
+              Evolución Temporal del Rendimiento & Puntuación
+            </h2>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Curva de aprendizaje del alumno y trayectoria de puntos de experiencia (XP) a lo largo del tiempo.
+            </p>
+          </div>
+
+          {/* Mode Selector */}
+          <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200/80 self-start sm:self-auto">
+            <button
+              onClick={() => setChartViewMode('cumulative')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                chartViewMode === 'cumulative'
+                  ? 'bg-white text-indigo-700 shadow-xs border border-indigo-100'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              XP Acumulado
+            </button>
+            <button
+              onClick={() => setChartViewMode('delta')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                chartViewMode === 'delta'
+                  ? 'bg-white text-emerald-700 shadow-xs border border-emerald-100'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              XP por Caso
+            </button>
+          </div>
+        </div>
+
+        {/* Quick Summary Strip */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50/70 p-3.5 rounded-xl border border-slate-100">
+          <div className="space-y-0.5">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">XP Total en Casos</span>
+            <div className="text-base font-black text-indigo-600 font-mono">
+              {historyStats.totalEarned} XP
+            </div>
+          </div>
+          <div className="space-y-0.5">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Casos en Historial</span>
+            <div className="text-base font-black text-slate-800 font-mono">
+              {historyStats.count}
+            </div>
+          </div>
+          <div className="space-y-0.5">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Media por Intento</span>
+            <div className="text-base font-black text-emerald-600 font-mono">
+              +{historyStats.avgEarned} XP
+            </div>
+          </div>
+          <div className="space-y-0.5">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Récord en un Caso</span>
+            <div className="text-base font-black text-amber-600 font-mono">
+              +{historyStats.maxEarned} XP
+            </div>
+          </div>
+        </div>
+
+        {/* Line Chart or Empty State */}
+        {chartData.length > 1 ? (
+          <div className="space-y-3">
+            <div className="w-full h-72 pt-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={chartData}
+                  margin={{ top: 12, right: 20, left: -10, bottom: 4 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                  <XAxis
+                    dataKey="caseNumber"
+                    stroke="#94a3b8"
+                    tick={{ fontSize: 11, fill: '#64748b' }}
+                    tickLine={false}
+                    axisLine={{ stroke: '#e2e8f0' }}
+                  />
+                  <YAxis
+                    stroke="#94a3b8"
+                    tick={{ fontSize: 11, fill: '#64748b' }}
+                    tickLine={false}
+                    axisLine={{ stroke: '#e2e8f0' }}
+                    unit=" XP"
+                  />
+                  <Tooltip
+                    content={({ active, payload }) => {
+                      if (!active || !payload || !payload.length) return null;
+                      const data = payload[0]?.payload;
+                      if (!data) return null;
+
+                      return (
+                        <div className="bg-slate-900 text-white p-3.5 rounded-xl shadow-xl border border-slate-700/80 text-xs max-w-xs space-y-2 pointer-events-none z-50">
+                          <div className="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
+                            <span className="font-extrabold text-indigo-300 truncate max-w-[190px]" title={data.caseTitle}>
+                              {data.caseNumber === 'Inicio' ? 'Punto de Partida' : `${data.caseNumber}: ${data.caseTitle}`}
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-mono shrink-0">
+                              {data.dateFormatted}
+                            </span>
+                          </div>
+
+                          <div className="space-y-1 text-[11px]">
+                            {data.system && data.system !== 'Línea base' && (
+                              <div className="flex items-center justify-between">
+                                <span className="text-slate-400">Especialidad:</span>
+                                <span className="capitalize text-slate-200 font-medium">{data.system}</span>
+                              </div>
+                            )}
+                            {data.biomarker && data.biomarker !== '-' && (
+                              <div className="flex items-center justify-between">
+                                <span className="text-slate-400">Biomarcador:</span>
+                                <span className="text-slate-200 font-mono text-[10px]">{data.biomarker}</span>
+                              </div>
+                            )}
+                            <div className="flex items-center justify-between pt-1">
+                              <span className="text-slate-400">Resultado:</span>
+                              <span
+                                className={`font-bold px-1.5 py-0.5 rounded text-[10px] ${
+                                  data.isCorrect
+                                    ? 'bg-emerald-950 text-emerald-300 border border-emerald-800/80'
+                                    : 'bg-rose-950 text-rose-300 border border-rose-800/80'
+                                }`}
+                              >
+                                {data.caseNumber === 'Inicio'
+                                  ? 'Línea Base'
+                                  : data.isCorrect
+                                  ? `✓ Acierto (+${data.scoreEarned} XP)`
+                                  : '✗ Fallo (+0 XP)'}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between font-bold text-xs pt-1.5 border-t border-slate-800 text-amber-300">
+                              <span>Puntuación Acumulada:</span>
+                              <span className="font-mono text-sm">{data.cumulativeXP} XP</span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }}
+                  />
+                  {chartViewMode === 'delta' && historyStats.avgEarned > 0 && (
+                    <ReferenceLine
+                      y={historyStats.avgEarned}
+                      stroke="#f59e0b"
+                      strokeDasharray="4 4"
+                      label={{
+                        value: `Media: ${historyStats.avgEarned} XP`,
+                        fill: '#d97706',
+                        fontSize: 10,
+                        position: 'insideTopRight'
+                      }}
+                    />
+                  )}
+                  {chartViewMode === 'cumulative' ? (
+                    <Line
+                      type="monotone"
+                      dataKey="cumulativeXP"
+                      name="XP Acumulado"
+                      stroke="#4f46e5"
+                      strokeWidth={3}
+                      dot={{ r: 4, stroke: '#4f46e5', strokeWidth: 2, fill: '#ffffff' }}
+                      activeDot={{ r: 6, stroke: '#312e81', strokeWidth: 2, fill: '#4f46e5' }}
+                    />
+                  ) : (
+                    <Line
+                      type="monotone"
+                      dataKey="scoreEarned"
+                      name="XP Ganado en Caso"
+                      stroke="#059669"
+                      strokeWidth={2.5}
+                      dot={{ r: 4, stroke: '#059669', strokeWidth: 2, fill: '#ffffff' }}
+                      activeDot={{ r: 6, stroke: '#064e3b', strokeWidth: 2, fill: '#059669' }}
+                    />
+                  )}
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-slate-100 text-xs text-slate-500">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-indigo-600 inline-block"></span>
+                <span>
+                  {chartViewMode === 'cumulative'
+                    ? 'Progresión acumulada hacia escalafones superiores'
+                    : 'Puntos obtenidos por resolución diagnóstica'}
+                </span>
+              </div>
+              <div className="text-[11px] font-mono text-slate-400">
+                Tasa de aciertos: <span className="font-bold text-slate-700">{historyStats.accuracyPct}%</span> ({historyStats.correctCount}/{historyStats.count} casos resueltos)
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-slate-50/80 rounded-xl border border-dashed border-slate-200 p-8 text-center flex flex-col items-center justify-center space-y-3">
+            <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shadow-xs">
+              <TrendingUp className="w-6 h-6" />
+            </div>
+            <div className="max-w-md">
+              <h4 className="text-sm font-bold text-slate-800">
+                Curva de evolución en espera de tus primeras resoluciones
+              </h4>
+              <p className="text-xs text-slate-500 mt-1">
+                A medida que resuelvas casos clínicos en el simulador de urgencias o en las especialidades, el gráfico trazará en tiempo real la progresión cronológica de tu puntuación XP y efectividad diagnóstica.
+              </p>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-100/70 text-indigo-800 text-[11px] font-bold">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+              <span>Puntuación actual en plataforma: {userProgress.xp || userProgress.score || 0} XP</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Systems Accuracy Breakdown */}

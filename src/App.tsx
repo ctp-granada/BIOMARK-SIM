@@ -49,7 +49,10 @@ import {
   subscribeVisitorStats,
   VisitorStats,
   getOrCreateStudentProfile,
-  saveStudentRankingToCloud
+  saveStudentRankingToCloud,
+  saveStudentFullProgressToCloud,
+  fetchStudentFullProgressFromCloud,
+  testFirestoreConnection
 } from './lib/firebase';
 import { BIOMARKERS_DATABASE } from './data/biomarkers';
 import { audioService } from './utils/audioService';
@@ -139,12 +142,50 @@ export const App: React.FC = () => {
     isLive: false
   });
 
-  // Sync visitor stats & record visit on mount
+  // Sync visitor stats, test connection & restore student progress from Firebase on mount
   useEffect(() => {
     recordPlatformVisit();
     const unsubscribe = subscribeVisitorStats((stats) => {
       setVisitorStats(stats);
     });
+
+    // Test Firestore connection per Firebase guidelines
+    testFirestoreConnection().catch((err) => {
+      console.warn('Conexión con Firebase:', err);
+    });
+
+    // Restore full progress from Firebase Firestore
+    try {
+      const profile = getOrCreateStudentProfile();
+      fetchStudentFullProgressFromCloud(profile.studentId).then((cloudProg) => {
+        if (cloudProg) {
+          setUserProgress((prev) => {
+            // Merge cloud progress if it contains advanced progress or cases
+            const preferCloud =
+              (cloudProg.score ?? 0) > prev.score ||
+              (cloudProg.casesAttempted ?? 0) > prev.casesAttempted ||
+              (cloudProg.history && cloudProg.history.length > prev.history.length);
+
+            if (preferCloud) {
+              return {
+                ...prev,
+                ...cloudProg,
+                lives: cloudProg.lives ?? prev.lives,
+                maxLives: cloudProg.maxLives ?? prev.maxLives,
+                budget: cloudProg.budget ?? prev.budget,
+                systemStats: cloudProg.systemStats ?? prev.systemStats,
+                unlockedBadges: cloudProg.unlockedBadges ?? prev.unlockedBadges,
+                history: cloudProg.history ?? prev.history
+              } as UserProgress;
+            }
+            return prev;
+          });
+        }
+      });
+    } catch (err) {
+      console.warn('No se pudo recuperar progreso inicial de Firebase:', err);
+    }
+
     return () => unsubscribe();
   }, []);
 
@@ -172,34 +213,17 @@ export const App: React.FC = () => {
     }
   }, []);
 
-  // Save progress locally and sync with Firestore ranking
+  // Save progress locally and sync complete student progress with Firebase Firestore
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem(STORAGE_PROGRESS_KEY, JSON.stringify(userProgress));
     }
 
-    if (userProgress.casesAttempted > 0 || userProgress.casesCorrect > 0) {
-      const profile = getOrCreateStudentProfile();
-      const accuracy =
-        userProgress.casesAttempted > 0
-          ? Math.round((userProgress.casesCorrect / userProgress.casesAttempted) * 100)
-          : 0;
-
-      saveStudentRankingToCloud({
-        studentId: profile.studentId,
-        name: profile.name,
-        subgroup: profile.subgroup,
-        score: userProgress.score,
-        xp: userProgress.xp || userProgress.score,
-        casesSolved: userProgress.casesCorrect,
-        casesAttempted: userProgress.casesAttempted,
-        accuracy,
-        streak: userProgress.streak,
-        budget: userProgress.budget,
-        badgesCount: userProgress.unlockedBadges?.length || 0,
-        lastSolvedAt: new Date().toLocaleDateString('es-ES')
-      });
-    }
+    const profile = getOrCreateStudentProfile();
+    // Persistir siempre en Firebase Firestore (colecciones student_progress y student_rankings)
+    saveStudentFullProgressToCloud(userProgress, profile).catch((err) => {
+      console.warn('Error al sincronizar progreso completo con Firebase:', err);
+    });
   }, [userProgress]);
 
   // Open Lab helper
@@ -738,6 +762,12 @@ export const App: React.FC = () => {
         onClose={() => setSatisfactionSurveyOpen(false)}
         onSurveySubmitted={() => {
           setHasCompletedSurvey(true);
+          setUserProgress((prev) => ({
+            ...prev,
+            score: prev.score + 150,
+            xp: (prev.xp || prev.score) + 150,
+            budget: prev.budget + 100
+          }));
         }}
       />
 

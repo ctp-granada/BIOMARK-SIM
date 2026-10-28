@@ -28,6 +28,7 @@ import {
   saveStudentRankingToCloud
 } from '../../lib/firebase';
 import { UserProgress } from '../../types';
+import { PRACTICE_SUBGROUPS } from '../../utils/satisfactionService';
 
 interface StudentRankingTableProps {
   userProgress: UserProgress;
@@ -142,11 +143,10 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
     setTimeout(() => setSaveToast(null), 3000);
   };
 
-  // Subgroups available for filter
+  // Subgroups available for filter (Subgrupos 1 al 15)
   const subgroupOptions = useMemo(() => {
-    const list = Array.from(new Set(rankings.map((r) => r.subgroup || 'General'))).filter(Boolean);
-    return ['todos', ...list];
-  }, [rankings]);
+    return ['todos', ...PRACTICE_SUBGROUPS];
+  }, []);
 
   // Filtered and sorted students
   const filteredAndSortedRankings = useMemo(() => {
@@ -399,7 +399,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                       <span className="text-[10px] ml-1 bg-amber-500 text-white px-1.5 py-0.2 rounded font-bold">Tú</span>
                     )}
                   </h3>
-                  <span className="text-[11px] text-slate-500">{rankings[0].subgroup || 'Subgrupo General'}</span>
+                  <span className="text-[11px] text-slate-500">{rankings[0].subgroup || 'Subgrupo 1'}</span>
                 </div>
               </div>
               <div className="flex items-baseline justify-between pt-2 border-t border-amber-200">
@@ -435,7 +435,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                       <span className="text-[10px] ml-1 bg-amber-500 text-white px-1.5 py-0.2 rounded font-bold">Tú</span>
                     )}
                   </h3>
-                  <span className="text-[11px] text-slate-500">{rankings[1].subgroup || 'Subgrupo General'}</span>
+                  <span className="text-[11px] text-slate-500">{rankings[1].subgroup || 'Subgrupo 1'}</span>
                 </div>
               </div>
               <div className="flex items-baseline justify-between pt-2 border-t border-slate-200">
@@ -471,7 +471,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                       <span className="text-[10px] ml-1 bg-amber-500 text-white px-1.5 py-0.2 rounded font-bold">Tú</span>
                     )}
                   </h3>
-                  <span className="text-[11px] text-slate-500">{rankings[2].subgroup || 'Subgrupo General'}</span>
+                  <span className="text-[11px] text-slate-500">{rankings[2].subgroup || 'Subgrupo 1'}</span>
                 </div>
               </div>
               <div className="flex items-baseline justify-between pt-2 border-t border-amber-200">
@@ -646,7 +646,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                       {/* Subgrupo */}
                       <td className="p-3.5 text-center">
                         <span className="inline-block px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-[10px] font-bold">
-                          {st.subgroup || 'General'}
+                          {st.subgroup || 'Subgrupo 1'}
                         </span>
                       </td>
 
@@ -764,22 +764,9 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                   onChange={(e) => setEditSubgroup(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-xs bg-white"
                 >
-                  <option value="Subgrupo 1">Subgrupo 1</option>
-                  <option value="Subgrupo 2">Subgrupo 2</option>
-                  <option value="Subgrupo 3">Subgrupo 3</option>
-                  <option value="Subgrupo 4">Subgrupo 4</option>
-                  <option value="Subgrupo 5">Subgrupo 5</option>
-                  <option value="Subgrupo 6">Subgrupo 6</option>
-                  <option value="Subgrupo 7">Subgrupo 7</option>
-                  <option value="Subgrupo 8">Subgrupo 8</option>
-                  <option value="Subgrupo 9">Subgrupo 9</option>
-                  <option value="Subgrupo 10">Subgrupo 10</option>
-                  <option value="Subgrupo 11">Subgrupo 11</option>
-                  <option value="Subgrupo 12">Subgrupo 12</option>
-                  <option value="Subgrupo 13">Subgrupo 13</option>
-                  <option value="Subgrupo 14">Subgrupo 14</option>
-                  <option value="Subgrupo 15">Subgrupo 15</option>
-                  <option value="Subgrupo General">Subgrupo General</option>
+                  {PRACTICE_SUBGROUPS.map((sg) => (
+                    <option key={sg} value={sg}>{sg}</option>
+                  ))}
                 </select>
               </div>
 

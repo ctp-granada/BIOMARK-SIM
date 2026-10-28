@@ -112,6 +112,31 @@
         "updatedAt": { "type": "string", "format": "date-time", "description": "Fecha del último intento registrado" }
       },
       "required": ["studentId", "name", "score", "casesSolved"]
+    },
+    "StudentProgress": {
+      "title": "StudentProgress",
+      "description": "Estado y progreso completo de un estudiante en la plataforma (puntuación, XP, vidas, presupuesto, casos resueltos, historial e insignias)",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string", "description": "Identificador único del estudiante o sesión" },
+        "name": { "type": "string", "description": "Nombre o alias académico del alumno" },
+        "subgroup": { "type": "string", "description": "Subgrupo de prácticas de laboratorio" },
+        "score": { "type": "number", "description": "Puntuación acumulada" },
+        "xp": { "type": "number", "description": "Puntos de experiencia acumulados" },
+        "lives": { "type": "number", "description": "Vidas disponibles en el Hospital Clínico" },
+        "maxLives": { "type": "number", "description": "Máximo de vidas permitidas" },
+        "budget": { "type": "number", "description": "Presupuesto disponible para analítica y pistas" },
+        "casesAttempted": { "type": "number", "description": "Total de casos clínicos abordados" },
+        "casesCorrect": { "type": "number", "description": "Casos clínicos diagnosticados correctamente" },
+        "streak": { "type": "number", "description": "Racha actual de casos correctos" },
+        "currentLevel": { "type": "string", "description": "Nivel de dificultad actual" },
+        "libraryConsultations": { "type": "number", "description": "Consultas realizadas a la Biblioteca de biomarcadores" },
+        "systemStats": { "type": "object", "description": "Estadísticas por sistema orgánico" },
+        "unlockedBadges": { "type": "array", "description": "Lista de identificadores de insignias desbloqueadas" },
+        "history": { "type": "array", "description": "Historial de intentos de resolución de casos" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Fecha y hora de última sincronización" }
+      },
+      "required": ["studentId", "name", "score", "casesAttempted", "casesCorrect"]
     }
   },
   "firestore": {
@@ -142,6 +167,10 @@
     "/student_rankings/{studentId}": {
       "schema": { "$ref": "StudentRanking" },
       "description": "Escalafón en tiempo real de alumnos que han resuelto casos clínicos y sus puntuaciones"
+    },
+    "/student_progress/{studentId}": {
+      "schema": { "$ref": "StudentProgress" },
+      "description": "Progreso y estado clínico completo persistido en la nube de cada alumno de Bioquímica Médica"
     }
   }
 }

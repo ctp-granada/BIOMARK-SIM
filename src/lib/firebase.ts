@@ -6,6 +6,7 @@ import {
   addDoc,
   doc,
   getDoc,
+  getDocFromServer,
   setDoc,
   updateDoc,
   deleteDoc,
@@ -16,6 +17,7 @@ import {
 } from 'firebase/firestore';
 import firebaseAppletConfig from '../../firebase-applet-config.json';
 import { SatisfactionFeedback } from '../utils/satisfactionService';
+import { UserProgress, CaseAttemptRecord } from '../types';
 
 const app = initializeApp(firebaseAppletConfig);
 
@@ -23,18 +25,66 @@ export const db: Firestore = (firebaseAppletConfig as any).firestoreDatabaseId
   ? getFirestore(app, (firebaseAppletConfig as any).firestoreDatabaseId)
   : getFirestore(app);
 
+export enum OperationType {
+  CREATE = 'create',
+  UPDATE = 'update',
+  DELETE = 'delete',
+  LIST = 'list',
+  GET = 'get',
+  WRITE = 'write',
+}
+
+export interface FirestoreErrorInfo {
+  error: string;
+  operationType: OperationType;
+  path: string | null;
+  authInfo: {
+    userId?: string | null;
+    email?: string | null;
+    emailVerified?: boolean | null;
+    isAnonymous?: boolean | null;
+    tenantId?: string | null;
+    providerInfo?: {
+      providerId?: string | null;
+      email?: string | null;
+    }[];
+  };
+}
+
+export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
+  const errInfo: FirestoreErrorInfo = {
+    error: error instanceof Error ? error.message : String(error),
+    authInfo: {
+      userId: null,
+      email: null,
+      emailVerified: null,
+      isAnonymous: null,
+      tenantId: null,
+      providerInfo: []
+    },
+    operationType,
+    path
+  };
+  console.error('Firestore Error: ', JSON.stringify(errInfo));
+  return errInfo;
+}
+
 export async function saveSatisfactionSurveyToCloud(
   survey: SatisfactionFeedback
 ): Promise<string> {
+  const profile = getOrCreateStudentProfile();
   try {
     const docRef = await addDoc(collection(db, 'satisfaction_surveys'), {
       ...survey,
+      studentId: profile.studentId,
+      studentName: profile.name,
       uploadedAt: serverTimestamp(),
       clientTimestamp: new Date().toISOString()
     });
     return docRef.id;
   } catch (error) {
     console.warn('Error al guardar encuesta en Firestore:', error);
+    handleFirestoreError(error, OperationType.CREATE, 'satisfaction_surveys');
     throw error;
   }
 }
@@ -49,8 +99,25 @@ export async function fetchSatisfactionSurveysFromCloud(): Promise<SatisfactionF
         surveys.push({
           id: data.id || docSnap.id,
           createdAt: data.createdAt || data.clientTimestamp || new Date().toISOString(),
-          academicRole: data.academicRole || 'Alumno/a del Grado en Medicina',
-          subgroup: data.subgroup || 'Subgrupo General',
+          academicRole: data.academicRole || 'Grado en Medicina',
+          academicYear: data.academicYear || '2º Curso',
+          subgroup: data.subgroup || 'Subgrupo 1',
+          deviceUsed: data.deviceUsed || 'Ordenador portátil / Sobremesa',
+          estimatedUsageTime: data.estimatedUsageTime || 'Entre 1 y 3 horas (3-5 casos y minijuegos)',
+          priorSimulationExperience: data.priorSimulationExperience || 'Poca (Experiencia puntual en algún taller)',
+          researchConsent: data.researchConsent !== false,
+          clinicalRatings: data.clinicalRatings || {
+            clin1_fisiopatologia: data.projectRatings?.utilidadAprendizaje || 5,
+            clin2_criterioAnalitico: data.projectRatings?.feedback || 5,
+            clin3_interpretacionPatrones: data.projectRatings?.simuladoresInteractivos || 5,
+            clin4_aplicabilidadClinica: data.projectRatings?.valoracionGlobal || 5
+          },
+          gamificationRatings: data.gamificationRatings || {
+            gam1_gestionPresupuesto: data.projectRatings?.gamificacionMotivacion || 5,
+            gam2_feedbackInmediato: data.projectRatings?.feedback || 5,
+            gam3_motivacionCompetitiva: data.projectRatings?.gamificacionMotivacion || 5,
+            gam4_preferenciaMetodologica: data.projectRatings?.utilidadAprendizaje || 5
+          },
           projectRatings: data.projectRatings || {
             navegacion: 5,
             feedback: 5,
@@ -60,13 +127,19 @@ export async function fetchSatisfactionSurveysFromCloud(): Promise<SatisfactionF
             simuladoresInteractivos: 5,
             gamificacionMotivacion: 5
           },
-          susAnswers: data.susAnswers || [5, 1, 5, 1, 5, 1, 5, 1, 5, 1],
-          susScore: data.susScore || 85,
+          susAnswers: Array.isArray(data.susAnswers) && data.susAnswers.length === 10 ? data.susAnswers : [5, 1, 5, 1, 5, 1, 5, 1, 5, 1],
+          susScore: typeof data.susScore === 'number' ? data.susScore : 85,
+          cognitiveLoad: typeof data.cognitiveLoad === 'number' ? data.cognitiveLoad : 3,
+          selfEfficacyPre: typeof data.selfEfficacyPre === 'number' ? data.selfEfficacyPre : 2,
+          selfEfficacyPost: typeof data.selfEfficacyPost === 'number' ? data.selfEfficacyPost : 5,
+          learningGain: typeof data.learningGain === 'number' ? data.learningGain : ((data.selfEfficacyPost ?? 5) - (data.selfEfficacyPre ?? 2)),
+          curriculumIntegrationRecommendation: data.curriculumIntegrationRecommendation || 'Totalmente recomendable como actividad oficial evaluable (con nota)',
           recommendationNps: typeof data.recommendationNps === 'number' ? data.recommendationNps : 10,
           favoriteModule: data.favoriteModule || 'Hospital Clínico (Guardias y Casos Clínicos)',
           qualitative: data.qualitative || {
             bestFeature: '',
-            suggestionsForImprovement: ''
+            suggestionsForImprovement: '',
+            suggestedPathologies: ''
           }
         });
       }
@@ -314,6 +387,159 @@ export async function saveStudentRankingToCloud(
   }
 }
 
+/**
+ * Guarda el progreso completo del alumno en Firebase Firestore:
+ * - student_progress/{studentId}: persistencia íntegra del estado clínico
+ * - student_rankings/{studentId}: actualización del escalafón docente público
+ */
+export async function saveStudentFullProgressToCloud(
+  progress: UserProgress,
+  profile?: StudentProfile
+): Promise<boolean> {
+  const currentProfile = profile || getOrCreateStudentProfile();
+  const studentId = currentProfile.studentId;
+
+  try {
+    const accuracy =
+      progress.casesAttempted > 0
+        ? Math.round((progress.casesCorrect / progress.casesAttempted) * 100)
+        : 0;
+
+    // 1. Guardar documento de progreso completo del alumno
+    const progressDocRef = doc(db, 'student_progress', studentId);
+    await setDoc(
+      progressDocRef,
+      {
+        studentId,
+        name: currentProfile.name,
+        subgroup: currentProfile.subgroup,
+        score: progress.score,
+        xp: progress.xp || progress.score,
+        lives: progress.lives,
+        maxLives: progress.maxLives,
+        budget: progress.budget,
+        casesAttempted: progress.casesAttempted,
+        casesCorrect: progress.casesCorrect,
+        streak: progress.streak,
+        currentLevel: progress.currentLevel,
+        libraryConsultations: progress.libraryConsultations || 0,
+        systemStats: progress.systemStats,
+        unlockedBadges: progress.unlockedBadges || [],
+        history: progress.history || [],
+        updatedAt: serverTimestamp(),
+        lastClientSync: new Date().toISOString()
+      },
+      { merge: true }
+    );
+
+    // 2. Sincronizar simultáneamente el escalafón público del hospital
+    await saveStudentRankingToCloud({
+      studentId,
+      name: currentProfile.name,
+      subgroup: currentProfile.subgroup,
+      score: progress.score,
+      xp: progress.xp || progress.score,
+      casesSolved: progress.casesCorrect,
+      casesAttempted: progress.casesAttempted,
+      accuracy,
+      streak: progress.streak,
+      budget: progress.budget,
+      badgesCount: progress.unlockedBadges?.length || 0,
+      lastCaseTitle: progress.history?.[0]?.caseTitle || '',
+      lastSolvedAt: new Date().toLocaleDateString('es-ES')
+    });
+
+    return true;
+  } catch (err) {
+    console.warn('Error guardando progreso completo en Firestore:', err);
+    handleFirestoreError(err, OperationType.WRITE, `student_progress/${studentId}`);
+    return false;
+  }
+}
+
+/**
+ * Recupera el progreso guardado del alumno desde Firebase Firestore
+ */
+export async function fetchStudentFullProgressFromCloud(
+  studentId: string
+): Promise<Partial<UserProgress> | null> {
+  try {
+    const docRef = doc(db, 'student_progress', studentId);
+    const snap = await getDoc(docRef);
+    if (snap.exists()) {
+      const data = snap.data();
+      return {
+        score: typeof data.score === 'number' ? data.score : 0,
+        xp: typeof data.xp === 'number' ? data.xp : (data.score || 0),
+        lives: typeof data.lives === 'number' ? data.lives : 3,
+        maxLives: typeof data.maxLives === 'number' ? data.maxLives : 3,
+        budget: typeof data.budget === 'number' ? data.budget : 5000,
+        casesAttempted: typeof data.casesAttempted === 'number' ? data.casesAttempted : 0,
+        casesCorrect: typeof data.casesCorrect === 'number' ? data.casesCorrect : 0,
+        streak: typeof data.streak === 'number' ? data.streak : 0,
+        currentLevel: data.currentLevel || 'intermedio',
+        libraryConsultations: typeof data.libraryConsultations === 'number' ? data.libraryConsultations : 0,
+        systemStats: data.systemStats || {
+          cardiac: { attempted: 0, correct: 0 },
+          hepatic: { attempted: 0, correct: 0 },
+          metabolic: { attempted: 0, correct: 0 },
+          renal: { attempted: 0, correct: 0 },
+          pancreatic: { attempted: 0, correct: 0 },
+          neuromuscular: { attempted: 0, correct: 0 }
+        },
+        unlockedBadges: Array.isArray(data.unlockedBadges) ? data.unlockedBadges : [],
+        history: Array.isArray(data.history) ? data.history : []
+      };
+    }
+    return null;
+  } catch (err) {
+    console.warn('Error recuperando progreso de estudiante desde Firestore:', err);
+    return null;
+  }
+}
+
+/**
+ * Suscripción en tiempo real al progreso del alumno en Firestore
+ */
+export function subscribeStudentProgress(
+  studentId: string,
+  callback: (progress: Partial<UserProgress> | null) => void
+): () => void {
+  try {
+    const docRef = doc(db, 'student_progress', studentId);
+    const unsubscribe = onSnapshot(
+      docRef,
+      (snap) => {
+        if (snap.exists()) {
+          const data = snap.data();
+          callback({
+            score: typeof data.score === 'number' ? data.score : 0,
+            xp: typeof data.xp === 'number' ? data.xp : (data.score || 0),
+            lives: typeof data.lives === 'number' ? data.lives : 3,
+            maxLives: typeof data.maxLives === 'number' ? data.maxLives : 3,
+            budget: typeof data.budget === 'number' ? data.budget : 5000,
+            casesAttempted: typeof data.casesAttempted === 'number' ? data.casesAttempted : 0,
+            casesCorrect: typeof data.casesCorrect === 'number' ? data.casesCorrect : 0,
+            streak: typeof data.streak === 'number' ? data.streak : 0,
+            currentLevel: data.currentLevel || 'intermedio',
+            libraryConsultations: typeof data.libraryConsultations === 'number' ? data.libraryConsultations : 0,
+            systemStats: data.systemStats,
+            unlockedBadges: data.unlockedBadges || [],
+            history: data.history || []
+          });
+        }
+      },
+      (err) => {
+        console.warn('Error en listener de progreso de estudiante:', err);
+      }
+    );
+    return unsubscribe;
+  } catch (err) {
+    console.warn('Error iniciando suscripción de progreso:', err);
+    return () => {};
+  }
+}
+
 export async function fetchStudentRankingsFromCloud(): Promise<StudentRankingRecord[]> {
   try {
     const colRef = collection(db, 'student_rankings');
@@ -325,7 +551,7 @@ export async function fetchStudentRankingsFromCloud(): Promise<StudentRankingRec
         list.push({
           studentId: data.studentId || d.id,
           name: data.name || 'Estudiante UGR',
-          subgroup: data.subgroup || 'Subgrupo General',
+          subgroup: data.subgroup || 'Subgrupo 1',
           score: typeof data.score === 'number' ? data.score : 0,
           xp: typeof data.xp === 'number' ? data.xp : (data.score || 0),
           casesSolved: typeof data.casesSolved === 'number' ? data.casesSolved : 0,
@@ -364,7 +590,7 @@ export function subscribeStudentRankings(
             list.push({
               studentId: data.studentId || d.id,
               name: data.name || 'Estudiante UGR',
-              subgroup: data.subgroup || 'Subgrupo General',
+              subgroup: data.subgroup || 'Subgrupo 1',
               score: typeof data.score === 'number' ? data.score : 0,
               xp: typeof data.xp === 'number' ? data.xp : (data.score || 0),
               casesSolved: typeof data.casesSolved === 'number' ? data.casesSolved : 0,
@@ -425,11 +651,18 @@ export function saveFirebaseConfig(config: FirebaseConfig): void {
 
 export async function testFirestoreConnection(): Promise<{ success: boolean; message: string }> {
   try {
-    const docRef = doc(db, 'platform_stats', 'visits');
-    await getDoc(docRef);
+    await getDocFromServer(doc(db, 'test', 'connection'));
     return { success: true, message: '¡Conexión con Firestore verificada con éxito!' };
   } catch (err: any) {
-    return { success: false, message: err?.message || 'Error al conectar con Firestore' };
+    if (err instanceof Error && err.message.includes('the client is offline')) {
+      console.error('Please check your Firebase configuration.');
+    }
+    try {
+      await getDoc(doc(db, 'platform_stats', VISITOR_DOC_ID));
+      return { success: true, message: '¡Conexión con Firestore verificada con éxito!' };
+    } catch {
+      return { success: false, message: err?.message || 'Error al conectar con Firestore' };
+    }
   }
 }
 
