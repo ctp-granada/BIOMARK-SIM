@@ -65,7 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Official Subject Logo: Caduceo + ADN + Granada UGR */}
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white p-1 shadow-xs border border-amber-300/90 flex items-center justify-center shrink-0 transition-transform overflow-hidden">
               <img
-                src="/course_logo.jpg"
+                src="/logo-asignatura.png"
                 alt="Logo Bioquímica Médica UGR"
                 className="w-full h-full object-contain"
               />
