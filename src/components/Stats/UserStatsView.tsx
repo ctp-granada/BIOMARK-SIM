@@ -142,13 +142,13 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
             <BarChart3 className="w-4 h-4" />
             <span>Rendimiento Académico & Historial Clínico</span>
           </div>
-          <h1 className="text-2xl font-black text-slate-900">
+          <h1 className="text-2xl font-bold text-slate-900">
             Estadísticas Globales de Diagnóstico
           </h1>
           <p className="text-xs text-slate-500 mt-1">
@@ -174,9 +174,9 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
       </div>
 
       {/* Student Satisfaction Survey Banner */}
-      <div className="bg-gradient-to-r from-amber-500/10 via-amber-50 to-amber-500/15 border border-amber-300/80 rounded-2xl p-5 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-amber-500/10 border border-amber-300/80 rounded-lg p-5 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-start gap-3.5">
-          <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-700 border border-amber-400/40 flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+          <div className="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-700 border border-amber-400/40 flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
             <Star className="w-5 h-5 text-amber-600 fill-amber-500" />
           </div>
           <div>
@@ -224,12 +224,12 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+        <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-slate-500 uppercase">Experiencia (XP)</span>
             <Sparkles className="w-4 h-4 text-amber-500" />
           </div>
-          <div className="text-2xl font-black text-slate-900">
+          <div className="text-2xl font-bold text-slate-900">
             {userProgress.xp || userProgress.score || 0} XP
           </div>
           <p className="text-[11px] text-slate-400 mt-1">
@@ -237,32 +237,32 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
           </p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+        <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-slate-500 uppercase">Precisión Global</span>
             <Target className="w-4 h-4 text-emerald-500" />
           </div>
-          <div className="text-2xl font-black text-slate-900">{accuracy}%</div>
+          <div className="text-2xl font-bold text-slate-900">{accuracy}%</div>
           <p className="text-[11px] text-slate-400 mt-1">
             {userProgress.casesCorrect} aciertos de {userProgress.casesAttempted} casos
           </p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+        <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-slate-500 uppercase">Racha Activa</span>
             <Flame className="w-4 h-4 text-orange-500" />
           </div>
-          <div className="text-2xl font-black text-slate-900">{userProgress.streak}</div>
+          <div className="text-2xl font-bold text-slate-900">{userProgress.streak}</div>
           <p className="text-[11px] text-slate-400 mt-1">{streak.bonusText}</p>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+        <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-slate-500 uppercase">Insignias Ganadas</span>
             <Award className="w-4 h-4 text-purple-500" />
           </div>
-          <div className="text-2xl font-black text-slate-900">
+          <div className="text-2xl font-bold text-slate-900">
             {unlockedBadges.length} / {badges.length}
           </div>
           <p className="text-[11px] text-slate-400 mt-1">
@@ -272,14 +272,14 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
       </div>
 
       {/* Evolución de Puntuación (Score Evolution Line Chart con recharts) */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-5">
+      <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
               <TrendingUp className="w-4 h-4" />
               <span>Analítica del Desempeño Clínico</span>
             </div>
-            <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
+            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
               Evolución Temporal del Rendimiento & Puntuación
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
@@ -316,25 +316,25 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50/70 p-3.5 rounded-xl border border-slate-100">
           <div className="space-y-0.5">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">XP Total en Casos</span>
-            <div className="text-base font-black text-indigo-600 font-mono">
+            <div className="text-base font-bold text-indigo-600 font-mono">
               {historyStats.totalEarned} XP
             </div>
           </div>
           <div className="space-y-0.5">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Casos en Historial</span>
-            <div className="text-base font-black text-slate-800 font-mono">
+            <div className="text-base font-bold text-slate-800 font-mono">
               {historyStats.count}
             </div>
           </div>
           <div className="space-y-0.5">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Media por Intento</span>
-            <div className="text-base font-black text-emerald-600 font-mono">
+            <div className="text-base font-bold text-emerald-600 font-mono">
               +{historyStats.avgEarned} XP
             </div>
           </div>
           <div className="space-y-0.5">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Récord en un Caso</span>
-            <div className="text-base font-black text-amber-600 font-mono">
+            <div className="text-base font-bold text-amber-600 font-mono">
               +{historyStats.maxEarned} XP
             </div>
           </div>
@@ -371,7 +371,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
                       if (!data) return null;
 
                       return (
-                        <div className="bg-slate-900 text-white p-3.5 rounded-xl shadow-xl border border-slate-700/80 text-xs max-w-xs space-y-2 pointer-events-none z-50">
+                        <div className="bg-slate-900 text-white p-3.5 rounded-xl shadow-md border border-slate-700/80 text-xs max-w-xs space-y-2 pointer-events-none z-50">
                           <div className="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
                             <span className="font-extrabold text-indigo-300 truncate max-w-[190px]" title={data.caseTitle}>
                               {data.caseNumber === 'Inicio' ? 'Punto de Partida' : `${data.caseNumber}: ${data.caseTitle}`}
@@ -473,7 +473,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
           </div>
         ) : (
           <div className="bg-slate-50/80 rounded-xl border border-dashed border-slate-200 p-8 text-center flex flex-col items-center justify-center space-y-3">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shadow-xs">
+            <div className="w-12 h-12 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shadow-xs">
               <TrendingUp className="w-6 h-6" />
             </div>
             <div className="max-w-md">
@@ -493,7 +493,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
       </div>
 
       {/* Systems Accuracy Breakdown */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
+      <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-4">
         <h2 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
           <Activity className="w-4 h-4 text-indigo-600" />
           <span>Dominio por Sistemas y Especialidades Bioquímicas</span>
@@ -525,7 +525,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
       </div>
 
       {/* Badges Collection */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
+      <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-4">
         <h2 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
           <Award className="w-4 h-4 text-amber-500" />
           <span>Galería de Acreditaciones e Insignias Médicas</span>
@@ -575,7 +575,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
       <MilestoneTimeline userProgress={userProgress} />
 
       {/* Case Resolution History */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4">
+      <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-4">
         <h2 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
           <Calendar className="w-4 h-4 text-blue-600" />
           <span>Historial Reciente de Resoluciones en Guardia</span>

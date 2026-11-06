@@ -58,16 +58,16 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-md overflow-y-auto">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 overflow-y-auto">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-2xl overflow-hidden my-auto"
+          className="bg-white rounded-xl shadow-lg border border-slate-200 w-full max-w-2xl overflow-hidden my-auto"
         >
           {/* Header Bar */}
-          <div className="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-800 text-white p-5 sm:p-6 relative">
+          <div className="bg-emerald-700 text-white p-5 sm:p-6 relative">
             <button
               onClick={handleClose}
               className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/90 hover:text-white transition-colors cursor-pointer"
@@ -85,7 +85,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
             </div>
             <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
               <span>Bienvenida del Tutor Clínico</span>
-              <span className="text-xs bg-amber-400 text-slate-950 font-black px-2 py-0.5 rounded-full uppercase">
+              <span className="text-xs bg-amber-400 text-slate-950 font-bold px-2 py-0.5 rounded-full uppercase">
                 Guía de Guardia
               </span>
             </h2>
@@ -95,10 +95,10 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
           </div>
 
           {/* Doctor Character & Speech Bubble Intro */}
-          <div className="p-5 sm:p-6 pb-2 bg-gradient-to-b from-teal-50/50 to-white border-b border-slate-100 flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
+          <div className="p-5 sm:p-6 pb-2 bg-teal-50/50 border-b border-slate-100 flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
             {/* Doctor Vector Illustration */}
             <div className="relative shrink-0">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 p-1 shadow-md shadow-teal-700/20">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-lg bg-emerald-600 p-1 shadow-md shadow-teal-700/20">
                 <div className="w-full h-full rounded-[14px] bg-white overflow-hidden flex items-center justify-center relative">
                   {/* Doctor Drawing (Custom SVG Artwork) */}
                   <svg
@@ -193,7 +193,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
             </div>
 
             {/* Speech Bubble / Dialogue */}
-            <div className="flex-1 bg-white p-3.5 sm:p-4 rounded-2xl border border-teal-100 shadow-xs relative">
+            <div className="flex-1 bg-white p-3.5 sm:p-4 rounded-lg border border-teal-100 shadow-xs relative">
               <div className="hidden sm:block absolute -left-2 top-6 w-3 h-3 bg-white border-l border-b border-teal-100 rotate-45" />
               <div className="flex items-center justify-between gap-2 mb-1">
                 <span className="font-extrabold text-xs text-slate-900 flex items-center gap-1.5">
@@ -215,11 +215,11 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1.5 font-bold text-amber-800">
                 <Coins className="w-4 h-4 text-amber-500" />
-                <span>Presupuesto Inicial: <strong className="text-slate-950 font-black">{currentBudget.toLocaleString('es-ES')} €</strong></span>
+                <span>Presupuesto Inicial: <strong className="text-slate-950 font-bold">{currentBudget.toLocaleString('es-ES')} €</strong></span>
               </div>
               <div className="flex items-center gap-1.5 font-bold text-rose-700">
                 <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
-                <span>Vidas de Guardia: <strong className="text-slate-950 font-black">{currentLives}/3</strong></span>
+                <span>Vidas de Guardia: <strong className="text-slate-950 font-bold">{currentLives}/3</strong></span>
               </div>
             </div>
             <div className="hidden sm:flex items-center gap-1 text-[11px] text-slate-500">
@@ -263,7 +263,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-3.5 text-xs text-slate-700 leading-relaxed"
               >
-                <div className="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-100 flex items-start gap-3">
+                <div className="p-3.5 rounded-lg bg-emerald-50/70 border border-emerald-100 flex items-start gap-3">
                   <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">
                     <Hospital className="inline-block w-[1em] h-[1em]" />
                   </div>
@@ -310,7 +310,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-3 text-xs text-slate-700 leading-relaxed"
               >
-                <div className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200 flex items-start gap-3">
+                <div className="p-3.5 rounded-lg bg-amber-50/70 border border-amber-200 flex items-start gap-3">
                   <div className="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 font-bold text-sm shadow-2xs">
                     <Coins className="inline-block w-[1em] h-[1em]" />
                   </div>
@@ -346,7 +346,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                 </div>
 
                 {/* How to recharge money */}
-                <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950 space-y-1">
+                <div className="p-3.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-950 space-y-1">
                   <div className="flex items-center justify-between font-bold text-xs text-emerald-900">
                     <span className="flex items-center gap-1.5">
                       <Gamepad2 className="w-4 h-4 text-emerald-700" />

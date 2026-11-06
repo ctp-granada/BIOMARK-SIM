@@ -40,13 +40,13 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="bg-white border-b border-amber-200 sticky top-0 z-30 shadow-xs">
       {/* Top Gold Medicine Accent Bar */}
-      <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500"></div>
+      <div className="h-1 bg-amber-400"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           {/* Title & Subject Header */}
           <div className="flex items-start gap-3">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500 to-yellow-500 text-amber-950 flex items-center justify-center shadow-xs shrink-0 mt-0.5 border border-amber-400/40">
+            <div className="w-11 h-11 rounded-xl bg-amber-500 text-amber-950 flex items-center justify-center shadow-xs shrink-0 mt-0.5 border border-amber-400/40">
               <GraduationCap className="w-6 h-6 text-amber-950" />
             </div>
             <div>

@@ -111,9 +111,9 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-amber-200 shadow-xs overflow-hidden">
+    <div className="bg-white rounded-lg border border-amber-200 shadow-xs overflow-hidden">
       {/* Month Navigation & Title Header */}
-      <div className="px-6 py-4 border-b border-amber-200 bg-gradient-to-r from-amber-50/70 via-white to-amber-50/70 flex items-center justify-between flex-wrap gap-4">
+      <div className="px-6 py-4 border-b border-amber-200 bg-amber-50/70 flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1 bg-white border border-amber-200 rounded-xl p-1 shadow-2xs">
             <button
@@ -169,7 +169,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
 
       {/* Semana Santa Banner if present in current month */}
       {isHolyWeekInThisMonth && (
-        <div className="px-6 py-2.5 bg-gradient-to-r from-purple-100/90 via-amber-50 to-purple-100/90 border-b border-purple-200 flex items-center justify-between flex-wrap gap-2 text-xs text-purple-950">
+        <div className="px-6 py-2.5 bg-purple-100/90 border-b border-purple-200 flex items-center justify-between flex-wrap gap-2 text-xs text-purple-950">
           <div className="flex items-center gap-2 font-bold">
             <span className="text-base"><CalendarX className="inline-block w-[1em] h-[1em]" /></span>
             <span>Semana Santa {year}: {holyWeek.dateRangeLabel}</span>
@@ -216,7 +216,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
               {/* Day Number Header */}
               <div className="flex items-center justify-between mb-1.5 gap-1">
                 <span
-                  className={`text-sm font-black w-6 h-6 rounded-full flex items-center justify-center ${
+                  className={`text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center ${
                     daySessions.length > 0 && isCurrentMonth
                       ? 'bg-amber-500 text-slate-950 shadow-2xs border border-amber-600/30'
                       : isHolyWeek && isCurrentMonth
@@ -305,7 +305,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
                           {session.startTime} - {session.endTime}
                         </span>
                         <span
-                          className={`px-1.5 py-0.5 rounded text-[9px] font-black border ${
+                          className={`px-1.5 py-0.5 rounded text-[9px] font-bold border ${
                             isPractice
                               ? 'bg-sky-200 text-sky-950 border-sky-400'
                               : isExam
@@ -319,10 +319,10 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
 
                       {/* Middle row: Activity & Subgroup */}
                       <div className="mt-1 flex items-center justify-between gap-1">
-                        <span className="font-black text-xs text-slate-900 truncate">
+                        <span className="font-bold text-xs text-slate-900 truncate">
                           {session.activityCode}
                         </span>
-                        <span className="px-1.5 py-0.2 rounded-full text-[10px] font-black bg-lime-400 text-slate-950 border border-lime-600/50">
+                        <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-lime-400 text-slate-950 border border-lime-600/50">
                           Gr. {session.groupNumber}
                         </span>
                       </div>

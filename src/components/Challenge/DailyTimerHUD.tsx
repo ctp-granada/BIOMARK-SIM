@@ -30,29 +30,29 @@ export const DailyTimerHUD: React.FC<DailyTimerHUDProps> = ({
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`rounded-2xl p-4 sm:p-5 border shadow-lg transition-all relative overflow-hidden ${
+      className={`rounded-lg p-4 sm:p-5 border shadow-lg transition-all relative overflow-hidden ${
         isExpired
           ? 'bg-slate-900 text-slate-300 border-slate-700'
           : isCritical
-          ? 'bg-gradient-to-r from-red-950 via-rose-900 to-slate-900 text-white border-red-500 ring-2 ring-red-500/40'
+          ? 'bg-red-950 text-white border-red-500 ring-2 ring-red-500/40'
           : isWarning
-          ? 'bg-gradient-to-r from-amber-950 via-orange-950 to-slate-900 text-white border-amber-500/80 ring-1 ring-amber-500/30'
-          : 'bg-gradient-to-r from-indigo-950 via-blue-950 to-slate-900 text-white border-indigo-500/50 shadow-indigo-950/40'
+          ? 'bg-amber-950 text-white border-amber-500/80 ring-1 ring-amber-500/30'
+          : 'bg-indigo-950 text-white border-indigo-500/50 shadow-indigo-950/40'
       }`}
     >
       {/* Pulse background effects */}
       {isCritical && !isExpired && (
-        <div className="absolute inset-0 bg-red-600/10 animate-pulse pointer-events-none" />
+        <div className="absolute inset-0 bg-red-600/10 pointer-events-none" />
       )}
 
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 relative z-10">
         <div className="flex items-center gap-3">
           <div
-            className={`w-11 h-11 rounded-2xl flex items-center justify-center font-black text-lg shadow-inner shrink-0 ${
+            className={`w-11 h-11 rounded-lg flex items-center justify-center font-bold text-lg shadow-inner shrink-0 ${
               isExpired
                 ? 'bg-slate-800 text-slate-400 border border-slate-700'
                 : isCritical
-                ? 'bg-red-500 text-white animate-bounce border border-red-300'
+                ? 'bg-red-500 text-white border border-red-300'
                 : isWarning
                 ? 'bg-amber-500 text-slate-950 border border-amber-300'
                 : 'bg-indigo-600 text-white border border-indigo-400'
@@ -63,7 +63,7 @@ export const DailyTimerHUD: React.FC<DailyTimerHUDProps> = ({
 
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 flex items-center gap-1 shadow-xs">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-400 text-slate-950 flex items-center gap-1 shadow-xs">
                 <Sparkles className="w-3 h-3 text-slate-950" />
                 Reto Clínico Diario
               </span>
@@ -75,10 +75,10 @@ export const DailyTimerHUD: React.FC<DailyTimerHUDProps> = ({
               )}
             </div>
 
-            <h3 className="text-sm sm:text-base font-black tracking-tight mt-0.5 flex items-center gap-2">
+            <h3 className="text-sm sm:text-base font-bold tracking-tight mt-0.5 flex items-center gap-2">
               <span>Desafío de Alta Dificultad Contrarreloj</span>
               {isCritical && !isExpired && (
-                <span className="text-xs text-red-300 font-extrabold animate-pulse">
+                <span className="text-xs text-red-300 font-extrabold ">
                   ¡ÚLTIMOS SEGUNDOS!
                 </span>
               )}
@@ -93,11 +93,11 @@ export const DailyTimerHUD: React.FC<DailyTimerHUDProps> = ({
               {isExpired ? 'Tiempo Agotado' : 'Tiempo Restante'}
             </span>
             <div
-              className={`font-mono text-2xl sm:text-3xl font-black tracking-tight leading-none ${
+              className={`font-mono text-2xl sm:text-3xl font-bold tracking-tight leading-none ${
                 isExpired
                   ? 'text-slate-500'
                   : isCritical
-                  ? 'text-red-400 animate-pulse'
+                  ? 'text-red-400 '
                   : isWarning
                   ? 'text-amber-400'
                   : 'text-emerald-400'
@@ -120,10 +120,10 @@ export const DailyTimerHUD: React.FC<DailyTimerHUDProps> = ({
               isExpired
                 ? 'bg-slate-600'
                 : isCritical
-                ? 'bg-gradient-to-r from-rose-500 to-red-600 shadow-lg shadow-red-500/50'
+                ? 'bg-rose-500 shadow-lg shadow-red-500/50'
                 : isWarning
-                ? 'bg-gradient-to-r from-amber-400 to-orange-500'
-                : 'bg-gradient-to-r from-emerald-400 via-teal-400 to-blue-500'
+                ? 'bg-amber-400'
+                : 'bg-emerald-400'
             }`}
           />
         </div>

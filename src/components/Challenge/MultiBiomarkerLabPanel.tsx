@@ -187,7 +187,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
     <div className="flex flex-col gap-5">
       {/* Header Banner for Multi-Biomarker Requisition */}
       {/* Top Banner: Panel Information & Budget Balance */}
-      <div className="bg-slate-950 text-white rounded-2xl p-5 border border-slate-800 shadow-xs">
+      <div className="bg-slate-950 text-white rounded-lg p-5 border border-slate-800 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -262,7 +262,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
         {/* Left / Main Column: Biomarker Catalog & Search Filters (8 cols) */}
         <div id="tour-multi-biomarker-catalog" className="lg:col-span-8 flex flex-col gap-4">
           {/* Controls: Search and System Category Tabs */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-xs space-y-3">
+          <div className="bg-white rounded-lg p-4 sm:p-5 border border-slate-200/90 shadow-xs space-y-3">
             {/* Search Input */}
             <div className="relative">
               <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -327,7 +327,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                   <div
                     key={biomarker.id}
                     onClick={() => toggleBiomarker(biomarker.id)}
-                    className={`p-3.5 rounded-2xl border transition-all cursor-pointer select-none flex items-start justify-between gap-3 ${
+                    className={`p-3.5 rounded-lg border transition-all cursor-pointer select-none flex items-start justify-between gap-3 ${
                       isSelected
                         ? 'bg-slate-50 border-slate-900 ring-1 ring-slate-900 shadow-xs'
                         : 'bg-white border-slate-200/90 hover:border-slate-300 hover:bg-slate-50/50 shadow-xs'
@@ -386,7 +386,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                               className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200/90 border border-slate-300 transition-colors cursor-pointer group shadow-2xs"
                               title="Consultar indicación y para qué sirve este parámetro (-50 € presupuesto)"
                             >
-                              <HelpCircle className="w-3.5 h-3.5 text-blue-600 group-hover:scale-110 transition-transform" />
+                              <HelpCircle className="w-3.5 h-3.5 text-blue-600 transition-transform" />
                               <span>¿Para qué sirve este parámetro?</span>
                               <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-bold ml-0.5">
                                 -50 € Presupuesto
@@ -438,7 +438,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
 
         {/* Right Column: Order Requisition Slip / Summary Cart (4 cols) */}
         <div id="tour-order-slip" className="lg:col-span-4 flex flex-col gap-4 sticky top-4">
-          <div className="bg-slate-950 text-white rounded-2xl p-5 border border-slate-800 shadow-xs flex flex-col justify-between">
+          <div className="bg-slate-950 text-white rounded-lg p-5 border border-slate-800 shadow-xs flex flex-col justify-between">
             <div>
               {/* Slip Header */}
               <div className="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -545,7 +545,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                 disabled={selectedBiomarkerIds.length === 0 || isProcessingOrder}
                 className={`w-full py-3 px-4 rounded-xl font-semibold text-xs transition-all flex items-center justify-center gap-2 ${
                   isProcessingOrder
-                    ? 'bg-slate-800 text-slate-400 cursor-wait animate-pulse'
+                    ? 'bg-slate-800 text-slate-400 cursor-wait '
                     : selectedBiomarkerIds.length > 0
                     ? 'bg-slate-100 hover:bg-white text-slate-900 cursor-pointer shadow-xs active:scale-[0.99]'
                     : 'bg-slate-900 text-slate-600 cursor-not-allowed border border-slate-800'
@@ -585,12 +585,12 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
       {/* Consultation Confirmation Modal */}
       <AnimatePresence>
         {biomarkerPendingConsultation && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 ">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-slate-200 text-slate-900 space-y-4"
+              className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg border border-slate-200 text-slate-900 space-y-4"
             >
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div className="flex items-center gap-2.5">
@@ -685,7 +685,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl border border-slate-700 text-xs font-semibold flex items-center gap-2.5"
+            className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-md border border-slate-700 text-xs font-semibold flex items-center gap-2.5"
           >
             <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
               <Check className="w-3.5 h-3.5" />

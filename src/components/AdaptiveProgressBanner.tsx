@@ -27,7 +27,7 @@ export const AdaptiveProgressBanner: React.FC<AdaptiveProgressBannerProps> = ({ 
   };
 
   return (
-    <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xs mb-6">
+    <div className="bg-white border border-slate-200/90 rounded-lg p-5 shadow-xs mb-6">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-100">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-amber-500/15 rounded-xl border border-amber-300 text-amber-700 flex items-center justify-center font-bold shrink-0">

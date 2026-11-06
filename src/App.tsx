@@ -666,7 +666,7 @@ export const App: React.FC = () => {
               className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700 text-xs"
               title="Contador de visitas en tiempo real conectado a Firebase Firestore"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-400 " />
               <span>Visitas: <strong className="text-white font-mono">{visitorStats.totalVisits.toLocaleString('es-ES')}</strong></span>
             </div>
 

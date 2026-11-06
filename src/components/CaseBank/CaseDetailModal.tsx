@@ -18,8 +18,8 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
   if (!caseData) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 flex flex-col my-auto">
+    <div className="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-lg border border-slate-200 flex flex-col my-auto">
         {/* Header */}
         <div className="p-6 bg-slate-900 text-white border-b border-slate-800 flex items-start justify-between sticky top-0 z-10">
           <div>
@@ -123,7 +123,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
 
           {/* Molecular Signaling Pathway Section (Docencia Departamental) */}
           {caseData.molecularPathway && (
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/90 rounded-xl p-4 space-y-2">
+            <div className="bg-amber-50 border border-amber-200/90 rounded-xl p-4 space-y-2">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-200 text-amber-900 border border-amber-300">
                   Transducción de Señales & Vía Molecular

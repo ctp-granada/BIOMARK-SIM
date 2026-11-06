@@ -329,10 +329,10 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
   const dayNames = ['', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-      <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl border border-amber-300 overflow-hidden my-auto max-h-[92vh] flex flex-col">
+    <div className="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+      <div className="bg-white w-full max-w-4xl rounded-lg shadow-lg border border-amber-300 overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Modal Header with Medicine Yellow Accents */}
-        <div className="p-4 sm:p-5 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-amber-950 flex items-center justify-between shrink-0 border-b border-amber-400">
+        <div className="p-4 sm:p-5 bg-amber-500 text-amber-950 flex items-center justify-between shrink-0 border-b border-amber-400">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-950 text-amber-400 flex items-center justify-center font-bold shadow-xs shrink-0">
               <ShieldCheck className="w-5 h-5" />
@@ -343,7 +343,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                   Panel de Coordinación y Asignación Docente
                 </h2>
                 {coordinatorEmail && (
-                  <span className="px-2 py-0.5 rounded-full text-[11px] font-black bg-amber-950 text-amber-300">
+                  <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-950 text-amber-300">
                     {coordinatorEmail}
                   </span>
                 )}
@@ -376,7 +376,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
           {!coordinatorEmail ? (
             <div className="max-w-md mx-auto py-6 space-y-5">
               <div className="text-center space-y-1">
-                <div className="w-12 h-12 bg-amber-100 text-amber-800 rounded-2xl mx-auto flex items-center justify-center mb-2 border border-amber-300">
+                <div className="w-12 h-12 bg-amber-100 text-amber-800 rounded-lg mx-auto flex items-center justify-center mb-2 border border-amber-300">
                   <Lock className="w-6 h-6 text-amber-700" />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900">

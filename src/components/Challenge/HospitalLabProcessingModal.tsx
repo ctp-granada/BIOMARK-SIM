@@ -101,35 +101,33 @@ export const HospitalLabProcessingModal: React.FC<HospitalLabProcessingModalProp
   const currentStage = STAGES[activeStageIndex];
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-slate-950/85 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.92, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-        className="bg-slate-900 border-2 border-cyan-500/40 rounded-3xl max-w-2xl w-full shadow-2xl overflow-hidden relative text-white"
+        className="bg-slate-900 border-2 border-cyan-500/40 rounded-xl max-w-2xl w-full shadow-lg overflow-hidden relative text-white"
       >
         {/* Glowing Background Ambiance */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-        <div className="absolute bottom-0 left-0 w-60 h-60 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
         {/* Top Header */}
         <div className="bg-slate-950/80 px-6 py-4 border-b border-cyan-500/20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300">
-              <TestTubes className="w-5 h-5 animate-pulse" />
+              <TestTubes className="w-5 h-5 " />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] uppercase font-black tracking-wider text-cyan-400">
+                <span className="text-[10px] uppercase font-bold tracking-wider text-cyan-400">
                   Laboratorio Central de Urgencias
                 </span>
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping mr-1" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1" />
                   ANALIZADOR STAT ACTIVO
                 </span>
               </div>
-              <h3 className="text-sm font-black text-white tracking-tight">
+              <h3 className="text-sm font-bold text-white tracking-tight">
                 Procesando Petición Multianalítica en Tiempo Real
               </h3>
             </div>
@@ -158,7 +156,7 @@ export const HospitalLabProcessingModal: React.FC<HospitalLabProcessingModalProp
         <div className="p-6 space-y-6">
           
           {/* Animated Centrifuge / Scanner Visual */}
-          <div className="bg-slate-950/60 rounded-2xl p-4 border border-slate-800 relative overflow-hidden flex flex-col sm:flex-row items-center gap-5">
+          <div className="bg-slate-950/60 rounded-lg p-4 border border-slate-800 relative overflow-hidden flex flex-col sm:flex-row items-center gap-5">
             
             {/* Centrifuge Rotor Animation */}
             <div className="relative w-24 h-24 shrink-0 flex items-center justify-center">
@@ -178,7 +176,7 @@ export const HospitalLabProcessingModal: React.FC<HospitalLabProcessingModalProp
               <motion.div
                 animate={{ scale: [1, 1.15, 1] }}
                 transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
-                className="w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/40"
+                className="w-12 h-12 rounded-full bg-cyan-600 flex items-center justify-center shadow-lg shadow-cyan-500/40"
               >
                 <Activity className="w-6 h-6 text-white" />
               </motion.div>
@@ -195,7 +193,7 @@ export const HospitalLabProcessingModal: React.FC<HospitalLabProcessingModalProp
             <div className="flex-1 text-center sm:text-left space-y-1.5">
               <div className="flex items-center justify-center sm:justify-start gap-2">
                 <span className="text-xl">{currentStage.icon}</span>
-                <h4 className="text-base font-black text-white tracking-tight">
+                <h4 className="text-base font-bold text-white tracking-tight">
                   {currentStage.label}
                 </h4>
               </div>
@@ -222,7 +220,7 @@ export const HospitalLabProcessingModal: React.FC<HospitalLabProcessingModalProp
 
             {/* Progress Percentage Display */}
             <div className="text-right shrink-0">
-              <span className="font-mono text-3xl font-black text-cyan-400">
+              <span className="font-mono text-3xl font-bold text-cyan-400">
                 {Math.min(100, Math.round(progress))}%
               </span>
               <span className="block text-[10px] uppercase font-bold text-slate-400">
@@ -235,7 +233,7 @@ export const HospitalLabProcessingModal: React.FC<HospitalLabProcessingModalProp
           <div className="space-y-2">
             <div className="w-full bg-slate-950 h-3 rounded-full overflow-hidden border border-slate-800 p-0.5">
               <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 shadow-lg shadow-cyan-500/50"
+                className="h-full rounded-full bg-blue-500 shadow-lg shadow-cyan-500/50"
                 style={{ width: `${progress}%` }}
                 transition={{ ease: 'linear' }}
               />

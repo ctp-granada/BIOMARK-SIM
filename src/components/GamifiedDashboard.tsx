@@ -58,7 +58,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs mb-6 overflow-hidden">
+    <div className="bg-white rounded-lg border border-slate-200 p-5 shadow-xs mb-6 overflow-hidden">
       {/* Top Header: Player Profile Rank & Hearts */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-5 border-b border-slate-100">
         
@@ -119,7 +119,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                 <Coins className="w-5 h-5 text-amber-600" />
               </div>
               <div>
-                <span className="text-xs font-black text-slate-900 block font-mono">
+                <span className="text-xs font-bold text-slate-900 block font-mono">
                   {userProgress.budget.toLocaleString('es-ES')} € Fondos
                 </span>
                 <span className="text-[10px] text-slate-500 block leading-tight">
@@ -182,7 +182,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                         <div
                           onMouseEnter={() => setShowBudgetTooltip(true)}
                           onMouseLeave={() => setShowBudgetTooltip(false)}
-                          className="absolute z-50 left-0 top-full mt-2 w-72 sm:w-80 bg-slate-950 text-white rounded-xl p-3.5 shadow-2xl border border-slate-800 text-xs backdrop-blur-md pointer-events-auto transition-all animate-in fade-in zoom-in-95 duration-150"
+                          className="absolute z-50 left-0 top-full mt-2 w-72 sm:w-80 bg-slate-950 text-white rounded-xl p-3.5 shadow-lg border border-slate-800 text-xs pointer-events-auto transition-all animate-in fade-in zoom-in-95 duration-150"
                         >
                           <div className="flex items-center gap-1.5 font-bold text-slate-100 pb-2 border-b border-slate-800 text-[11px] uppercase tracking-wide">
                             <Info className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -252,7 +252,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
         <div
           className={`border rounded-xl p-4 flex flex-col justify-between shadow-2xs relative overflow-hidden transition-all duration-300 ${
             isStreakingUp
-              ? 'bg-gradient-to-br from-amber-50/80 via-white to-yellow-50/50 border-amber-400 ring-2 ring-amber-400/40 shadow-md shadow-amber-200/50'
+              ? 'bg-amber-50/80 border-amber-400 ring-2 ring-amber-400/40 shadow-md shadow-amber-200/50'
               : 'bg-white border-slate-200/90'
           }`}
         >
@@ -360,7 +360,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                   times: [0, 0.3, 0.55, 0.8, 1],
                   ease: 'easeInOut'
                 }}
-                className="text-2xl font-black font-mono leading-none tracking-tight inline-block"
+                className="text-2xl font-bold font-mono leading-none tracking-tight inline-block"
               >
                 {userProgress.streak}
               </motion.span>

@@ -153,7 +153,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
   });
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
+    <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-6">
       {/* Header and Filter Buttons */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
         <div>
@@ -161,7 +161,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
             <Clock className="w-4 h-4" />
             <span>Línea Temporal de Progresión</span>
           </div>
-          <h2 className="text-lg font-black text-slate-900 tracking-tight flex items-center gap-2">
+          <h2 className="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
             <span>Cronología de Hitos & Conquistas Médicas</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-mono font-bold">
               {filteredMilestones.length} hitos
@@ -246,9 +246,9 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
 
               {/* Card Container */}
               <div
-                className={`p-4 rounded-2xl border transition-all ${
+                className={`p-4 rounded-lg border transition-all ${
                   item.highlight
-                    ? 'bg-gradient-to-r from-emerald-50/40 via-white to-slate-50 border-emerald-200 shadow-2xs'
+                    ? 'bg-emerald-50/40 border-emerald-200 shadow-2xs'
                     : 'bg-white border-slate-200 hover:border-slate-300'
                 }`}
               >
@@ -290,8 +290,8 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
           ))}
         </div>
       ) : (
-        <div className="text-center py-10 space-y-3 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
-          <div className="w-12 h-12 rounded-2xl bg-slate-200/60 text-slate-500 flex items-center justify-center mx-auto text-xl">
+        <div className="text-center py-10 space-y-3 bg-slate-50 rounded-lg border border-slate-200 border-dashed">
+          <div className="w-12 h-12 rounded-lg bg-slate-200/60 text-slate-500 flex items-center justify-center mx-auto text-xl">
             <Hourglass className="inline-block w-[1em] h-[1em]" />
           </div>
           <h4 className="text-sm font-bold text-slate-800">

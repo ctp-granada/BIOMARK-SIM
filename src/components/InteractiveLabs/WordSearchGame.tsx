@@ -258,7 +258,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-6">
+    <div className="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
         <div>
@@ -266,7 +266,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
             <Search className="w-4 h-4" />
             <span>Minijuego Clínico • Agudeza Diagnóstica</span>
           </div>
-          <h2 className="text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+          <h2 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             <span>Sopa de Letras de Biomarcadores</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono">
               +270-300 € Dinero
@@ -302,7 +302,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left: 12x12 Grid (8 cols) */}
         <div className="lg:col-span-8 flex flex-col items-center">
-          <div className="p-3 bg-slate-900 rounded-2xl border border-slate-800 shadow-lg max-w-full overflow-x-auto">
+          <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 shadow-lg max-w-full overflow-x-auto">
             <div
               className="grid gap-1 select-none"
               style={{
@@ -324,7 +324,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
                         foundStyle
                           ? `${foundStyle} shadow-sm ring-1 ring-white/30`
                           : selected
-                          ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-300'
+                          ? 'bg-amber-400 text-slate-950 font-bold shadow-md ring-2 ring-amber-300'
                           : 'bg-slate-800/90 text-slate-200 hover:bg-slate-700 hover:text-white'
                       }`}
                     >
@@ -371,7 +371,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
                       className={`font-mono font-bold tracking-wide ${
                         t.found
                           ? 'line-through text-emerald-800'
-                          : 'text-slate-900 font-black'
+                          : 'text-slate-900 font-bold'
                       }`}
                     >
                       {t.word}
@@ -397,11 +397,11 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="p-6 rounded-2xl bg-gradient-to-r from-indigo-900 via-slate-900 to-slate-950 text-white border border-indigo-500/50 shadow-2xl space-y-4"
+            className="p-6 rounded-lg bg-indigo-900 text-white border border-indigo-500/50 shadow-lg space-y-4"
           >
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-4 text-center sm:text-left">
-                <div className="w-14 h-14 rounded-2xl bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shrink-0 text-3xl">
+                <div className="w-14 h-14 rounded-lg bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shrink-0 text-3xl">
                   <Trophy className="inline-block w-[1em] h-[1em]" />
                 </div>
                 <div>
@@ -413,7 +413,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
                       Tiempo: {formatTime(elapsedSeconds)}
                     </span>
                   </div>
-                  <h3 className="text-lg font-black text-white mt-0.5">
+                  <h3 className="text-lg font-bold text-white mt-0.5">
                     Has localizado los 8 biomarcadores clínicos con éxito
                   </h3>
                   <p className="text-xs text-slate-300 mt-1 max-w-xl">
@@ -426,7 +426,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
                 {!rewardClaimed ? (
                   <button
                     onClick={handleClaimReward}
-                    className="px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/30 flex items-center gap-2 cursor-pointer transition-all active:scale-95"
+                    className="px-5 py-3 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/30 flex items-center gap-2 cursor-pointer transition-all active:scale-95"
                   >
                     <Wallet className="w-4 h-4" />
                     <span>Cobrar Recompensa (+280 € & +120 XP)</span>

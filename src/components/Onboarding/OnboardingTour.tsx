@@ -213,7 +213,7 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
   return (
     <div
       {...tooltipProps}
-      className="bg-white rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 shadow-2xl border-2 border-amber-500/30 text-slate-800 animate-in fade-in zoom-in-95 duration-150 relative z-[10000]"
+      className="bg-white rounded-xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 shadow-lg border-2 border-amber-500/30 text-slate-800 animate-in fade-in zoom-in-95 duration-150 relative z-[10000]"
       style={{ minWidth: 320 }}
     >
       {/* Top Close Button */}
@@ -228,7 +228,7 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
 
       {/* Top Tag & Step Progress */}
       <div className="flex items-center gap-2 mb-2.5">
-        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1 shadow-2xs">
+        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1 shadow-2xs">
           <Sparkles className="w-3 h-3 text-amber-700" />
           <span>Tutorial Rápido</span>
         </span>
@@ -239,7 +239,7 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
 
       {/* Step Title */}
       {step.title && (
-        <h3 className="text-base sm:text-lg font-black text-slate-900 mb-2 pr-6 leading-tight">
+        <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2 pr-6 leading-tight">
           {step.title}
         </h3>
       )}
@@ -277,7 +277,7 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
       {/* Bottom Controls: Explicit Reminder + "No volver a mostrar" + Next/Back Buttons */}
       <div className="pt-3 space-y-3">
         {/* Institutional reminder banner */}
-        <div className="rounded-2xl bg-amber-50/90 border border-amber-300/80 p-2.5 text-xs text-amber-950 flex items-start gap-2 shadow-2xs">
+        <div className="rounded-lg bg-amber-50/90 border border-amber-300/80 p-2.5 text-xs text-amber-950 flex items-start gap-2 shadow-2xs">
           <div className="w-5 h-5 rounded-lg bg-amber-200/90 text-amber-800 flex items-center justify-center shrink-0 mt-0.5 font-bold">
             <Sparkles className="w-3 h-3 text-amber-700" />
           </div>

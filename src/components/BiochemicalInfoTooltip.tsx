@@ -41,7 +41,7 @@ export const BiochemicalInfoTooltip: React.FC<BiochemicalInfoTooltipProps> = ({
 
   const buttonStyles = {
     subtle:
-      'w-6 h-6 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 flex items-center justify-center transition-all shadow-2xs group-hover:scale-105 cursor-pointer',
+      'w-6 h-6 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 flex items-center justify-center transition-all shadow-2xs cursor-pointer',
     badge:
       'px-2.5 py-1 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 text-[11px] font-bold flex items-center gap-1.5 transition-all shadow-2xs cursor-pointer',
     solid:
@@ -72,7 +72,7 @@ export const BiochemicalInfoTooltip: React.FC<BiochemicalInfoTooltipProps> = ({
       {/* Floating Tooltip Card */}
       {isOpen && (
         <div
-          className={`absolute z-50 w-72 sm:w-84 p-3.5 rounded-2xl bg-slate-950/95 text-white border border-slate-700 shadow-2xl backdrop-blur-md animate-in fade-in zoom-in-95 duration-150 text-left pointer-events-auto ${
+          className={`absolute z-50 w-72 sm:w-84 p-3.5 rounded-lg bg-slate-950/95 text-white border border-slate-700 shadow-lg animate-in fade-in zoom-in-95 duration-150 text-left pointer-events-auto ${
             position === 'top'
               ? 'bottom-full mb-2 left-1/2 -translate-x-1/2'
               : position === 'left'

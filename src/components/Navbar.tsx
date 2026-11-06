@@ -82,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-40">
       {/* 1. TOP HEADER: Medical Gold Institutional Bar (Facultad de Medicina UGR) */}
-      <div className="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 text-white px-4 py-2.5 sm:py-3 border-b border-amber-800 shadow-xs">
+      <div className="bg-amber-700 text-white px-4 py-2.5 sm:py-3 border-b border-amber-800 shadow-xs">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
           
           {/* Main Brand Identifier: Bioquímica Médica UGR */}
@@ -92,7 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveModule('inicio')}
           >
             {/* Official Subject Logo: Caduceo + ADN + Granada UGR */}
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white p-1 shadow-xs border border-amber-300/90 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform overflow-hidden">
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white p-1 shadow-xs border border-amber-300/90 flex items-center justify-center shrink-0 transition-transform overflow-hidden">
               <img
                 src="/course_logo.jpg"
                 alt="Logo Bioquímica Médica UGR"
@@ -109,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   Facultad de Medicina UGR
                 </span>
                 <span className="bg-amber-950/80 border border-amber-400/60 text-amber-200 text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline-flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-300 " />
                   PID 26-158
                 </span>
               </div>
@@ -189,12 +189,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               ) : (
                 <button
                   onClick={onOpenSatisfactionSurvey}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-amber-950 text-xs font-black transition-all shadow-sm cursor-pointer group"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-amber-950 text-xs font-bold transition-all shadow-sm cursor-pointer group"
                   title="¡Danos tu opinión! (PID 26-158) - ¡Gana +150 XP y +100 €!"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-amber-950" />
                   <span>¡Danos tu opinión!</span>
-                  <span className="bg-amber-950 text-amber-300 text-[9px] font-black px-1.5 py-0.2 rounded-full hidden sm:inline">
+                  <span className="bg-amber-950 text-amber-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full hidden sm:inline">
                     +150 XP
                   </span>
                 </button>
@@ -226,7 +226,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-900/50 hover:bg-amber-900/80 border border-amber-500/40 text-amber-100 hover:text-white text-xs font-medium transition-all cursor-pointer shadow-2xs"
                 title="Iniciar Tutorial Rápido Guiado (Hospital, Biblioteca, Juegos)"
               >
-                <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                <Sparkles className="w-3.5 h-3.5 text-amber-300 " />
                 <span className="hidden sm:inline">Tutorial Rápido</span>
               </button>
             )}
@@ -445,7 +445,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   >
                     <Coins className="w-3.5 h-3.5 text-amber-600" />
                     <span className="text-[10px] font-bold uppercase tracking-tight hidden sm:inline">Fondos:</span>
-                    <span className="text-xs font-black font-mono">{userProgress.budget.toLocaleString('es-ES')} €</span>
+                    <span className="text-xs font-bold font-mono">{userProgress.budget.toLocaleString('es-ES')} €</span>
                   </div>
 
                   {userProgress.streak > 0 && (
@@ -465,7 +465,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => setActiveModule('ranking')}
                 title="Ver Escalafón y Ranking Top 10"
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-xl border text-xs font-semibold shadow-2xs hover:scale-105 transition-all cursor-pointer ${rank.badgeBg} ${rank.badgeTextColor} ${rank.badgeBorder}`}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-xl border text-xs font-semibold shadow-2xs transition-all cursor-pointer ${rank.badgeBg} ${rank.badgeTextColor} ${rank.badgeBorder}`}
               >
                 <span>{rank.icon}</span>
                 <span className="truncate max-w-[110px] sm:max-w-[130px]">{rank.shortTitle}</span>

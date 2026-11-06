@@ -557,11 +557,11 @@ export const GamesHub: React.FC<GamesHubProps> = ({
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="p-4 rounded-2xl bg-gradient-to-r from-emerald-900 via-slate-900 to-slate-950 text-white border border-emerald-500/50 shadow-xl flex items-center justify-between gap-4"
+            className="p-4 rounded-lg bg-emerald-900 text-white border border-emerald-500/50 shadow-md flex items-center justify-between gap-4"
           >
             <div className="flex items-center gap-3.5">
               <div className="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
-                <Coins className="w-6 h-6 text-amber-400 animate-bounce" />
+                <Coins className="w-6 h-6 text-amber-400 " />
               </div>
               <div>
                 <div className="flex items-center gap-2">
@@ -593,7 +593,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
       </AnimatePresence>
 
       {/* TOP HEADER: CLINICAL RECOVERY STATION */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs">
+      <div className="bg-white rounded-lg border border-slate-200/90 p-5 shadow-xs">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2 flex-wrap">
@@ -631,7 +631,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                   Fondos Hospitalarios
                 </span>
-                <span className={`text-xs font-black font-mono ${userProgress.budget < 1000 ? 'text-rose-700' : 'text-slate-900'}`}>
+                <span className={`text-xs font-bold font-mono ${userProgress.budget < 1000 ? 'text-rose-700' : 'text-slate-900'}`}>
                   {userProgress.budget.toLocaleString('es-ES')} € Disponibles
                 </span>
               </div>
@@ -680,14 +680,14 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         {/* Tab 1: PASAPALABRA */}
         <button
           onClick={() => setActiveTab('rosco')}
-          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden ${
+          className={`p-3.5 rounded-lg border text-left transition-all cursor-pointer relative overflow-hidden ${
             activeTab === 'rosco'
               ? 'bg-white border-emerald-600 ring-2 ring-emerald-500/20 shadow-md'
               : 'bg-white border-slate-200 hover:border-slate-300'
           }`}
         >
           <div className="flex items-center justify-between mb-1.5">
-            <span className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-xs">
+            <span className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs">
               <Circle className="inline-block w-[1em] h-[1em]" />
             </span>
             <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
@@ -711,7 +711,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         {/* Tab 2: SOPA DE LETRAS (NUEVO) */}
         <button
           onClick={() => setActiveTab('sopa')}
-          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden ${
+          className={`p-3.5 rounded-lg border text-left transition-all cursor-pointer relative overflow-hidden ${
             activeTab === 'sopa'
               ? 'bg-white border-indigo-600 ring-2 ring-indigo-500/20 shadow-md'
               : 'bg-white border-slate-200 hover:border-slate-300'
@@ -742,7 +742,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         {/* Tab 3: CRUCIGRAMA (NUEVO) */}
         <button
           onClick={() => setActiveTab('crucigrama')}
-          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden ${
+          className={`p-3.5 rounded-lg border text-left transition-all cursor-pointer relative overflow-hidden ${
             activeTab === 'crucigrama'
               ? 'bg-white border-teal-600 ring-2 ring-teal-500/20 shadow-md'
               : 'bg-white border-slate-200 hover:border-slate-300'
@@ -773,7 +773,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         {/* Tab 4: PREGUNTAS (REANIMADOR) */}
         <button
           onClick={() => setActiveTab('trivia')}
-          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden ${
+          className={`p-3.5 rounded-lg border text-left transition-all cursor-pointer relative overflow-hidden ${
             activeTab === 'trivia'
               ? 'bg-white border-rose-500 ring-2 ring-rose-500/20 shadow-md'
               : 'bg-white border-slate-200 hover:border-slate-300'
@@ -799,7 +799,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         {/* Tab 5: PAREJAS (MEMORIA CLÍNICA) */}
         <button
           onClick={() => setActiveTab('memoria')}
-          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden ${
+          className={`p-3.5 rounded-lg border text-left transition-all cursor-pointer relative overflow-hidden ${
             activeTab === 'memoria'
               ? 'bg-white border-blue-500 ring-2 ring-blue-500/20 shadow-md'
               : 'bg-white border-slate-200 hover:border-slate-300'
@@ -825,7 +825,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         {/* Tab 6: CLASIFICADOR FLASH */}
         <button
           onClick={() => setActiveTab('clasificador')}
-          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer relative overflow-hidden ${
+          className={`p-3.5 rounded-lg border text-left transition-all cursor-pointer relative overflow-hidden ${
             activeTab === 'clasificador'
               ? 'bg-white border-purple-600 ring-2 ring-purple-500/20 shadow-md'
               : 'bg-white border-slate-200 hover:border-slate-300'
@@ -887,7 +887,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
       {/* 1. TRIVIA REANIMADOR */}
       {/* ========================================================= */}
       {activeTab === 'trivia' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
+        <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-6">
           <div className="flex items-center justify-between pb-4 border-b border-slate-100">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-rose-600 block">
@@ -1025,7 +1025,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
       {/* 2. CLASIFICADOR FLASH (30s) */}
       {/* ========================================================= */}
       {activeTab === 'clasificador' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
+        <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-6">
           <div className="flex items-center justify-between pb-4 border-b border-slate-100">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 block">
@@ -1037,7 +1037,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
             </div>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-100 border border-slate-200 font-mono font-bold text-xs text-slate-800">
-                <Timer className={`w-4 h-4 ${classifierTimeLeft <= 10 ? 'text-rose-600 animate-pulse' : 'text-slate-500'}`} />
+                <Timer className={`w-4 h-4 ${classifierTimeLeft <= 10 ? 'text-rose-600 ' : 'text-slate-500'}`} />
                 <span>{classifierTimeLeft}s</span>
               </div>
               <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-50 border border-emerald-200 font-mono font-bold text-xs text-emerald-800">
@@ -1049,7 +1049,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
 
           {!classifierActive && !classifierFinished ? (
             <div className="text-center py-10 space-y-4 max-w-lg mx-auto">
-              <div className="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto text-2xl shadow-xs">
+              <div className="w-16 h-16 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto text-2xl shadow-xs">
                 <Timer className="inline-block w-[1em] h-[1em]" />
               </div>
               <h3 className="text-lg font-bold text-slate-900">
@@ -1073,7 +1073,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
             <div className="space-y-6">
               {/* Current Biomarker Presentation Card */}
               {classifierQueue[classifierCurrentIdx] && (
-                <div className={`p-6 rounded-2xl border text-center transition-all relative overflow-hidden ${
+                <div className={`p-6 rounded-lg border text-center transition-all relative overflow-hidden ${
                   classifierLastResult === 'correct'
                     ? 'bg-emerald-50 border-emerald-400'
                     : classifierLastResult === 'wrong'
@@ -1200,7 +1200,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
       {/* 3. PAREJAS DE DIAGNÓSTICO (MEMORY) */}
       {/* ========================================================= */}
       {activeTab === 'memoria' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
+        <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-6">
           <div className="flex items-center justify-between pb-4 border-b border-slate-100">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 block">
@@ -1236,7 +1236,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                     key={card.cardId}
                     disabled={isShown}
                     onClick={() => handleCardClick(card)}
-                    className={`h-32 sm:h-36 p-3 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center relative overflow-hidden select-none ${
+                    className={`h-32 sm:h-36 p-3 rounded-lg border text-center transition-all cursor-pointer flex flex-col items-center justify-center relative overflow-hidden select-none ${
                       card.isMatched
                         ? 'bg-emerald-50 border-emerald-400 text-emerald-900 font-semibold shadow-xs'
                         : isShown

@@ -292,7 +292,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
   }).length;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-6">
+    <div className="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
         <div>
@@ -300,7 +300,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
             <Grid className="w-4 h-4" />
             <span>Minijuego Clínico • Razonamiento Cruzado</span>
           </div>
-          <h2 className="text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+          <h2 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             <span>Crucigrama de Laboratorio Clínico</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 font-mono">
               +250-300 € Dinero
@@ -348,7 +348,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
           {/* Active clue banner above grid */}
           {selectedClue && (
             <div className="w-full mb-3 p-3 rounded-xl bg-slate-900 text-white text-xs border border-slate-800 flex items-center gap-2.5">
-              <span className="w-6 h-6 rounded-lg bg-teal-500 text-slate-950 font-black text-xs flex items-center justify-center shrink-0">
+              <span className="w-6 h-6 rounded-lg bg-teal-500 text-slate-950 font-bold text-xs flex items-center justify-center shrink-0">
                 {selectedClue.number}
               </span>
               <div className="flex-1 min-w-0">
@@ -362,7 +362,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
             </div>
           )}
 
-          <div className="p-3 bg-slate-900 rounded-2xl border border-slate-800 shadow-xl max-w-full overflow-x-auto">
+          <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 shadow-md max-w-full overflow-x-auto">
             <div
               className="grid gap-1 select-none"
               style={{
@@ -422,7 +422,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
                       }}
                       className={`relative w-7 h-7 sm:w-9 sm:h-9 rounded-lg font-mono font-bold text-xs sm:text-sm flex items-center justify-center transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-amber-400 text-slate-950 font-black ring-2 ring-amber-300 shadow-lg scale-105 z-10'
+                          ? 'bg-amber-400 text-slate-950 font-bold ring-2 ring-amber-300 shadow-lg scale-105 z-10'
                           : inCurrentClue
                           ? 'bg-teal-900/60 text-white border border-teal-500/50'
                           : isCorrect
@@ -433,7 +433,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
                       }`}
                     >
                       {number && (
-                        <span className="absolute top-0.5 left-1 text-[8px] font-sans font-black text-slate-400 pointer-events-none">
+                        <span className="absolute top-0.5 left-1 text-[8px] font-sans font-bold text-slate-400 pointer-events-none">
                           {number}
                         </span>
                       )}
@@ -532,11 +532,11 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="p-6 rounded-2xl bg-gradient-to-r from-teal-900 via-slate-900 to-slate-950 text-white border border-teal-500/50 shadow-2xl space-y-4"
+            className="p-6 rounded-lg bg-teal-900 text-white border border-teal-500/50 shadow-lg space-y-4"
           >
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-4 text-center sm:text-left">
-                <div className="w-14 h-14 rounded-2xl bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shrink-0 text-3xl">
+                <div className="w-14 h-14 rounded-lg bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shrink-0 text-3xl">
                   <Trophy className="inline-block w-[1em] h-[1em]" />
                 </div>
                 <div>
@@ -548,7 +548,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
                       Tiempo: {formatTime(elapsedSeconds)}
                     </span>
                   </div>
-                  <h3 className="text-lg font-black text-white mt-0.5">
+                  <h3 className="text-lg font-bold text-white mt-0.5">
                     Has completado las 8 definiciones bioquímicas
                   </h3>
                   <p className="text-xs text-slate-300 mt-1 max-w-xl">
@@ -561,7 +561,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
                 {!rewardClaimed ? (
                   <button
                     onClick={handleClaimReward}
-                    className="px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/30 flex items-center gap-2 cursor-pointer transition-all active:scale-95"
+                    className="px-5 py-3 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/30 flex items-center gap-2 cursor-pointer transition-all active:scale-95"
                   >
                     <Wallet className="w-4 h-4" />
                     <span>Cobrar Recompensa (+{Math.max(250, 300 - revealedCount * 10)} € & +150 XP)</span>

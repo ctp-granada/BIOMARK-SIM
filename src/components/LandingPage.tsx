@@ -356,16 +356,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* 1. INSTITUTIONAL HERO HEADER: Medical Gold / Clinical Modern Aesthetic */}
       <div 
         id="tour-welcome-header"
-        className="bg-gradient-to-br from-amber-50/70 via-white to-amber-50/40 rounded-3xl border border-amber-200/80 shadow-xs p-5 sm:p-6 relative overflow-hidden transition-all"
+        className="bg-amber-50/70 rounded-xl border border-amber-200/80 shadow-xs p-5 sm:p-6 relative overflow-hidden transition-all"
       >
         {/* Soft medical amber radial accents */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-amber-100/50 via-amber-50/20 to-transparent rounded-full blur-2xl pointer-events-none -mr-20 -mt-20" />
         
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-3 max-w-2xl">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="px-3 py-0.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-amber-600 text-white flex items-center gap-1.5 shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-amber-200 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-amber-200 " />
                 Facultad de Medicina • Universidad de Granada
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-amber-900 bg-amber-100/70 border border-amber-200/80">
@@ -373,7 +372,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </span>
             </div>
 
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight text-slate-900 leading-tight">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 leading-tight">
               Plano de la Ciudad Biomédica UGR
             </h1>
 
@@ -387,10 +386,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <button
                   id="tour-quick-tutorial-btn"
                   onClick={onStartTour}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white text-xs font-bold shadow-md shadow-amber-600/25 transition-all border border-amber-400/50 cursor-pointer group hover:scale-[1.02]"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-600 text-white text-xs font-bold shadow-md shadow-amber-600/25 transition-all border border-amber-400/50 cursor-pointer group hover:scale-[1.02]"
                   title="Lanzar recorrido interactivo guiado por el portal"
                 >
-                  <Sparkles className="w-4 h-4 text-amber-200 animate-pulse group-hover:rotate-12 transition-transform" />
+                  <Sparkles className="w-4 h-4 text-amber-200 group-hover:rotate-12 transition-transform" />
                   <span>Tutorial rápido</span>
                   <ArrowRight className="w-3.5 h-3.5 text-amber-200 group-hover:translate-x-0.5 transition-transform" />
                 </button>
@@ -438,12 +437,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           >
             {/* Total Visits Real-Time Counter */}
             <div 
-              className="bg-white border border-emerald-200/90 rounded-2xl p-3 flex items-center gap-2.5 shadow-2xs group hover:border-emerald-300 transition-all"
+              className="bg-white border border-emerald-200/90 rounded-lg p-3 flex items-center gap-2.5 shadow-2xs group hover:border-emerald-300 transition-all"
               title="Visitas totales a la plataforma registradas en Firestore (PID 26-158)"
             >
               <div className="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-300/80 text-emerald-700 flex items-center justify-center font-bold text-sm shadow-xs relative">
                 <Users className="w-4 h-4 text-emerald-600" />
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white animate-pulse" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white " />
               </div>
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block flex items-center gap-1">
@@ -453,7 +452,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   )}
                 </span>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-base font-black text-slate-900 font-mono tracking-tight">
+                  <span className="text-base font-bold text-slate-900 font-mono tracking-tight">
                     {visitorCount.toLocaleString('es-ES')}
                   </span>
                   <span className="text-[10px] font-semibold text-emerald-700">accesos</span>
@@ -461,7 +460,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
             </div>
 
-            <div className="bg-white border border-amber-200/80 rounded-2xl p-3 flex items-center gap-2.5 shadow-2xs">
+            <div className="bg-white border border-amber-200/80 rounded-lg p-3 flex items-center gap-2.5 shadow-2xs">
               <div className="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-300/80 text-amber-700 flex items-center justify-center font-bold text-sm shadow-xs">
                 <Sparkles className="w-4 h-4 text-amber-600" />
               </div>
@@ -470,13 +469,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   Experiencia Alumno
                 </span>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-base font-black text-slate-900">{userXP}</span>
+                  <span className="text-base font-bold text-slate-900">{userXP}</span>
                   <span className="text-xs font-semibold text-amber-700">XP</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white border border-amber-200/80 rounded-2xl p-3 flex items-center gap-2.5 shadow-2xs">
+            <div className="bg-white border border-amber-200/80 rounded-lg p-3 flex items-center gap-2.5 shadow-2xs">
               <div className="w-9 h-9 rounded-xl bg-rose-500/15 border border-rose-300/80 text-rose-700 flex items-center justify-center font-bold text-sm shadow-xs">
                 <CheckCircle2 className="w-4 h-4 text-rose-600" />
               </div>
@@ -485,7 +484,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   Casos Superados
                 </span>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-base font-black text-slate-900">{completedCasesCount}</span>
+                  <span className="text-base font-bold text-slate-900">{completedCasesCount}</span>
                   <span className="text-xs font-semibold text-slate-500">/ {totalCasesCount}</span>
                 </div>
               </div>
@@ -652,7 +651,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </span>
                 <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/90 text-white text-xs font-black shadow-lg border border-emerald-500/60 backdrop-blur-md">
                   <span className="text-emerald-400 font-extrabold">PARQUE</span>
-                  <span className="text-[10px] text-slate-300 font-medium">(Minijuegos & Dinero)</span>
+                  <span className="text-[10px] text-slate-300 font-medium">(Minijuegos & Dinero 💰)</span>
                 </span>
               </div>
 
@@ -671,7 +670,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     />
                     <div className="truncate">
                       <div className="font-bold text-emerald-300 truncate">Parque Lúdico</div>
-                      <div className="text-[10px] text-slate-300">Minijuegos (Preguntas, Parejas, Pasapalabra)</div>
+                      <div className="text-[10px] text-slate-300">Minijuegos (Preguntas, Parejas, Pasapalabra) 💰</div>
                     </div>
                   </div>
                   <span className="text-[10px] bg-emerald-600 px-2.5 py-1 rounded-lg font-black text-white shrink-0 flex items-center gap-1">
@@ -699,8 +698,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* 3. MODAL / ENTRANCE DRAWER CUANDO SE ELIGE EN EL MAPA (HOSPITAL/BIBLIO/PARQUE) */}
       {/* ========================================================================= */}
       {currentModalData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl max-w-3xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 animate-in fade-in duration-200">
+          <div className="bg-white rounded-xl max-w-3xl w-full border border-slate-200 shadow-lg overflow-hidden flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-200">
             {/* Modal Header with the Full Dedicated Illustration */}
             <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-950 shrink-0">
               <img
@@ -721,8 +720,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
               {/* District Badge */}
               <div className="absolute top-4 left-4">
-                <span className="px-3 py-1.5 rounded-xl bg-slate-950/90 text-white text-xs font-black tracking-wide border border-white/20 shadow-md flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="px-3 py-1.5 rounded-xl bg-slate-950/90 text-white text-xs font-bold tracking-wide border border-white/20 shadow-md flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 " />
                   <span>{currentModalData.badge}</span>
                 </span>
               </div>
@@ -732,7 +731,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <span className="text-[11px] font-mono uppercase tracking-wider text-slate-300">
                   {currentModalData.stats}
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight text-white">
+                <h3 className="text-2xl sm:text-3xl font-bold tracking-tight leading-tight text-white">
                   {currentModalData.name}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-200 font-normal leading-relaxed">
@@ -787,7 +786,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                           }
                           onNavigate(sec.target);
                         }}
-                        className="p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100/90 border border-slate-200 text-left transition-all cursor-pointer group"
+                        className="p-3.5 rounded-lg bg-slate-50 hover:bg-slate-100/90 border border-slate-200 text-left transition-all cursor-pointer group"
                       >
                         <div className="flex items-center justify-between mb-1.5">
                           <IconComp className="w-4 h-4 text-slate-700 group-hover:text-emerald-700" />
@@ -805,7 +804,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <div className="pt-4 border-t border-slate-100 space-y-3">
                 <div className="flex items-center justify-between flex-wrap gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 " />
                     <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
                       Materiales y Novedades del {currentModalData.name.split(' ')[0]}
                     </h4>
@@ -926,8 +925,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
       {/* 5. MODAL PARA NOTIFICAR / SUBIR NUEVO MATERIAL DOCENTE */}
       {showUploadModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl max-w-lg w-full border border-slate-200 shadow-2xl p-6 sm:p-8 space-y-5 animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 animate-in fade-in duration-200">
+          <div className="bg-white rounded-xl max-w-lg w-full border border-slate-200 shadow-lg p-6 sm:p-8 space-y-5 animate-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-800 flex items-center justify-center font-bold">

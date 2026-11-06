@@ -37,7 +37,7 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
   return (
     <div className="space-y-6">
       {/* Top Bar: Biblioteca Biomédica · Materiales de Apoyo al Aprendizaje */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+      <div className="bg-white rounded-lg border border-slate-200 p-4 shadow-xs flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           {onBackToPortal && (
             <button
@@ -109,7 +109,7 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
             >
               <Dna className={`w-3.5 h-3.5 ${selectedLab === 'carnitina' ? 'text-white' : 'text-indigo-600'}`} />
               <span>Lanzadera de Carnitina</span>
-              <span className="text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.2 rounded-full uppercase">Nuevo</span>
+              <span className="text-[9px] bg-amber-400 text-amber-950 font-bold px-1.5 py-0.2 rounded-full uppercase">Nuevo</span>
             </button>
 
             <button
@@ -138,7 +138,7 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
       </div>
 
       {/* Render selected simulator */}
-      <div className="rounded-2xl overflow-hidden">
+      <div className="rounded-lg overflow-hidden">
         {selectedLab === 'randle' && <RandleCycleLab />}
         {selectedLab === 'ictericias' && <JaundiceSimulatorLab />}
         {selectedLab === 'hemostasia' && <HemostasisLab />}

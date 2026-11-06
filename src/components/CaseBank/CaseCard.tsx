@@ -19,7 +19,7 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseData, onSelectCase, onSt
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/90 hover:border-slate-300 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
+    <div className="bg-white rounded-lg border border-slate-200/90 hover:border-slate-300 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
       <div className="p-5">
         {/* Top Badges */}
         <div className="flex items-center justify-between mb-3">

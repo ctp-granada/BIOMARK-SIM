@@ -253,14 +253,14 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
     <div className="space-y-6">
       {/* Toast Notification */}
       {saveToast && (
-        <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl flex items-center gap-2 text-xs font-bold animate-in fade-in shadow-xs">
+        <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg flex items-center gap-2 text-xs font-bold animate-in fade-in shadow-xs">
           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{saveToast}</span>
         </div>
       )}
 
       {/* Hero Header */}
-      <div className="bg-gradient-to-br from-amber-500/10 via-white to-amber-50/40 rounded-3xl border border-amber-200/80 p-6 sm:p-7 shadow-xs relative overflow-hidden">
+      <div className="bg-amber-500/10 rounded-xl border border-amber-200/80 p-6 sm:p-7 shadow-xs relative overflow-hidden">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative z-10">
           <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2 flex-wrap">
@@ -269,7 +269,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                 Escalafón Clínico Oficial
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-emerald-900 bg-emerald-100/70 border border-emerald-200 flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-emerald-500 " />
                 <span>Firestore en Vivo</span>
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-slate-700 bg-slate-100 border border-slate-200">
@@ -277,7 +277,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
               </span>
             </div>
 
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight">
               Ranking de Alumnos · Casos Clínicos Resueltos
             </h1>
 
@@ -288,13 +288,13 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
 
           {/* User profile capsule & action buttons */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto shrink-0">
-            <div className="bg-white border border-amber-300/80 rounded-2xl p-3 flex items-center gap-3 shadow-xs">
+            <div className="bg-white border border-amber-300/80 rounded-lg p-3 flex items-center gap-3 shadow-xs">
               <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-700 flex items-center justify-center font-bold text-base border border-amber-300">
                 <User className="inline-block w-[1em] h-[1em]" />
               </div>
               <div className="text-left">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-xs font-black text-slate-900 truncate max-w-[140px] sm:max-w-[180px]">
+                  <span className="text-xs font-bold text-slate-900 truncate max-w-[140px] sm:max-w-[180px]">
                     {profile.name}
                   </span>
                   <button
@@ -324,7 +324,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
             <button
               onClick={handleExportCSV}
               disabled={rankings.length === 0}
-              className="px-3.5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
+              className="px-3.5 py-3 rounded-lg bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
               title="Descargar ranking de estudiantes en archivo CSV"
             >
               <Download className="w-4 h-4 text-amber-300" />
@@ -335,42 +335,42 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
 
         {/* 4 KPI Summary Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6 pt-5 border-t border-amber-200/60">
-          <div className="bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-2xs">
+          <div className="bg-white p-3.5 rounded-lg border border-slate-200/90 shadow-2xs">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
               Alumnos con Casos
             </span>
             <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-black text-slate-900">{statsSummary.totalStudents}</span>
+              <span className="text-2xl font-bold text-slate-900">{statsSummary.totalStudents}</span>
               <span className="text-xs font-semibold text-slate-500">estudiantes</span>
             </div>
           </div>
 
-          <div className="bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-2xs">
+          <div className="bg-white p-3.5 rounded-lg border border-slate-200/90 shadow-2xs">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
               Casos Resueltos Totales
             </span>
             <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-black text-emerald-700">{statsSummary.totalSolvedCases}</span>
+              <span className="text-2xl font-bold text-emerald-700">{statsSummary.totalSolvedCases}</span>
               <span className="text-xs font-semibold text-emerald-600">aciertos</span>
             </div>
           </div>
 
-          <div className="bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-2xs">
+          <div className="bg-white p-3.5 rounded-lg border border-slate-200/90 shadow-2xs">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
               Puntuación Media
             </span>
             <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-black text-amber-700">{statsSummary.avgScore}</span>
+              <span className="text-2xl font-bold text-amber-700">{statsSummary.avgScore}</span>
               <span className="text-xs font-semibold text-amber-600">pts</span>
             </div>
           </div>
 
-          <div className="bg-white p-3.5 rounded-2xl border border-slate-200/90 shadow-2xs">
+          <div className="bg-white p-3.5 rounded-lg border border-slate-200/90 shadow-2xs">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
               Puntuación Máxima
             </span>
             <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-black text-purple-700">{statsSummary.topScore}</span>
+              <span className="text-2xl font-bold text-purple-700">{statsSummary.topScore}</span>
               <span className="text-xs font-semibold text-purple-600">pts</span>
             </div>
           </div>
@@ -382,14 +382,14 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* 1st Place */}
           {rankings[0] && (
-            <div className="bg-gradient-to-br from-amber-50 via-white to-amber-100/50 border-2 border-amber-400 rounded-3xl p-5 shadow-sm relative overflow-hidden order-1 sm:order-2">
-              <div className="absolute top-3 right-3 text-2xl font-black text-amber-500/40">#1</div>
+            <div className="bg-amber-50 border-2 border-amber-400 rounded-xl p-5 shadow-sm relative overflow-hidden order-1 sm:order-2">
+              <div className="absolute top-3 right-3 text-2xl font-bold text-amber-500/40">#1</div>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-black text-xl shadow-md border-2 border-amber-300">
+                <div className="w-12 h-12 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-xl shadow-md border-2 border-amber-300">
                   <Medal className="inline-block w-[1em] h-[1em]" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-black uppercase tracking-wider bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full inline-block mb-0.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full inline-block mb-0.5">
                     Líder del Escalafón
                   </span>
                   <h3 className="font-extrabold text-slate-900 text-sm truncate max-w-[160px]">
@@ -403,7 +403,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
               </div>
               <div className="flex items-baseline justify-between pt-2 border-t border-amber-200">
                 <span className="text-xs text-slate-600 font-semibold">Puntuación:</span>
-                <span className="text-xl font-black text-amber-700">{rankings[0].score.toLocaleString('es-ES')} pts</span>
+                <span className="text-xl font-bold text-amber-700">{rankings[0].score.toLocaleString('es-ES')} pts</span>
               </div>
               <div className="flex items-center justify-between text-xs text-slate-600 mt-1">
                 <span>Casos superados:</span>
@@ -418,14 +418,14 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
 
           {/* 2nd Place */}
           {rankings[1] && (
-            <div className="bg-gradient-to-br from-slate-50 via-white to-slate-100 border border-slate-300 rounded-3xl p-5 shadow-2xs relative overflow-hidden order-2 sm:order-1">
-              <div className="absolute top-3 right-3 text-2xl font-black text-slate-400/40">#2</div>
+            <div className="bg-slate-50 border border-slate-300 rounded-xl p-5 shadow-2xs relative overflow-hidden order-2 sm:order-1">
+              <div className="absolute top-3 right-3 text-2xl font-bold text-slate-400/40">#2</div>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-11 h-11 rounded-2xl bg-slate-300 text-slate-800 flex items-center justify-center font-black text-lg shadow-xs border border-slate-400">
+                <div className="w-11 h-11 rounded-lg bg-slate-300 text-slate-800 flex items-center justify-center font-bold text-lg shadow-xs border border-slate-400">
                   <Medal className="inline-block w-[1em] h-[1em]" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-black uppercase tracking-wider bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full inline-block mb-0.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full inline-block mb-0.5">
                     Segundo Puesto
                   </span>
                   <h3 className="font-extrabold text-slate-900 text-sm truncate max-w-[160px]">
@@ -439,7 +439,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
               </div>
               <div className="flex items-baseline justify-between pt-2 border-t border-slate-200">
                 <span className="text-xs text-slate-600 font-semibold">Puntuación:</span>
-                <span className="text-xl font-black text-slate-800">{rankings[1].score.toLocaleString('es-ES')} pts</span>
+                <span className="text-xl font-bold text-slate-800">{rankings[1].score.toLocaleString('es-ES')} pts</span>
               </div>
               <div className="flex items-center justify-between text-xs text-slate-600 mt-1">
                 <span>Casos superados:</span>
@@ -454,14 +454,14 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
 
           {/* 3rd Place */}
           {rankings[2] && (
-            <div className="bg-gradient-to-br from-amber-50/50 via-white to-amber-100/30 border border-amber-300 rounded-3xl p-5 shadow-2xs relative overflow-hidden order-3">
-              <div className="absolute top-3 right-3 text-2xl font-black text-amber-600/30">#3</div>
+            <div className="bg-amber-50/50 border border-amber-300 rounded-xl p-5 shadow-2xs relative overflow-hidden order-3">
+              <div className="absolute top-3 right-3 text-2xl font-bold text-amber-600/30">#3</div>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-11 h-11 rounded-2xl bg-amber-700 text-amber-100 flex items-center justify-center font-black text-lg shadow-xs border border-amber-600">
+                <div className="w-11 h-11 rounded-lg bg-amber-700 text-amber-100 flex items-center justify-center font-bold text-lg shadow-xs border border-amber-600">
                   <Medal className="inline-block w-[1em] h-[1em]" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full inline-block mb-0.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full inline-block mb-0.5">
                     Tercer Puesto
                   </span>
                   <h3 className="font-extrabold text-slate-900 text-sm truncate max-w-[160px]">
@@ -475,7 +475,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
               </div>
               <div className="flex items-baseline justify-between pt-2 border-t border-amber-200">
                 <span className="text-xs text-slate-600 font-semibold">Puntuación:</span>
-                <span className="text-xl font-black text-amber-900">{rankings[2].score.toLocaleString('es-ES')} pts</span>
+                <span className="text-xl font-bold text-amber-900">{rankings[2].score.toLocaleString('es-ES')} pts</span>
               </div>
               <div className="flex items-center justify-between text-xs text-slate-600 mt-1">
                 <span>Casos superados:</span>
@@ -491,7 +491,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
       )}
 
       {/* Filter and Search Bar */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+      <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-2xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
@@ -523,7 +523,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
       </div>
 
       {/* Main Ranking Table */}
-      <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-xs">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
         {loading ? (
           <div className="p-12 text-center space-y-3">
             <RefreshCw className="w-6 h-6 animate-spin text-amber-600 mx-auto" />
@@ -531,11 +531,11 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
           </div>
         ) : filteredAndSortedRankings.length === 0 ? (
           <div className="p-12 text-center space-y-4 max-w-md mx-auto">
-            <div className="w-16 h-16 rounded-3xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mx-auto shadow-inner text-2xl">
+            <div className="w-16 h-16 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mx-auto shadow-inner text-2xl">
               <Hospital className="inline-block w-[1em] h-[1em]" />
             </div>
             <div>
-              <h3 className="text-base font-black text-slate-900 mb-1">
+              <h3 className="text-base font-bold text-slate-900 mb-1">
                 Aún no hay alumnos con casos resueltos
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
@@ -611,7 +611,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                       }`}
                     >
                       {/* Puesto */}
-                      <td className="p-3.5 text-center font-black">
+                      <td className="p-3.5 text-center font-bold">
                         {pos === 1 && <span className="text-base" title="1º Puesto - Oro"><Medal className="inline-block w-[1em] h-[1em]" /></span>}
                         {pos === 2 && <span className="text-base" title="2º Puesto - Plata"><Medal className="inline-block w-[1em] h-[1em]" /></span>}
                         {pos === 3 && <span className="text-base" title="3º Puesto - Bronce"><Medal className="inline-block w-[1em] h-[1em]" /></span>}
@@ -630,7 +630,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                                 {st.name}
                               </span>
                               {isCurrent && (
-                                <span className="bg-amber-600 text-white text-[9px] font-black px-1.5 py-0.2 rounded-full">
+                                <span className="bg-amber-600 text-white text-[9px] font-bold px-1.5 py-0.2 rounded-full">
                                   Tú
                                 </span>
                               )}
@@ -652,7 +652,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                       {/* Puntuación */}
                       <td className="p-3.5 text-center">
                         <div className="flex flex-col items-center">
-                          <span className="font-black text-amber-700 text-sm">
+                          <span className="font-bold text-amber-700 text-sm">
                             {st.score.toLocaleString('es-ES')}
                           </span>
                           <span className="text-[10px] text-slate-400">
@@ -673,7 +673,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                       {/* Precisión Diagnóstica */}
                       <td className="p-3.5 text-center">
                         <span
-                          className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-black ${
+                          className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
                             st.accuracy >= 80
                               ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
                               : st.accuracy >= 60
@@ -688,8 +688,8 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                       {/* Racha */}
                       <td className="p-3.5 text-center">
                         {st.streak > 0 ? (
-                          <span className="inline-flex items-center gap-1 text-orange-600 font-black text-xs">
-                            <Flame className="w-3.5 h-3.5 fill-orange-500 text-orange-600 animate-pulse" />
+                          <span className="inline-flex items-center gap-1 text-orange-600 font-bold text-xs">
+                            <Flame className="w-3.5 h-3.5 fill-orange-500 text-orange-600 " />
                             <span>{st.streak}</span>
                           </span>
                         ) : (
@@ -725,8 +725,8 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
 
       {/* Profile / Alias Customization Modal */}
       {isEditingProfile && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl max-w-md w-full p-6 space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 animate-in fade-in">
+          <div className="bg-white rounded-xl border border-slate-200 shadow-lg max-w-md w-full p-6 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-700 flex items-center justify-center font-bold">

@@ -369,7 +369,7 @@ export const PracticasSeminariosView: React.FC<PracticasSeminariosViewProps> = (
 
       {/* Coordinator Active Notice Bar */}
       {coordinatorEmail && (
-        <div className="no-print bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-amber-950 px-4 py-2 text-xs shadow-xs border-b border-amber-400 font-medium rounded-xl">
+        <div className="no-print bg-amber-500 text-amber-950 px-4 py-2 text-xs shadow-xs border-b border-amber-400 font-medium rounded-xl">
           <div className="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-amber-950 shrink-0" />
@@ -500,7 +500,7 @@ export const PracticasSeminariosView: React.FC<PracticasSeminariosViewProps> = (
 
       {/* Floating Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-slate-950 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-amber-400/40 animate-in slide-in-from-bottom-5">
+        <div className="fixed bottom-6 right-6 z-50 bg-slate-950 text-white px-4 py-2.5 rounded-xl shadow-md text-xs font-semibold flex items-center gap-2 border border-amber-400/40 animate-in slide-in-from-bottom-5">
           <Check className="w-4 h-4 text-amber-400 shrink-0" />
           <span>{toastMessage}</span>
         </div>

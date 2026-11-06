@@ -191,7 +191,7 @@ export const CaseList: React.FC<CaseListProps> = ({
               Campus Salud PTS • Universidad de Granada
             </span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             <Stethoscope className="w-6 h-6 text-emerald-600" />
             <span>Banco de Casos Clínicos Departamental</span>
           </h1>
@@ -213,14 +213,14 @@ export const CaseList: React.FC<CaseListProps> = ({
 
       {/* Notice Banner when user has completed >= 4 cases and hasn't answered */}
       {userProgress && !satisfactionService.hasUserCompletedSurvey() && userProgress.casesAttempted >= 4 && (
-        <div className="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 text-white rounded-3xl p-5 border border-amber-500/60 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in">
+        <div className="bg-amber-900 text-white rounded-xl p-5 border border-amber-500/60 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40">
+            <div className="w-12 h-12 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40">
               <Sparkles className="w-6 h-6 text-amber-300" />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-[10px] font-black uppercase tracking-wider bg-amber-950 px-2 py-0.5 rounded text-amber-200 border border-amber-400/30">
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-950 px-2 py-0.5 rounded text-amber-200 border border-amber-400/30">
                   ¡Danos tu opinión!
                 </span>
                 <span className="text-xs font-bold text-amber-200">
@@ -235,7 +235,7 @@ export const CaseList: React.FC<CaseListProps> = ({
 
           <button
             onClick={() => onStartChallenge(cases[0])}
-            className="w-full sm:w-auto px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-amber-950 font-black text-xs shadow-md transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-1.5 shrink-0 group"
+            className="w-full sm:w-auto px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-300 text-amber-950 font-bold text-xs shadow-md transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-1.5 shrink-0 group"
           >
             <Sparkles className="w-4 h-4 text-amber-900 group-hover:rotate-12 transition-transform" />
             <span>¡Danos tu opinión! (+150 XP y +100 €)</span>
@@ -246,11 +246,11 @@ export const CaseList: React.FC<CaseListProps> = ({
       {/* ========================================================================= */}
       {/* DOCTOR WELCOME BANNER: EXPLAINING CASE BANK & HOSPITAL BUDGET (REQUEST 5)  */}
       {/* ========================================================================= */}
-      <div className="bg-gradient-to-r from-teal-600/10 via-emerald-600/10 to-cyan-600/10 border border-teal-200 rounded-3xl p-5 sm:p-6 shadow-xs relative overflow-hidden">
+      <div className="bg-teal-600/10 border border-teal-200 rounded-xl p-5 sm:p-6 shadow-xs relative overflow-hidden">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-5">
           {/* Doctor Vector Artwork Drawing */}
           <div className="relative shrink-0">
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 p-1 shadow-md shadow-emerald-700/20">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-lg bg-emerald-600 p-1 shadow-md shadow-emerald-700/20">
               <div className="w-full h-full rounded-[14px] bg-white overflow-hidden flex items-center justify-center">
                 {/* Custom Doctor Drawing in SVG */}
                 <svg viewBox="0 0 160 160" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -287,8 +287,7 @@ export const CaseList: React.FC<CaseListProps> = ({
               </div>
             </div>
             <span className="absolute -bottom-1 -right-1 flex h-5 w-5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-5 w-5 bg-emerald-500 border-2 border-white items-center justify-center text-[10px] text-white font-black">✓</span>
+              <span className="relative inline-flex rounded-full h-5 w-5 bg-emerald-500 border-2 border-white items-center justify-center text-[10px] text-white font-bold">✓</span>
             </span>
           </div>
 
@@ -352,7 +351,7 @@ export const CaseList: React.FC<CaseListProps> = ({
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
             <div>
-              <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                 <FolderOpen className="w-5 h-5 text-slate-700" />
                 <span>Bloques Temáticos de la Asignatura</span>
               </h2>
@@ -377,12 +376,12 @@ export const CaseList: React.FC<CaseListProps> = ({
                     setSelectedDifficulty('all');
                     setSearchQuery('');
                   }}
-                  className={`group bg-white rounded-3xl border border-slate-200 p-5 shadow-xs transition-all duration-200 cursor-pointer flex flex-col justify-between hover:shadow-md hover:-translate-y-0.5 ${block.borderHover}`}
+                  className={`group bg-white rounded-xl border border-slate-200 p-5 shadow-xs transition-all duration-200 cursor-pointer flex flex-col justify-between hover:shadow-md hover:-translate-y-0.5 ${block.borderHover}`}
                 >
                   <div className="space-y-3.5">
                     {/* Block Header Badges */}
                     <div className="flex items-center justify-between">
-                      <span className="px-2.5 py-1 rounded-xl text-[10px] font-black uppercase tracking-wider bg-slate-900 text-white">
+                      <span className="px-2.5 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider bg-slate-900 text-white">
                         BLOQUE {block.blockNumber}
                       </span>
                       <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${block.badgeBg}`}>
@@ -442,7 +441,7 @@ export const CaseList: React.FC<CaseListProps> = ({
         /* ========================================================================= */
         <div className="space-y-6">
           {/* Back Navigation Button to All Blocks */}
-          <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+          <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
             <button
               onClick={() => {
                 setSelectedBlock(null);
@@ -464,11 +463,11 @@ export const CaseList: React.FC<CaseListProps> = ({
 
           {/* Active Block Header Banner */}
           {activeBlockConfig && (
-            <div className="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="bg-white rounded-xl border border-slate-200 p-5 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="space-y-1.5 max-w-2xl">
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">{activeBlockConfig.iconEmoji}</span>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-slate-900 text-white">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-900 text-white">
                     BLOQUE {activeBlockConfig.blockNumber}
                   </span>
                   <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${activeBlockConfig.badgeBg}`}>
@@ -518,7 +517,7 @@ export const CaseList: React.FC<CaseListProps> = ({
 
           {/* Cases Grid inside Selected Block */}
           {filteredCasesInBlock.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-3">
+            <div className="bg-white rounded-lg border border-slate-200 p-12 text-center space-y-3">
               <p className="text-slate-500 font-medium text-xs">
                 No se encontraron casos clínicos que coincidan con la búsqueda dentro de este bloque temático.
               </p>
@@ -554,7 +553,7 @@ export const CaseList: React.FC<CaseListProps> = ({
                 setSelectedDifficulty('all');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-md cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-md cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Ver Otros Bloques Temáticos</span>

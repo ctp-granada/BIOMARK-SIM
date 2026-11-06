@@ -111,7 +111,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
       )}
 
       {/* Top Header: Back to Cases & Case Identity */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-2xl border border-slate-200/90 shadow-2xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-lg border border-slate-200/90 shadow-2xs">
         <div className="flex items-center gap-3">
           {onBackToCaseList && (
             <button
@@ -143,7 +143,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
       </div>
 
       {/* 3-Step Clinical Progress Stepper Bar */}
-      <div className="bg-white rounded-2xl p-3 sm:p-4 border border-slate-200/90 shadow-2xs">
+      <div className="bg-white rounded-lg p-3 sm:p-4 border border-slate-200/90 shadow-2xs">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto">
             {/* Step 1 */}
@@ -215,7 +215,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
       </div>
 
       {/* Clean HUD: Hospital Funds & Budget Meter */}
-      <div id="tour-gamification-hud" className="bg-slate-950 text-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div id="tour-gamification-hud" className="bg-slate-950 text-white rounded-lg p-4 sm:p-5 shadow-xs border border-slate-800 flex flex-wrap items-center justify-between gap-4">
         {/* Fondos Hospitalarios */}
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-2xs">
@@ -241,7 +241,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
               <Wallet className="w-3.5 h-3.5 text-emerald-400" />
               Presupuesto de Guardia
             </span>
-            <span className={`font-mono font-bold ${budgetInfo.isRedAlert ? 'text-rose-400 animate-pulse' : 'text-slate-200'}`}>
+            <span className={`font-mono font-bold ${budgetInfo.isRedAlert ? 'text-rose-400 ' : 'text-slate-200'}`}>
               {budgetInfo.statusText}
             </span>
           </div>
@@ -270,7 +270,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
       </div>
 
       {/* Case Clinical Presentation Card (Foldable / Collapsible for Clean Experience) */}
-      <div id="tour-clinical-scenario" className="bg-white rounded-2xl border border-slate-200/90 shadow-xs flex flex-col overflow-hidden">
+      <div id="tour-clinical-scenario" className="bg-white rounded-lg border border-slate-200/90 shadow-xs flex flex-col overflow-hidden">
         {/* Header Bar */}
         <div className="bg-slate-50/80 px-4 sm:px-6 py-3.5 border-b border-slate-200/80 flex flex-wrap justify-between items-center gap-3">
           <div className="flex items-center gap-2.5">
@@ -438,7 +438,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
       </div>
 
       {/* Mode Switcher: Lab Order Requisition vs Quick Direct Multiple Choice */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-2.5 rounded-2xl border border-slate-200/90 shadow-2xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-2.5 rounded-lg border border-slate-200/90 shadow-2xs">
         <div className="flex items-center gap-2 flex-wrap">
           <button
             type="button"
@@ -491,7 +491,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
       {/* RESOLUTION MODE 2: CLEAN DIRECT MULTIPLE CHOICE (NO CONFUSING PHASES) */}
       {resolutionMode === 'single' && (
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl p-6 shadow-xs border border-slate-200/90 text-slate-900 space-y-6">
+          <div className="bg-white rounded-lg p-6 shadow-xs border border-slate-200/90 text-slate-900 space-y-6">
             <div>
               <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
                 <span className="text-emerald-700 text-[10px] font-bold uppercase tracking-[0.15em] flex items-center gap-1.5">
@@ -628,12 +628,12 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
       {/* Consultation Modal for Single Selection Mode */}
       <AnimatePresence>
         {singleConsultPrompt && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 ">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-slate-200 text-slate-900 space-y-4"
+              className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg border border-slate-200 text-slate-900 space-y-4"
             >
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div className="flex items-center gap-2">

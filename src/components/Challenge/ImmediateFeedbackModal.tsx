@@ -110,13 +110,13 @@ export const ImmediateFeedbackModal: React.FC<ImmediateFeedbackModalProps> = ({
   }, [isStreakCelebration, newlyUnlockedBadge, isCorrect, dailyBonusApplied]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-slate-900/75 flex items-center justify-center p-4 overflow-y-auto">
       <motion.div 
         initial={{ opacity: 0, scale: 0.92, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ type: 'spring', duration: 0.45, bounce: 0.25 }}
-        className="bg-white rounded-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 flex flex-col my-auto relative"
+        className="bg-white rounded-lg max-w-3xl w-full max-h-[92vh] overflow-y-auto shadow-lg border border-slate-200 flex flex-col my-auto relative"
       >
         {/* SPECIAL CELEBRATION BANNER FOR NEWLY UNLOCKED BADGE */}
         {newlyUnlockedBadge && (
@@ -385,22 +385,22 @@ export const ImmediateFeedbackModal: React.FC<ImmediateFeedbackModalProps> = ({
             <div className="space-y-4">
               {/* Score & Efficiency Metrics */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90 text-center">
+                <div className="p-3.5 bg-slate-50 rounded-lg border border-slate-200/90 text-center">
                   <span className="text-[10px] font-semibold uppercase text-slate-500 block">Precisión Diagnóstica</span>
                   <span className="text-xl font-bold font-mono text-slate-900">{labOrderEvaluation.accuracyScore}%</span>
                 </div>
-                <div className="p-3.5 bg-emerald-50/60 rounded-2xl border border-emerald-200/80 text-center">
+                <div className="p-3.5 bg-emerald-50/60 rounded-lg border border-emerald-200/80 text-center">
                   <span className="text-[10px] font-semibold uppercase text-emerald-800 block">Eficiencia Presupuestaria</span>
                   <span className="text-xl font-bold font-mono text-emerald-900">{labOrderEvaluation.budgetEfficiencyScore}%</span>
                 </div>
-                <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90 text-center">
+                <div className="p-3.5 bg-slate-50 rounded-lg border border-slate-200/90 text-center">
                   <span className="text-[10px] font-semibold uppercase text-slate-500 block">Coste Analítico Petición</span>
                   <span className="text-xl font-bold font-mono text-slate-900">-{labOrderEvaluation.totalBudgetCost} €</span>
                 </div>
               </div>
 
               {/* Evaluation Summary Text */}
-              <div className={`p-4 rounded-2xl border text-xs leading-relaxed ${
+              <div className={`p-4 rounded-lg border text-xs leading-relaxed ${
                 isCorrect ? 'bg-emerald-50/70 border-emerald-200 text-emerald-950' : isPartiallyCorrect ? 'bg-amber-50/70 border-amber-200 text-amber-950' : 'bg-rose-50/70 border-rose-200 text-rose-950'
               }`}>
                 <p className="font-bold text-sm mb-1">Informe de Calidad del Laboratorio Clínico:</p>
@@ -553,7 +553,7 @@ export const ImmediateFeedbackModal: React.FC<ImmediateFeedbackModalProps> = ({
           )}
 
           {/* Expert Takeaway Key */}
-          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200/90 text-xs text-slate-800 space-y-1.5">
+          <div className="p-4 bg-slate-50 rounded-lg border border-slate-200/90 text-xs text-slate-800 space-y-1.5">
             <span className="font-bold uppercase tracking-wider text-emerald-800 flex items-center space-x-1.5 text-[11px]">
               <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
               <span>Perla Clínica y Resumen Docente Departamental:</span>

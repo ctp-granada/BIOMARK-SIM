@@ -314,9 +314,9 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
   ];
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm p-3 sm:p-6 animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 p-3 sm:p-6 animate-in fade-in duration-200">
       <div className="min-h-full flex items-start justify-center py-4 sm:py-8">
-        <div className="bg-white rounded-3xl max-w-5xl w-full p-5 sm:p-8 border border-slate-200 shadow-2xl relative space-y-6 text-slate-900">
+        <div className="bg-white rounded-xl max-w-5xl w-full p-5 sm:p-8 border border-slate-200 shadow-lg relative space-y-6 text-slate-900">
           
           {/* Close button */}
           <button
@@ -331,22 +331,22 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-4 border-b border-slate-100">
             <div className="space-y-1.5">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-black uppercase tracking-wider text-amber-950 bg-amber-100 px-3 py-1 rounded-full border border-amber-300 flex items-center gap-1.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-950 bg-amber-100 px-3 py-1 rounded-full border border-amber-300 flex items-center gap-1.5">
                   <Brain className="w-3.5 h-3.5 text-amber-800" />
                   PID 26-158 · Innovación Docente UGR
                 </span>
                 <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 " />
                   <span>Visitas a plataforma: <strong>{visitorCount.toLocaleString('es-ES')}</strong></span>
                 </span>
                 {loadingCloud && (
-                  <span className="text-[10px] text-amber-700 flex items-center gap-1 font-semibold animate-pulse">
+                  <span className="text-[10px] text-amber-700 flex items-center gap-1 font-semibold ">
                     <RefreshCw className="w-3 h-3 animate-spin" />
                     <span>Sincronizando Firestore...</span>
                   </span>
                 )}
               </div>
-              <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                 Panel de Investigación y Publicación Docente
               </h2>
               <p className="text-xs text-slate-500 max-w-2xl leading-relaxed">
@@ -430,11 +430,11 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
                 
                 {/* 1. Muestra N */}
-                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-1">
+                <div className="bg-slate-50 p-4 rounded-lg border border-slate-200/80 space-y-1">
                   <span className="text-[10px] uppercase font-bold text-slate-500 block">
                     Muestra Total (N)
                   </span>
-                  <div className="text-3xl font-black text-slate-900 font-mono">
+                  <div className="text-3xl font-bold text-slate-900 font-mono">
                     {metrics.totalSurveys}
                   </div>
                   <span className="text-[11px] text-emerald-700 font-semibold flex items-center gap-1">
@@ -444,16 +444,16 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
                 </div>
 
                 {/* 2. SUS Usabilidad Estandarizada */}
-                <div className="bg-indigo-50/60 p-4 rounded-2xl border border-indigo-200/80 space-y-1">
+                <div className="bg-indigo-50/60 p-4 rounded-lg border border-indigo-200/80 space-y-1">
                   <div className="flex justify-between items-center">
                     <span className="text-[10px] uppercase font-bold text-indigo-900 block">
                       Escala SUS (Brooke)
                     </span>
-                    <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-indigo-200/70 text-indigo-900">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-indigo-200/70 text-indigo-900">
                       Grado {metrics.totalSurveys > 0 ? metrics.susInterpretation.grade : 'A+'}
                     </span>
                   </div>
-                  <div className="text-3xl font-black text-indigo-700 font-mono">
+                  <div className="text-3xl font-bold text-indigo-700 font-mono">
                     {metrics.totalSurveys > 0 ? metrics.averageSusScore : '88.5'}{' '}
                     <span className="text-xs text-indigo-500 font-bold font-sans">
                       ± {metrics.totalSurveys > 0 ? metrics.susStandardDeviation : '6.2'}
@@ -465,11 +465,11 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
                 </div>
 
                 {/* 3. Ganancia de Competencia (Pre-Post) */}
-                <div className="bg-amber-50/80 p-4 rounded-2xl border border-amber-200 space-y-1">
+                <div className="bg-amber-50/80 p-4 rounded-lg border border-amber-200 space-y-1">
                   <span className="text-[10px] uppercase font-bold text-amber-900 block">
                     Ganancia Aprendizaje (Pre-Post)
                   </span>
-                  <div className="text-3xl font-black text-amber-800 font-mono">
+                  <div className="text-3xl font-bold text-amber-800 font-mono">
                     +{metrics.totalSurveys > 0 ? metrics.selfEfficacy.meanDelta : '2.4'}{' '}
                     <span className="text-xs text-amber-700 font-sans font-bold">
                       ({metrics.totalSurveys > 0 ? `+${metrics.selfEfficacy.percentageGain}%` : '+110%'})
@@ -481,11 +481,11 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
                 </div>
 
                 {/* 4. NPS */}
-                <div className="bg-emerald-50/70 p-4 rounded-2xl border border-emerald-200 space-y-1">
+                <div className="bg-emerald-50/70 p-4 rounded-lg border border-emerald-200 space-y-1">
                   <span className="text-[10px] uppercase font-bold text-emerald-900 block">
                     Net Promoter Score (NPS)
                   </span>
-                  <div className="text-3xl font-black text-emerald-700 font-mono">
+                  <div className="text-3xl font-bold text-emerald-700 font-mono">
                     {metrics.totalSurveys > 0 ? (metrics.npsScore > 0 ? `+${metrics.npsScore}` : metrics.npsScore) : '+92'}
                   </div>
                   <span className="text-[11px] text-emerald-950 font-medium">
@@ -496,7 +496,7 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
               </div>
 
               {/* Research Insights Summary Box for Drafting Manuscript */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900 text-white space-y-3">
+              <div className="p-4 sm:p-5 rounded-lg bg-slate-900 text-white space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-amber-400" />
@@ -514,7 +514,7 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
 
               {/* Pilot seed banner if zero surveys */}
               {metrics.totalSurveys === 0 && (
-                <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div className="p-4 rounded-lg bg-amber-50 border border-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   <div className="space-y-0.5">
                     <span className="text-xs font-bold text-amber-950 flex items-center gap-1.5">
                       <AlertCircle className="w-4 h-4 text-amber-600" />
@@ -548,11 +548,11 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
                 {/* Razonamiento Clínico */}
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Stethoscope className="w-4 h-4 text-rose-600" />
-                      <span className="text-xs font-black uppercase text-slate-800">
+                      <span className="text-xs font-bold uppercase text-slate-800">
                         Dimensión: Razonamiento Clínico
                       </span>
                     </div>
@@ -576,11 +576,11 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
                 </div>
 
                 {/* Gamificación & Engagement */}
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Gamepad2 className="w-4 h-4 text-emerald-600" />
-                      <span className="text-xs font-black uppercase text-slate-800">
+                      <span className="text-xs font-bold uppercase text-slate-800">
                         Dimensión: Gamificación & Dinámica
                       </span>
                     </div>
@@ -615,9 +615,9 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 
                 {/* Gráfico 1: Puntuación Media por Dimensiones */}
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xs font-black uppercase tracking-wider text-slate-800">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
                       Puntuación Media por Dimensión Pedagógica (1 a 5)
                     </h3>
                     <span className="text-[10px] text-slate-400 font-bold">Escala Likert</span>
@@ -652,9 +652,9 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
                 </div>
 
                 {/* Gráfico 2: Ganancia de Aprendizaje Pre vs Post */}
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xs font-black uppercase tracking-wider text-slate-800">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
                       Autopercepción de Competencia Clínica (Pre vs. Post)
                     </h3>
                     <span className="text-[10px] text-amber-800 font-bold">Delta: +{metrics.selfEfficacy.meanDelta || 2.4}</span>
@@ -685,8 +685,8 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
               </div>
 
               {/* Módulos Favoritos Ranking */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-                <h3 className="text-xs font-black uppercase tracking-wider text-slate-800">
+              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-3">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
                   Preferencia de Módulos Formativos por los Estudiantes
                 </h3>
                 <div className="space-y-2">
@@ -722,7 +722,7 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
             <div className="space-y-4 animate-in fade-in duration-200">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                 <div>
-                  <h3 className="text-xs font-black uppercase tracking-wider text-slate-800">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
                     Tabla Descriptiva de Ítems (Media, Desviación Típica y Mediana)
                   </h3>
                   <p className="text-[11px] text-slate-500">
@@ -738,7 +738,7 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
                 </button>
               </div>
 
-              <div className="overflow-x-auto rounded-2xl border border-slate-200">
+              <div className="overflow-x-auto rounded-lg border border-slate-200">
                 <table className="w-full text-left text-xs text-slate-700">
                   <thead className="bg-slate-100 text-slate-900 font-extrabold uppercase text-[10px] tracking-wider border-b border-slate-200">
                     <tr>
@@ -787,8 +787,8 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
             <div className="space-y-6 animate-in fade-in duration-200">
               
               {/* Recomendación de Integración Curricular en Guía Docente */}
-              <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 space-y-3">
-                <div className="flex items-center gap-2 text-amber-950 font-black text-xs uppercase">
+              <div className="p-4 rounded-lg bg-amber-50/70 border border-amber-200 space-y-3">
+                <div className="flex items-center gap-2 text-amber-950 font-bold text-xs uppercase">
                   <BookOpen className="w-4 h-4 text-amber-700" />
                   <span>Opinión de los Alumnos sobre Integración Oficial en Guía Docente</span>
                 </div>
@@ -823,8 +823,8 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 
                 {/* Titulación */}
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                  <span className="text-xs font-black uppercase text-slate-800 block">Titulación</span>
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2">
+                  <span className="text-xs font-bold uppercase text-slate-800 block">Titulación</span>
                   <div className="space-y-1.5 text-xs">
                     {Object.entries(
                       Object.keys(metrics.academicRoleBreakdown).length > 0
@@ -840,8 +840,8 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
                 </div>
 
                 {/* Curso Académico (1º a 6º) */}
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                  <span className="text-xs font-black uppercase text-slate-800 block">Curso Académico</span>
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2">
+                  <span className="text-xs font-bold uppercase text-slate-800 block">Curso Académico</span>
                   <div className="space-y-1.5 text-xs">
                     {Object.entries(
                       Object.keys(metrics.academicYearBreakdown).length > 0
@@ -857,8 +857,8 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
                 </div>
 
                 {/* Subgrupos de Prácticas (1 al 15) */}
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                  <span className="text-xs font-black uppercase text-slate-800 block">Subgrupos de Prácticas</span>
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2">
+                  <span className="text-xs font-bold uppercase text-slate-800 block">Subgrupos de Prácticas</span>
                   <div className="space-y-1.5 text-xs max-h-48 overflow-y-auto pr-1">
                     {Object.entries(
                       Object.keys(metrics.subgroupBreakdown).length > 0
@@ -874,8 +874,8 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
                 </div>
 
                 {/* Dispositivo y Tiempo */}
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                  <span className="text-xs font-black uppercase text-slate-800 block">Dispositivo Utilizado</span>
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2">
+                  <span className="text-xs font-bold uppercase text-slate-800 block">Dispositivo Utilizado</span>
                   <div className="space-y-1.5 text-xs">
                     {Object.entries(
                       Object.keys(metrics.deviceBreakdown).length > 0
@@ -931,7 +931,7 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
 
                   if (list.length === 0) {
                     return (
-                      <div className="p-8 text-center text-xs text-slate-400 bg-slate-50 rounded-2xl border border-slate-100">
+                      <div className="p-8 text-center text-xs text-slate-400 bg-slate-50 rounded-lg border border-slate-100">
                         No hay comentarios registrados en esta categoría aún.
                       </div>
                     );
@@ -940,7 +940,7 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
                   return list.map((comment, idx) => (
                     <div
                       key={idx}
-                      className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/90 text-xs text-slate-800 space-y-1"
+                      className="p-3.5 rounded-lg bg-slate-50 border border-slate-200/90 text-xs text-slate-800 space-y-1"
                     >
                       <div className="flex justify-between items-center text-[10px] text-slate-400 font-bold">
                         <span>Respuesta anónima #{idx + 1}</span>
@@ -969,7 +969,7 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
 
             <button
               onClick={onClose}
-              className="w-full sm:w-auto px-6 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-black cursor-pointer shadow-xs"
+              className="w-full sm:w-auto px-6 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold cursor-pointer shadow-xs"
             >
               Cerrar Panel
             </button>

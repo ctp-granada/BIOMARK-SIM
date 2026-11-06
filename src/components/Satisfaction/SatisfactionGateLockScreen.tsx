@@ -64,19 +64,18 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
 
   return (
     <div className="max-w-4xl mx-auto my-6 p-4 sm:p-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
-      <div className="bg-white rounded-3xl border border-amber-200/90 shadow-xl overflow-hidden">
+      <div className="bg-white rounded-xl border border-amber-200/90 shadow-md overflow-hidden">
         {/* Top Institutional Header */}
-        <div className="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-950 text-white p-6 sm:p-8 relative overflow-hidden">
-          <div className="absolute -right-8 -top-8 w-44 h-44 rounded-full bg-amber-500/10 blur-2xl pointer-events-none" />
+        <div className="bg-amber-900 text-white p-6 sm:p-8 relative overflow-hidden">
           
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center shrink-0 shadow-inner">
+              <div className="w-16 h-16 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center shrink-0 shadow-inner">
                 {info.icon}
               </div>
               <div>
                 <div className="flex items-center gap-2 flex-wrap mb-1">
-                  <span className="text-[10px] font-black uppercase tracking-wider bg-amber-950/80 text-amber-200 px-2.5 py-0.5 rounded border border-amber-500/40">
+                  <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-950/80 text-amber-200 px-2.5 py-0.5 rounded border border-amber-500/40">
                     PID 26-158 · UGR
                   </span>
                   <span className="text-[10px] font-bold bg-amber-900/60 text-amber-300 px-2 py-0.5 rounded border border-amber-400/30 flex items-center gap-1">
@@ -84,7 +83,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
                     {info.badge}
                   </span>
                 </div>
-                <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   {info.title}
                 </h1>
                 <p className="text-xs sm:text-sm text-amber-100/90 mt-1 max-w-2xl leading-relaxed">
@@ -93,9 +92,9 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
               </div>
             </div>
 
-            <div className="hidden lg:flex flex-col items-center justify-center p-3.5 rounded-2xl bg-amber-950/70 border border-amber-400/30 text-center shrink-0">
+            <div className="hidden lg:flex flex-col items-center justify-center p-3.5 rounded-lg bg-amber-950/70 border border-amber-400/30 text-center shrink-0">
               <span className="text-[10px] uppercase font-bold text-amber-300 tracking-wider">Duración estimada</span>
-              <span className="text-xl font-black text-white">~90 seg</span>
+              <span className="text-xl font-bold text-white">~90 seg</span>
               <span className="text-[10px] text-amber-200/80 font-medium">100% Anónima</span>
             </div>
           </div>
@@ -148,7 +147,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
 
           {/* Grid of Locked Features that will unlock */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 relative">
+            <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2 relative">
               <div className="flex items-center justify-between">
                 <span className="text-2xl"><Hospital className="inline-block w-[1em] h-[1em]" /></span>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
@@ -161,7 +160,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 relative">
+            <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2 relative">
               <div className="flex items-center justify-between">
                 <span className="text-2xl"><FerrisWheel className="inline-block w-[1em] h-[1em]" /></span>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
@@ -174,7 +173,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 relative">
+            <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-2 relative">
               <div className="flex items-center justify-between">
                 <span className="text-2xl"><BookOpen className="inline-block w-[1em] h-[1em]" /></span>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
@@ -192,7 +191,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
               onClick={onBackToHome}
-              className="w-full sm:w-auto px-5 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+              className="w-full sm:w-auto px-5 py-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Volver a Pantalla de Inicio</span>
@@ -200,7 +199,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
 
             <button
               onClick={onOpenSurvey}
-              className="w-full sm:w-auto px-8 py-3 rounded-2xl bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 hover:from-amber-800 hover:to-amber-800 text-white font-extrabold text-sm shadow-md hover:shadow-lg flex items-center justify-center gap-2 transition-all cursor-pointer ring-2 ring-amber-400/40 group"
+              className="w-full sm:w-auto px-8 py-3 rounded-lg bg-amber-700 text-white font-extrabold text-sm shadow-md hover:shadow-lg flex items-center justify-center gap-2 transition-all cursor-pointer ring-2 ring-amber-400/40 group"
             >
               <Sparkles className="w-4 h-4 text-amber-200 group-hover:rotate-12 transition-transform" />
               <span>¡Danos tu opinión y desbloquea nuevos casos!</span>

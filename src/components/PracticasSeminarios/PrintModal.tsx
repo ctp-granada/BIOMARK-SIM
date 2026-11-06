@@ -30,10 +30,10 @@ export const PrintModal: React.FC<PrintModalProps> = ({
   const standaloneUrl = window.location.href;
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-amber-300 overflow-hidden my-auto animate-in fade-in zoom-in duration-150">
+    <div className="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+      <div className="bg-white w-full max-w-lg rounded-lg shadow-lg border border-amber-300 overflow-hidden my-auto animate-in fade-in zoom-in duration-150">
         {/* Header */}
-        <div className="p-4 sm:p-5 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-amber-950 flex items-center justify-between border-b border-amber-400">
+        <div className="p-4 sm:p-5 bg-amber-500 text-amber-950 flex items-center justify-between border-b border-amber-400">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-950 text-amber-400 flex items-center justify-center shadow-xs">
               <Printer className="w-5 h-5" />

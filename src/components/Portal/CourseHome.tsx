@@ -47,9 +47,8 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
       />
 
       {/* Institutional Faculty Info Banner in Warm Medical Gold */}
-      <div className="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 text-white rounded-3xl p-6 sm:p-10 border border-amber-800 shadow-md relative overflow-hidden">
+      <div className="bg-amber-700 text-white rounded-xl p-6 sm:p-10 border border-amber-800 shadow-md relative overflow-hidden">
         {/* Subtle decorative warm glow */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
         
         <div className="max-w-4xl space-y-4 relative z-10">
           <div className="flex items-center gap-2 flex-wrap">
@@ -80,7 +79,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
                 onClick={onStartTour}
                 className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs sm:text-sm font-extrabold shadow-md transition-all flex items-center gap-2 cursor-pointer border border-amber-300"
               >
-                <Sparkles className="w-4 h-4 text-slate-950 animate-pulse" />
+                <Sparkles className="w-4 h-4 text-slate-950 " />
                 <span>Tutorial rápido</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -131,10 +130,10 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
           {/* Card 1: Clinical Simulator */}
           <div 
             onClick={() => onNavigate('casos')}
-            className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:border-emerald-500/50 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
+            className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs hover:border-emerald-500/50 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
           >
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-slate-950 text-emerald-400 flex items-center justify-center font-bold text-lg shadow-xs group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-slate-950 text-emerald-400 flex items-center justify-center font-bold text-lg shadow-xs transition-transform">
                 <Stethoscope className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-800 transition-colors">
@@ -153,10 +152,10 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
           {/* Card 2: Interactive Labs */}
           <div 
             onClick={() => onNavigate('laboratorios')}
-            className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:border-emerald-500/50 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
+            className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs hover:border-emerald-500/50 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
           >
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-slate-950 text-amber-400 flex items-center justify-center font-bold text-lg shadow-xs group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-slate-950 text-amber-400 flex items-center justify-center font-bold text-lg shadow-xs transition-transform">
                 <FlaskConical className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-800 transition-colors">
@@ -175,10 +174,10 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
           {/* Card 3: Teaching Material */}
           <div 
             onClick={() => onNavigate('docencia')}
-            className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:border-emerald-500/50 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
+            className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs hover:border-emerald-500/50 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
           >
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-slate-950 text-blue-400 flex items-center justify-center font-bold text-lg shadow-xs group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-slate-950 text-blue-400 flex items-center justify-center font-bold text-lg shadow-xs transition-transform">
                 <GraduationCap className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-800 transition-colors">
@@ -197,10 +196,10 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
           {/* Card 4: Biomarker Library */}
           <div 
             onClick={() => onNavigate('biblioteca')}
-            className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:border-emerald-500/50 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
+            className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs hover:border-emerald-500/50 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
           >
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-slate-950 text-slate-300 flex items-center justify-center font-bold text-lg shadow-xs group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-slate-950 text-slate-300 flex items-center justify-center font-bold text-lg shadow-xs transition-transform">
                 <BookOpen className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-800 transition-colors">
@@ -219,7 +218,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
       </div>
 
       {/* Featured Section: The 3 Interactive Labs from Last Year */}
-      <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-6">
+      <div className="bg-slate-900 text-white rounded-xl p-6 sm:p-8 border border-slate-800 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 block">
@@ -245,7 +244,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
               onNavigate('laboratorios');
               if (onOpenLab) onOpenLab('randle');
             }}
-            className="bg-slate-950 p-5 rounded-2xl border border-slate-800 hover:border-emerald-500/60 transition-all cursor-pointer space-y-3 group"
+            className="bg-slate-950 p-5 rounded-lg border border-slate-800 hover:border-emerald-500/60 transition-all cursor-pointer space-y-3 group"
           >
             <div className="flex items-center justify-between">
               <span className="text-2xl"><RefreshCw className="inline-block w-[1em] h-[1em]" /></span>
@@ -268,7 +267,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
               onNavigate('laboratorios');
               if (onOpenLab) onOpenLab('ictericias');
             }}
-            className="bg-slate-950 p-5 rounded-2xl border border-slate-800 hover:border-emerald-500/60 transition-all cursor-pointer space-y-3 group"
+            className="bg-slate-950 p-5 rounded-lg border border-slate-800 hover:border-emerald-500/60 transition-all cursor-pointer space-y-3 group"
           >
             <div className="flex items-center justify-between">
               <span className="text-2xl"><TestTube className="inline-block w-[1em] h-[1em]" /></span>
@@ -291,7 +290,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
               onNavigate('laboratorios');
               if (onOpenLab) onOpenLab('hemostasia');
             }}
-            className="bg-slate-950 p-5 rounded-2xl border border-slate-800 hover:border-emerald-500/60 transition-all cursor-pointer space-y-3 group"
+            className="bg-slate-950 p-5 rounded-lg border border-slate-800 hover:border-emerald-500/60 transition-all cursor-pointer space-y-3 group"
           >
             <div className="flex items-center justify-between">
               <span className="text-2xl"><Droplet className="inline-block w-[1em] h-[1em]" /></span>
@@ -311,7 +310,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
       </div>
 
       {/* Section: Avisos de Nuevo Material y Actualizaciones Disponibles */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-xs space-y-5">
+      <div className="bg-white rounded-lg border border-slate-200/90 p-6 shadow-xs space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shadow-2xs">
@@ -334,7 +333,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
 
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-500 " />
               <span>3 Recursos Disponibles</span>
             </span>
           </div>

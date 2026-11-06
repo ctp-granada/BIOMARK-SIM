@@ -132,13 +132,13 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col my-6 animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-slate-900/70 flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-white rounded-lg max-w-xl w-full shadow-lg border border-slate-200 overflow-hidden flex flex-col my-6 animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="p-5 bg-gradient-to-r from-purple-900 via-indigo-900 to-slate-900 text-white flex items-center justify-between">
+        <div className="p-5 bg-purple-900 text-white flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-2.5 bg-purple-500/20 rounded-xl border border-purple-400/30 text-purple-300">
-              <Sparkles className="w-5 h-5 animate-pulse" />
+              <Sparkles className="w-5 h-5 " />
             </div>
             <div>
               <h2 className="font-bold text-lg leading-tight">Generador de Casos Clínicos por IA</h2>

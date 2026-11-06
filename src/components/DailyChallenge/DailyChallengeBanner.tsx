@@ -30,7 +30,7 @@ export const DailyChallengeBanner: React.FC<DailyChallengeBannerProps> = ({
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-slate-950 text-white rounded-2xl p-5 sm:p-6 shadow-xs border border-slate-800 relative overflow-hidden mb-6"
+      className="bg-slate-950 text-white rounded-lg p-5 sm:p-6 shadow-xs border border-slate-800 relative overflow-hidden mb-6"
     >
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 relative z-10">
         

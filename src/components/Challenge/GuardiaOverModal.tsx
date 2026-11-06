@@ -23,13 +23,13 @@ export const GuardiaOverModal: React.FC<GuardiaOverModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-xs p-4 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 p-4 overflow-y-auto">
       <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="bg-white max-w-md w-full rounded-2xl shadow-2xl border border-red-200 overflow-hidden text-center p-6 sm:p-8"
+        className="bg-white max-w-md w-full rounded-lg shadow-lg border border-red-200 overflow-hidden text-center p-6 sm:p-8"
       >
-        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto text-red-600 mb-4 animate-bounce">
+        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto text-red-600 mb-4 ">
           <Wallet className="w-9 h-9 text-red-600" />
         </div>
 
@@ -55,7 +55,7 @@ export const GuardiaOverModal: React.FC<GuardiaOverModalProps> = ({
           {onGoToGames && (
             <button
               onClick={onGoToGames}
-              className="w-full py-3.5 px-6 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer text-sm"
+              className="w-full py-3.5 px-6 bg-emerald-600 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer text-sm"
             >
               <Gamepad2 className="w-4 h-4 text-white" />
               <span>Ganar Dinero en el Parque (Minijuegos)</span>
