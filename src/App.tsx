@@ -52,7 +52,8 @@ import {
   saveStudentRankingToCloud,
   saveStudentFullProgressToCloud,
   fetchStudentFullProgressFromCloud,
-  testFirestoreConnection
+  testFirestoreConnection,
+  retryPendingSurveys,
 } from './lib/firebase';
 import { BIOMARKERS_DATABASE } from './data/biomarkers';
 import { audioService } from './utils/audioService';
@@ -149,6 +150,11 @@ export const App: React.FC = () => {
       setVisitorStats(stats);
     });
 
+    // Reenviar encuestas que no llegaron a Firebase en una sesión anterior
+    retryPendingSurveys().catch(() => {});
+    const onOnline = () => { retryPendingSurveys().catch(() => {}); };
+    window.addEventListener('online', onOnline);
+
     // Test Firestore connection per Firebase guidelines
     testFirestoreConnection().catch((err) => {
       console.warn('Conexión con Firebase:', err);
@@ -186,7 +192,7 @@ export const App: React.FC = () => {
       console.warn('No se pudo recuperar progreso inicial de Firebase:', err);
     }
 
-    return () => unsubscribe();
+    return () => { unsubscribe(); window.removeEventListener("online", onOnline); };
   }, []);
 
   // Subscribe to satisfaction survey status

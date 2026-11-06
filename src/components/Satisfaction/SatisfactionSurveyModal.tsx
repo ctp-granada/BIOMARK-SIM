@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, CheckCircle2, Star, Send, Heart, MessageSquare, Award, ChevronRight, ChevronLeft, Stethoscope, Gamepad2, Brain, ShieldCheck, TrendingUp, FileText, Clock, Laptop } from 'lucide-react';
+import { X, CheckCircle2, CloudOff, Star, Send, Heart, MessageSquare, Award, ChevronRight, ChevronLeft, Stethoscope, Gamepad2, Brain, ShieldCheck, TrendingUp, FileText, Clock, Laptop } from 'lucide-react';
 import {
   satisfactionService,
   SUS_STATEMENTS,
@@ -16,7 +16,7 @@ import {
   GamificationRatings,
   ProjectRatings
 } from '../../utils/satisfactionService';
-import { saveSatisfactionSurveyToCloud, getOrCreateStudentProfile } from '../../lib/firebase';
+import { saveSatisfactionSurveyToCloud, getOrCreateStudentProfile, queuePendingSurvey } from '../../lib/firebase';
 
 interface SatisfactionSurveyModalProps {
   isOpen: boolean;
@@ -79,6 +79,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
 
   const [submitting, setSubmitting] = useState(false);
   const [submittedSuccess, setSubmittedSuccess] = useState(false);
+  const [cloudSaved, setCloudSaved] = useState(true);
   const [validationError, setValidationError] = useState<string | null>(null);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -190,18 +191,25 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
       const savedLocal = await satisfactionService.saveSurvey(surveyData);
 
       // Sincronizar en Firestore con la colección 'satisfaction_surveys'
+      let reachedCloud = true;
       try {
         await saveSatisfactionSurveyToCloud(savedLocal);
       } catch (cloudErr) {
-        console.warn('Sincronización cloud omitida o fallida:', cloudErr);
+        reachedCloud = false;
+        queuePendingSurvey(savedLocal);
+        console.warn('No se pudo enviar la encuesta a Firebase; queda pendiente de reenvío:', cloudErr);
       }
 
+      setCloudSaved(reachedCloud);
       setSubmittedSuccess(true);
       if (onSurveySubmitted) onSurveySubmitted();
-      setTimeout(() => {
-        onClose();
-        setSubmittedSuccess(false);
-      }, 2600);
+      // Si no se pudo enviar, el aviso se queda abierto hasta que el alumno lo cierre.
+      if (reachedCloud) {
+        setTimeout(() => {
+          onClose();
+          setSubmittedSuccess(false);
+        }, 2600);
+      }
     } catch (err) {
       console.error(err);
       setValidationError('Ocurrió un error al guardar la encuesta. Por favor, inténtalo de nuevo.');
@@ -263,21 +271,30 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
 
           {submittedSuccess ? (
             <div className="text-center py-12 space-y-5 animate-in zoom-in-95 duration-300">
-              <div className="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner ring-8 ring-emerald-50">
-                <CheckCircle2 className="w-10 h-10" />
+              <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto shadow-inner ring-8 ${cloudSaved ? 'bg-emerald-100 text-emerald-600 ring-emerald-50' : 'bg-amber-100 text-amber-700 ring-amber-50'}`}>
+                {cloudSaved ? <CheckCircle2 className="w-10 h-10" /> : <CloudOff className="w-10 h-10" />}
               </div>
               <div className="space-y-2">
                 <h2 className="text-2xl font-bold text-slate-900">
-                  ¡Muchas Gracias por tu Contribución a la Investigación Docente!
+                  Gracias por tu contribución a la investigación docente
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
-                  Tus respuestas han sido procesadas y sincronizadas con la base de datos de <strong className="text-amber-800">Firebase Firestore</strong> (colección <span className="font-mono text-indigo-600 font-bold">satisfaction_surveys</span>) del <strong>Proyecto de Innovación Docente PID 26-158</strong> de la Universidad de Granada.
-                </p>
+                {cloudSaved ? (
+                  <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+                    Tus respuestas se han guardado en la base de datos del <strong>Proyecto de Innovación Docente PID 26-158</strong> de la Universidad de Granada.
+                  </p>
+                ) : (
+                  <div className="max-w-lg mx-auto text-left text-xs sm:text-sm leading-relaxed rounded-lg border border-amber-300 bg-amber-50 text-amber-900 p-4 space-y-2">
+                    <p className="font-bold">No se han podido enviar tus respuestas en este momento.</p>
+                    <p>
+                      Están guardadas en este dispositivo y se enviarán automáticamente la próxima vez que abras la plataforma con conexión. No hace falta que rellenes la encuesta otra vez.
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold shadow-2xs">
-                <Star className="w-4 h-4 text-amber-600 animate-spin" />
-                <span>¡Recompensa desbloqueada: +150 XP y +100 € de presupuesto añadidos a tu ficha de guardia!</span>
+                <Star className="w-4 h-4 text-amber-600" />
+                <span>+150 XP y +100 € de presupuesto añadidos a tu ficha de guardia</span>
               </div>
             </div>
           ) : (
