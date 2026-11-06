@@ -1,17 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Search,
-  CheckCircle2,
-  RotateCcw,
-  Trophy,
-  Sparkles,
-  Info,
-  Clock,
-  Wallet,
-  Zap,
-  HelpCircle,
-  Stethoscope
-} from 'lucide-react';
+import { Search, CheckCircle2, RotateCcw, Trophy, Star, Info, Clock, Wallet, Zap, HelpCircle, Stethoscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { audioService } from '../../utils/audioService';
 

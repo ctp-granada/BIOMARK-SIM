@@ -1,41 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ActiveModule } from '../types';
-import {
-  Stethoscope,
-  BookOpen,
-  Trees,
-  ArrowRight,
-  Sparkles,
-  Flame,
-  FlaskConical,
-  Award,
-  ChevronRight,
-  ShieldAlert,
-  Clock,
-  CheckCircle2,
-  FileText,
-  Activity,
-  Zap,
-  MapPin,
-  ExternalLink,
-  Layers,
-  UploadCloud,
-  Bell,
-  Eye,
-  X,
-  Maximize2,
-  Building2,
-  GraduationCap,
-  Gamepad2,
-  Heart,
-  Trophy,
-  Dices,
-  Coins,
-  Calendar,
-  Network,
-  Lock,
-  Users
-} from 'lucide-react';
+import { Stethoscope, BookOpen, Trees, ArrowRight, Star, Flame, FlaskConical, Award, ChevronRight, ShieldAlert, Clock, CheckCircle2, FileText, Activity, Zap, MapPin, ExternalLink, Layers, UploadCloud, Bell, Eye, X, Maximize2, Building2, GraduationCap, Gamepad2, Heart, Trophy, Dices, Coins, Calendar, Network, Lock, Users } from 'lucide-react';
 import { CLINICAL_CASES_DATABASE } from '../data/clinicalCases';
 import { satisfactionService } from '../utils/satisfactionService';
 
@@ -389,7 +354,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-600 text-white text-xs font-bold shadow-md shadow-amber-600/25 transition-all border border-amber-400/50 cursor-pointer group hover:scale-[1.02]"
                   title="Lanzar recorrido interactivo guiado por el portal"
                 >
-                  <Sparkles className="w-4 h-4 text-amber-200 group-hover:rotate-12 transition-transform" />
+                  <Star className="w-4 h-4 text-amber-200 group-hover:rotate-12 transition-transform" />
                   <span>Tutorial rápido</span>
                   <ArrowRight className="w-3.5 h-3.5 text-amber-200 group-hover:translate-x-0.5 transition-transform" />
                 </button>
@@ -462,7 +427,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
             <div className="bg-white border border-amber-200/80 rounded-lg p-3 flex items-center gap-2.5 shadow-2xs">
               <div className="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-300/80 text-amber-700 flex items-center justify-center font-bold text-sm shadow-xs">
-                <Sparkles className="w-4 h-4 text-amber-600" />
+                <Star className="w-4 h-4 text-amber-600" />
               </div>
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">

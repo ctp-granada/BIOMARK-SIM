@@ -1,28 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { BIOMARKERS_DATABASE } from '../../data/biomarkers';
 import { Biomarker, OrganSystem, ActiveModule } from '../../types';
-import { 
-  Search, 
-  Filter, 
-  FlaskConical, 
-  Clock, 
-  Activity, 
-  AlertTriangle, 
-  CheckCircle2, 
-  HelpCircle, 
-  ArrowLeft, 
-  Heart, 
-  Droplet, 
-  Zap, 
-  Layers, 
-  X, 
-  Info, 
-  ChevronRight,
-  FileText,
-  DollarSign,
-  Sparkles,
-  BookmarkCheck,
-  Stethoscope, BookOpen, Brain, TestTube } from 'lucide-react';
+import { Search, Filter, FlaskConical, Clock, Activity, AlertTriangle, CheckCircle2, HelpCircle, ArrowLeft, Heart, Droplet, Zap, Layers, X, Info, ChevronRight, FileText, DollarSign, Star, BookmarkCheck, Stethoscope, BookOpen, Brain, TestTube } from 'lucide-react';
 import { BiochemicalInfoTooltip } from '../BiochemicalInfoTooltip';
 
 interface VademecumViewProps {

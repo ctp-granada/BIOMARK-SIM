@@ -1,16 +1,5 @@
 import React from 'react';
-import {
-  Lock,
-  Sparkles,
-  GraduationCap,
-  ArrowLeft,
-  CheckCircle2,
-  Stethoscope,
-  Trees,
-  FlaskConical,
-  Award,
-  Coins,
-  ShieldAlert, BookOpen, FerrisWheel, Hospital } from 'lucide-react';
+import { Lock, Star, GraduationCap, ArrowLeft, CheckCircle2, Stethoscope, Trees, FlaskConical, Award, Coins, ShieldAlert, BookOpen, FerrisWheel, Hospital } from 'lucide-react';
 
 interface SatisfactionGateLockScreenProps {
   reason?: 'access_park' | 'cases_milestone' | 'access_advanced_labs' | 'general';
@@ -118,7 +107,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
 
           <div className="flex items-center gap-3 shrink-0">
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 font-bold text-xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <Star className="w-3.5 h-3.5 text-amber-600" />
               <span>+150 XP</span>
             </div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-100 border border-emerald-300 text-emerald-900 font-bold text-xs">
@@ -201,7 +190,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
               onClick={onOpenSurvey}
               className="w-full sm:w-auto px-8 py-3 rounded-lg bg-amber-700 text-white font-extrabold text-sm shadow-md hover:shadow-lg flex items-center justify-center gap-2 transition-all cursor-pointer ring-2 ring-amber-400/40 group"
             >
-              <Sparkles className="w-4 h-4 text-amber-200 group-hover:rotate-12 transition-transform" />
+              <Star className="w-4 h-4 text-amber-200 group-hover:rotate-12 transition-transform" />
               <span>¡Danos tu opinión y desbloquea nuevos casos!</span>
             </button>
           </div>

@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
 import { TemplateWeek, FilterState, ComputedSession, ShiftType } from '../../types/practicasSeminarios';
 import { PROFESSORS_LIST, PROFESSOR_EMAILS } from '../../data/practicasSeminarios/curriculumData';
-import {
-  Clock,
-  MapPin,
-  Lock,
-  Unlock,
-  CheckCircle2,
-  Mail,
-  User,
-  Sparkles,
-  Info,
-  Calendar,
-  Layers, BookOpen, GraduationCap, Microscope } from 'lucide-react';
+import { Clock, MapPin, Lock, Unlock, CheckCircle2, Mail, User, Star, Info, Calendar, Layers, BookOpen, GraduationCap, Microscope } from 'lucide-react';
 
 interface MatrixTableViewProps {
   startMonday: Date;

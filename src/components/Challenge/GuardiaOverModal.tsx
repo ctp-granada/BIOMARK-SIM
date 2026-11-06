@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { RefreshCw, Wallet, AlertTriangle, ShieldAlert, Gamepad2, Sparkles } from 'lucide-react';
+import { RefreshCw, Wallet, AlertTriangle, ShieldAlert, Gamepad2, Star } from 'lucide-react';
 import { motion } from 'motion/react';
 import { audioService } from '../../utils/audioService';
 
@@ -43,7 +43,7 @@ export const GuardiaOverModal: React.FC<GuardiaOverModalProps> = ({
 
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-left">
           <div className="flex items-center gap-2 text-amber-900 font-bold text-xs uppercase mb-1.5">
-            <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
+            <Star className="w-4 h-4 text-amber-600 shrink-0" />
             <span>Refinanciación Asistencial en el Parque</span>
           </div>
           <p className="text-xs text-amber-800 leading-normal">

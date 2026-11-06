@@ -2,22 +2,7 @@ import React, { useState } from 'react';
 import { UserProgress, CaseAttemptRecord } from '../../types';
 import { evaluateUserBadges } from '../../data/badges';
 import { CLINICAL_CASES_DATABASE } from '../../data/clinicalCases';
-import {
-  Trophy,
-  Award,
-  Zap,
-  Sparkles,
-  CheckCircle2,
-  Calendar,
-  Flame,
-  ShieldCheck,
-  TrendingUp,
-  Clock,
-  Star,
-  ChevronDown,
-  Filter,
-  Layers,
-  ArrowUpRight, Hourglass } from 'lucide-react';
+import { Trophy, Award, Zap, Star, CheckCircle2, Calendar, Flame, ShieldCheck, TrendingUp, Clock, ChevronDown, Filter, Layers, ArrowUpRight, Hourglass } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export interface MilestoneTimelineProps {
@@ -281,7 +266,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
 
                 {item.details && (
                   <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center gap-1.5 text-[11px] text-slate-500 font-mono">
-                    <Sparkles className="w-3 h-3 text-amber-500" />
+                    <Star className="w-3 h-3 text-amber-500" />
                     <span>{item.details}</span>
                   </div>
                 )}

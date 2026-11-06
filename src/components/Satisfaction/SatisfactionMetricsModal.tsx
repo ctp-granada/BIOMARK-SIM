@@ -1,28 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  X,
-  Users,
-  Award,
-  Download,
-  RotateCcw,
-  Sparkles,
-  CheckCircle2,
-  AlertCircle,
-  BarChart2,
-  MessageSquare,
-  FileSpreadsheet,
-  FileCode,
-  TrendingUp,
-  Brain,
-  Gamepad2,
-  Stethoscope,
-  Laptop,
-  Clock,
-  BookOpen,
-  RefreshCw,
-  Copy,
-  Check
-} from 'lucide-react';
+import { X, Users, Award, Download, RotateCcw, Star, CheckCircle2, AlertCircle, BarChart2, MessageSquare, FileSpreadsheet, FileCode, TrendingUp, Brain, Gamepad2, Stethoscope, Laptop, Clock, BookOpen, RefreshCw, Copy, Check } from 'lucide-react';
 import {
   ResponsiveContainer,
   BarChart,
@@ -499,7 +476,7 @@ export const SatisfactionMetricsModal: React.FC<SatisfactionMetricsModalProps> =
               <div className="p-4 sm:p-5 rounded-lg bg-slate-900 text-white space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-amber-400" />
+                    <Star className="w-4 h-4 text-amber-400" />
                     <h3 className="text-xs font-bold uppercase tracking-wider text-amber-300">
                       Resumen Estadístico para Sección de Resultados del Manuscrito
                     </h3>

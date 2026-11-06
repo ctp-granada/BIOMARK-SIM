@@ -1,23 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {
-  X,
-  CheckCircle2,
-  Sparkles,
-  Send,
-  Heart,
-  MessageSquare,
-  Award,
-  ChevronRight,
-  ChevronLeft,
-  Stethoscope,
-  Gamepad2,
-  Brain,
-  ShieldCheck,
-  TrendingUp,
-  FileText,
-  Clock,
-  Laptop
-} from 'lucide-react';
+import { X, CheckCircle2, Star, Send, Heart, MessageSquare, Award, ChevronRight, ChevronLeft, Stethoscope, Gamepad2, Brain, ShieldCheck, TrendingUp, FileText, Clock, Laptop } from 'lucide-react';
 import {
   satisfactionService,
   SUS_STATEMENTS,
@@ -294,7 +276,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
               </div>
 
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold shadow-2xs">
-                <Sparkles className="w-4 h-4 text-amber-600 animate-spin" />
+                <Star className="w-4 h-4 text-amber-600 animate-spin" />
                 <span>¡Recompensa desbloqueada: +150 XP y +100 € de presupuesto añadidos a tu ficha de guardia!</span>
               </div>
             </div>

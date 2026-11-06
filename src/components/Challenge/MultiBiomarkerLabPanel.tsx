@@ -3,26 +3,7 @@ import { Biomarker, ClinicalCase, OrganSystem } from '../../types';
 import { BIOMARKERS_DATABASE } from '../../data/biomarkers';
 import { getBiomarkerCost, getEssentialBiomarkerIdsForCase } from '../../utils/labOrderEvaluator';
 import { HospitalLabProcessingModal } from './HospitalLabProcessingModal';
-import { 
-  ClipboardList, 
-  Search, 
-  Plus, 
-  Check, 
-  Trash2, 
-  AlertCircle, 
-  Zap, 
-  Sparkles, 
-  ArrowRight,
-  Wallet,
-  Activity,
-  Filter,
-  CheckSquare,
-  Square,
-  ShieldCheck,
-  Loader2,
-  HelpCircle,
-  BookOpen,
-  Info, Bean, Brain, Droplets, HeartPulse, LayoutGrid, Microscope } from 'lucide-react';
+import { ClipboardList, Search, Plus, Check, Trash2, AlertCircle, Zap, Star, ArrowRight, Wallet, Activity, Filter, CheckSquare, Square, ShieldCheck, Loader2, HelpCircle, BookOpen, Info, Bean, Brain, Droplets, HeartPulse, LayoutGrid, Microscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface MultiBiomarkerLabPanelProps {
@@ -231,7 +212,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
         {/* Suggested Quick Preset Batteries */}
         <div className="mt-4 pt-4 border-t border-slate-800/80">
           <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-300 mb-2">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+            <Star className="w-3.5 h-3.5 text-emerald-400" />
             <span>Perfiles Rápidos Sugeridos por Especialidad:</span>
           </div>
           <div className="flex flex-wrap gap-2">

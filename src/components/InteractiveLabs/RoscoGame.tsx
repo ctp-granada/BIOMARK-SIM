@@ -1,25 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  Trophy,
-  Play,
-  RotateCcw,
-  CheckCircle2,
-  XCircle,
-  HelpCircle,
-  Clock,
-  Sparkles,
-  ArrowRight,
-  ShieldCheck,
-  Award,
-  Wallet,
-  Zap,
-  Send,
-  CornerDownLeft,
-  Volume2,
-  Lightbulb,
-  Coins,
-  AlertCircle
-} from 'lucide-react';
+import { Trophy, Play, RotateCcw, CheckCircle2, XCircle, HelpCircle, Clock, Star, ArrowRight, ShieldCheck, Award, Wallet, Zap, Send, CornerDownLeft, Volume2, Lightbulb, Coins, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { audioService } from '../../utils/audioService';
 
@@ -928,7 +908,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
               /* Pre-game Welcome Screen Inside the Rosco */
               <div className="m-auto space-y-3 px-2">
                 <div className="w-12 h-12 rounded-lg bg-indigo-500/20 text-cyan-400 flex items-center justify-center mx-auto border border-indigo-500/40">
-                  <Sparkles className="w-6 h-6" />
+                  <Star className="w-6 h-6" />
                 </div>
                 <h4 className="text-sm sm:text-base font-bold text-white">
                   Rosco de Bioquímica Clínica

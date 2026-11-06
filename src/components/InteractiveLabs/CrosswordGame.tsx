@@ -1,20 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Grid,
-  CheckCircle2,
-  XCircle,
-  RotateCcw,
-  Trophy,
-  Sparkles,
-  HelpCircle,
-  Clock,
-  Wallet,
-  Zap,
-  ArrowRight,
-  Stethoscope,
-  ChevronRight,
-  BookOpen
-} from 'lucide-react';
+import { Grid, CheckCircle2, XCircle, RotateCcw, Trophy, Star, HelpCircle, Clock, Wallet, Zap, ArrowRight, Stethoscope, ChevronRight, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { audioService } from '../../utils/audioService';
 

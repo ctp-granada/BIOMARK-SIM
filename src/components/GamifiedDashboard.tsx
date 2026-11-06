@@ -7,8 +7,9 @@ import {
   getStreakMultiplier
 } from '../utils/gamification';
 import { evaluateUserBadges } from '../data/badges';
-import { Heart, Flame, Wallet, RefreshCw, Trophy, AlertTriangle, Award, Crown, Sparkles, HelpCircle, Info, TrendingUp, TrendingDown, Gamepad2, Coins } from 'lucide-react';
+import { Heart, Flame, Wallet, RefreshCw, Trophy, AlertTriangle, Award, Crown, Star, HelpCircle, Info, TrendingUp, TrendingDown, Gamepad2, Coins } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { NamedIcon } from './NamedIcon';
 
 interface GamifiedDashboardProps {
   userProgress: UserProgress;
@@ -82,7 +83,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
 
           <div className="flex items-center gap-3 my-1">
             <div className="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl shrink-0">
-              {rank.icon}
+              <NamedIcon name={rank.icon} />
             </div>
             <div className="min-w-0">
               <h3 className="font-bold text-xs sm:text-sm text-white leading-tight truncate">{rank.title}</h3>
@@ -431,7 +432,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
               <div className="flex items-center -space-x-1 ml-1">
                 {unlockedBadges.slice(0, 4).map((b) => (
                   <span key={b.id} title={b.title} className="text-sm cursor-help">
-                    {b.icon}
+                    <NamedIcon name={b.icon} />
                   </span>
                 ))}
               </div>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Clock, Zap, AlertTriangle, Sparkles, Flame } from 'lucide-react';
+import { Clock, Zap, AlertTriangle, Star, Flame } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface DailyTimerHUDProps {
@@ -64,7 +64,7 @@ export const DailyTimerHUD: React.FC<DailyTimerHUDProps> = ({
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-400 text-slate-950 flex items-center gap-1 shadow-xs">
-                <Sparkles className="w-3 h-3 text-slate-950" />
+                <Star className="w-3 h-3 text-slate-950" />
                 Reto Clínico Diario
               </span>
               {!isExpired && (

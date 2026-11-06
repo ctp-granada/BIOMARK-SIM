@@ -1,6 +1,6 @@
 import React from 'react';
 import { SystemBadge } from '../../types';
-import { Award, Sparkles, X, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { Award, Star, X, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface BadgeUnlockModalProps {
@@ -39,7 +39,7 @@ export const BadgeUnlockModal: React.FC<BadgeUnlockModalProps> = ({
           </div>
 
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider mb-2">
-            <Sparkles className="w-3.5 h-3.5" />
+            <Star className="w-3.5 h-3.5" />
             ¡Insignia Desbloqueada!
           </div>
 

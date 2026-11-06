@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Mail, Lock, User as UserIcon, LogIn, UserPlus, AlertCircle, CheckCircle2, X, Sparkles, ShieldCheck } from 'lucide-react';
+import { Mail, Lock, User as UserIcon, LogIn, UserPlus, AlertCircle, CheckCircle2, X, Star, ShieldCheck } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -232,7 +232,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
               }}
               className="text-xs text-blue-600 hover:text-blue-800 font-semibold transition-colors inline-flex items-center gap-1"
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <Star className="w-3.5 h-3.5" />
               {isLogin
                 ? '¿Eres nuevo? Regístrate para guardar tu progreso'
                 : '¿Ya tienes cuenta? Inicia sesión aquí'}

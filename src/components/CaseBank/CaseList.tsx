@@ -1,21 +1,7 @@
 import React, { useState } from 'react';
 import { ClinicalCase, OrganSystem, DifficultyLevel, UserProgress, ActiveModule } from '../../types';
 import { CaseCard } from './CaseCard';
-import { 
-  Stethoscope, 
-  Sparkles, 
-  ArrowLeft, 
-  ArrowRight, 
-  Coins, 
-  Gamepad2, 
-  BookOpen, 
-  Search, 
-  Filter, 
-  Heart, 
-  HelpCircle,
-  FolderOpen,
-  GraduationCap,
-  Lock, Brain, Droplet, HeartPulse, TestTube, User, Zap } from 'lucide-react';
+import { Stethoscope, Star, ArrowLeft, ArrowRight, Coins, Gamepad2, BookOpen, Search, Filter, Heart, HelpCircle, FolderOpen, GraduationCap, Lock, Brain, Droplet, HeartPulse, TestTube, User, Zap } from 'lucide-react';
 import { HospitalDoctorWelcomeModal } from './HospitalDoctorWelcomeModal';
 import { satisfactionService } from '../../utils/satisfactionService';
 
@@ -216,7 +202,7 @@ export const CaseList: React.FC<CaseListProps> = ({
         <div className="bg-amber-900 text-white rounded-xl p-5 border border-amber-500/60 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in">
           <div className="flex items-center gap-3.5">
             <div className="w-12 h-12 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40">
-              <Sparkles className="w-6 h-6 text-amber-300" />
+              <Star className="w-6 h-6 text-amber-300" />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
@@ -237,7 +223,7 @@ export const CaseList: React.FC<CaseListProps> = ({
             onClick={() => onStartChallenge(cases[0])}
             className="w-full sm:w-auto px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-300 text-amber-950 font-bold text-xs shadow-md transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-1.5 shrink-0 group"
           >
-            <Sparkles className="w-4 h-4 text-amber-900 group-hover:rotate-12 transition-transform" />
+            <Star className="w-4 h-4 text-amber-900 group-hover:rotate-12 transition-transform" />
             <span>¡Danos tu opinión! (+150 XP y +100 €)</span>
           </button>
         </div>

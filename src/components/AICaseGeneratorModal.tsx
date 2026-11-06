@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ClinicalCase, OrganSystem, DifficultyLevel } from '../types';
-import { Sparkles, X, Loader2, AlertCircle, BookOpen, Layers, CheckCircle2, ShieldAlert, Bean, Brain, Droplets, HeartPulse, Microscope, Zap } from 'lucide-react';
+import { Star, X, Loader2, AlertCircle, BookOpen, Layers, CheckCircle2, ShieldAlert, Bean, Brain, Droplets, HeartPulse, Microscope, Zap } from 'lucide-react';
 
 interface AICaseGeneratorModalProps {
   isOpen: boolean;
@@ -138,7 +138,7 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
         <div className="p-5 bg-purple-900 text-white flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-2.5 bg-purple-500/20 rounded-xl border border-purple-400/30 text-purple-300">
-              <Sparkles className="w-5 h-5 " />
+              <Star className="w-5 h-5 " />
             </div>
             <div>
               <h2 className="font-bold text-lg leading-tight">Generador de Casos Clínicos por IA</h2>
@@ -302,7 +302,7 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4" />
+                <Star className="w-4 h-4" />
                 <span>Generar Caso Ahora</span>
               </>
             )}

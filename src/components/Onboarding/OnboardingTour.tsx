@@ -7,21 +7,7 @@ import {
   STATUS,
   ACTIONS
 } from 'react-joyride';
-import {
-  Sparkles,
-  ArrowRight,
-  ArrowLeft,
-  X,
-  Stethoscope,
-  BookOpen,
-  Gamepad2,
-  CheckCircle2,
-  HelpCircle,
-  Coins,
-  Activity,
-  Layers,
-  Award
-} from 'lucide-react';
+import { Star, ArrowRight, ArrowLeft, X, Stethoscope, BookOpen, Gamepad2, CheckCircle2, HelpCircle, Coins, Activity, Layers, Award } from 'lucide-react';
 
 export const DONT_SHOW_TOUR_STORAGE_KEY = 'biomark_dont_show_tour_on_startup';
 
@@ -229,7 +215,7 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
       {/* Top Tag & Step Progress */}
       <div className="flex items-center gap-2 mb-2.5">
         <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1 shadow-2xs">
-          <Sparkles className="w-3 h-3 text-amber-700" />
+          <Star className="w-3 h-3 text-amber-700" />
           <span>Tutorial Rápido</span>
         </span>
         <span className="text-[11px] font-bold text-slate-400">
@@ -279,7 +265,7 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
         {/* Institutional reminder banner */}
         <div className="rounded-lg bg-amber-50/90 border border-amber-300/80 p-2.5 text-xs text-amber-950 flex items-start gap-2 shadow-2xs">
           <div className="w-5 h-5 rounded-lg bg-amber-200/90 text-amber-800 flex items-center justify-center shrink-0 mt-0.5 font-bold">
-            <Sparkles className="w-3 h-3 text-amber-700" />
+            <Star className="w-3 h-3 text-amber-700" />
           </div>
           <div className="text-[11px] leading-snug">
             <span className="font-bold text-amber-950 block">¿Tienes cualquier duda más adelante?</span>

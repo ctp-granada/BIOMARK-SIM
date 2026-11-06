@@ -2,19 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Biomarker, ClinicalCase } from '../../types';
 import { BIOMARKERS_DATABASE } from '../../data/biomarkers';
-import { 
-  FlaskConical, 
-  Dna, 
-  Activity, 
-  CheckCircle2, 
-  Cpu, 
-  Sparkles, 
-  Layers, 
-  Clock, 
-  Gauge, 
-  ShieldCheck,
-  Zap,
-  TestTubes, ClipboardList, Microscope, TestTube } from 'lucide-react';
+import { FlaskConical, Dna, Activity, CheckCircle2, Cpu, Star, Layers, Clock, Gauge, ShieldCheck, Zap, TestTubes, ClipboardList, Microscope, TestTube } from 'lucide-react';
 
 interface HospitalLabProcessingModalProps {
   orderedBiomarkerIds: string[];
@@ -350,7 +338,7 @@ export const HospitalLabProcessingModal: React.FC<HospitalLabProcessingModalProp
         {/* Footer Note */}
         <div className="bg-slate-950/90 px-6 py-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
           <span className="flex items-center gap-1 text-slate-400">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <Star className="w-3.5 h-3.5 text-cyan-400" />
             Simulación analítica hospitalaria acelerada
           </span>
           <span className="font-mono text-cyan-400 font-bold">

@@ -2,38 +2,9 @@ import React from 'react';
 import { ActiveModule, UserProgress } from '../types';
 import { getPlayerRank, getStreakMultiplier } from '../utils/gamification';
 import { User } from '@supabase/supabase-js';
-import {
-  Home,
-  Building2,
-  Stethoscope,
-  Target,
-  FlaskConical,
-  GraduationCap,
-  BookOpen,
-  BarChart3,
-  Heart,
-  Flame,
-  Sparkles,
-  Zap,
-  LogIn,
-  LogOut,
-  User as UserIcon,
-  Cloud,
-  RefreshCw,
-  ArrowLeft,
-  Trees,
-  Gamepad2,
-  Trophy,
-  Coins,
-  Wallet,
-  Calendar,
-  Volume2,
-  VolumeX,
-  Star,
-  Lock,
-  Check
-} from 'lucide-react';
+import { Home, Building2, Stethoscope, Target, FlaskConical, GraduationCap, BookOpen, BarChart3, Heart, Flame, Star, Zap, LogIn, LogOut, User as UserIcon, Cloud, RefreshCw, ArrowLeft, Trees, Gamepad2, Trophy, Coins, Wallet, Calendar, Volume2, VolumeX, Lock, Check } from 'lucide-react';
 import { audioService } from '../utils/audioService';
+import { NamedIcon } from './NamedIcon';
 
 interface NavbarProps {
   activeModule: ActiveModule;
@@ -192,7 +163,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-amber-950 text-xs font-bold transition-all shadow-sm cursor-pointer group"
                   title="¡Danos tu opinión! (PID 26-158) - ¡Gana +150 XP y +100 €!"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-950" />
+                  <Star className="w-3.5 h-3.5 text-amber-950" />
                   <span>¡Danos tu opinión!</span>
                   <span className="bg-amber-950 text-amber-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full hidden sm:inline">
                     +150 XP
@@ -226,7 +197,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-900/50 hover:bg-amber-900/80 border border-amber-500/40 text-amber-100 hover:text-white text-xs font-medium transition-all cursor-pointer shadow-2xs"
                 title="Iniciar Tutorial Rápido Guiado (Hospital, Biblioteca, Juegos)"
               >
-                <Sparkles className="w-3.5 h-3.5 text-amber-300 " />
+                <Star className="w-3.5 h-3.5 text-amber-300 " />
                 <span className="hidden sm:inline">Tutorial Rápido</span>
               </button>
             )}
@@ -274,7 +245,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span>Casos Clínicos</span>
                     {!hasCompletedSurvey && userProgress.casesAttempted >= 4 && (
                       <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-0.5">
-                        <Sparkles className="w-2.5 h-2.5 text-amber-700" />
+                        <Star className="w-2.5 h-2.5 text-amber-700" />
                         <span>¡Danos tu opinión!</span>
                       </span>
                     )}
@@ -467,7 +438,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 title="Ver Escalafón y Ranking Top 10"
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-xl border text-xs font-semibold shadow-2xs transition-all cursor-pointer ${rank.badgeBg} ${rank.badgeTextColor} ${rank.badgeBorder}`}
               >
-                <span>{rank.icon}</span>
+                <span><NamedIcon name={rank.icon} /></span>
                 <span className="truncate max-w-[110px] sm:max-w-[130px]">{rank.shortTitle}</span>
               </button>
 

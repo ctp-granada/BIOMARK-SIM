@@ -1,21 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ClinicalCase, Biomarker } from '../../types';
 import { getDutyAssistantAdvice } from '../../utils/dutyAssistantAdvice';
-import { 
-  Bot, 
-  Sparkles, 
-  AlertTriangle, 
-  CheckCircle2, 
-  XCircle, 
-  ChevronDown, 
-  ChevronUp, 
-  Zap, 
-  Wallet, 
-  ShieldAlert, 
-  Stethoscope, 
-  Info,
-  ArrowRight
-} from 'lucide-react';
+import { Bot, Star, AlertTriangle, CheckCircle2, XCircle, ChevronDown, ChevronUp, Zap, Wallet, ShieldAlert, Stethoscope, Info, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface DutyAssistantWidgetProps {
@@ -142,7 +128,7 @@ export const DutyAssistantWidget: React.FC<DutyAssistantWidgetProps> = ({
           >
             {/* Supervisor Quote / Strategic Insight */}
             <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex items-start gap-3">
-              <Sparkles className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+              <Star className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
               <div className="space-y-1">
                 <div className="text-[11px] font-bold text-amber-300 uppercase tracking-wide">
                   Orientación del Adjunto del Laboratorio de Urgencias:

@@ -13,25 +13,7 @@ import {
   Tooltip,
   ReferenceLine
 } from 'recharts';
-import {
-  Trophy,
-  Activity,
-  Award,
-  Flame,
-  CheckCircle2,
-  XCircle,
-  RotateCcw,
-  Target,
-  BarChart3,
-  Calendar,
-  Layers,
-  Sparkles,
-  BookOpen,
-  Star,
-  TrendingUp,
-  Zap,
-  HelpCircle
-} from 'lucide-react';
+import { Trophy, Activity, Award, Flame, CheckCircle2, XCircle, RotateCcw, Target, BarChart3, Calendar, Layers, Star, BookOpen, TrendingUp, Zap, HelpCircle } from 'lucide-react';
 
 interface UserStatsViewProps {
   userProgress: UserProgress;
@@ -185,7 +167,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
                 Calidad Docente & Acreditación UGR
               </span>
               <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-emerald-600" />
+                <Star className="w-3 h-3 text-emerald-600" />
                 Gana +150 XP y +100 €
               </span>
             </div>
@@ -227,7 +209,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
         <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-slate-500 uppercase">Experiencia (XP)</span>
-            <Sparkles className="w-4 h-4 text-amber-500" />
+            <Star className="w-4 h-4 text-amber-500" />
           </div>
           <div className="text-2xl font-bold text-slate-900">
             {userProgress.xp || userProgress.score || 0} XP
@@ -485,7 +467,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
               </p>
             </div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-100/70 text-indigo-800 text-[11px] font-bold">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+              <Star className="w-3.5 h-3.5 text-indigo-600" />
               <span>Puntuación actual en plataforma: {userProgress.xp || userProgress.score || 0} XP</span>
             </div>
           </div>

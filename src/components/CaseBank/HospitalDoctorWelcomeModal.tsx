@@ -1,20 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Stethoscope, 
-  Coins, 
-  Heart, 
-  HelpCircle, 
-  X, 
-  ArrowRight, 
-  Sparkles, 
-  CheckCircle2, 
-  AlertTriangle, 
-  Gamepad2, 
-  BookOpen, 
-  Building2,
-  TrendingUp,
-  Wallet, Hospital } from 'lucide-react';
+import { Stethoscope, Coins, Heart, HelpCircle, X, ArrowRight, Star, CheckCircle2, AlertTriangle, Gamepad2, BookOpen, Building2, TrendingUp, Wallet, Hospital } from 'lucide-react';
 import { UserProgress, ActiveModule } from '../../types';
 
 interface HospitalDoctorWelcomeModalProps {

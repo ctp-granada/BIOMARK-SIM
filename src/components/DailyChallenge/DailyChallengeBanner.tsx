@@ -1,16 +1,7 @@
 import React from 'react';
 import { ClinicalCase } from '../../types';
 import { DailyChallengeState } from '../../utils/dailyChallenge';
-import { 
-  Sparkles, 
-  Clock, 
-  Zap, 
-  CheckCircle2, 
-  ArrowRight, 
-  Flame, 
-  ShieldAlert, 
-  Trophy 
-} from 'lucide-react';
+import { Star, Clock, Zap, CheckCircle2, ArrowRight, Flame, ShieldAlert, Trophy } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface DailyChallengeBannerProps {
@@ -38,7 +29,7 @@ export const DailyChallengeBanner: React.FC<DailyChallengeBannerProps> = ({
         <div className="space-y-2 max-w-2xl">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+              <Star className="w-3.5 h-3.5 text-emerald-400" />
               Reto Clínico Diario
             </span>
 

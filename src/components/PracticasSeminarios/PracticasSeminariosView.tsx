@@ -19,21 +19,7 @@ import {
   PROFESSOR_EMAILS,
   TEMPLATE_WEEKS,
 } from '../../data/practicasSeminarios/curriculumData';
-import {
-  Check,
-  Calendar,
-  Download,
-  GraduationCap,
-  Info,
-  ShieldCheck,
-  Clock,
-  Sparkles,
-  BookOpen,
-  FlaskConical,
-  Layers,
-  MapPin,
-  Users
-} from 'lucide-react';
+import { Check, Calendar, Download, GraduationCap, Info, ShieldCheck, Clock, Star, BookOpen, FlaskConical, Layers, MapPin, Users } from 'lucide-react';
 
 interface PracticasSeminariosViewProps {
   embedded?: boolean;

@@ -1,17 +1,5 @@
 import React from 'react';
-import {
-  Download,
-  Printer,
-  GraduationCap,
-  ChevronLeft,
-  ChevronRight,
-  Table as TableIcon,
-  CalendarDays,
-  ShieldCheck,
-  Lock,
-  Clock,
-  Sparkles,
-} from 'lucide-react';
+import { Download, Printer, GraduationCap, ChevronLeft, ChevronRight, Table as TableIcon, CalendarDays, ShieldCheck, Lock, Clock, Star } from 'lucide-react';
 import { COURSE_INFO } from '../../data/practicasSeminarios/curriculumData';
 
 interface HeaderProps {
@@ -55,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
                   Bioquímica Médica • Prácticas y Seminarios
                 </h1>
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
-                  <Sparkles className="w-3 h-3 text-amber-600" />
+                  <Star className="w-3 h-3 text-amber-600" />
                   {COURSE_INFO.degree} • {COURSE_INFO.groups}
                 </span>
               </div>

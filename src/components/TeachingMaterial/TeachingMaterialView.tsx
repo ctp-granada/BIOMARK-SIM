@@ -1,26 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  BookOpen, 
-  GraduationCap, 
-  FileText, 
-  CheckCircle2, 
-  HelpCircle, 
-  Download, 
-  ExternalLink, 
-  BookmarkCheck, 
-  ChevronRight, 
-  Sparkles, 
-  Award,
-  Layers,
-  Search,
-  BookMarked,
-  FlaskConical,
-  RefreshCw,
-  Droplets,
-  Calendar,
-  Dna,
-  Network
-} from 'lucide-react';
+import { BookOpen, GraduationCap, FileText, CheckCircle2, HelpCircle, Download, ExternalLink, BookmarkCheck, ChevronRight, Star, Award, Layers, Search, BookMarked, FlaskConical, RefreshCw, Droplets, Calendar, Dna, Network } from 'lucide-react';
 import { RandleCycleLab } from '../InteractiveLabs/RandleCycleLab';
 import { JaundiceSimulatorLab } from '../InteractiveLabs/JaundiceSimulatorLab';
 import { HemostasisLab } from '../InteractiveLabs/HemostasisLab';

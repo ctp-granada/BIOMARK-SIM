@@ -1,24 +1,6 @@
 import React from 'react';
 import { ActiveModule } from '../../types';
-import { 
-  Building2,
-  Trees,
-  Stethoscope, 
-  FlaskConical, 
-  BookOpen, 
-  Award, 
-  Zap, 
-  ArrowRight, 
-  Sparkles, 
-  Calendar, 
-  Layers, 
-  Droplets, 
-  RefreshCw, 
-  CheckCircle2, 
-  GraduationCap,
-  Clock,
-  Bell,
-  FileText, Droplet, TestTube } from 'lucide-react';
+import { Building2, Trees, Stethoscope, FlaskConical, BookOpen, Award, Zap, ArrowRight, Star, Calendar, Layers, Droplets, RefreshCw, CheckCircle2, GraduationCap, Clock, Bell, FileText, Droplet, TestTube } from 'lucide-react';
 import { InteractiveCityEntrance } from '../City/InteractiveCityEntrance';
 import { CLINICAL_CASES_DATABASE } from '../../data/clinicalCases';
 
@@ -53,7 +35,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
         <div className="max-w-4xl space-y-4 relative z-10">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-900/60 text-amber-200 border border-amber-400/40 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <Star className="w-3.5 h-3.5 text-amber-300" />
               Facultad de Medicina • Universidad de Granada (UGR)
             </span>
             <span className="px-3 py-1 rounded-full text-xs font-semibold text-amber-100 bg-amber-900/40 border border-amber-500/30">
@@ -79,7 +61,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
                 onClick={onStartTour}
                 className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs sm:text-sm font-extrabold shadow-md transition-all flex items-center gap-2 cursor-pointer border border-amber-300"
               >
-                <Sparkles className="w-4 h-4 text-slate-950 " />
+                <Star className="w-4 h-4 text-slate-950 " />
                 <span>Tutorial rápido</span>
                 <ArrowRight className="w-4 h-4" />
               </button>

@@ -4,29 +4,7 @@ import { BIOMARKERS_DATABASE } from '../../data/biomarkers';
 import { getBudgetInfo, getStreakMultiplier } from '../../utils/gamification';
 import { MultiBiomarkerLabPanel } from './MultiBiomarkerLabPanel';
 import { DailyTimerHUD } from './DailyTimerHUD';
-import { 
-  Target, 
-  BookOpen, 
-  ArrowRight, 
-  ArrowLeft,
-  ChevronRight, 
-  Activity, 
-  Coins,
-  Flame, 
-  Wallet, 
-  ShieldAlert, 
-  ClipboardList, 
-  Sparkles, 
-  ChevronDown, 
-  ChevronUp, 
-  HelpCircle, 
-  Check, 
-  AlertCircle,
-  User,
-  Stethoscope,
-  Info,
-  CheckCircle2
-} from 'lucide-react';
+import { Target, BookOpen, ArrowRight, ArrowLeft, ChevronRight, Activity, Coins, Flame, Wallet, ShieldAlert, ClipboardList, Star, ChevronDown, ChevronUp, HelpCircle, Check, AlertCircle, User, Stethoscope, Info, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface ChallengeModeProps {

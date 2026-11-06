@@ -1,24 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import {
-  Trophy,
-  Medal,
-  Award,
-  Users,
-  Search,
-  Flame,
-  CheckCircle2,
-  Stethoscope,
-  Filter,
-  Download,
-  Edit3,
-  Sparkles,
-  ChevronUp,
-  ChevronDown,
-  RefreshCw,
-  Clock,
-  ShieldCheck,
-  Building2,
-  GraduationCap, Hospital, User } from 'lucide-react';
+import { Trophy, Medal, Award, Users, Search, Flame, CheckCircle2, Stethoscope, Filter, Download, Edit3, Star, ChevronUp, ChevronDown, RefreshCw, Clock, ShieldCheck, Building2, GraduationCap, Hospital, User } from 'lucide-react';
 import {
   subscribeStudentRankings,
   StudentRankingRecord,

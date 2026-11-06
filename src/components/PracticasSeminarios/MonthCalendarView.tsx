@@ -1,14 +1,5 @@
 import React, { useMemo } from 'react';
-import {
-  ChevronLeft,
-  ChevronRight,
-  Clock,
-  User,
-  Mail,
-  Calendar,
-  Sparkles,
-  MapPin,
-  GraduationCap, CalendarX } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, User, Mail, Calendar, Star, MapPin, GraduationCap, CalendarX } from 'lucide-react';
 import { ComputedSession, FilterState } from '../../types/practicasSeminarios';
 import { getMonthDaysGrid, getHolyWeekInfo } from '../../utils/practicasSeminarios/perpetualDateUtils';
 

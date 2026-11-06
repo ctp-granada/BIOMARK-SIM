@@ -97,7 +97,7 @@ export const SYSTEM_BADGES_CATALOG: SystemBadge[] = [
     category: 'system',
     description: 'Diagnóstico de pancreatitis aguda, interferencias lipémicas e insuficiencia exocrina.',
     requirementDescription: 'Resuelve al menos 3 casos pancreáticos con precisión ≥ 80%.',
-    icon: 'Sparkles',
+    icon: 'Star',
     themeColor: 'teal',
     badgeBg: 'bg-teal-50',
     badgeBorder: 'border-teal-200',

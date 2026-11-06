@@ -1,26 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ClinicalCase, UserProgress } from '../../types';
 import { DailyChallengeState, getFormattedDailyDate } from '../../utils/dailyChallenge';
-import { 
-  Sparkles, 
-  Clock, 
-  Zap, 
-  CheckCircle2, 
-  ArrowRight, 
-  Flame, 
-  ShieldAlert, 
-  Trophy, 
-  Calendar,
-  AlertTriangle,
-  Stethoscope,
-  Heart,
-  Timer,
-  Award,
-  Activity,
-  User,
-  RefreshCw,
-  Target
-} from 'lucide-react';
+import { Star, Clock, Zap, CheckCircle2, ArrowRight, Flame, ShieldAlert, Trophy, Calendar, AlertTriangle, Stethoscope, Heart, Timer, Award, Activity, User, RefreshCw, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface DailyChallengeViewProps {
@@ -73,7 +54,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
           <div className="space-y-3 max-w-2xl">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-400 text-slate-950 flex items-center gap-1.5 shadow-md">
-                <Sparkles className="w-3.5 h-3.5 fill-slate-950" />
+                <Star className="w-3.5 h-3.5 fill-slate-950" />
                 Reto Clínico Diario
               </span>
 
@@ -310,7 +291,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
             </div>
 
             <div className="p-3 bg-indigo-900/60 rounded-xl border border-indigo-500/30 text-[11px] text-indigo-200 flex items-start gap-2">
-              <Sparkles className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
+              <Star className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
               <span>
                 Completar el reto diario es la forma más rápida de subir de rango hacia <strong>Catedrático de Bioquímica</strong>.
               </span>

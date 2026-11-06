@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ClinicalCase } from '../../types';
-import { X, User, Activity, FileText, Heart, AlertCircle, Sparkles, ArrowRight, CheckCircle2, GraduationCap, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
+import { X, User, Activity, FileText, Heart, AlertCircle, Star, ArrowRight, CheckCircle2, GraduationCap, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
 
 interface CaseDetailModalProps {
   caseData: ClinicalCase | null;
