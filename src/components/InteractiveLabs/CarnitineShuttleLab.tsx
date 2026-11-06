@@ -76,7 +76,7 @@ export const CarnitineShuttleLab: React.FC = () => {
             </button>
 
             <a
-              href="/assets/aistudio/La_lanzadera_rota_da6e2b05.html"
+              href="/assets/labs/lanzadera-rota.html"
               target="_blank"
               rel="noopener noreferrer"
               className="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
@@ -132,7 +132,7 @@ export const CarnitineShuttleLab: React.FC = () => {
         <iframe
           key={iframeKey}
           ref={iframeRef}
-          src="/assets/aistudio/La_lanzadera_rota_da6e2b05.html"
+          src="/assets/labs/lanzadera-rota.html"
           title="Simulador de los Defectos de la Lanzadera de Carnitina"
           className="w-full h-full border-0 rounded-2xl"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
