@@ -252,10 +252,10 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
         <div>
           <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
             <Search className="w-4 h-4" />
-            <span>Minijuego Clínico • Agudeza Diagnóstica</span>
+            <span>Minijuego clínico • agudeza diagnóstica</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <span>Sopa de Letras de Biomarcadores</span>
+            <span>Sopa de letras de biomarcadores</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono">
               +270-300 € Dinero
             </span>
@@ -395,7 +395,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
                 <div>
                   <div className="flex items-center gap-2 justify-center sm:justify-start">
                     <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">
-                      ¡Sopa de Letras Completada!
+                      Sopa de letras completada
                     </span>
                     <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 font-mono">
                       Tiempo: {formatTime(elapsedSeconds)}
@@ -417,12 +417,12 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
                     className="px-5 py-3 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/30 flex items-center gap-2 cursor-pointer transition-all active:scale-95"
                   >
                     <Wallet className="w-4 h-4" />
-                    <span>Cobrar Recompensa (+280 € & +120 XP)</span>
+                    <span>Cobrar recompensa (+280 € & +120 XP)</span>
                   </button>
                 ) : (
                   <div className="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>¡Fondos y XP acreditados!</span>
+                    <span>Fondos y XP añadidos</span>
                   </div>
                 )}
 
@@ -432,7 +432,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
                     className="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center gap-2 cursor-pointer border border-slate-700 transition-colors"
                   >
                     <Stethoscope className="w-4 h-4 text-emerald-400" />
-                    <span>Volver a Casos</span>
+                    <span>Volver a casos</span>
                   </button>
                 )}
               </div>

@@ -72,7 +72,7 @@ export const DutyAssistantWidget: React.FC<DutyAssistantWidgetProps> = ({
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-slate-100 flex items-center gap-1.5">
                 <Bot className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Asistente de Guardia & Tutor Clínico</span>
+                <span>Asistente de guardia & tutor clínico</span>
               </span>
 
               {isCritical ? (
@@ -93,7 +93,7 @@ export const DutyAssistantWidget: React.FC<DutyAssistantWidgetProps> = ({
 
             <p className="text-xs text-slate-300 line-clamp-1 mt-0.5">
               {isCritical
-                ? '¡Alerta presupuestaria! Aplica biomarcadores esenciales costo-efectivos para no agotar la guardia.'
+                ? 'Presupuesto bajo. Aplica biomarcadores esenciales costo-efectivos para no agotar la guardia.'
                 : 'Recomendaciones contextuales para optimizar la rentabilidad de las pruebas.'}
             </p>
           </div>
@@ -248,7 +248,7 @@ export const DutyAssistantWidget: React.FC<DutyAssistantWidgetProps> = ({
                   <Zap className="w-3.5 h-3.5 text-amber-300" />
                   <span>
                     {allRecommendedSelected
-                      ? '✓ Batería Costo-Efectiva Ya Cargada'
+                      ? '✓ Batería costo-efectiva ya cargada'
                       : `Cargar Batería Costo-Efectiva Sugerida (${advice.recommendedIds.length} pruebas / -${totalRecommendedCost} €)`}
                   </span>
                   {!allRecommendedSelected && <ArrowRight className="w-3.5 h-3.5" />}

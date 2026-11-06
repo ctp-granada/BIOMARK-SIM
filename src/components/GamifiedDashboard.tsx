@@ -53,7 +53,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
     cardiac: 'Cardíaco',
     hepatic: 'Hepático / Ictericias',
     metabolic: 'Metabolismo / β-Oxidación',
-    renal: 'Renal / Urea / Uricemia',
+    renal: 'Renal / urea / uricemia',
     pancreatic: 'Pancreático-Digestivo',
     neuromuscular: 'Neuromuscular / Señalización'
   };
@@ -111,7 +111,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
         <div className="bg-white rounded-xl p-4 border border-slate-200/90 flex flex-col justify-between shadow-2xs">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500">Parque Lúdico</span>
+              <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500">Parque lúdico</span>
               <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">+Dinero</span>
             </div>
 
@@ -138,7 +138,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                 title="Juega en el Parque para ganar dinero (+250 € a +300 € de fondos) y conseguir puntos extra"
               >
                 <Gamepad2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Ganar Dinero en el Parque</span>
+                <span>Ganar dinero en el parque</span>
               </button>
             )}
           </div>
@@ -187,19 +187,19 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                         >
                           <div className="flex items-center gap-1.5 font-bold text-slate-100 pb-2 border-b border-slate-800 text-[11px] uppercase tracking-wide">
                             <Info className="w-4 h-4 text-emerald-400 shrink-0" />
-                            <span>Gestión de Presupuesto Clínico (5.000 €)</span>
+                            <span>Gestión de presupuesto clínico (5.000 €)</span>
                           </div>
 
                           <div className="space-y-2 mt-2.5 text-[11px] leading-relaxed">
                             <div className="p-2 rounded-lg bg-slate-900 border border-slate-800">
-                              <strong className="text-rose-400 block font-semibold">Costes de Pruebas Reales</strong>
+                              <strong className="text-rose-400 block font-semibold">Costes de pruebas reales</strong>
                               <span className="text-slate-300 text-[10px]">
                                 Cada biomarcador solicitado descuenta un coste hospitalario real (45 € a 180 €). Solicitar pruebas innecesarias penaliza la eficiencia.
                               </span>
                             </div>
 
                             <div className="p-2 rounded-lg bg-slate-900 border border-slate-800">
-                              <strong className="text-emerald-400 block font-semibold">Reembolsos & Ganancias</strong>
+                              <strong className="text-emerald-400 block font-semibold">Reembolsos & ganancias</strong>
                               <span className="text-slate-300 text-[10px]">
                                 Aciertos diagnósticos otorgan bonificaciones asistenciales. Juega en el Parque para ganar entre 250 € y 300 € por minijuego.
                               </span>
@@ -291,7 +291,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                   }`}
                 />
               </motion.div>
-              <span>Racha de Aciertos</span>
+              <span>Racha de aciertos</span>
             </span>
 
             <motion.span
@@ -303,7 +303,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                   : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
               }`}
             >
-              {isStreakingUp ? '¡+1 Acierto Dorado!' : streakInfo.label}
+              {isStreakingUp ? '+1 acierto seguido' : streakInfo.label}
             </motion.span>
           </div>
 
@@ -445,7 +445,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
               className="text-xs font-semibold text-slate-800 hover:text-emerald-700 flex items-center gap-1 cursor-pointer transition-colors"
             >
               <Trophy className="w-3.5 h-3.5 text-slate-700" />
-              <span>Insignias & Analíticas</span>
+              <span>Insignias & analíticas</span>
             </button>
           )}
         </div>

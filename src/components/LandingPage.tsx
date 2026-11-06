@@ -50,27 +50,27 @@ interface DistrictInfo {
 const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
   hospital: {
     id: 'hospital',
-    name: 'Hospital Clínico Universitario',
+    name: 'Hospital clínico universitario',
     tagline: 'Donde se resuelven los casos clínicos reales y se gestionan guardias de urgencias',
     badge: 'DISTRITO CLÍNICO • URGENCIAS',
     image: '/hospital_section.jpg',
     description:
       'Instalación hospitalaria donde atenderás pacientes virtuales con patologías de alta relevancia diagnóstica (síndrome coronario, hepatopatías, cetoacidosis diabética, fracaso renal, pancreatitis). Interpreta anamnesis, solicita biomarcadores específicos gestionando el coste y confirma diagnósticos con retroalimentación inmediata.',
     primaryAction: {
-      label: 'Visitar Hospital',
+      label: 'Visitar hospital',
       target: 'casos',
       icon: Stethoscope
     },
     secondaryActions: [
       {
-        label: 'Banco de Casos Clínicos',
+        label: 'Banco de casos clínicos',
         sublabel: `${CLINICAL_CASES_DATABASE.length} Casos clasificados por sistemas orgánicos`,
         target: 'casos',
         icon: Stethoscope
       },
 
       {
-        label: 'Historial y Expediente Clínico',
+        label: 'Historial y expediente clínico',
         sublabel: 'Auditoría de diagnósticos, costes y medallas',
         target: 'estadisticas',
         icon: Activity
@@ -82,7 +82,7 @@ const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
         icon: Trophy
       }
     ],
-    facilities: ['Urgencias & Triaje General', 'Unidad Coronaria', 'Planta de Medicina Interna', 'Laboratorio Central 24h'],
+    facilities: ['Urgencias & triaje general', 'Unidad Coronaria', 'Planta de Medicina Interna', 'Laboratorio Central 24h'],
     stats: `${CLINICAL_CASES_DATABASE.length} Pacientes Activos • 6 Sistemas`,
     themeColor: {
       accent: 'rose-500',
@@ -94,20 +94,20 @@ const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
   },
   biblioteca: {
     id: 'biblioteca',
-    name: 'Biblioteca Biomédica Central',
+    name: 'Biblioteca biomédica central',
     tagline: 'Corpus científico del Departamento de Bioquímica y Biología Molecular III e Inmunología, guías docentes oficiales y vademécum de biomarcadores',
     badge: 'DISTRITO DEL SABER • MATERIALES',
     image: '/library_section.jpg',
     description:
       'Centro neurálgico de documentación y consulta. Contiene las guías académicas oficiales del Grado en Medicina (UGR), esquemas de integración metabólica, algoritmos diagnósticos acreditados y el vademécum con más de 40 fichas analíticas con sus rangos de referencia, sensibilidad y especificidad.',
     primaryAction: {
-      label: 'Visitar Biblioteca',
+      label: 'Visitar biblioteca',
       target: 'docencia',
       icon: BookOpen
     },
     secondaryActions: [
       {
-        label: 'Temario Oficial (27 Temas)',
+        label: 'Temario oficial (27 temas)',
         sublabel: 'Programa teórico oficial completo de Bioquímica Médica (7 créditos)',
         target: 'docencia',
         icon: BookOpen
@@ -119,34 +119,34 @@ const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
         icon: Calendar
       },
       {
-        label: 'Vademécum de Biomarcadores',
+        label: 'Vademécum de biomarcadores',
         sublabel: 'Catálogo de parámetros, cinética y valores de corte',
         target: 'biblioteca',
         icon: FileText
       },
       {
-        label: 'Integración Metabólica (Integra)',
+        label: 'Integración metabólica (Integra)',
         sublabel: 'Atlas dinámico de órganos, situaciones metabólicas y curvas de Cahill',
         target: 'integracion-metabolica',
         labType: 'integra',
         icon: Network
       },
       {
-        label: 'Simuladores y Apoyo al Aprendizaje',
-        sublabel: 'Lanzadera de Carnitina, Ciclo de Randle, Ictericias y Hemostasia',
+        label: 'Simuladores y apoyo al aprendizaje',
+        sublabel: 'Lanzadera de carnitina, ciclo de Randle, ictericias y hemostasia',
         target: 'laboratorios',
         labType: 'carnitina',
         icon: FlaskConical
       },
       {
-        label: 'Banco de Autoevaluación Test',
+        label: 'Banco de autoevaluación test',
         sublabel: 'Preguntas tipo test con explicación y justificación',
         target: 'docencia',
         icon: GraduationCap
       }
     ],
-    facilities: ['Sala de Lectura e Investigación', 'Simulador Integración Metabólica', 'Simuladores de Apoyo al Aprendizaje', 'Archivo de Biomarcadores', 'Autoevaluación Test'],
-    stats: '5 Módulos • 4 Simuladores • 40+ Biomarcadores',
+    facilities: ['Sala de lectura e investigación', 'Simulador integración metabólica', 'Simuladores de apoyo al aprendizaje', 'Archivo de Biomarcadores', 'Autoevaluación Test'],
+    stats: '5 Módulos • 4 simuladores • 40+ biomarcadores',
     themeColor: {
       accent: 'blue-500',
       border: 'border-blue-500/50',
@@ -157,32 +157,32 @@ const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
   },
   parque: {
     id: 'parque',
-    name: 'Parque Biomédico & Gamificación',
+    name: 'Parque biomédico & gamificación',
     tagline: 'Espacio lúdico de gamificación, El Rosco Metabólico y minijuegos para ganar dinero',
     badge: 'ZONA LÚDICA • JUEGOS Y GANAR DINERO',
     image: '/park_section.jpg',
     description:
       'Área lúdica interactiva orientada al aprendizaje dinámico y la economía de guardia. Juega a «El Rosco Metabólico» tipo Pasapalabra, la «Sopa de Letras» de biomarcadores y el «Crucigrama» clínico de laboratorio para acumular fondos hospitalarios (+250 € a +300 € Fondos) o compite en el Reto Diario con bonificador 2.0x XP.',
     primaryAction: {
-      label: 'Visitar Parque',
+      label: 'Visitar parque',
       target: 'juegos',
       icon: Gamepad2
     },
     secondaryActions: [
       {
-        label: 'El Rosco Metabólico (Tipo Pasapalabra)',
+        label: 'El Rosco metabólico (tipo Pasapalabra)',
         sublabel: '25 letras con definición central: aciertos suman dinero',
         target: 'juegos',
         icon: Gamepad2
       },
       {
-        label: 'Sopa de Letras & Crucigrama Clínico',
+        label: 'Sopa de letras & crucigrama clínico',
         sublabel: 'Reconocimiento de biomarcadores e integración diagnóstica (+300 €)',
         target: 'juegos',
         icon: Coins
       },
       {
-        label: 'Reto Diario Contrarreloj (2 min)',
+        label: 'Reto diario contrarreloj (2 min)',
         sublabel: 'Caso rápido con multiplicador 2.0x XP y racha',
         target: 'reto-diario',
         icon: Zap
@@ -218,7 +218,7 @@ const INITIAL_NOTICES: MaterialNotice[] = [
     id: 'noticia-mg',
     title: 'Nuevo Caso Clínico: La residente que no puede mantener los ojos abiertos (Señalización Celular)',
     type: 'caso',
-    date: '¡Nuevo en el Hospital!',
+    date: 'Nuevo en el Hospital',
     badge: 'CANALES Y SEÑALIZACIÓN',
     description: 'Diagnóstico diferencial de Miastenia Gravis, receptores nicotínicos colinérgicos y canales iónicos regulados por ligando en la unión neuromuscular.',
     targetModule: 'casos',
@@ -226,7 +226,7 @@ const INITIAL_NOTICES: MaterialNotice[] = [
   },
   {
     id: 'noticia-1',
-    title: 'Nuevo Caso Clínico: Síndrome Coronario Agudo con Elevación del ST',
+    title: 'Nuevo caso clínico: síndrome coronario agudo con elevación del ST',
     type: 'caso',
     date: 'Disponible ahora',
     badge: 'CASO NUEVO',
@@ -236,7 +236,7 @@ const INITIAL_NOTICES: MaterialNotice[] = [
   },
   {
     id: 'noticia-2',
-    title: 'Material Docente Actualizado: Algoritmo de Diagnóstico de Ictericias',
+    title: 'Material docente actualizado: algoritmo de diagnóstico de ictericias',
     type: 'guia',
     date: 'Actualizado esta semana',
     badge: 'GUÍA ACTUALIZADA',
@@ -246,7 +246,7 @@ const INITIAL_NOTICES: MaterialNotice[] = [
   },
   {
     id: 'noticia-3',
-    title: 'Actividad Interactiva: Simulador del Ciclo Glucosa-Ácidos Grasos (Randle)',
+    title: 'Actividad interactiva: simulador del ciclo glucosa-ácidos grasos (Randle)',
     type: 'laboratorio',
     date: 'Disponible en Parque',
     badge: 'LAB VIRTUAL',
@@ -307,7 +307,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     setShowUploadModal(false);
     setNewMaterialTitle('');
     setNewMaterialDesc('');
-    setUploadSuccessToast(`¡Aviso publicado con éxito! "${newNotice.title}" ya está visible para los alumnos.`);
+    setUploadSuccessToast(`Aviso publicado. "${newNotice.title}" ya está visible para los alumnos.`);
 
     setTimeout(() => {
       setUploadSuccessToast(null);
@@ -383,7 +383,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 {!satisfactionService.hasUserCompletedSurvey() ? (
                   <>
                     <Lock className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Juegos (Bloqueado)</span>
+                    <span>Juegos (bloqueado)</span>
                   </>
                 ) : (
                   <>
@@ -411,7 +411,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block flex items-center gap-1">
-                  <span>Visitas Plataforma</span>
+                  <span>Visitas plataforma</span>
                   {isLiveStats && (
                     <span className="text-[9px] font-extrabold text-emerald-600 bg-emerald-50 px-1 rounded">Live</span>
                   )}
@@ -788,7 +788,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     className="text-[11px] font-bold text-amber-800 hover:text-amber-900 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-50 border border-amber-200 hover:bg-amber-100 transition-colors cursor-pointer"
                   >
                     <UploadCloud className="w-3.5 h-3.5 text-amber-700" />
-                    <span>Notificar Nuevo Material</span>
+                    <span>Notificar nuevo material</span>
                   </button>
                 </div>
 
@@ -963,7 +963,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <input
                   type="text"
                   required
-                  placeholder="Ej: Nuevo Caso: Pancreatitis Aguda e Interpretación de Lipasa"
+                  placeholder="Ej: nuevo caso: pancreatitis aguda e interpretación de lipasa"
                   value={newMaterialTitle}
                   onChange={(e) => setNewMaterialTitle(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-xs text-slate-900 bg-white"
@@ -996,7 +996,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-xs cursor-pointer flex items-center gap-1.5"
                 >
                   <UploadCloud className="w-3.5 h-3.5 text-amber-100" />
-                  <span>Publicar Aviso</span>
+                  <span>Publicar aviso</span>
                 </button>
               </div>
             </form>

@@ -80,7 +80,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({
                 <strong>Asignatura:</strong> {COURSE_INFO.subject} ({COURSE_INFO.degree})
               </li>
               <li>
-                <strong>Curso y Semestre:</strong> {academicYear} - {academicYear + 1} (2º Semestre: Febrero a Mayo)
+                <strong>Curso y semestre:</strong> {academicYear} - {academicYear + 1} (2º Semestre: Febrero a Mayo)
               </li>
               <li>
                 <strong>Filtro de grupo:</strong>{' '}
@@ -106,7 +106,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({
               className="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-xs transition-colors flex items-center justify-center gap-2 text-center border border-amber-600/30"
             >
               <ExternalLink className="w-4 h-4" />
-              <span>Abrir en Pestaña Nueva para Imprimir / PDF (Recomendado)</span>
+              <span>Abrir en pestaña nueva para imprimir / PDF (recomendado)</span>
             </a>
 
             <button

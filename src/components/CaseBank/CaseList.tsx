@@ -33,7 +33,7 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
   {
     id: 'cardiac',
     blockNumber: 1,
-    title: 'Patología Cardiovascular & Necrosis Miocárdica',
+    title: 'Patología cardiovascular & necrosis miocárdica',
     shortName: 'Cardiovascular',
     iconEmoji: <HeartPulse className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-rose-500/10 via-red-500/5 to-transparent',
@@ -47,7 +47,7 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
   {
     id: 'hepatic',
     blockNumber: 2,
-    title: 'Patología Hepática, Citólisis e Ictericias',
+    title: 'Patología hepática, citólisis e ictericias',
     shortName: 'Hepático / Ictericias',
     iconEmoji: <TestTube className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-amber-500/10 via-yellow-500/5 to-transparent',
@@ -56,12 +56,12 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
     accentText: 'text-amber-800',
     description: 'Enzimología del daño hepatocelular agudo y crónico, obstrucción biliar posthepática (coledocolitiasis), cirrosis descompensada y errores innatos de la galactosa.',
     curriculumTopics: 'Enzimas de escape celular • Colestasis • Fraccionamiento de bilirrubina (Directa vs Indirecta)',
-    keyBiomarkers: ['ALT / GPT', 'AST / GOT', 'Bilirrubina Directa / Indirecta', 'Fosfatasa Alcalina', 'GGT', 'GALT']
+    keyBiomarkers: ['ALT / GPT', 'AST / GOT', 'Bilirrubina directa / indirecta', 'Fosfatasa Alcalina', 'GGT', 'GALT']
   },
   {
     id: 'metabolic',
     blockNumber: 3,
-    title: 'Metabolismo Energético, Glúcidos y Cetoacidosis',
+    title: 'Metabolismo energético, glúcidos y cetoacidosis',
     shortName: 'Metabolismo / Glúcidos',
     iconEmoji: <Zap className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-emerald-500/10 via-teal-500/5 to-transparent',
@@ -75,8 +75,8 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
   {
     id: 'renal',
     blockNumber: 4,
-    title: 'Función Renal, Purinas (Gota) y Metabolismo Nitrogenado',
-    shortName: 'Renal / Purinas / Urea',
+    title: 'Función renal, purinas (gota) y metabolismo nitrogenado',
+    shortName: 'Renal / purinas / urea',
     iconEmoji: <Droplet className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-blue-500/10 via-sky-500/5 to-transparent',
     badgeBg: 'bg-blue-100 text-blue-800 border-blue-200',
@@ -89,7 +89,7 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
   {
     id: 'pancreatic',
     blockNumber: 5,
-    title: 'Páncreas Exocrino y Patología Digestiva',
+    title: 'Páncreas exocrino y patología digestiva',
     shortName: 'Páncreas / Digestivo',
     iconEmoji: <Stethoscope className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-purple-500/10 via-violet-500/5 to-transparent',
@@ -98,12 +98,12 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
     accentText: 'text-purple-800',
     description: 'Necrosis e inflamación del parénquima pancreático (pancreatitis aguda litiásica y alcohólica), insuficiencia exocrina pancreática y mucoviscidosis (fibrosis quística por disfunción del canal CFTR).',
     curriculumTopics: 'Activación de cimógenos • Enzimas acinares • Regulación del canal de cloruro CFTR',
-    keyBiomarkers: ['Lipasa Sérica', 'Amilasa', 'Test de Cloruro en Sudor (CFTR)', 'Elastasa Fecal']
+    keyBiomarkers: ['Lipasa Sérica', 'Amilasa', 'Test de cloruro en sudor (CFTR)', 'Elastasa Fecal']
   },
   {
     id: 'neuromuscular',
     blockNumber: 6,
-    title: 'Trastornos Neuromusculares, Toxicología y Hemoglobina',
+    title: 'Trastornos neuromusculares, toxicología y hemoglobina',
     shortName: 'Neuromuscular / Tóxicos',
     iconEmoji: <Brain className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-indigo-500/10 via-cyan-500/5 to-transparent',
@@ -112,7 +112,7 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
     accentText: 'text-indigo-800',
     description: 'Fisiopatología de la placa motora (miastenia gravis autoinmune), inhibición irreversible de la acetilcolinesterasa por insecticidas organofosforados y hemoglobinopatías estructurales moleculares (anemia falciforme / HbS).',
     curriculumTopics: 'Neurotransmisión colinérgica • Envejecimiento enzimático • Polimerización de hemoglobinas',
-    keyBiomarkers: ['Anticuerpos Anti-AChR', 'Colinesterasa Sérica (AChE)', 'Electroforesis HbS', 'CK Total']
+    keyBiomarkers: ['Anticuerpos Anti-AChR', 'Colinesterasa sérica (AChE)', 'Electroforesis HbS', 'CK Total']
   }
 ];
 
@@ -179,7 +179,7 @@ export const CaseList: React.FC<CaseListProps> = ({
           </div>
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             <Stethoscope className="w-6 h-6 text-emerald-600" />
-            <span>Banco de Casos Clínicos Departamental</span>
+            <span>Banco de casos clínicos departamental</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
             Estratificación curricular de Bioquímica Médica con simulador analítico interactivo.
@@ -192,7 +192,7 @@ export const CaseList: React.FC<CaseListProps> = ({
             className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 font-bold text-xs shadow-2xs flex items-center gap-1.5 cursor-pointer transition-colors"
           >
             <span className="text-sm"><User className="inline-block w-[1em] h-[1em]" /></span>
-            <span>Guía del Tutor Clínico</span>
+            <span>Guía del tutor clínico</span>
           </button>
         </div>
       </div>
@@ -207,14 +207,14 @@ export const CaseList: React.FC<CaseListProps> = ({
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-950 px-2 py-0.5 rounded text-amber-200 border border-amber-400/30">
-                  ¡Danos tu opinión!
+                  Danos tu opinión
                 </span>
                 <span className="text-xs font-bold text-amber-200">
-                  ¡Has resuelto tus primeros 4 casos clínicos!
+                  Ya has resuelto tus primeros 4 casos.
                 </span>
               </div>
               <p className="text-xs text-amber-100/90 leading-relaxed max-w-2xl">
-                Para poder continuar resolviendo casos en el Hospital y acceder al Parque Biomédico, ¡danos tu opinión sobre la plataforma (~90 seg)! Ganarás +150 XP y +100 € para tus guardias. La Biblioteca y los Simuladores siguen siempre disponibles para tu estudio.
+                Para poder continuar resolviendo casos en el Hospital y acceder al Parque Biomédico, cuéntanos qué te parece la plataforma (unos 90 segundos). Ganarás +150 XP y +100 € para tus guardias. La Biblioteca y los Simuladores siguen siempre disponibles para tu estudio.
               </p>
             </div>
           </div>
@@ -224,7 +224,7 @@ export const CaseList: React.FC<CaseListProps> = ({
             className="w-full sm:w-auto px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-300 text-amber-950 font-bold text-xs shadow-md transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-1.5 shrink-0 group"
           >
             <Star className="w-4 h-4 text-amber-900 group-hover:rotate-12 transition-transform" />
-            <span>¡Danos tu opinión! (+150 XP y +100 €)</span>
+            <span>Danos tu opinión (+150 XP y +100 €)</span>
           </button>
         </div>
       )}
@@ -293,7 +293,7 @@ export const CaseList: React.FC<CaseListProps> = ({
                   currentBudget < 1000 ? 'bg-rose-50 text-rose-800 border-rose-300' : 'bg-emerald-50 text-emerald-900 border-emerald-300'
                 }`}>
                   <Coins className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Presupuesto de Guardia: <strong>{currentBudget.toLocaleString('es-ES')} €</strong></span>
+                  <span>Presupuesto de guardia: <strong>{currentBudget.toLocaleString('es-ES')} €</strong></span>
                 </span>
 
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border bg-rose-50 text-rose-800 border-rose-200">
@@ -304,7 +304,7 @@ export const CaseList: React.FC<CaseListProps> = ({
             </div>
 
             <p className="text-xs sm:text-[13px] text-slate-700 leading-relaxed">
-              «¡Bienvenido al hospital! En el <strong className="text-slate-900">Banco de Casos</strong> entrenarás como médico de urgencias. Los pacientes están agrupados por <strong className="text-teal-900 font-bold">bloques temáticos</strong> para que estudies ordenadamente y no te distraigas con temas que aún no has visto en clase. Recuerda la regla de oro: partes con una partida inicial de <strong className="text-emerald-800 font-bold">5.000 € de fondos sanitarios</strong>. Cada analítica consume entre <strong className="text-amber-900 font-bold">60 € y 300 €</strong> de tu dinero de guardia. Si pides pruebas a ciegas te quedarás sin fondos. Pide solo los biomarcadores discriminatorios clave. ¿Y si necesitas liquidez? ¡Pasa por la <strong className="text-emerald-700 font-bold">Zona Lúdica del Parque</strong> a ganar dinero respondiendo minijuegos (+150 € a +300 €)!»
+              «¡Bienvenido al hospital! En el <strong className="text-slate-900">Banco de casos</strong> entrenarás como médico de urgencias. Los pacientes están agrupados por <strong className="text-teal-900 font-bold">bloques temáticos</strong> para que estudies ordenadamente y no te distraigas con temas que aún no has visto en clase. Recuerda la regla de oro: partes con una partida inicial de <strong className="text-emerald-800 font-bold">5.000 € de fondos sanitarios</strong>. Cada analítica consume entre <strong className="text-amber-900 font-bold">60 € y 300 €</strong> de tu dinero de guardia. Si pides pruebas a ciegas te quedarás sin fondos. Pide solo los biomarcadores discriminatorios clave. ¿Y si necesitas liquidez? ¡Pasa por la <strong className="text-emerald-700 font-bold">Zona lúdica del parque</strong> a ganar dinero respondiendo minijuegos (+150 € a +300 €)!»
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
@@ -322,7 +322,7 @@ export const CaseList: React.FC<CaseListProps> = ({
                   className="text-xs font-bold text-amber-900 hover:text-amber-950 inline-flex items-center gap-1.5 bg-amber-100/90 hover:bg-amber-200/90 px-3 py-1.5 rounded-xl border border-amber-300 transition-colors cursor-pointer shadow-2xs"
                 >
                   <Gamepad2 className="w-3.5 h-3.5 text-amber-700" />
-                  <span>Ir al Parque a ganar Dinero (+150 € a +300 €)</span>
+                  <span>Ir al parque a ganar dinero (+150 € a +300 €)</span>
                 </button>
               )}
             </div>
@@ -339,7 +339,7 @@ export const CaseList: React.FC<CaseListProps> = ({
             <div>
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                 <FolderOpen className="w-5 h-5 text-slate-700" />
-                <span>Bloques Temáticos de la Asignatura</span>
+                <span>Bloques temáticos de la asignatura</span>
               </h2>
               <p className="text-xs text-slate-500">
                 Selecciona el bloque que estás cursando. Cada bloque contiene únicamente los casos clínicos de ese ámbito médico.
@@ -437,7 +437,7 @@ export const CaseList: React.FC<CaseListProps> = ({
               className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all cursor-pointer shadow-2xs hover:-translate-x-0.5"
             >
               <ArrowLeft className="w-4 h-4 text-slate-700" />
-              <span>← Volver a Todos los Bloques Temáticos</span>
+              <span>← Volver a todos los bloques temáticos</span>
             </button>
 
             <div className="flex items-center gap-2">
@@ -542,7 +542,7 @@ export const CaseList: React.FC<CaseListProps> = ({
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-md cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Ver Otros Bloques Temáticos</span>
+              <span>Ver otros bloques temáticos</span>
             </button>
           </div>
         </div>

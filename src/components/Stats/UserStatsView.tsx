@@ -39,11 +39,11 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
       : 0;
 
   const systems: { key: OrganSystem; label: string; color: string }[] = [
-    { key: 'cardiac', label: 'Cardíaco & Coronario', color: 'bg-rose-500' },
-    { key: 'hepatic', label: 'Hepático & Ictericias', color: 'bg-amber-500' },
-    { key: 'metabolic', label: 'Metabolismo & β-Oxidación', color: 'bg-indigo-500' },
-    { key: 'renal', label: 'Renal, Urea & Purinas', color: 'bg-blue-500' },
-    { key: 'pancreatic', label: 'Pancreático & Digestivo', color: 'bg-teal-500' }
+    { key: 'cardiac', label: 'Cardíaco & coronario', color: 'bg-rose-500' },
+    { key: 'hepatic', label: 'Hepático & ictericias', color: 'bg-amber-500' },
+    { key: 'metabolic', label: 'Metabolismo & β-oxidación', color: 'bg-indigo-500' },
+    { key: 'renal', label: 'Renal, urea & purinas', color: 'bg-blue-500' },
+    { key: 'pancreatic', label: 'Pancreático & digestivo', color: 'bg-teal-500' }
   ];
 
   const [chartViewMode, setChartViewMode] = useState<'cumulative' | 'delta'>('cumulative');
@@ -128,7 +128,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
         <div>
           <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
             <BarChart3 className="w-4 h-4" />
-            <span>Rendimiento Académico & Historial Clínico</span>
+            <span>Rendimiento académico & historial clínico</span>
           </div>
           <h1 className="text-2xl font-bold text-slate-900">
             Estadísticas Globales de Diagnóstico
@@ -150,7 +150,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
             className="px-3.5 py-2 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-xs flex items-center gap-1.5 transition-colors self-start md:self-auto cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>Reiniciar Progreso</span>
+            <span>Reiniciar progreso</span>
           </button>
         )}
       </div>
@@ -187,7 +187,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
               className="w-full md:w-auto px-4 py-2.5 rounded-xl bg-amber-700 hover:bg-amber-800 text-white font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer hover:shadow-md"
             >
               <Star className="w-3.5 h-3.5 fill-white text-white" />
-              <span>Evaluar Plataforma</span>
+              <span>Evaluar plataforma</span>
             </button>
           )}
 
@@ -198,7 +198,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
               title="Ver informe de resultados docentes agregados"
             >
               <BarChart3 className="w-3.5 h-3.5 text-slate-600" />
-              <span>Ver Métricas</span>
+              <span>Ver métricas</span>
             </button>
           )}
         </div>
@@ -221,7 +221,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
 
         <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">Precisión Global</span>
+            <span className="text-xs font-bold text-slate-500 uppercase">Precisión global</span>
             <Target className="w-4 h-4 text-emerald-500" />
           </div>
           <div className="text-2xl font-bold text-slate-900">{accuracy}%</div>
@@ -232,7 +232,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
 
         <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">Racha Activa</span>
+            <span className="text-xs font-bold text-slate-500 uppercase">Racha activa</span>
             <Flame className="w-4 h-4 text-orange-500" />
           </div>
           <div className="text-2xl font-bold text-slate-900">{userProgress.streak}</div>
@@ -241,7 +241,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
 
         <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-500 uppercase">Insignias Ganadas</span>
+            <span className="text-xs font-bold text-slate-500 uppercase">Insignias ganadas</span>
             <Award className="w-4 h-4 text-purple-500" />
           </div>
           <div className="text-2xl font-bold text-slate-900">
@@ -259,7 +259,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
           <div>
             <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
               <TrendingUp className="w-4 h-4" />
-              <span>Analítica del Desempeño Clínico</span>
+              <span>Analítica del desempeño clínico</span>
             </div>
             <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
               Evolución Temporal del Rendimiento & Puntuación
@@ -297,25 +297,25 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
         {/* Quick Summary Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50/70 p-3.5 rounded-xl border border-slate-100">
           <div className="space-y-0.5">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">XP Total en Casos</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">XP total en casos</span>
             <div className="text-base font-bold text-indigo-600 font-mono">
               {historyStats.totalEarned} XP
             </div>
           </div>
           <div className="space-y-0.5">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Casos en Historial</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Casos en historial</span>
             <div className="text-base font-bold text-slate-800 font-mono">
               {historyStats.count}
             </div>
           </div>
           <div className="space-y-0.5">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Media por Intento</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Media por intento</span>
             <div className="text-base font-bold text-emerald-600 font-mono">
               +{historyStats.avgEarned} XP
             </div>
           </div>
           <div className="space-y-0.5">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Récord en un Caso</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Récord en un caso</span>
             <div className="text-base font-bold text-amber-600 font-mono">
               +{historyStats.maxEarned} XP
             </div>
@@ -393,7 +393,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
                               </span>
                             </div>
                             <div className="flex items-center justify-between font-bold text-xs pt-1.5 border-t border-slate-800 text-amber-300">
-                              <span>Puntuación Acumulada:</span>
+                              <span>Puntuación acumulada:</span>
                               <span className="font-mono text-sm">{data.cumulativeXP} XP</span>
                             </div>
                           </div>
@@ -428,7 +428,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
                     <Line
                       type="monotone"
                       dataKey="scoreEarned"
-                      name="XP Ganado en Caso"
+                      name="XP ganado en caso"
                       stroke="#059669"
                       strokeWidth={2.5}
                       dot={{ r: 4, stroke: '#059669', strokeWidth: 2, fill: '#ffffff' }}
@@ -478,7 +478,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
       <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-4">
         <h2 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
           <Activity className="w-4 h-4 text-indigo-600" />
-          <span>Dominio por Sistemas y Especialidades Bioquímicas</span>
+          <span>Dominio por sistemas y especialidades bioquímicas</span>
         </h2>
 
         <div className="space-y-3">
@@ -510,7 +510,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
       <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-4">
         <h2 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
           <Award className="w-4 h-4 text-amber-500" />
-          <span>Galería de Acreditaciones e Insignias Médicas</span>
+          <span>Galería de acreditaciones e insignias médicas</span>
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -560,7 +560,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
       <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-4">
         <h2 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
           <Calendar className="w-4 h-4 text-blue-600" />
-          <span>Historial Reciente de Resoluciones en Guardia</span>
+          <span>Historial reciente de resoluciones en guardia</span>
         </h2>
 
         {userProgress.history && userProgress.history.length > 0 ? (
@@ -597,7 +597,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
           </div>
         ) : (
           <p className="text-xs text-slate-400 italic py-4 text-center">
-            Aún no has resuelto casos en la guardia hospitalaria. ¡Comienza en el simulador!
+            Aún no has resuelto casos en la guardia hospitalaria. Empieza por un caso del Hospital.
           </p>
         )}
       </div>

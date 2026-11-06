@@ -19,7 +19,7 @@ interface OnboardingTourProps {
 const TOUR_STEPS: Step[] = [
   {
     target: '#tour-welcome-header',
-    title: '¡Bienvenido a la Ciudad Biomédica UGR!',
+    title: 'Bienvenido a la Ciudad Biomédica',
     content: (
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
@@ -49,11 +49,11 @@ const TOUR_STEPS: Step[] = [
   },
   {
     target: '#tour-hospital',
-    title: '1. Hospital Clínico: Casos Reales y Toma de Decisiones',
+    title: '1. Hospital clínico: casos reales y toma de decisiones',
     content: (
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
-          En el <strong className="text-slate-900">Hospital Universitario</strong> actuarás como médico de guardia ante{' '}
+          En el <strong className="text-slate-900">Hospital universitario</strong> actuarás como médico de guardia ante{' '}
           <strong className="text-rose-700">31 casos clínicos interactivos</strong> clasificados por sistemas orgánicos (Cardiovascular, Hepático, Metabólico, Renal, Pancreático y Neuromuscular).
         </p>
         <div className="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-950 text-[11px] leading-relaxed space-y-1.5">
@@ -84,16 +84,16 @@ const TOUR_STEPS: Step[] = [
         <div className="space-y-1.5 text-[11px] text-slate-700">
           <div className="p-2 rounded-xl bg-blue-50/70 border border-blue-200 space-y-1">
             <p>
-              <strong className="text-blue-900">Temario Oficial:</strong> 27 temas completos del programa teórico de Bioquímica Médica (7 créditos ECTS).
+              <strong className="text-blue-900">Temario oficial:</strong> 27 temas completos del programa teórico de Bioquímica Médica (7 créditos ECTS).
             </p>
             <p>
-              <strong className="text-blue-900">Vademécum de Biomarcadores:</strong> Catálogo con más de 40 fichas analíticas con valores de referencia (convencionales y SI), ventanas cinéticas (inicio, pico, aclaramiento) y especificidad diagnóstica.
+              <strong className="text-blue-900">Vademécum de biomarcadores:</strong> Catálogo con más de 40 fichas analíticas con valores de referencia (convencionales y SI), ventanas cinéticas (inicio, pico, aclaramiento) y especificidad diagnóstica.
             </p>
             <p>
-              <strong className="text-blue-900">Simuladores Fisiopatológicos:</strong> Ciclo de Randle, Ictericias, Hemostasia y Lanzadera de Carnitina con explicaciones bioquímicas contextuales ('i').
+              <strong className="text-blue-900">Simuladores fisiopatológicos:</strong> Ciclo de Randle, Ictericias, Hemostasia y Lanzadera de Carnitina con explicaciones bioquímicas contextuales ('i').
             </p>
             <p>
-              <strong className="text-blue-900">Prácticas y Seminarios:</strong> Calendario interactivo por subgrupos 1 al 15 (LAB L-5/6 y Aula S3).
+              <strong className="text-blue-900">Prácticas y seminarios:</strong> Calendario interactivo por subgrupos 1 al 15 (LAB L-5/6 y Aula S3).
             </p>
           </div>
         </div>
@@ -104,7 +104,7 @@ const TOUR_STEPS: Step[] = [
   },
   {
     target: '#tour-parque',
-    title: '3. Parque Lúdico: Minijuegos & Ganar Dinero Hospitalario',
+    title: '3. Parque lúdico: minijuegos & ganar dinero hospitalario',
     content: (
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
@@ -112,13 +112,13 @@ const TOUR_STEPS: Step[] = [
         </p>
         <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-[11px] leading-relaxed space-y-1.5">
           <p>
-            <strong className="text-emerald-800">El Rosco Metabólico:</strong> 25 letras tipo Pasapalabra con definiciones bioquímicas. Cada acierto suma entre <strong className="text-emerald-900">+250 € y +300 € de fondos sanitarios</strong>.
+            <strong className="text-emerald-800">El Rosco metabólico:</strong> 25 letras tipo Pasapalabra con definiciones bioquímicas. Cada acierto suma entre <strong className="text-emerald-900">+250 € y +300 € de fondos sanitarios</strong>.
           </p>
           <p>
-            <strong className="text-emerald-800">Sopa de Letras & Crucigrama Clínico:</strong> Reconocimiento activo de metabolitos y enzimas clave.
+            <strong className="text-emerald-800">Sopa de letras & crucigrama clínico:</strong> Reconocimiento activo de metabolitos y enzimas clave.
           </p>
           <p>
-            <strong className="text-emerald-800">Reto Diario STAT:</strong> Caso contrarreloj de 2 minutos con multiplicador <strong className="text-emerald-900">2.0x XP</strong> y racha diaria de días consecutivos.
+            <strong className="text-emerald-800">Reto diario STAT:</strong> Caso contrarreloj de 2 minutos con multiplicador <strong className="text-emerald-900">2.0x XP</strong> y racha diaria de días consecutivos.
           </p>
         </div>
       </div>
@@ -128,7 +128,7 @@ const TOUR_STEPS: Step[] = [
   },
   {
     target: '#tour-stats-bar',
-    title: 'Monitor de Guardia y Recursos del Estudiante',
+    title: 'Monitor de guardia y recursos del estudiante',
     content: (
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
@@ -140,15 +140,15 @@ const TOUR_STEPS: Step[] = [
             <span className="text-slate-600 text-[10px]">Tu presupuesto de guardia para pedir analíticas en el Hospital.</span>
           </div>
           <div className="p-2 rounded-xl bg-slate-50 border border-slate-200 space-y-0.5">
-            <span className="font-bold text-emerald-700 block">XP (Experiencia):</span>
+            <span className="font-bold text-emerald-700 block">XP (experiencia):</span>
             <span className="text-slate-600 text-[10px]">Puntos ganados al resolver casos y responder correctamente.</span>
           </div>
           <div className="p-2 rounded-xl bg-slate-50 border border-slate-200 space-y-0.5">
-            <span className="font-bold text-rose-700 block">Vidas de Guardia:</span>
+            <span className="font-bold text-rose-700 block">Vidas de guardia:</span>
             <span className="text-slate-600 text-[10px]">Intentos disponibles antes de necesitar reposición.</span>
           </div>
           <div className="p-2 rounded-xl bg-slate-50 border border-slate-200 space-y-0.5">
-            <span className="font-bold text-amber-600 block">Racha Diaria:</span>
+            <span className="font-bold text-amber-600 block">Racha diaria:</span>
             <span className="text-slate-600 text-[10px]">Días consecutivos entrando a la plataforma.</span>
           </div>
         </div>
@@ -162,7 +162,7 @@ const TOUR_STEPS: Step[] = [
   },
   {
     target: '#tour-quick-tutorial-btn',
-    title: '¡Listo para Iniciar tu Aprendizaje!',
+    title: 'Ya puedes empezar',
     content: (
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
@@ -170,7 +170,7 @@ const TOUR_STEPS: Step[] = [
         </p>
         <div className="p-2.5 rounded-xl bg-amber-50/90 border border-amber-300 text-amber-950 text-[11px] leading-relaxed">
           <p className="font-bold text-amber-900">
-            ¡Mucho éxito en tu guardia formativa!
+            Suerte en la guardia.
           </p>
           <p className="text-slate-600 text-[10px] mt-1">
             Pon a prueba tu criterio bioquímico, ahorra recursos sanitarios y alcanza el Top 10 del ranking del curso.
@@ -216,7 +216,7 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
       <div className="flex items-center gap-2 mb-2.5">
         <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1 shadow-2xs">
           <Star className="w-3 h-3 text-amber-700" />
-          <span>Tutorial Rápido</span>
+          <span>Tutorial rápido</span>
         </span>
         <span className="text-[11px] font-bold text-slate-400">
           Paso {index + 1} de {size}
@@ -270,7 +270,7 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
           <div className="text-[11px] leading-snug">
             <span className="font-bold text-amber-950 block">¿Tienes cualquier duda más adelante?</span>
             <span className="text-amber-900">
-              Recuerda que tienes el apartado de <strong className="font-bold text-amber-950 underline decoration-amber-400">«Tutorial Rápido»</strong> siempre disponible en la barra superior y en el inicio para consultarlo cuando lo desees.
+              Recuerda que tienes el apartado de <strong className="font-bold text-amber-950 underline decoration-amber-400">«Tutorial rápido»</strong> siempre disponible en la barra superior y en el inicio para consultarlo cuando lo desees.
             </span>
           </div>
         </div>
@@ -296,7 +296,7 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
               {...primaryProps}
               className="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold shadow-md shadow-amber-600/20 transition-all cursor-pointer flex items-center gap-1.5"
             >
-              <span>{isLastStep ? '¡Empezar a Explorar!' : 'Siguiente'}</span>
+              <span>{isLastStep ? 'Empezar' : 'Siguiente'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>

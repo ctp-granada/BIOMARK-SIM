@@ -181,7 +181,7 @@ export const evaluateLabOrder = (
   let clinicalSummary = '';
   if (isFullyCorrect) {
     if (redundant.length === 0) {
-      clinicalSummary = `¡Excelente solicitud de laboratorio! Has incluido todos los biomarcadores críticos requeridos (${essentialFound.map((b) => b.name).join(', ')}) con un gasto presupuestario altamente eficiente y sin pruebas innecesarias.`;
+      clinicalSummary = `Buena petición de laboratorio. Has incluido todos los biomarcadores críticos requeridos (${essentialFound.map((b) => b.name).join(', ')}) con un gasto presupuestario altamente eficiente y sin pruebas innecesarias.`;
     } else {
       clinicalSummary = `Has incluido los biomarcadores confirmatorios clave (${essentialFound.map((b) => b.name).join(', ')}), estableciendo el diagnóstico definitivo. No obstante, se solicitaron ${redundant.length} prueba(s) no indicadas que aumentaron el costo de la guardia.`;
     }

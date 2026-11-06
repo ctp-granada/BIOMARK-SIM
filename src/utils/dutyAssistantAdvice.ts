@@ -89,7 +89,7 @@ export function getDutyAssistantAdvice(
 
   if (budget < 1000) {
     quote =
-      '¡Atención clínica urgente! Nos queda menos de 1.000 € del presupuesto de guardia (partida de 5.000 €). No pidas perfiles generales: solicita exclusivamente el biomarcador patognomónico.';
+      'Atención: caso urgente. Nos queda menos de 1.000 € del presupuesto de guardia (partida de 5.000 €). No pidas perfiles generales: solicita exclusivamente el biomarcador patognomónico.';
     tip =
       'Pide solo el marcador con mayor razón de verosimilitud (LR+) para evitar la quiebra financiera del laboratorio.';
   } else if (budget <= 2000) {

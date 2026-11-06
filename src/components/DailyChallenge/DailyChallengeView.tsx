@@ -98,7 +98,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-emerald-300 uppercase tracking-tight">
-                    ¡Completado Hoy!
+                    Completado hoy
                   </h3>
                   <p className="text-xs text-emerald-100 mt-1">
                     Puntos obtenidos: <strong className="text-white font-bold text-sm">+{dailyState?.scoreEarned} XP</strong>
@@ -114,7 +114,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
                   className="w-full py-2.5 px-4 rounded-xl bg-indigo-900/60 hover:bg-indigo-800 text-indigo-200 hover:text-white font-bold text-xs border border-indigo-500/40 transition-all cursor-pointer flex items-center justify-center gap-1.5"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
-                  <span>Repetir en Modo Práctica</span>
+                  <span>Repetir en modo práctica</span>
                 </button>
               </div>
             ) : (
@@ -230,7 +230,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
               className="w-full py-3.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <Target className="w-4 h-4" />
-              <span>{isCompleted ? 'Volver a Resolver este Caso' : 'Resolver Caso del Día Ahora'}</span>
+              <span>{isCompleted ? 'Volver a resolver este caso' : 'Resolver caso del día ahora'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -262,7 +262,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
                 <span className="w-4 h-4 rounded-full bg-amber-100 text-amber-800 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
                   3
                 </span>
-                <span><strong>Racha de Guardias:</strong> Aumenta tu racha de días consecutivos para desbloquear insignias de honor médico.</span>
+                <span><strong>Racha de guardias:</strong> Aumenta tu racha de días consecutivos para desbloquear insignias de honor médico.</span>
               </li>
             </ul>
           </div>
@@ -276,7 +276,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
 
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-white/10 p-3 rounded-xl border border-white/10">
-                <div className="text-[10px] uppercase font-bold text-indigo-200">Racha Actual</div>
+                <div className="text-[10px] uppercase font-bold text-indigo-200">Racha actual</div>
                 <div className="text-xl font-bold text-amber-400 mt-0.5 flex items-center gap-1">
                   {userProgress.streak} días
                 </div>

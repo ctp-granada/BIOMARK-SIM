@@ -139,7 +139,7 @@ export const Header: React.FC<HeaderProps> = ({
                 ) : (
                   <>
                     <Lock className="w-3.5 h-3.5 text-slate-500" />
-                    <span className="hidden sm:inline">Organizar / Coordinar</span>
+                    <span className="hidden sm:inline">Organizar / coordinar</span>
                   </>
                 )}
               </button>
@@ -161,7 +161,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <CalendarDays className="w-3.5 h-3.5 text-amber-600" />
-              <span>Vista Mensual (Feb - May)</span>
+              <span>Vista mensual (feb - may)</span>
             </button>
 
             <button
@@ -175,7 +175,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <TableIcon className="w-3.5 h-3.5 text-sky-600" />
-              <span>Cronograma Oficial Completo</span>
+              <span>Cronograma oficial completo</span>
             </button>
           </div>
 
@@ -184,13 +184,13 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-sky-50 border border-sky-200 text-sky-950 font-medium">
               <Clock className="w-3 h-3 text-sky-600" />
               <span>
-                <strong>Turno Mañana:</strong> 8:30 - 11:00 h
+                <strong>Turno mañana:</strong> 8:30 - 11:00 h
               </span>
             </div>
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-purple-50 border border-purple-200 text-purple-950 font-medium">
               <Clock className="w-3 h-3 text-purple-600" />
               <span>
-                <strong>Turno Tarde:</strong> 16:00 - 18:30 h
+                <strong>Turno tarde:</strong> 16:00 - 18:30 h
               </span>
             </div>
           </div>

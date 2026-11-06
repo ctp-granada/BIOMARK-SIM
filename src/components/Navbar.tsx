@@ -112,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 ) : (
                   <>
                     <Cloud className="w-3.5 h-3.5 text-amber-300" />
-                    <span className="text-amber-100 font-medium hidden sm:inline">Nube Activa</span>
+                    <span className="text-amber-100 font-medium hidden sm:inline">Nube activa</span>
                   </>
                 )}
               </div>
@@ -139,7 +139,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-900/70 hover:bg-amber-900 text-white text-xs font-semibold transition-all shadow-2xs border border-amber-400/50 cursor-pointer"
               >
                 <LogIn className="w-3.5 h-3.5 text-amber-300" />
-                <span>Acceso Alumno UGR</span>
+                <span>Acceso alumno UGR</span>
               </button>
             )}
 
@@ -152,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   title="Encuesta de Satisfacción completada (Ver informe docente o actualizar)"
                 >
                   <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="hidden sm:inline">¡Opinión enviada!</span>
+                  <span className="hidden sm:inline">Opinión enviada. Gracias.</span>
                   <span className="bg-emerald-950 text-emerald-300 border border-emerald-500/30 text-[9px] font-bold px-1.5 py-0.2 rounded-full hidden md:inline">
                     Completada
                   </span>
@@ -161,10 +161,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   onClick={onOpenSatisfactionSurvey}
                   className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-amber-950 text-xs font-bold transition-all shadow-sm cursor-pointer group"
-                  title="¡Danos tu opinión! (PID 26-158) - ¡Gana +150 XP y +100 €!"
+                  title="Danos tu opinión (PID 26-158) - +150 XP y +100 €"
                 >
                   <Star className="w-3.5 h-3.5 text-amber-950" />
-                  <span>¡Danos tu opinión!</span>
+                  <span>Danos tu opinión</span>
                   <span className="bg-amber-950 text-amber-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full hidden sm:inline">
                     +150 XP
                   </span>
@@ -195,10 +195,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 id="tour-navbar-tutorial-btn"
                 onClick={onStartTour}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-900/50 hover:bg-amber-900/80 border border-amber-500/40 text-amber-100 hover:text-white text-xs font-medium transition-all cursor-pointer shadow-2xs"
-                title="Iniciar Tutorial Rápido Guiado (Hospital, Biblioteca, Juegos)"
+                title="Iniciar tutorial rápido guiado (hospital, biblioteca, juegos)"
               >
                 <Star className="w-3.5 h-3.5 text-amber-300 " />
-                <span className="hidden sm:inline">Tutorial Rápido</span>
+                <span className="hidden sm:inline">Tutorial rápido</span>
               </button>
             )}
           </div>
@@ -217,10 +217,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => setActiveModule('inicio')}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-800 hover:bg-amber-700 text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer group"
-                title="Volver a la Pantalla Principal (Hospital, Biblioteca, Parque)"
+                title="Volver a la pantalla principal (hospital, biblioteca, parque)"
               >
                 <ArrowLeft className="w-3.5 h-3.5 text-amber-200 group-hover:-translate-x-0.5 transition-transform" />
-                <span>Volver al Inicio</span>
+                <span>Volver al inicio</span>
               </button>
 
               <div className="h-5 w-px bg-slate-200 shrink-0 hidden sm:block" />
@@ -242,11 +242,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <Stethoscope className="w-3.5 h-3.5" />
-                    <span>Casos Clínicos</span>
+                    <span>Casos clínicos</span>
                     {!hasCompletedSurvey && userProgress.casesAttempted >= 4 && (
                       <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-0.5">
                         <Star className="w-2.5 h-2.5 text-amber-700" />
-                        <span>¡Danos tu opinión!</span>
+                        <span>Danos tu opinión</span>
                       </span>
                     )}
                   </button>
@@ -258,7 +258,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       title="Volver a la selección de casos"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
-                      <span>Volver al Catálogo</span>
+                      <span>Volver al catálogo</span>
                     </button>
                   )}
                 </div>
@@ -281,7 +281,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <GraduationCap className="w-3.5 h-3.5" />
-                    <span>Temario Oficial</span>
+                    <span>Temario oficial</span>
                   </button>
 
                   <button
@@ -293,7 +293,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <Calendar className="w-3.5 h-3.5 text-amber-700" />
-                    <span>Prácticas y Seminarios</span>
+                    <span>Prácticas y seminarios</span>
                   </button>
 
                   <button
@@ -317,7 +317,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <FlaskConical className="w-3.5 h-3.5 text-blue-600" />
-                    <span>Simuladores de Aprendizaje</span>
+                    <span>Simuladores de aprendizaje</span>
                   </button>
                 </div>
               )}
@@ -339,7 +339,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <Gamepad2 className="w-3.5 h-3.5" />
-                    <span>El Rosco & Minijuegos</span>
+                    <span>El Rosco & minijuegos</span>
                     {!hasCompletedSurvey ? (
                       <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-0.5">
                         <Lock className="w-2.5 h-2.5 text-amber-700" />
@@ -361,7 +361,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                    <span>Reto Diario (2x XP)</span>
+                    <span>Reto diario (2x XP)</span>
                   </button>
                 </div>
               )}
@@ -383,7 +383,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <BarChart3 className="w-3.5 h-3.5" />
-                    <span>Progreso & Insignias</span>
+                    <span>Progreso & insignias</span>
                   </button>
 
                   <button
@@ -395,7 +395,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <Trophy className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Ranking de Alumnos</span>
+                    <span>Ranking de alumnos</span>
                   </button>
                 </div>
               )}
@@ -445,7 +445,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* XP Score Badge - Clickable to open Ranking */}
               <button
                 onClick={() => setActiveModule('ranking')}
-                title="Ver Ranking Global de Puntos"
+                title="Ver ranking global de puntos"
                 className="bg-slate-900 hover:bg-slate-800 text-white px-3 py-1 rounded-xl flex items-center gap-1.5 text-xs font-bold font-mono shadow-2xs border border-slate-800 hover:border-emerald-500/50 transition-all cursor-pointer"
               >
                 <span className="text-emerald-400">XP</span>
@@ -480,7 +480,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="px-2 py-1 rounded-lg flex flex-col items-center gap-0.5 text-amber-300 font-bold"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="text-[9px]">Plano Ciudad</span>
+            <span className="text-[9px]">Plano ciudad</span>
           </button>
           {isHospital && (
             <button
@@ -542,7 +542,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <Gamepad2 className="w-4 h-4" />
-                <span className="text-[9px]">Rosco & Dinero</span>
+                <span className="text-[9px]">Rosco & dinero</span>
               </button>
               <button
                 onClick={() => setActiveModule('reto-diario')}

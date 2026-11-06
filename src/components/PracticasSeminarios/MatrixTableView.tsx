@@ -313,7 +313,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                                     }
                                   }}
                                   className="w-full text-[10px] py-0.5 px-1 rounded border border-sky-300 bg-white font-bold text-sky-950 shadow-2xs hover:border-sky-500 cursor-pointer focus:ring-1 focus:ring-sky-500"
-                                  title="Franja horaria: Mañana (8:30-11:00) o Tarde (16:00-18:30)"
+                                  title="Franja horaria: mañana (8:30-11:00) o tarde (16:00-18:30)"
                                 >
                                   <option value="mañana">8:30 - 11 h</option>
                                   <option value="tarde">16 - 18:30 h</option>
@@ -412,7 +412,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                                     }
                                   }}
                                   className="w-full text-[10px] py-0.5 px-1 rounded border border-purple-300 bg-white font-bold text-purple-950 shadow-2xs hover:border-purple-500 cursor-pointer focus:ring-1 focus:ring-purple-500"
-                                  title="Franja horaria: Mañana (8:30-11:00) o Tarde (16:00-18:30)"
+                                  title="Franja horaria: mañana (8:30-11:00) o tarde (16:00-18:30)"
                                 >
                                   <option value="mañana">8:30 - 11 h</option>
                                   <option value="tarde">16 - 18:30 h</option>

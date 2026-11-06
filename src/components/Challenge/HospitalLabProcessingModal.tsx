@@ -19,25 +19,25 @@ interface ProcessingStage {
 
 const STAGES: ProcessingStage[] = [
   {
-    label: 'Recepción & Centrifugación STAT',
+    label: 'Recepción & centrifugación STAT',
     sublabel: 'Separación de fase sérica a 3500 RPM (37°C)',
     icon: <TestTube className="inline-block w-[1em] h-[1em]" />,
     minProgress: 0
   },
   {
-    label: 'Autoanalizador Bioquímico en Curso',
+    label: 'Autoanalizador bioquímico en curso',
     sublabel: 'Ensayo espectrofotométrico e inmunoquimioluminiscencia',
     icon: <Zap className="inline-block w-[1em] h-[1em]" />,
     minProgress: 28
   },
   {
-    label: 'Control de Calidad & Calibración',
+    label: 'Control de calidad & calibración',
     sublabel: 'Validación de curvas cinéticas y límites de detección',
     icon: <Microscope className="inline-block w-[1em] h-[1em]" />,
     minProgress: 65
   },
   {
-    label: 'Emisión de Informe Analítico',
+    label: 'Emisión de informe analítico',
     sublabel: 'Firma electrónica y transmisión a Urgencias',
     icon: <ClipboardList className="inline-block w-[1em] h-[1em]" />,
     minProgress: 90

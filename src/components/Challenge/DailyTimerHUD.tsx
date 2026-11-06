@@ -76,10 +76,10 @@ export const DailyTimerHUD: React.FC<DailyTimerHUDProps> = ({
             </div>
 
             <h3 className="text-sm sm:text-base font-bold tracking-tight mt-0.5 flex items-center gap-2">
-              <span>Desafío de Alta Dificultad Contrarreloj</span>
+              <span>Desafío de alta dificultad contrarreloj</span>
               {isCritical && !isExpired && (
                 <span className="text-xs text-red-300 font-extrabold ">
-                  ¡ÚLTIMOS SEGUNDOS!
+                  Últimos segundos
                 </span>
               )}
             </h3>

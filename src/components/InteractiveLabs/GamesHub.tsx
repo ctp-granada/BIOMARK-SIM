@@ -79,7 +79,7 @@ const EMERGENCY_TRIVIA_POOL: EmergencyQuestion[] = [
     question: '¿Qué tipo de bilirrubina estará marcadamente elevada en su perfil analítico?',
     options: [
       'Bilirrubina Conjugada (Directa) por colestasis u obstrucción biliar',
-      'Bilirrubina No Conjugada (Indirecta) exclusivamente',
+      'Bilirrubina no conjugada (indirecta) exclusivamente',
       'Bilirrubina libre unida a heparina',
       'Hemoglobina plasmática libre'
     ],
@@ -154,21 +154,21 @@ interface ClassifierBiomarker {
 }
 
 const CLASSIFIER_ITEMS: ClassifierBiomarker[] = [
-  { name: 'Troponina I Ultrasensible', abbreviation: 'hs-cTnI', targetSystem: 'cardiac', hint: 'Necrosis miocárdica aguda' },
-  { name: 'Lipasa Específica', abbreviation: 'Lipasa', targetSystem: 'pancreatic', hint: 'Citólisis acinar pancreática' },
-  { name: 'Alanina Aminotransferasa', abbreviation: 'ALT / GPT', targetSystem: 'hepatic', hint: 'Daño hepatocelular específico' },
-  { name: 'Dímero D de Fibrina', abbreviation: 'D-Dímero', targetSystem: 'hemostasis', hint: 'Degradación de fibrina polimerizada' },
+  { name: 'Troponina I ultrasensible', abbreviation: 'hs-cTnI', targetSystem: 'cardiac', hint: 'Necrosis miocárdica aguda' },
+  { name: 'Lipasa específica', abbreviation: 'Lipasa', targetSystem: 'pancreatic', hint: 'Citólisis acinar pancreática' },
+  { name: 'Alanina aminotransferasa', abbreviation: 'ALT / GPT', targetSystem: 'hepatic', hint: 'Daño hepatocelular específico' },
+  { name: 'Dímero D de fibrina', abbreviation: 'D-Dímero', targetSystem: 'hemostasis', hint: 'Degradación de fibrina polimerizada' },
   { name: 'Cistatina C', abbreviation: 'CysC', targetSystem: 'renal', hint: 'Filtrado glomerular independiente de masa' },
   { name: 'Péptido Natriurético tipo B', abbreviation: 'NT-proBNP', targetSystem: 'cardiac', hint: 'Estrés parietal ventricular cardíaco' },
-  { name: 'Gamma Glutamil Transferasa', abbreviation: 'GGT', targetSystem: 'hepatic', hint: 'Colestasis e inducción enzimática' },
-  { name: 'Creatinina Sérica', abbreviation: 'Creatinina', targetSystem: 'renal', hint: 'Aclaramiento y función renal' },
-  { name: 'Fibrinógeno Plasmático', abbreviation: 'Factor I', targetSystem: 'hemostasis', hint: 'Sustrato de la coagulación' },
-  { name: 'Hemoglobina Glicada', abbreviation: 'HbA1c', targetSystem: 'metabolic', hint: 'Memoria glucémica trimestral' },
+  { name: 'Gamma glutamil transferasa', abbreviation: 'GGT', targetSystem: 'hepatic', hint: 'Colestasis e inducción enzimática' },
+  { name: 'Creatinina sérica', abbreviation: 'Creatinina', targetSystem: 'renal', hint: 'Aclaramiento y función renal' },
+  { name: 'Fibrinógeno plasmático', abbreviation: 'Factor I', targetSystem: 'hemostasis', hint: 'Sustrato de la coagulación' },
+  { name: 'Hemoglobina glicada', abbreviation: 'HbA1c', targetSystem: 'metabolic', hint: 'Memoria glucémica trimestral' },
   { name: 'Beta-Hidroxibutirato', abbreviation: 'β-OHB', targetSystem: 'metabolic', hint: 'Cuerpo cetónico de acidosis' },
-  { name: 'Amilasa Pancreática', abbreviation: 'p-Amilasa', targetSystem: 'pancreatic', hint: 'Isoenzima digestiva' },
-  { name: 'CK-MB Masa', abbreviation: 'CK-MBm', targetSystem: 'cardiac', hint: 'Cinética de reinfarto temprano' },
-  { name: 'Bilirrubina Fraccionada', abbreviation: 'BT / BD', targetSystem: 'hepatic', hint: 'Capacidad de conjugación y excreción' },
-  { name: 'Tiempo de Protrombina / INR', abbreviation: 'TP / INR', targetSystem: 'hemostasis', hint: 'Vía extrínseca y función de síntesis hepática' }
+  { name: 'Amilasa pancreática', abbreviation: 'p-Amilasa', targetSystem: 'pancreatic', hint: 'Isoenzima digestiva' },
+  { name: 'CK-MB masa', abbreviation: 'CK-MBm', targetSystem: 'cardiac', hint: 'Cinética de reinfarto temprano' },
+  { name: 'Bilirrubina fraccionada', abbreviation: 'BT / BD', targetSystem: 'hepatic', hint: 'Capacidad de conjugación y excreción' },
+  { name: 'Tiempo de protrombina / INR', abbreviation: 'TP / INR', targetSystem: 'hemostasis', hint: 'Vía extrínseca y función de síntesis hepática' }
 ];
 
 // 3. DATA: Memory Match Cards (6 clinical pairs = 12 cards)
@@ -197,17 +197,17 @@ const MEMORY_PAIRS: MemoryPair[] = [
   {
     pairId: 'pair-4',
     itemA: { text: 'Dímero D', subtext: 'Producto de lisis fibrina', category: 'Hemostasia' },
-    itemB: { text: 'Descarte de TEP / TVP', subtext: 'Alto Valor Predictivo Negativo', category: 'Patología' }
+    itemB: { text: 'Descarte de TEP / TVP', subtext: 'Alto valor predictivo negativo', category: 'Patología' }
   },
   {
     pairId: 'pair-5',
-    itemA: { text: 'Bilirrubina No Conjugada', subtext: 'Liposoluble / indirecta', category: 'Hepático' },
-    itemB: { text: 'Ictericia Hemolítica (Prehepática)', subtext: 'Sin coluria en orina', category: 'Patología' }
+    itemA: { text: 'Bilirrubina no conjugada', subtext: 'Liposoluble / indirecta', category: 'Hepático' },
+    itemB: { text: 'Ictericia hemolítica (prehepática)', subtext: 'Sin coluria en orina', category: 'Patología' }
   },
   {
     pairId: 'pair-6',
     itemA: { text: 'Hemoglobina A1c', subtext: 'Glicosilación no enzimática', category: 'Metabolismo' },
-    itemB: { text: 'Control Glucémico Crónico', subtext: 'Media ponderada 90-120 días', category: 'Seguimiento' }
+    itemB: { text: 'Control glucémico crónico', subtext: 'Media ponderada 90-120 días', category: 'Seguimiento' }
   }
 ];
 
@@ -316,7 +316,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         triggerReward(
           totalCorrect === 3 ? 300 : 260,
           totalCorrect === 3 ? 80 : 60,
-          '¡Reanimación Exitosa!',
+          'Reanimación completada',
           `Has respondido correctamente ${totalCorrect}/3 casos de urgencia bioquímica. ¡+${totalCorrect === 3 ? 300 : 260} € de Presupuesto Hospitalario y +${totalCorrect === 3 ? 80 : 60} XP acreditados!`
         );
       }
@@ -377,7 +377,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
       triggerReward(
         bonusBudget,
         bonusXP,
-        '¡Triage Analítico Completado!',
+        'Triaje analítico completado',
         `Has clasificado ${classifierScore} biomarcadores correctamente bajo presión temporal. ¡+${bonusBudget} € de Fondos Sanitarios y +${bonusXP} XP conseguidos!`
       );
     }
@@ -501,8 +501,8 @@ export const GamesHub: React.FC<GamesHubProps> = ({
               triggerReward(
                 280,
                 80,
-                '¡Memoria Diagnóstica Perfecta!',
-                'Has emparejado todos los biomarcadores con sus dianas clínicas. ¡+280 € Presupuesto de Guardia y +80 XP conseguidos!'
+                'Todas las parejas encontradas',
+                'Has emparejado todos los biomarcadores con sus dianas clínicas. +280 € de presupuesto y +80 XP.'
               );
             }, 100);
           }
@@ -561,7 +561,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
               onClick={() => onNavigate('casos')}
               className="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer transition-all"
             >
-              <span>Ir al Hospital</span>
+              <span>Ir al hospital</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </motion.div>
@@ -582,7 +582,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
               </span>
             </div>
             <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-              <span>Minijuegos & Ganancia de Dinero</span>
+              <span>Minijuegos & ganancia de dinero</span>
               <span className="text-xs font-semibold px-2 py-0.5 rounded-lg bg-amber-100 text-amber-800 border border-amber-200">
                 +Fondos Sanitarios & XP
               </span>
@@ -636,7 +636,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
             <span className="inline-flex items-center gap-1.5 text-emerald-800 font-semibold">
               <Coins className="w-4 h-4 text-amber-500 shrink-0" />
               <span>
-                ¡Gana más dinero jugando en el Parque! Cada minijuego superado añade entre <strong className="text-emerald-950 font-bold">+250 € y +300 € de Fondos de Presupuesto ()</strong> para financiar las analíticas de los pacientes en el hospital.
+                Consigue más presupuesto en el Parque. Cada minijuego superado añade entre <strong className="text-emerald-950 font-bold">+250 € y +300 € de fondos de presupuesto ()</strong> para financiar las analíticas de los pacientes en el hospital.
               </span>
             </span>
           </div>
@@ -646,7 +646,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
             className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg transition-colors cursor-pointer shrink-0"
           >
             <Stethoscope className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Volver al Hospital / Casos</span>
+            <span>Volver al hospital / casos</span>
           </button>
         </div>
       </div>
@@ -702,7 +702,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
             </span>
           </div>
           <h3 className="font-bold text-xs text-slate-900 flex items-center gap-1">
-            <span>2. Sopa de Letras</span>
+            <span>2. Sopa de letras</span>
             <span className="text-[8px] px-1 py-0.2 rounded bg-indigo-100 text-indigo-800 font-extrabold uppercase">
               ¡Nuevo!
             </span>
@@ -789,7 +789,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
               +280 € • +80 XP
             </span>
           </div>
-          <h3 className="font-bold text-xs text-slate-900">5. Parejas Clínicas</h3>
+          <h3 className="font-bold text-xs text-slate-900">5. Parejas clínicas</h3>
           <p className="text-[10px] text-slate-500 mt-0.5 line-clamp-1">
             Empareja dianas y patologías.
           </p>
@@ -971,7 +971,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                 <Trophy className="inline-block w-[1em] h-[1em]" />
               </div>
               <h3 className="text-lg font-bold text-slate-900">
-                ¡Ronda de Urgencias Finalizada!
+                Ronda de urgencias terminada
               </h3>
               <p className="text-xs text-slate-600 max-w-md mx-auto">
                 Has acertado <strong className="text-slate-900 font-bold">{triviaCorrectCount} de {triviaQuestions.length}</strong> casos clínicos en esta ronda.
@@ -989,7 +989,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                   className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-xs"
                 >
                   <Stethoscope className="w-4 h-4" />
-                  <span>Volver al Hospital con mis Fondos</span>
+                  <span>Volver al hospital con mis fondos</span>
                 </button>
               </div>
             </div>
@@ -1035,14 +1035,14 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                 Aparecerán biomarcadores clínicos en pantalla. Tu misión como facultativo es asociar cada analítica con su sistema fisiológico correspondiente lo más rápido posible.
               </p>
               <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-medium text-left">
-                <strong>Objetivo de Fondos:</strong> Acierta al menos 4 biomarcadores antes de que acabe el tiempo para <strong className="text-emerald-950 font-bold">ganar hasta +260 € de Fondos y puntos extra de XP</strong>.
+                <strong>Objetivo de fondos:</strong> Acierta al menos 4 biomarcadores antes de que acabe el tiempo para <strong className="text-emerald-950 font-bold">ganar hasta +260 € de Fondos y puntos extra de XP</strong>.
               </div>
               <button
                 onClick={startClassifierGame}
                 className="w-full py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-emerald-600/20 transition-all"
               >
                 <Play className="w-4 h-4 fill-white" />
-                <span>Comenzar Reto de 30 Segundos</span>
+                <span>Comenzar reto de 30 segundos</span>
               </button>
             </div>
           ) : classifierActive ? (
@@ -1092,7 +1092,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                     <span><TestTube className="inline-block w-[1em] h-[1em]" /></span>
                     <span>Hepato-Biliar</span>
                   </div>
-                  <span className="text-[11px] text-slate-500">Transaminasas, GGT, Bilirrubina</span>
+                  <span className="text-[11px] text-slate-500">Transaminasas, GGT, bilirrubina</span>
                 </button>
 
                 <button
@@ -1112,9 +1112,9 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                 >
                   <div className="flex items-center gap-2 text-blue-700 font-bold text-xs mb-1">
                     <span><Droplet className="inline-block w-[1em] h-[1em]" /></span>
-                    <span>Renal / Filtrado</span>
+                    <span>Renal / filtrado</span>
                   </div>
-                  <span className="text-[11px] text-slate-500">Creatinina, Cistatina C, Urea</span>
+                  <span className="text-[11px] text-slate-500">Creatinina, cistatina C, urea</span>
                 </button>
 
                 <button
@@ -1125,7 +1125,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                     <span><Droplet className="inline-block w-[1em] h-[1em]" /></span>
                     <span>Hemostasia</span>
                   </div>
-                  <span className="text-[11px] text-slate-500">Dímero D, TP/INR, Fibrinógeno</span>
+                  <span className="text-[11px] text-slate-500">Dímero D, TP/INR, fibrinógeno</span>
                 </button>
 
                 <button
@@ -1146,7 +1146,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                 {classifierScore >= 4 ? <Trophy className="w-7 h-7" /> : <Hourglass className="w-7 h-7" />}
               </div>
               <h3 className="text-lg font-bold text-slate-900">
-                ¡Tiempo Finalizado!
+                Tiempo terminado
               </h3>
               <p className="text-xs text-slate-600 max-w-md mx-auto">
                 Has clasificado correctamente <strong className="text-slate-900 font-bold">{classifierScore} biomarcadores</strong> en 30 segundos.
@@ -1157,14 +1157,14 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                   className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-xs"
                 >
                   <RotateCcw className="w-4 h-4" />
-                  <span>Jugar de Nuevo (+Dinero / XP)</span>
+                  <span>Jugar de nuevo (+dinero / XP)</span>
                 </button>
                 <button
                   onClick={() => onNavigate('casos')}
                   className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-xs"
                 >
                   <Stethoscope className="w-4 h-4 text-emerald-400" />
-                  <span>Volver a Casos / Guardia</span>
+                  <span>Volver a casos / guardia</span>
                 </button>
               </div>
             </div>
@@ -1255,10 +1255,10 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                 <Dna className="inline-block w-[1em] h-[1em]" />
               </div>
               <h3 className="text-lg font-bold text-slate-900">
-                ¡Tablero Diagnóstico Resuelto!
+                Tablero resuelto
               </h3>
               <p className="text-xs text-slate-600 max-w-md mx-auto">
-                Has emparejado todas las dianas en <strong className="text-slate-900 font-bold">{memoryMoves} intentos</strong>. ¡+280 € Fondos y +80 XP asignados a tu expediente!
+                Has emparejado todas las dianas en <strong className="text-slate-900 font-bold">{memoryMoves} intentos</strong>. +280 € y +80 XP añadidos a tu expediente.
               </p>
               <div className="flex items-center justify-center gap-3 pt-2">
                 <button
@@ -1266,14 +1266,14 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                   className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-xs"
                 >
                   <RotateCcw className="w-4 h-4" />
-                  <span>Jugar con Nuevas Parejas</span>
+                  <span>Jugar con nuevas parejas</span>
                 </button>
                 <button
                   onClick={() => onNavigate('casos')}
                   className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-xs"
                 >
                   <Stethoscope className="w-4 h-4 text-emerald-400" />
-                  <span>Volver a Casos / Guardia</span>
+                  <span>Volver a casos / guardia</span>
                 </button>
               </div>
             </div>

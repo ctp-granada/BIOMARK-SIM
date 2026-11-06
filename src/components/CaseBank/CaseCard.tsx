@@ -13,7 +13,7 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseData, onSelectCase, onSt
     cardiac: 'Cardíaco',
     hepatic: 'Hepático / Ictericias',
     metabolic: 'Metabolismo / β-Oxidación',
-    renal: 'Renal / Urea / Uricemia',
+    renal: 'Renal / urea / uricemia',
     pancreatic: 'Pancreático-Digestivo',
     neuromuscular: 'Neuromuscular / Señalización'
   };
@@ -88,7 +88,7 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseData, onSelectCase, onSt
           onClick={() => onSelectCase(caseData)}
           className="text-xs font-semibold text-slate-600 hover:text-slate-900 flex items-center space-x-1 cursor-pointer transition-colors"
         >
-          <span>Ver Caso</span>
+          <span>Ver caso</span>
           <ChevronRight className="w-3.5 h-3.5" />
         </button>
 
@@ -97,7 +97,7 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseData, onSelectCase, onSt
           className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-rose-600 hover:bg-rose-500 text-white shadow-2xs flex items-center space-x-1.5 transition-colors cursor-pointer"
         >
           <Activity className="w-3.5 h-3.5 text-rose-200" />
-          <span>Resolver Caso</span>
+          <span>Resolver caso</span>
         </button>
       </div>
     </div>

@@ -148,7 +148,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
 
     try {
       localStorage.setItem('ugr_medicina_coordinator_pin', newPasswordInput.trim());
-      setPasswordChangeSuccess('¡Clave de coordinación actualizada con éxito!');
+      setPasswordChangeSuccess('Clave de coordinación actualizada.');
       setNewPasswordInput('');
       setConfirmPasswordInput('');
       showStatus('Clave actualizada correctamente.');
@@ -319,7 +319,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
       const currentUrl = window.location.origin + window.location.pathname;
       const fullShareUrl = `${currentUrl}#docencia=${encoded}`;
       navigator.clipboard.writeText(fullShareUrl);
-      showStatus('¡Enlace copiado! Al abrirlo se cargarán estas asignaciones automáticamente.');
+      showStatus('Enlace copiado Al abrirlo se cargarán estas asignaciones automáticamente.');
     } catch {
       alert('Error al generar enlace.');
     }

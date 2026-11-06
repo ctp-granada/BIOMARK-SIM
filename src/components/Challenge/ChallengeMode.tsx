@@ -98,7 +98,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
               className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Volver a Casos</span>
+              <span>Volver a casos</span>
             </button>
           )}
           <div>
@@ -129,7 +129,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
               <span className="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs">
                 1
               </span>
-              <span className="whitespace-nowrap">Historia Clínica</span>
+              <span className="whitespace-nowrap">Historia clínica</span>
             </div>
             <ChevronRight className="w-4 h-4 text-slate-300 shrink-0" />
 
@@ -149,7 +149,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
               <span className="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 text-slate-500 flex items-center justify-center text-xs">
                 3
               </span>
-              <span className="whitespace-nowrap">Informe STAT & Evaluación</span>
+              <span className="whitespace-nowrap">Informe STAT & evaluación</span>
             </div>
           </div>
 
@@ -200,12 +200,12 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
             <Coins className="w-5 h-5 text-amber-400" />
           </div>
           <div>
-            <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Fondos Hospitalarios</div>
+            <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Fondos hospitalarios</div>
             <div className="text-sm font-bold text-amber-300 font-mono flex items-center gap-1.5">
               <span>{userProgress.budget.toLocaleString('es-ES')} € Disponibles</span>
               {userProgress.budget < 1000 && (
                 <span className="px-1.5 py-0.2 rounded text-[9px] bg-rose-500/20 text-rose-300 border border-rose-500/30 font-sans">
-                  ¡Alerta Fondos Bajos!
+                  Fondos bajos
                 </span>
               )}
             </div>
@@ -241,7 +241,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
         <div className="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl flex items-center gap-2">
           <Flame className="w-4 h-4 text-emerald-400 fill-emerald-400" />
           <div>
-            <div className="text-[9px] text-slate-400 font-bold uppercase">Racha de Casos</div>
+            <div className="text-[9px] text-slate-400 font-bold uppercase">Racha de casos</div>
             <div className="text-xs font-mono font-bold text-emerald-300">{streakInfo.label}</div>
           </div>
         </div>
@@ -278,7 +278,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
               onClick={() => setIsCaseDetailsExpanded(!isCaseDetailsExpanded)}
               className="ml-1 px-3 py-1 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
             >
-              <span>{isCaseDetailsExpanded ? 'Plegar Ficha' : 'Ver Historia Completa'}</span>
+              <span>{isCaseDetailsExpanded ? 'Plegar Ficha' : 'Ver historia completa'}</span>
               {isCaseDetailsExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
             </button>
           </div>
@@ -428,7 +428,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
             }`}
           >
             <ClipboardList className="w-4 h-4 text-emerald-400" />
-            <span>Petición de Laboratorio (Orden Múltiple)</span>
+            <span>Petición de laboratorio (orden múltiple)</span>
             <span className="bg-emerald-500 text-slate-950 font-bold text-[10px] px-1.5 py-0.2 rounded font-mono">
               Recomendado
             </span>
@@ -444,7 +444,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
             }`}
           >
             <Target className="w-4 h-4 text-emerald-400" />
-            <span>Pregunta Tipo Test (1 Prueba Clave)</span>
+            <span>Pregunta tipo test (1 prueba clave)</span>
           </button>
         </div>
 
@@ -546,7 +546,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
                         ) : (
                           <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-lg flex items-center gap-1">
                             <BookOpen className="w-3 h-3" />
-                            <span>Ficha Consultada</span>
+                            <span>Ficha consultada</span>
                           </span>
                         )}
                         <ChevronRight className={`w-4 h-4 transition-opacity ${isSelected ? 'opacity-100 text-emerald-400' : 'opacity-0 group-hover:opacity-100 text-slate-400'}`} />
@@ -592,7 +592,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
                     : 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200'
                 }`}
               >
-                <span>Confirmar Respuesta y Evaluar Caso</span>
+                <span>Confirmar respuesta y evaluar caso</span>
                 <ArrowRight className="w-4 h-4 text-emerald-400" />
               </button>
               <p className="text-[11px] text-slate-400 text-center mt-2">
@@ -619,7 +619,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
                     <BookOpen className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900">Interconsulta de Biomarcador</h4>
+                    <h4 className="text-sm font-bold text-slate-900">Interconsulta de biomarcador</h4>
                     <p className="text-[10px] text-slate-500 font-medium">Consulta de indicación y utilidad</p>
                   </div>
                 </div>
@@ -643,7 +643,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
 
                 <div className="p-3 bg-amber-50/80 border border-amber-200 rounded-xl space-y-1.5 text-[11px] text-amber-950">
                   <div className="flex justify-between items-center font-bold">
-                    <span>Coste de Interconsulta:</span>
+                    <span>Coste de interconsulta:</span>
                     <span className="font-mono text-amber-800 font-extrabold">-50 € Presupuesto</span>
                   </div>
                   <div className="flex justify-between items-center text-slate-600">
@@ -690,7 +690,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
                   }`}
                 >
                   <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Confirmar e Interconsultar (-50 €)</span>
+                  <span>Confirmar e interconsultar (-50 €)</span>
                 </button>
               </div>
             </motion.div>

@@ -64,13 +64,13 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
 
             <div className="flex items-center gap-2 text-emerald-200 text-xs font-bold uppercase tracking-wider mb-1 flex-wrap">
               <Building2 className="w-4 h-4" />
-              <span>Hospital Universitario • Campus Salud PTS (UGR)</span>
+              <span>Hospital universitario • campus salud PTS (UGR)</span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-900/70 text-emerald-200 border border-emerald-400/30 font-medium">
                 PID 26-158
               </span>
             </div>
             <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
-              <span>Bienvenida del Tutor Clínico</span>
+              <span>Bienvenida del tutor clínico</span>
               <span className="text-xs bg-amber-400 text-slate-950 font-bold px-2 py-0.5 rounded-full uppercase">
                 Guía de Guardia
               </span>
@@ -184,14 +184,14 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
               <div className="flex items-center justify-between gap-2 mb-1">
                 <span className="font-extrabold text-xs text-slate-900 flex items-center gap-1.5">
                   <span className="text-emerald-600">Dr. Carlos Morales</span>
-                  <span className="text-[10px] text-slate-400 font-semibold">• Tutor Clínico de Bioquímica UGR</span>
+                  <span className="text-[10px] text-slate-400 font-semibold">• Tutor clínico de Bioquímica UGR</span>
                 </span>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
                   En servicio activo
                 </span>
               </div>
               <p className="text-xs text-slate-600 leading-relaxed">
-                «¡Hola, colega! Te doy la bienvenida al Hospital Universitario. Hoy eres el médico responsable de la guardia de urgencias. Antes de comenzar a atender pacientes, es imprescindible que conozcas cómo funciona el <strong className="text-slate-900">Banco de Casos</strong> y la regla de oro de tu <strong className="text-amber-800">Presupuesto de Analíticas</strong>.»
+                «¡Hola, colega! Te doy la bienvenida al Hospital Universitario. Hoy eres el médico responsable de la guardia de urgencias. Antes de comenzar a atender pacientes, es imprescindible que conozcas cómo funciona el <strong className="text-slate-900">Banco de casos</strong> y la regla de oro de tu <strong className="text-amber-800">Presupuesto de analíticas</strong>.»
               </p>
             </div>
           </div>
@@ -201,16 +201,16 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1.5 font-bold text-amber-800">
                 <Coins className="w-4 h-4 text-amber-500" />
-                <span>Presupuesto Inicial: <strong className="text-slate-950 font-bold">{currentBudget.toLocaleString('es-ES')} €</strong></span>
+                <span>Presupuesto inicial: <strong className="text-slate-950 font-bold">{currentBudget.toLocaleString('es-ES')} €</strong></span>
               </div>
               <div className="flex items-center gap-1.5 font-bold text-rose-700">
                 <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
-                <span>Vidas de Guardia: <strong className="text-slate-950 font-bold">{currentLives}/3</strong></span>
+                <span>Vidas de guardia: <strong className="text-slate-950 font-bold">{currentLives}/3</strong></span>
               </div>
             </div>
             <div className="hidden sm:flex items-center gap-1 text-[11px] text-slate-500">
               <Building2 className="w-3.5 h-3.5 text-slate-400" />
-              <span>Planta de Hospitalización & Urgencias</span>
+              <span>Planta de hospitalización & urgencias</span>
             </div>
           </div>
 
@@ -226,7 +226,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                 }`}
               >
                 <Stethoscope className="w-3.5 h-3.5 text-emerald-600" />
-                <span>1. ¿Qué es el Banco de Casos?</span>
+                <span>1. ¿Qué es el banco de casos?</span>
               </button>
 
               <button
@@ -258,7 +258,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                       Pacientes reales y simulados de alta fidelidad
                     </h4>
                     <p className="text-slate-600">
-                      Encontrarás casos clínicos organizados por especialidades médicas: <strong>Cardíaco</strong>, <strong>Hepático (Ictericias)</strong>, <strong>Metabólico</strong>, <strong>Renal / Purinas</strong>, <strong>Pancreático-Digestivo</strong> y <strong>Neuromuscular</strong>.
+                      Encontrarás casos clínicos organizados por especialidades médicas: <strong>Cardíaco</strong>, <strong>Hepático (ictericias)</strong>, <strong>Metabólico</strong>, <strong>Renal / purinas</strong>, <strong>Pancreático-Digestivo</strong> y <strong>Neuromuscular</strong>.
                     </p>
                   </div>
                 </div>
@@ -284,7 +284,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                 </div>
 
                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 flex items-center justify-between gap-3 text-[11px]">
-                  <span><em>Consejo del Tutor:</em> Puedes consultar la <strong>Biblioteca de Biomarcadores</strong> en cualquier momento si tienes dudas sobre los valores o ventanas temporales.</span>
+                  <span><em>Consejo del tutor:</em> Puedes consultar la <strong>Biblioteca de biomarcadores</strong> en cualquier momento si tienes dudas sobre los valores o ventanas temporales.</span>
                 </div>
               </motion.div>
             )}
@@ -305,7 +305,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                       Economía Clínica: Los recursos del hospital son limitados
                     </h4>
                     <p className="text-slate-600">
-                      En la medicina real, pedir pruebas a ciegas colapsa el laboratorio y encarece la sanidad. Por eso, dispones de una partida de <strong>Fondos Sanitarios (5.000 € de Presupuesto Inicial)</strong> asignada a tu guardia.
+                      En la medicina real, pedir pruebas a ciegas colapsa el laboratorio y encarece la sanidad. Por eso, dispones de una partida de <strong>Fondos sanitarios (5.000 € de presupuesto inicial)</strong> asignada a tu guardia.
                     </p>
                   </div>
                 </div>
@@ -314,20 +314,20 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                 <div className="grid grid-cols-3 gap-2 text-center">
                   <div className="p-2.5 rounded-xl border border-slate-200 bg-white">
                     <span className="text-[10px] font-extrabold text-emerald-700 block">60 € - 80 €</span>
-                    <span className="text-[10px] font-bold text-slate-900">Analítica Básica</span>
-                    <p className="text-[9px] text-slate-500 mt-0.5">Glucosa, Iones, Transaminasas, Urea</p>
+                    <span className="text-[10px] font-bold text-slate-900">Analítica básica</span>
+                    <p className="text-[9px] text-slate-500 mt-0.5">Glucosa, iones, transaminasas, urea</p>
                   </div>
 
                   <div className="p-2.5 rounded-xl border border-slate-200 bg-white">
                     <span className="text-[10px] font-extrabold text-blue-700 block">120 € - 180 €</span>
-                    <span className="text-[10px] font-bold text-slate-900">Especializada / Hormonal</span>
+                    <span className="text-[10px] font-bold text-slate-900">Especializada / hormonal</span>
                     <p className="text-[9px] text-slate-500 mt-0.5">Troponina, TSH, Insulina, Cloruro en sudor</p>
                   </div>
 
                   <div className="p-2.5 rounded-xl border border-slate-200 bg-white">
                     <span className="text-[10px] font-extrabold text-purple-700 block">250 € - 300 €</span>
-                    <span className="text-[10px] font-bold text-slate-900">Genética / Espectrometría</span>
-                    <p className="text-[9px] text-slate-500 mt-0.5">Paneles de ADN, RFLP, Acilcarnitinas</p>
+                    <span className="text-[10px] font-bold text-slate-900">Genética / espectrometría</span>
+                    <p className="text-[9px] text-slate-500 mt-0.5">Paneles de ADN, RFLP, acilcarnitinas</p>
                   </div>
                 </div>
 
@@ -336,14 +336,14 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                   <div className="flex items-center justify-between font-bold text-xs text-emerald-900">
                     <span className="flex items-center gap-1.5">
                       <Gamepad2 className="w-4 h-4 text-emerald-700" />
-                      <span>¿Te estás quedando sin dinero? ¡Visita el Parque!</span>
+                      <span>¿Te estás quedando sin dinero? Visita el Parque</span>
                     </span>
                     <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-200 text-emerald-900 font-extrabold">
                       +150 € a +300 €
                     </span>
                   </div>
                   <p className="text-[11px] text-emerald-800">
-                    Si tu presupuesto baja o te quedas a cero, acude a la <strong>Zona Lúdica del Parque</strong>. Cada minijuego que superes (el <em>Rosco de Pasapalabra</em>, las <em>Preguntas del Reanimador</em> o el <em>Clasificador Flash</em>) recargará tus fondos para que puedas seguir pidiendo analíticas y sumando puntos XP.
+                    Si tu presupuesto baja o te quedas a cero, acude a la <strong>Zona lúdica del parque</strong>. Cada minijuego que superes (el <em>Rosco de Pasapalabra</em>, las <em>Preguntas del reanimador</em> o el <em>Clasificador flash</em>) recargará tus fondos para que puedas seguir pidiendo analíticas y sumando puntos XP.
                   </p>
                 </div>
               </motion.div>
@@ -370,14 +370,14 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                 className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
               >
                 <Coins className="w-4 h-4 text-amber-600" />
-                <span>Ganar Dinero al Parque</span>
+                <span>Ganar dinero al parque</span>
               </button>
 
               <button
                 onClick={handleClose}
                 className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
               >
-                <span>¡Entendido, Comenzar Guardia!</span>
+                <span>Empezar la guardia</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>

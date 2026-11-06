@@ -4,7 +4,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   // Cardíaco
   {
     id: 'bm_troponin_c',
-    name: 'Troponina Cardíaca de Alta Sensibilidad (hs-cTn)',
+    name: 'Troponina cardíaca de alta sensibilidad (hs-cTn)',
     abbreviation: 'hs-cTnI / hs-cTnT',
     system: 'cardiac',
     referenceValues: { conventional: '< 14 ng/L (mujeres), < 26 ng/L (hombres)', si: '< 0.014 µg/L' },
@@ -55,7 +55,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_ldh',
-    name: 'Lactato Deshidrogenasa Total',
+    name: 'Lactato deshidrogenasa total',
     abbreviation: 'LDH',
     system: 'cardiac',
     referenceValues: { conventional: '140 - 280 U/L', si: '2.3 - 4.7 µkat/L' },
@@ -74,7 +74,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   // Hepático
   {
     id: 'bm_alt',
-    name: 'Alanina Aminotransferasa (ALT / GPT)',
+    name: 'Alanina aminotransferasa (ALT / GPT)',
     abbreviation: 'ALT',
     system: 'hepatic',
     referenceValues: { conventional: '7 - 56 U/L', si: '0.12 - 0.93 µkat/L' },
@@ -91,7 +91,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_ast',
-    name: 'Aspartato Aminotransferasa (AST / GOT)',
+    name: 'Aspartato aminotransferasa (AST / GOT)',
     abbreviation: 'AST',
     system: 'hepatic',
     referenceValues: { conventional: '10 - 40 U/L', si: '0.17 - 0.67 µkat/L' },
@@ -108,7 +108,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_bilirrubina_total',
-    name: 'Bilirrubina Total',
+    name: 'Bilirrubina total',
     abbreviation: 'BT',
     system: 'hepatic',
     referenceValues: { conventional: '0.2 - 1.2 mg/dL', si: '3.4 - 20.5 µmol/L' },
@@ -125,7 +125,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_bilirrubina_directa',
-    name: 'Bilirrubina Directa / Conjugada',
+    name: 'Bilirrubina directa / conjugada',
     abbreviation: 'BD',
     system: 'hepatic',
     referenceValues: { conventional: '0.0 - 0.3 mg/dL', si: '0.0 - 5.1 µmol/L' },
@@ -142,7 +142,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_fosfatasa_alcalina',
-    name: 'Fosfatasa Alcalina',
+    name: 'Fosfatasa alcalina',
     abbreviation: 'FA',
     system: 'hepatic',
     referenceValues: { conventional: '44 - 147 U/L', si: '0.7 - 2.5 µkat/L' },
@@ -159,7 +159,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_ggt',
-    name: 'Gamma-Glutamil Transferasa',
+    name: 'Gamma-Glutamil transferasa',
     abbreviation: 'GGT',
     system: 'hepatic',
     referenceValues: { conventional: '9 - 48 U/L', si: '0.15 - 0.80 µkat/L' },
@@ -178,7 +178,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   // Metabólico
   {
     id: 'bm_glucosa',
-    name: 'Glucosa Plasmática en Ayunas / Urgente',
+    name: 'Glucosa plasmática en ayunas / urgente',
     abbreviation: 'Gluc',
     system: 'metabolic',
     referenceValues: { conventional: '70 - 100 mg/dL', si: '3.9 - 5.6 mmol/L' },
@@ -195,7 +195,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_beta_hidroxibutirato',
-    name: 'Beta-Hidroxibutirato en Sangre (Cuerpo Cetónico Cuantitativo)',
+    name: 'Beta-Hidroxibutirato en sangre (cuerpo cetónico cuantitativo)',
     abbreviation: 'B-OHB',
     system: 'metabolic',
     referenceValues: { conventional: '< 0.5 mmol/L', si: '< 0.5 mmol/L' },
@@ -212,7 +212,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_perfil_acilcarnitinas',
-    name: 'Perfil de Acilcarnitinas Plasmáticas (Tandem MS)',
+    name: 'Perfil de acilcarnitinas plasmáticas (Tandem MS)',
     abbreviation: 'Acilcarnitinas',
     system: 'metabolic',
     referenceValues: { conventional: 'C0 libre: 25-54 µmol/L | C16: < 3.0 µmol/L | C8: < 0.3 µmol/L', si: 'µmol/L' },
@@ -229,7 +229,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_relacion_acilcarnitina_carnitina',
-    name: 'Ratio Acilcarnitinas / Carnitina Libre',
+    name: 'Ratio acilcarnitinas / carnitina libre',
     abbreviation: '(C16+C18:1)/C0',
     system: 'metabolic',
     referenceValues: { conventional: '< 0.05', si: '< 0.05' },
@@ -246,7 +246,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_trigliceridos',
-    name: 'Triglicéridos Séricos',
+    name: 'Triglicéridos séricos',
     abbreviation: 'TG',
     system: 'metabolic',
     referenceValues: { conventional: '< 150 mg/dL', si: '< 1.7 mmol/L' },
@@ -263,7 +263,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_fasting_insulin',
-    name: 'Insulina Plasmática en Ayunas e Índice HOMA-IR',
+    name: 'Insulina plasmática en ayunas e índice HOMA-IR',
     abbreviation: 'Insulina / HOMA',
     system: 'metabolic',
     referenceValues: { conventional: '2.6 - 24.9 µIU/mL | HOMA-IR: < 2.5', si: '18 - 173 pmol/L' },
@@ -282,7 +282,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   // Pancreático
   {
     id: 'bm_lipasa',
-    name: 'Lipasa Sérica de Alta Especificidad',
+    name: 'Lipasa sérica de alta especificidad',
     abbreviation: 'Lipasa',
     system: 'pancreatic',
     referenceValues: { conventional: '10 - 140 U/L', si: '0.17 - 2.33 µkat/L' },
@@ -299,7 +299,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_amilasa',
-    name: 'Amilasa Sérica Total',
+    name: 'Amilasa sérica total',
     abbreviation: 'Amilasa',
     system: 'pancreatic',
     referenceValues: { conventional: '28 - 100 U/L', si: '0.47 - 1.67 µkat/L' },
@@ -316,13 +316,13 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_elastasa_fecal',
-    name: 'Elastasa Fecal-1 Pancreática',
+    name: 'Elastasa Fecal-1 pancreática',
     abbreviation: 'FE-1',
     system: 'pancreatic',
     referenceValues: { conventional: '> 200 µg/g de heces (grave: < 100)', si: '> 200 µg/g' },
     temporalWindow: { elevationStart: 'Crónico', peak: 'Estable', normalizationWindow: 'Irreversible' },
     diagnosticParams: { sensitivity: '95%', specificity: '93%', optimalCutoff: '< 200 µg/g' },
-    clinicalRelevance: 'Biomarcador no invasivo para Insuficiencia Pancreática Exocrina.',
+    clinicalRelevance: 'Biomarcador no invasivo para insuficiencia pancreática exocrina.',
     diagnosticIndication: 'Sospecha de pancreatitis crónica, diarrea con esteatorrea, pérdida ponderal.',
     falsePositivesNegatives: {
       falsePositives: ['Diarrea líquida profusa por dilución de la muestra'],
@@ -333,7 +333,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_ttg_iga',
-    name: 'Anticuerpos Anti-Transglutaminasa Tisular IgA (tTG-IgA)',
+    name: 'Anticuerpos anti-transglutaminasa tisular IgA (tTG-IgA)',
     abbreviation: 'tTG-IgA',
     system: 'pancreatic',
     referenceValues: { conventional: '< 10 U/mL (negativo)', si: '< 10 U/mL' },
@@ -350,7 +350,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_vitamina_b12',
-    name: 'Vitamina B12 (Cobalamina) Plasmática',
+    name: 'Vitamina B12 (cobalamina) plasmática',
     abbreviation: 'Vit B12',
     system: 'pancreatic',
     referenceValues: { conventional: '200 - 900 pg/mL', si: '148 - 664 pmol/L' },
@@ -367,7 +367,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_magnesio',
-    name: 'Magnesio Sérico',
+    name: 'Magnesio sérico',
     abbreviation: 'Mg',
     system: 'pancreatic',
     referenceValues: { conventional: '1.7 - 2.2 mg/dL', si: '0.70 - 0.90 mmol/L' },
@@ -386,7 +386,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   // Renal
   {
     id: 'bm_creatinina',
-    name: 'Creatinina Sérica',
+    name: 'Creatinina sérica',
     abbreviation: 'Cr',
     system: 'renal',
     referenceValues: { conventional: '0.6 - 1.2 mg/dL', si: '53 - 106 µmol/L' },
@@ -403,7 +403,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_urea',
-    name: 'Urea Plasmática',
+    name: 'Urea plasmática',
     abbreviation: 'Urea',
     system: 'renal',
     referenceValues: { conventional: '15 - 45 mg/dL', si: '2.5 - 7.5 mmol/L' },
@@ -420,7 +420,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_amonio_plasmatico',
-    name: 'Amonio Plasmático (NH4+)',
+    name: 'Amonio plasmático (NH4+)',
     abbreviation: 'Amonio',
     system: 'renal',
     referenceValues: { conventional: '15 - 45 µg/dL', si: '11 - 32 µmol/L' },
@@ -437,7 +437,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_acido_urico',
-    name: 'Ácido Úrico Sérico',
+    name: 'Ácido úrico sérico',
     abbreviation: 'AU',
     system: 'renal',
     referenceValues: { conventional: '3.5 - 7.2 mg/dL', si: '208 - 428 µmol/L' },
@@ -454,7 +454,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_cristales_liquido_sinovial',
-    name: 'Cristales en Líquido Sinovial (Luz Polarizada Compensada)',
+    name: 'Cristales en líquido sinovial (luz polarizada compensada)',
     abbreviation: 'Cristales Sinoviales',
     system: 'renal',
     referenceValues: { conventional: 'Ausentes', si: 'Negativo' },
@@ -473,7 +473,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   // Neuromuscular
   {
     id: 'bm_achr_ab',
-    name: 'Anticuerpos Anti-Receptor de Acetilcolina (anti-AChR)',
+    name: 'Anticuerpos anti-receptor de acetilcolina (anti-AChR)',
     abbreviation: 'Anti-AChR',
     system: 'neuromuscular',
     referenceValues: { conventional: '< 0.40 nmol/L (negativo)', si: '< 0.40 nmol/L' },
@@ -490,7 +490,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_ck_total',
-    name: 'Creatina Quinasa Total (CK)',
+    name: 'Creatina quinasa total (CK)',
     abbreviation: 'CPK',
     system: 'neuromuscular',
     referenceValues: { conventional: '30 - 200 U/L', si: '0.5 - 3.4 µkat/L' },
@@ -509,7 +509,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   // Miscelánea / Casos Específicos
   {
     id: 'bm_metanephrines_plasma',
-    name: 'Metanefrinas Libres en Plasma Fraccionadas',
+    name: 'Metanefrinas libres en plasma fraccionadas',
     abbreviation: 'Metanefrinas',
     system: 'cardiac',
     referenceValues: { conventional: 'Normetanefrina: < 145 pg/mL | Metanefrina: < 90 pg/mL', si: 'pmol/L' },
@@ -526,7 +526,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_colinesterasa',
-    name: 'Colinesterasa Sérica y Eritrocitaria',
+    name: 'Colinesterasa sérica y eritrocitaria',
     abbreviation: 'Pseudocolinesterasa',
     system: 'neuromuscular',
     referenceValues: { conventional: '5.300 - 12.900 U/L', si: '88 - 215 µkat/L' },
@@ -543,7 +543,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_cloruro_sudor',
-    name: 'Test del Sudor: Cloruro por Iontoforesis con Pilocarpina',
+    name: 'Test del sudor: cloruro por iontoforesis con pilocarpina',
     abbreviation: 'Cl- Sudor',
     system: 'pancreatic',
     referenceValues: { conventional: '< 30 mmol/L (normal), ≥ 60 mmol/L (confirmatorio FQ)', si: 'mmol/L' },
@@ -560,7 +560,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_electroforesis_hb',
-    name: 'Electroforesis de Hemoglobina en Sangre',
+    name: 'Electroforesis de hemoglobina en sangre',
     abbreviation: 'Hb Electroforesis',
     system: 'cardiac',
     referenceValues: { conventional: 'HbA: 95-98%, HbA2: 1.5-3.5%, HbF: < 1%', si: '%' },
@@ -577,7 +577,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_peptido_c',
-    name: 'Péptido C Plasmático en Ayunas',
+    name: 'Péptido C plasmático en ayunas',
     abbreviation: 'Péptido C',
     system: 'metabolic',
     referenceValues: { conventional: '0.8 - 3.1 ng/mL', si: '0.26 - 1.03 nmol/L' },
@@ -594,7 +594,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_lactato',
-    name: 'Lactato Plasmático',
+    name: 'Lactato plasmático',
     abbreviation: 'Lactato',
     system: 'metabolic',
     referenceValues: { conventional: '0.5 - 2.2 mmol/L', si: '0.5 - 2.2 mmol/L' },
@@ -611,7 +611,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_acidos_grasos_libres',
-    name: 'Ácidos Grasos Libres (AGL / NEFA)',
+    name: 'Ácidos grasos libres (AGL / NEFA)',
     abbreviation: 'AGL',
     system: 'metabolic',
     referenceValues: { conventional: '0.1 - 0.6 mmol/L', si: '0.1 - 0.6 mmol/L' },
@@ -628,7 +628,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_hba1c',
-    name: 'Hemoglobina Glicada (HbA1c)',
+    name: 'Hemoglobina glicada (HbA1c)',
     abbreviation: 'HbA1c',
     system: 'metabolic',
     referenceValues: { conventional: '< 5.7% (normal), ≥ 6.5% (diabetes)', si: '< 39 mmol/mol' },
@@ -645,7 +645,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
   },
   {
     id: 'bm_albu_mina',
-    name: 'Albúmina Sérica',
+    name: 'Albúmina sérica',
     abbreviation: 'Albúmina',
     system: 'hepatic',
     referenceValues: { conventional: '3.5 - 5.0 g/dL', si: '35 - 50 g/L' },

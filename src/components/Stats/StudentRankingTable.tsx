@@ -119,7 +119,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
     }
 
     setIsEditingProfile(false);
-    setSaveToast('¡Perfil y alias del ranking actualizados con éxito!');
+    setSaveToast('Perfil y alias actualizados.');
     setTimeout(() => setSaveToast(null), 3000);
   };
 
@@ -251,7 +251,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-emerald-900 bg-emerald-100/70 border border-emerald-200 flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 " />
-                <span>Firestore en Vivo</span>
+                <span>Firestore en vivo</span>
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-slate-700 bg-slate-100 border border-slate-200">
                 Curso 2026/2027
@@ -529,7 +529,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md transition-all cursor-pointer"
               >
                 <Stethoscope className="w-4 h-4" />
-                <span>Ir al Hospital a Resolver un Caso</span>
+                <span>Ir al hospital a resolver un caso</span>
               </button>
             )}
           </div>
@@ -555,7 +555,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                     onClick={() => handleToggleSort('casesSolved')}
                   >
                     <div className="inline-flex items-center gap-1">
-                      <span>Casos Superados</span>
+                      <span>Casos superados</span>
                       {sortField === 'casesSolved' && (sortAsc ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />)}
                     </div>
                   </th>
@@ -577,7 +577,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                       {sortField === 'streak' && (sortAsc ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />)}
                     </div>
                   </th>
-                  <th className="p-3.5">Último Caso Resuelto</th>
+                  <th className="p-3.5">Último caso resuelto</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-800">
@@ -714,7 +714,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                   <Edit3 className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-extrabold text-sm text-slate-900">Personalizar mi Perfil en el Ranking</h3>
+                  <h3 className="font-extrabold text-sm text-slate-900">Personalizar mi perfil en el ranking</h3>
                   <p className="text-[10px] text-slate-500">Tu nombre o alias aparecerá públicamente en el escalafón</p>
                 </div>
               </div>

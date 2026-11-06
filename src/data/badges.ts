@@ -8,7 +8,7 @@ export const SYSTEM_BADGES_CATALOG: SystemBadge[] = [
   {
     id: 'badge_cardiac',
     system: 'cardiac',
-    title: 'Especialista en Necrosis Miocárdica',
+    title: 'Especialista en necrosis miocárdica',
     shortTitle: 'Cardíaco',
     category: 'system',
     description: 'Dominio de troponinas hs-cTn, CK-MB y NT-proBNP en dolor torácico e insuficiencia cardíaca.',
@@ -29,7 +29,7 @@ export const SYSTEM_BADGES_CATALOG: SystemBadge[] = [
   {
     id: 'badge_hepatic',
     system: 'hepatic',
-    title: 'Maestro de las Ictericias y Citólisis',
+    title: 'Maestro de las ictericias y citólisis',
     shortTitle: 'Hepático',
     category: 'system',
     description: 'Diagnóstico diferencial preciso de ictericias prehepáticas, obstructivas y daño hepatocelular.',
@@ -50,7 +50,7 @@ export const SYSTEM_BADGES_CATALOG: SystemBadge[] = [
   {
     id: 'badge_metabolic',
     system: 'metabolic',
-    title: 'Experto en β-Oxidación y Metabolismo',
+    title: 'Experto en β-oxidación y metabolismo',
     shortTitle: 'Metabolismo',
     category: 'system',
     description: 'Manejo impecable del perfil de acilcarnitinas, β-hidroxibutirato y descompensaciones metabólicas.',
@@ -71,7 +71,7 @@ export const SYSTEM_BADGES_CATALOG: SystemBadge[] = [
   {
     id: 'badge_renal',
     system: 'renal',
-    title: 'Guardián del Ciclo de la Urea y Purinas',
+    title: 'Guardián del ciclo de la urea y purinas',
     shortTitle: 'Renal',
     category: 'system',
     description: 'Urgencias por hiperamonemia (OTC), artritis gotosa y manejo del equilibrio nitrogenado.',
@@ -92,7 +92,7 @@ export const SYSTEM_BADGES_CATALOG: SystemBadge[] = [
   {
     id: 'badge_pancreatic',
     system: 'pancreatic',
-    title: 'Tutor de Lipasa y Digestivo Clínico',
+    title: 'Tutor de lipasa y digestivo clínico',
     shortTitle: 'Pancreático',
     category: 'system',
     description: 'Diagnóstico de pancreatitis aguda, interferencias lipémicas e insuficiencia exocrina.',
@@ -112,7 +112,7 @@ export const SYSTEM_BADGES_CATALOG: SystemBadge[] = [
   },
   {
     id: 'badge_streak_master',
-    title: 'Clínico Infalible (Racha x5)',
+    title: 'Clínico infalible (racha x5)',
     shortTitle: 'Racha Épica',
     category: 'special',
     description: 'Has encadenado 5 diagnósticos perfectos consecutivos en la guardia hospitalaria.',
@@ -132,7 +132,7 @@ export const SYSTEM_BADGES_CATALOG: SystemBadge[] = [
   },
   {
     id: 'badge_economist',
-    title: 'Gestor Sanitario de Alta Eficiencia',
+    title: 'Gestor sanitario de alta eficiencia',
     shortTitle: 'Eficiencia',
     category: 'special',
     description: 'Finalización de guardia con fondos presupuestarios superiores a 4.000 € (80% del presupuesto).',

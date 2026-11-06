@@ -121,7 +121,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
     milestones.push({
       id: 'first-case',
       type: 'difficulty',
-      title: 'Bautismo en Guardia Hospitalaria',
+      title: 'Bautismo en guardia hospitalaria',
       subtitle: 'Comienzo oficial de la rotación y primer caso clínico atendido.',
       timestamp: 'Inicio de Rotación',
       badgeTag: 'Primer Turno',
@@ -144,10 +144,10 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
         <div>
           <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
             <Clock className="w-4 h-4" />
-            <span>Línea Temporal de Progresión</span>
+            <span>Línea temporal de progresión</span>
           </div>
           <h2 className="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <span>Cronología de Hitos & Conquistas Médicas</span>
+            <span>Cronología de hitos & conquistas médicas</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-mono font-bold">
               {filteredMilestones.length} hitos
             </span>
@@ -192,7 +192,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <span>Nivel Alto</span>
+            <span>Nivel alto</span>
           </button>
           <button
             onClick={() => setSelectedFilter('streak')}

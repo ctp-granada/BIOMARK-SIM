@@ -25,7 +25,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       },
       chiefComplaint: 'Dolor torácico opresivo ("como una losa en el pecho") que se extiende hacia el cuello y el brazo izquierdo.',
       presentIllness: 'Paciente acude al servicio de urgencias refiriendo dolor opresivo muy intenso en el pecho (intensidad 9/10) iniciado hace 3 horas mientras subía escaleras. Se acompaña de sudoración fría intensa (diaforesis) y náuseas. El dolor no ha mejorado tras descansar 30 minutos sentado.',
-      pastMedicalHistory: ['Hipertensión Arterial Esencial', 'Dislipidemia Mixta (Colesterol y Triglicéridos elevados)', 'Diabetes Mellitus Tipo 2'],
+      pastMedicalHistory: ['Hipertensión arterial esencial', 'Dislipidemia mixta (colesterol y triglicéridos elevados)', 'Diabetes mellitus tipo 2'],
       medications: ['Enalapril 20 mg/12h', 'Atorvastatina 40 mg/24h', 'Metformina 850 mg/12h'],
       lifestyle: 'Fumador activo (20 cigarrillos/día desde hace 30 años).'
     },
@@ -64,7 +64,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: false
       },
       {
-        disease: 'Tromboembolismo Pulmonar Agudo',
+        disease: 'Tromboembolismo pulmonar agudo',
         plausibilityRationale: 'Presenta disnea y dolor torácico, aunque el dolor suele ser pleurítico y faltan signos de sobrecarga ventricular derecha.',
         isTargetDisease: false
       }
@@ -82,7 +82,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_2',
         biomarkerId: 'bm_ckmb',
-        biomarkerName: 'CK-MB Masa (Creatina Quinasa fracción MB)',
+        biomarkerName: 'CK-MB masa (creatina quinasa fracción MB)',
         isCorrect: false,
         biochemicalRationale: 'La CK-MB tarda más tiempo en elevarse (entre 4 y 6 horas) y además existe en pequeñas cantidades en el músculo esquelético.',
         whyOptimalOrSuboptimal: 'Subóptimo a las 3 horas de evolución: puede dar un falso negativo porque todavía no le ha dado tiempo a elevarse en sangre.'
@@ -98,7 +98,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_4',
         biomarkerId: 'bm_ldh',
-        biomarkerName: 'Lactato Deshidrogenasa Total (LDH)',
+        biomarkerName: 'Lactato deshidrogenasa total (LDH)',
         isCorrect: false,
         biochemicalRationale: 'Enzima citosólica que se encuentra en casi todas las células del cuerpo (glóbulos rojos, hígado, músculo) y tarda más de 12-24 horas en elevarse.',
         whyOptimalOrSuboptimal: 'Muy tardío y poco específico; hoy en día está obsoleto para el diagnóstico inicial de dolor torácico.'
@@ -150,34 +150,34 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     },
     initialLabWork: [
       { test: 'Hemoglobina', result: '6.8', unit: 'g/dL', referenceRange: '12.0 - 15.5 (Anemia severa)', isAbnormal: true },
-      { test: 'Volumen Corpuscular Medio (VCM)', result: '104', unit: 'fL', referenceRange: '80 - 100 (Macrocitosis / Reticulocitosis regenerativa)', isAbnormal: true },
+      { test: 'Volumen corpuscular medio (VCM)', result: '104', unit: 'fL', referenceRange: '80 - 100 (Macrocitosis / Reticulocitosis regenerativa)', isAbnormal: true },
       { test: 'Bilirrubina Total', result: '5.8', unit: 'mg/dL', referenceRange: '0.3 - 1.2 (Ictericia clínica evidente)', isAbnormal: true },
       { test: 'Bilirrubina Directa', result: '0.2', unit: 'mg/dL', referenceRange: '< 0.3 (Predominio indirecto neto: 5.6 mg/dL)' },
       { test: 'Creatinina Sérica', result: '0.8', unit: 'mg/dL', referenceRange: '0.5 - 1.1' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Ictericia Prehepática / Hemolítica (Anemia Hemolítica Autoinmune)',
+        disease: 'Ictericia prehepática / hemolítica (anemia hemolítica autoinmune)',
         plausibilityRationale: 'Ictericia a expensas de Bilirrubina Indirecta/No Conjugada (BT 5.8 mg/dL con BD 0.2 mg/dL -> BI 5.6 mg/dL), heces hipercólicas, anemia severa y esplenomegalia en paciente con antecedente autoinmune.',
         isTargetDisease: true
       },
       {
-        disease: 'Ictericia Posthepática / Obstructiva (Coledocolitiasis)',
+        disease: 'Ictericia posthepática / obstructiva (coledocolitiasis)',
         plausibilityRationale: 'Causa ictericia pero cursa típicamente con elevación predominante de Bilirrubina Directa (>0.3 mg/dL), acolia, coluria intensa y ascenso de FA/GGT.',
         isTargetDisease: false
       },
       {
-        disease: 'Ictericia Hepática / Citolítica (Hepatitis Aguda)',
+        disease: 'Ictericia hepática / citolítica (hepatitis aguda)',
         plausibilityRationale: 'Presenta ictericia pero requeriría elevación marcada de ALT y AST (>1000 U/L) por necrosis del hepatocito.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Ictericia Prehepática / Anemia Hemolítica Autoinmune',
+    targetDisease: 'Ictericia prehepática / anemia hemolítica autoinmune',
     biomarkerOptions: [
       {
         id: 'bm_opt_ldh_hem',
         biomarkerId: 'bm_ldh',
-        biomarkerName: 'Lactato Deshidrogenasa Total (LDH)',
+        biomarkerName: 'Lactato deshidrogenasa total (LDH)',
         isCorrect: true,
         biochemicalRationale: 'La LDH (específicamente la isoenzima LDH-1 abundante en los eritrocitos) se libera masivamente al torrente sanguíneo durante la destrucción intravascular o extravascular de los hematíes. Su elevación confirmatoria junto al predominio de Bilirrubina Indirecta (no conjugada) ratifica el origen prehepático/hemolítico de la ictericia.',
         whyOptimalOrSuboptimal: 'Es el biomarcador óptimo para confirmar la hemólisis como causa de la hiperbilirrubinemia indirecta y diferenciar la ictericia prehepática de la hepática o posthepática.'
@@ -253,32 +253,32 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       { test: 'Hemograma Completo', result: 'Leucocitos 7.200 /µL, Hemoglobina 13.5 g/dL (Sin anemia hemolítica ni leucocitosis febril)', unit: '', referenceRange: 'Normal' },
       { test: 'Bilirrubina Total', result: '9.2', unit: 'mg/dL', referenceRange: '0.3 - 1.2', isAbnormal: true },
       { test: 'Bilirrubina Directa', result: '8.1', unit: 'mg/dL', referenceRange: '< 0.3 (Hiperbilirrubinemia con marcado predominio directo > 85%)', isAbnormal: true },
-      { test: 'Tira de Orina en Urgencias', result: 'Bilirrubina positiva (+++), Urobilinógeno negativo (Confirma coluria por regurgitación biliar directa sin paso intestinal)', unit: '', referenceRange: 'Negativo' },
+      { test: 'Tira de orina en urgencias', result: 'Bilirrubina positiva (+++), Urobilinógeno negativo (Confirma coluria por regurgitación biliar directa sin paso intestinal)', unit: '', referenceRange: 'Negativo' },
       { test: 'Creatinina Sérica', result: '0.7', unit: 'mg/dL', referenceRange: '0.5 - 1.1' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Ictericia Posthepática / Obstructiva (Coledocolitiasis / Colestasis Extrahepática)',
+        disease: 'Ictericia posthepática / obstructiva (coledocolitiasis / colestasis extrahepática)',
         plausibilityRationale: 'Ictericia por estasis biliar con hiperbilirrubinemia directa masiva (BD 8.1 mg/dL), acolia por falta de paso de estercobilina al intestino y coluria por filtración renal de la bilirrubina conjugada hidrosoluble.',
         isTargetDisease: true
       },
       {
-        disease: 'Ictericia Prehepática (Hemolítica)',
+        disease: 'Ictericia prehepática (hemolítica)',
         plausibilityRationale: 'Descartada por la dominancia de bilirrubina directa y la presencia de acolia y coluria.',
         isTargetDisease: false
       },
       {
-        disease: 'Hepatitis Aguda Viral (Ictericia Hepática)',
+        disease: 'Hepatitis aguda viral (ictericia hepática)',
         plausibilityRationale: 'Puede dar coluria pero presenta elevaciones masivas de ALT/AST (>1000 U/L) y no cursa con la pauta de obstrucción vía biliar pura.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Ictericia Posthepática / Coledocolitiasis Obstructiva',
+    targetDisease: 'Ictericia posthepática / coledocolitiasis obstructiva',
     biomarkerOptions: [
       {
         id: 'bm_opt_ggt_fa',
         biomarkerId: 'bm_ggt',
-        biomarkerName: 'GGT y Fosfatasa Alcalina (FA)',
+        biomarkerName: 'GGT y fosfatasa alcalina (FA)',
         isCorrect: true,
         biochemicalRationale: 'La Fosfatasa Alcalina y la GGT son enzimas ancladas a la membrana canalicular biliar. El estancamiento de sales biliares en la obstrucción biliar posthepática induce la transcripción y liberación masiva de ambas enzimas (>3-5 veces el LSN), constituyendo el patrón bioquímico de colestasis.',
         whyOptimalOrSuboptimal: 'Es el par de biomarcadores óptimo para confirmar la estasis biliar y la obstrucción de la vía biliar en la ictericia posthepática.'
@@ -359,22 +359,22 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     differentialDiagnoses: [
       {
-        disease: 'Ictericia Hepática / Citolítica (Necrosis Hepatocelular Aguda por Paracetamol)',
+        disease: 'Ictericia hepática / citolítica (necrosis hepatocelular aguda por paracetamol)',
         plausibilityRationale: 'Ictericia con fallo agudo de síntesis (coagulopatía e hipoglucemia) tras ingesta masiva de analgésicos con agotamiento de glutatión y acumulación de NAPQI tóxico.',
         isTargetDisease: true
       },
       {
-        disease: 'Ictericia Posthepática (Obstructiva)',
+        disease: 'Ictericia posthepática (obstructiva)',
         plausibilityRationale: 'Descartada por la ausencia de patrón obstructivo biliar primario y elevación extrema de transaminasas.',
         isTargetDisease: false
       },
       {
-        disease: 'Ictericia Prehepática (Hemolítica)',
+        disease: 'Ictericia prehepática (hemolítica)',
         plausibilityRationale: 'No justifica la necrosis hepática masiva ni las transaminasas > 4000 U/L.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Ictericia Hepática por Necrosis Hepatocelular Aguda',
+    targetDisease: 'Ictericia hepática por necrosis hepatocelular aguda',
     biomarkerOptions: [
       {
         id: 'bm_opt_alt_prof',
@@ -455,35 +455,35 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       ]
     },
     initialLabWork: [
-      { test: 'Glucemia Basal en Ayunas (Cribado)', result: '105', unit: 'mg/dL', referenceRange: '70 - 109 (Glucemia basal alterada en rango de prediabetes)' },
+      { test: 'Glucemia basal en ayunas (cribado)', result: '105', unit: 'mg/dL', referenceRange: '70 - 109 (Glucemia basal alterada en rango de prediabetes)' },
       { test: 'Hemograma Completo', result: 'Leucocitos 6.400 /µL, Hemoglobina 14.8 g/dL', unit: '', referenceRange: 'Normal' },
       { test: 'Creatinina Sérica', result: '0.85', unit: 'mg/dL', referenceRange: '0.7 - 1.3' },
-      { test: 'Presión Arterial en Consulta', result: '138/88', unit: 'mmHg', referenceRange: '< 120/80 (Prehipertensión arterial)' },
+      { test: 'Presión arterial en consulta', result: '138/88', unit: 'mmHg', referenceRange: '< 120/80 (Prehipertensión arterial)' },
       { test: 'Sistemático de Orina', result: 'Negativo para proteinuria y glucosuria', unit: '', referenceRange: 'Normal' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Estado de Resistencia a la Insulina / Síndrome Metabólico',
+        disease: 'Estado de resistencia a la insulina / síndrome metabólico',
         plausibilityRationale: 'Glucemia basal en rango limítrofe en paciente con acantosis nigricans, obesidad visceral y perímetro de cintura aumentado.',
         isTargetDisease: true
       },
       {
-        disease: 'Diabetes Mellitus Tipo 2 Establecida',
+        disease: 'Diabetes mellitus tipo 2 establecida',
         plausibilityRationale: 'Presenta componentes metabólicos pero la glucemia en ayunas no alcanza los 126 mg/dL ni la HbA1c llega al 6.5%.',
         isTargetDisease: false
       },
       {
-        disease: 'Defecto en la Beta-Oxidación de Ácidos Grasos',
+        disease: 'Defecto en la beta-oxidación de ácidos grasos',
         plausibilityRationale: 'Causa alteración lipídica pero cursa con hipoglucemia hipocetósica grave tras ayuno.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Resistencia a la Insulina / Síndrome Metabólico',
+    targetDisease: 'Resistencia a la insulina / síndrome metabólico',
     biomarkerOptions: [
       {
         id: 'bm_opt_triglycerides_insulin',
         biomarkerId: 'bm_trigliceridos',
-        biomarkerName: 'Triglicéridos Séricos e Índice HOMA-IR (Insulina en Ayunas)',
+        biomarkerName: 'Triglicéridos séricos e índice HOMA-IR (insulina en ayunas)',
         isCorrect: true,
         biochemicalRationale: 'En la Resistencia a la Insulina, la falta de acción efectiva de la insulina en el tejido adiposo desinhibe la lipólisis, aumentando el flujo de ácidos grasos al hígado. Esto estimula la hiperproducción de VLDL rica en triglicéridos (>150 mg/dL). El cálculo del índice HOMA-IR ([Glucosa x Insulina]/405) confirma la resistencia tisular.',
         whyOptimalOrSuboptimal: 'Es la combinación óptima para caracterizar la alteración metabólica previa al desarrollo de Diabetes manifiesto.'
@@ -563,27 +563,27 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     differentialDiagnoses: [
       {
-        disease: 'Cetoacidosis Diabética (CAD) / Diabetes Mellitus Tipo 1 de Debut',
+        disease: 'Cetoacidosis diabética (CAD) / diabetes mellitus tipo 1 de debut',
         plausibilityRationale: 'Cursa con hiperglucemia severa (>300 mg/dL), polidipsia, poliuria, respiración de Kussmaul por acidosis metabólica e hiperacetonemia por déficit absoluto de insulina.',
         isTargetDisease: true
       },
       {
-        disease: 'Estado Hiperosmolar Hiperglucémico',
+        disease: 'Estado hiperosmolar hiperglucémico',
         plausibilityRationale: 'Presenta hiperglucemia pero suele ocurrir en adultos mayores con DM2, con glucemias > 600 mg/dL y mínima o nula cetosis.',
         isTargetDisease: false
       },
       {
-        disease: 'Defecto en la Beta-Oxidación de Ácidos Grasos',
+        disease: 'Defecto en la beta-oxidación de ácidos grasos',
         plausibilityRationale: 'Produce hipoglucemia en lugar de hiperglucemia masiva.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Cetoacidosis Diabética por Debut de Diabetes Mellitus Tipo 1',
+    targetDisease: 'Cetoacidosis diabética por debut de diabetes mellitus tipo 1',
     biomarkerOptions: [
       {
         id: 'bm_opt_betaohb_cad',
         biomarkerId: 'bm_beta_hidroxibutirato',
-        biomarkerName: 'β-Hidroxibutirato Sérico y Cetonuria/Glucosuria en Orina',
+        biomarkerName: 'β-Hidroxibutirato sérico y cetonuria/glucosuria en orina',
         isCorrect: true,
         biochemicalRationale: 'En la Cetoacidosis Diabética, la ausencia de insulina activa la lipólisis sin oposición. Los ácidos grasos masivos en el hígado sufren beta-oxidación incontrolada derivando en la síntesis acelerada de β-hidroxibutirato (>3.0 mmol/L). Su cuantificación en sangre es el estándar para confirmar la CAD.',
         whyOptimalOrSuboptimal: 'Es el biomarcador cetónico óptimo para confirmar la cetoacidosis e iniciar el protocolo de insulina.'
@@ -599,7 +599,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_agl_cad_w',
         biomarkerId: 'bm_acidos_grasos_libres',
-        biomarkerName: 'Ácidos Grasos Libres',
+        biomarkerName: 'Ácidos grasos libres',
         isCorrect: false,
         biochemicalRationale: 'Sustrato de la cetogénesis.',
         whyOptimalOrSuboptimal: 'Elevados pero inespecíficos frente a la cuantificación directa del β-hidroxibutirato.'
@@ -657,17 +657,17 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     initialLabWork: [
       { test: 'Glucemia en ayunas', result: '35', unit: 'mg/dL', referenceRange: '70 - 109' },
       { test: 'β-Hidroxibutirato', result: '0.1', unit: 'mmol/L', referenceRange: '< 0.5 (En ayuno debe elevarse a > 1.5)' },
-      { test: 'Ácidos Grasos Libres', result: '2.4', unit: 'mmol/L', referenceRange: '0,2 - 0,8' },
+      { test: 'Ácidos grasos libres', result: '2.4', unit: 'mmol/L', referenceRange: '0,2 - 0,8' },
       { test: 'Cetonuria en orina', result: 'Negativa', unit: '-', referenceRange: 'Negativa' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Defecto en la Beta-Oxidación de Ácidos Grasos (Deficiencia de MCADD - Acil-CoA Deshidrogenasa de Cadena Media)',
+        disease: 'Defecto en la beta-oxidación de ácidos grasos (deficiencia de MCADD - Acil-CoA deshidrogenasa de cadena media)',
         plausibilityRationale: 'Presenta el hallazgo patognomónico de Hipoglucemia Hipocetósica (glucemia 35 mg/dL con β-hidroxibutirato anormalmente bajo de 0.1 mmol/L y cetonuria negativa) en presencia de ácidos grasos libres masivamente elevados (2.4 mmol/L) incapaces de oxidarse.',
         isTargetDisease: true
       },
       {
-        disease: 'Hipoglucemia Cetósica del Lactante',
+        disease: 'Hipoglucemia cetósica del lactante',
         plausibilityRationale: 'Es la causa más frecuente en la infancia pero cursa con cetonuria e hiperacetonemia intensa por conservación de la beta-oxidación.',
         isTargetDisease: false
       },
@@ -677,12 +677,12 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Defecto de Beta-Oxidación de Ácidos Grasos (MCADD / Hipoglucemia Hipocetósica)',
+    targetDisease: 'Defecto de beta-oxidación de ácidos grasos (MCADD / hipoglucemia hipocetósica)',
     biomarkerOptions: [
       {
         id: 'bm_opt_carnitine_ratio',
         biomarkerId: 'bm_relacion_acilcarnitina_carnitina',
-        biomarkerName: 'Relación Acilcarnitina / Carnitina Libre (>0.4) y Perfil de Acilcarnitinas (Octanoilcarnitina C8)',
+        biomarkerName: 'Relación acilcarnitina / carnitina libre (>0.4) y perfil de acilcarnitinas (octanoilcarnitina C8)',
         isCorrect: true,
         biochemicalRationale: 'Al estar bloqueada la enzima acil-CoA deshidrogenasa de cadena media (MCADD), los intermediarios acil-CoA de 6 a 12 carbonos se acumulan y se esterifican con carnitina libre para ser excretados. Esto eleva la relación acilcarnitina/carnitina libre por encima de 0.4 y eleva específicamente la Octanoilcarnitina (C8) en la espectrometría de masas.',
         whyOptimalOrSuboptimal: 'Es el marcador enzimático óptimo para confirmar el defecto en la beta-oxidación e identificar la deficiencia de MCADD.'
@@ -727,7 +727,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     clinicalGlossary: [
       { term: 'Amonio plasmático (NH4+)', simpleDefinition: 'Gas/ion altamente tóxico para las neuronas generado al degradar proteínas. El hígado debe transformarlo urgentemente en urea para que no dañe el cerebro.' },
       { term: 'Ciclo de la urea', simpleDefinition: 'Ruta bioquímica exclusiva del hígado que toma el amonio tóxico y lo convierte en urea neutra, la cual se expulsa sin peligro por la orina.' },
-      { term: 'Déficit de OTC (Ornitina Transcarbamilasa)', simpleDefinition: 'La enfermedad más frecuente del ciclo de la urea. Al estar rota la enzima, el amonio se dispara en sangre y se acumula ácido orótico en la orina.' },
+      { term: 'Déficit de OTC (ornitina transcarbamilasa)', simpleDefinition: 'La enfermedad más frecuente del ciclo de la urea. Al estar rota la enzima, el amonio se dispara en sangre y se acumula ácido orótico en la orina.' },
       { term: 'Encefalopatía hiperamonémica', simpleDefinition: 'Intoxicación cerebral aguda causada por amonio: provoca edema cerebral, letargo, convulsiones y coma si no se trata de inmediato.' }
     ],
     biochemicalConceptSimple: '1. El bebé ingiere proteínas de la leche -> 2. La digestión libera aminoácidos y genera amonio libre -> 3. La enzima hepática OTC está inactiva y el ciclo de la urea no arranca -> 4. La urea está baja pero el amonio se dispara a niveles letales (>300 µmol/L) -> 5. El amonio atraviesa la barrera hematoencefálica y desata convulsiones y coma.',
@@ -757,34 +757,34 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       ]
     },
     initialLabWork: [
-      { test: 'Gasometría Capilar Neonatal', result: 'pH: 7.50, pCO2: 28 mmHg, HCO3-: 26 mEq/L (Alcalosis respiratoria por hiperventilación central neurotóxica)', unit: '', referenceRange: 'pH 7.35-7.45; pCO2 35-45' },
-      { test: 'Glucemia Capilar de Urgencias', result: '88', unit: 'mg/dL', referenceRange: '70 - 109 (Descarta hipoglucemia neonatal como causa primaria de letargia)' },
+      { test: 'Gasometría capilar neonatal', result: 'pH: 7.50, pCO2: 28 mmHg, HCO3-: 26 mEq/L (Alcalosis respiratoria por hiperventilación central neurotóxica)', unit: '', referenceRange: 'pH 7.35-7.45; pCO2 35-45' },
+      { test: 'Glucemia capilar de urgencias', result: '88', unit: 'mg/dL', referenceRange: '70 - 109 (Descarta hipoglucemia neonatal como causa primaria de letargia)' },
       { test: 'Urea Sérica', result: '12', unit: 'mg/dL', referenceRange: '20 - 50 (Inesperadamente baja a pesar del cuadro de deshidratación neonatal)', isAbnormal: true },
       { test: 'Iones en Sangre', result: 'Sodio 138 mEq/L, Potasio 4.5 mEq/L', unit: '', referenceRange: 'Normal' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Defecto del Ciclo de la Urea (Deficiencia de Ornitina Transcarbamilasa - OTC)',
+        disease: 'Defecto del ciclo de la urea (deficiencia de ornitina transcarbamilasa - OTC)',
         plausibilityRationale: 'Presentación neonatal con letargia progresiva y convulsiones tras tomas de leche, alcalosis respiratoria por hiperventilación central neurotóxica y urea sérica llamativamente disminuida.',
         isTargetDisease: true
       },
       {
-        disease: 'Sepsis Neonatal Aguda',
+        disease: 'Sepsis neonatal aguda',
         plausibilityRationale: 'Puede causar letargia y convulsiones, pero no justifica niveles de amonio > 300 µmol/L con urea disminuida.',
         isTargetDisease: false
       },
       {
-        disease: 'Enfermedad de Jarabe de Arce (MSUD)',
+        disease: 'Enfermedad de jarabe de arce (MSUD)',
         plausibilityRationale: 'Acidemia orgánica que causa encefalopatía, pero cursa con cetoacidosis marcada y olor a azúcar quemada.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Defecto del Ciclo de la Urea (Deficiencia de OTC)',
+    targetDisease: 'Defecto del ciclo de la urea (deficiencia de OTC)',
     biomarkerOptions: [
       {
         id: 'bm_opt_ammonia_urea',
         biomarkerId: 'bm_amonio_plasmatico',
-        biomarkerName: 'Amonio Plasmático y Ácido Orótico Urinario / Aminoaciduria',
+        biomarkerName: 'Amonio plasmático y ácido orótico urinario / aminoaciduria',
         isCorrect: true,
         biochemicalRationale: 'El ciclo de la urea en los hepatocitos es la única vía del organismo para eliminar el amonio neurotóxico derivado del catabolismo proteico. Un bloqueo en la enzima OTC provoca la acumulación masiva de carbamoilfosfato y amonio (>300 µmol/L), reduciendo la síntesis de urea e incrementando la excreción de ácido orótico en orina.',
         whyOptimalOrSuboptimal: 'Es la combinación de biomarcadores óptima para confirmar el defecto en el ciclo de la urea y localizar el bloqueo enzimático.'
@@ -792,7 +792,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_uric_wrong_1',
         biomarkerId: 'bm_acido_urico',
-        biomarkerName: 'Ácido Úrico Sérico',
+        biomarkerName: 'Ácido úrico sérico',
         isCorrect: false,
         biochemicalRationale: 'Producto del catabolismo de purinas.',
         whyOptimalOrSuboptimal: 'Irrelevante en el fallo primario de la eliminación del nitrógeno aminoacídico.'
@@ -864,7 +864,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     differentialDiagnoses: [
       {
-        disease: 'Hiperuricemia Primaria con Crisis Aguda de Gota (Artropatía por Urato Monosódico)',
+        disease: 'Hiperuricemia primaria con crisis aguda de gota (artropatía por urato monosódico)',
         plausibilityRationale: 'Presentación típica de podagra aguda, desencadenada por tiazidas y consumo de purinas/alcohol con función renal conservada.',
         isTargetDisease: true
       },
@@ -874,17 +874,17 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: false
       },
       {
-        disease: 'Seudogota (Pirofosfato de Calcio)',
+        disease: 'Seudogota (pirofosfato de calcio)',
         plausibilityRationale: 'Suele afectar rodillas o muñecas en ancianos, con niveles normales de ácido úrico.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Hiperuricemia Primaria / Crisis Aguda de Gota',
+    targetDisease: 'Hiperuricemia primaria / crisis aguda de gota',
     biomarkerOptions: [
       {
         id: 'bm_opt_uric_acid_gout',
         biomarkerId: 'bm_acido_urico',
-        biomarkerName: 'Ácido Úrico Sérico y Análisis de Líquido Sinovial (Cristales de Urato Monosódico)',
+        biomarkerName: 'Ácido úrico sérico y análisis de líquido sinovial (cristales de urato monosódico)',
         isCorrect: true,
         biochemicalRationale: 'El ácido úrico es el producto final del catabolismo de las purinas por la xantina oxidasa. Al superar la saturación plasmática (>7.0 mg/dL en varones), precipita en forma de cristales de urato monosódico needle-shaped con birrefringencia negativa en las articulaciones, desencadenando la respuesta inflamatoria.',
         whyOptimalOrSuboptimal: 'Es el biomarcador sérico óptimo para confirmar el estado de hiperuricemia predisponente a la precipitación cristalina articular.'
@@ -925,7 +925,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     difficulty: 'experto',
     studentSummary: 'Gabriel V., de 61 años con un linfoma muy agresivo, recibe su primer ciclo de quimioterapia. A las 48 horas apenas puede orinar (oliguria), tiene calambres y debilidad extrema. La muerte masiva de millones de células tumorales ha liberado de golpe su ADN a la sangre, disparando el ácido úrico a 15.4 mg/dL y taponando los túbulos renales (síndrome de lisis tumoral).',
     clinicalGlossary: [
-      { term: 'Síndrome de Lisis Tumoral', simpleDefinition: 'Emergencia médica causada por la destrucción simultánea de millones de células malignas tras la quimio, vertiendo su contenido celular (ácido úrico, fósforo, potasio y LDH) a la sangre.' },
+      { term: 'Síndrome de lisis tumoral', simpleDefinition: 'Emergencia médica causada por la destrucción simultánea de millones de células malignas tras la quimio, vertiendo su contenido celular (ácido úrico, fósforo, potasio y LDH) a la sangre.' },
       { term: 'Oliguria', simpleDefinition: 'Expulsar muy poca cantidad de orina (menos de 400 mL al día), señal de que los riñones están sufriendo un fallo agudo.' },
       { term: 'Nefropatía por cristales de urato', simpleDefinition: 'Obstrucción de los túbulos del riñón porque el ácido úrico es tan elevado que cristaliza dentro del propio riñón, impidiendo el paso de la orina.' },
       { term: 'LDH (Lactato deshidrogenasa)', simpleDefinition: 'Enzima citosólica que se multiplica por diez (>2000 U/L) cuando mueren millones de células tumorales al mismo tiempo.' }
@@ -957,33 +957,33 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     },
     initialLabWork: [
       { test: 'Hemograma Completo', result: 'Leucocitos 48.000 /µL (con blastos circulantes), Hb 8.4 g/dL, Plaquetas 38.000 /µL', unit: '', referenceRange: 'Normal' },
-      { test: 'Creatinina Sérica', result: '3.2', unit: 'mg/dL', referenceRange: 'H: 0.7 - 1.3 (Lesión Renal Aguda brusca post-quimioterapia)', isAbnormal: true },
+      { test: 'Creatinina Sérica', result: '3.2', unit: 'mg/dL', referenceRange: 'H: 0.7 - 1.3 (lesión renal aguda brusca post-quimioterapia)', isAbnormal: true },
       { test: 'Diuresis en Urgencias', result: '< 10 mL/h en las últimas 4 horas (Oliguria crítica refractaria)', unit: 'mL/h', referenceRange: '> 40 mL/h', isAbnormal: true },
       { test: 'Electrocardiograma (ECG)', result: 'Ondas T elevadas, puntiagudas y simétricas en derivaciones precordiales (Signo de alarma de hiperpotasemia crítica por rotura celular masiva)', unit: '-', referenceRange: 'Normal', isAbnormal: true }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Hiperuricemia Secundaria a Síndrome de Lisis Tumoral (Nefropatía por Cristales de Urato)',
+        disease: 'Hiperuricemia secundaria a síndrome de lisis tumoral (nefropatía por cristales de urato)',
         plausibilityRationale: 'Lisis masiva celular tumoral post-quimioterapia en paciente con leucemia/linfoma de alta carga tumoral, con debut de insuficiencia renal aguda anúrica y signos ECG de toxicidad electrolítica por rotura celular.',
         isTargetDisease: true
       },
       {
-        disease: 'Lesión Renal Aguda Prerrenal por Deshidratación',
+        disease: 'Lesión renal aguda prerrenal por deshidratación',
         plausibilityRationale: 'Causa oliguria pero no explica los niveles masivos de ácido úrico, lisis celular (LDH > 2000 U/L) ni hiperfosfatemia severa.',
         isTargetDisease: false
       },
       {
-        disease: 'Hiperuricemia Primaria (Gota)',
+        disease: 'Hiperuricemia primaria (gota)',
         plausibilityRationale: 'No presenta clínica articular y la hiperuricemia se desencadenó de forma secundaria masiva a la lisis tumoral.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Hiperuricemia Secundaria a Síndrome de Lisis Tumoral',
+    targetDisease: 'Hiperuricemia secundaria a síndrome de lisis tumoral',
     biomarkerOptions: [
       {
         id: 'bm_opt_uric_ldh_tls',
         biomarkerId: 'bm_acido_urico',
-        biomarkerName: 'Ácido Úrico Sérico con LDH y Perfil de Electrolitos (Fósforo/Potasio)',
+        biomarkerName: 'Ácido úrico sérico con LDH y perfil de electrolitos (fósforo/potasio)',
         isCorrect: true,
         biochemicalRationale: 'La lisis acelerada de células malignas libera masivamente ácidos nucleicos que son catabolizados a ácido úrico. Niveles de ácido úrico > 8.0 mg/dL (o incremento del 25%) junto a elevación masiva de LDH (>2000 U/L), hiperpotasemia e hiperfosfemia inducen la precipitación de urato en los túbulos colectores, causando falla renal aguda obstructiva.',
         whyOptimalOrSuboptimal: 'Es la combinación diagnóstica óptima para confirmar el Síndrome de Lisis Tumoral e Hiperuricemia Secundaria.'
@@ -1041,7 +1041,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       },
       chiefComplaint: 'Dolor atroz en boca del estómago irradiado a la espalda, náuseas, vómitos incesantes y suero sanguíneo de aspecto lechoso.',
       presentIllness: 'Andrés K. acude a urgencias tras inicio súbito hace 10 horas de dolor epigástrico atroz (10/10) irradiado en cinturón hacia ambos flancos y región lumbar. En la extracción de sangre de urgencias, el analista constata que el plasma tiene aspecto lechoso opalescente.',
-      pastMedicalHistory: ['Dislipidemia Mixta grave con deficiente adherencia farmacológica', 'Diabetes Mellitus Tipo 2 mal controlada (HbA1c 9.8%)', 'Esteatosis Hepática no alcohólica'],
+      pastMedicalHistory: ['Dislipidemia Mixta grave con deficiente adherencia farmacológica', 'Diabetes mellitus tipo 2 mal controlada (HbA1c 9.8%)', 'Esteatosis Hepática no alcohólica'],
       medications: ['Metformina 1000 mg/12h', 'Fenofibrato 160 mg (discontinuado voluntariamente hace 4 meses)'],
       lifestyle: 'Dieta rica en grasas saturadas y carbohidratos refinados. Sedentarismo. Sin consumo de alcohol.'
     },
@@ -1059,35 +1059,35 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       ]
     },
     initialLabWork: [
-      { test: 'Inspección del Suero / Plasma', result: 'Francamente Lactescente (Aspecto lechoso / turbio "crema de leche" tras centrifugación de urgencias)', unit: '', referenceRange: 'Límpido / Transparente', isAbnormal: true },
+      { test: 'Inspección del suero / plasma', result: 'Francamente Lactescente (Aspecto lechoso / turbio "crema de leche" tras centrifugación de urgencias)', unit: '', referenceRange: 'Límpido / Transparente', isAbnormal: true },
       { test: 'Hemograma', result: 'Leucocitos 15.400 /µL (Neutrofilia 84%), Hb 15.2 g/dL (hemoconcentración)', unit: '', referenceRange: 'Leucocitos 4.500 - 11.000', isAbnormal: true },
       { test: 'Glucemia en Urgencias', result: '245', unit: 'mg/dL', referenceRange: '70 - 109 (Hiperglucemia reactiva por estrés)', isAbnormal: true },
       { test: 'Creatinina Sérica', result: '1.1', unit: 'mg/dL', referenceRange: '0.7 - 1.3' },
-      { test: 'Radiografía Simple de Abdomen', result: 'Íleo paralítico reflejo en cuadrante superior izquierdo (asa centinela), sin neumoperitoneo', unit: '', referenceRange: 'Normal' }
+      { test: 'Radiografía simple de abdomen', result: 'Íleo paralítico reflejo en cuadrante superior izquierdo (asa centinela), sin neumoperitoneo', unit: '', referenceRange: 'Normal' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Pancreatitis Aguda Secundaria a Hipertrigliceridemia Extrema (Síndrome de Quilomicronemia / Dislipidemia FVII)',
+        disease: 'Pancreatitis aguda secundaria a hipertrigliceridemia extrema (síndrome de quilomicronemia / dislipidemia FVII)',
         plausibilityRationale: 'Dolor epigástrico en cinturón tras trasgresión dietética en paciente con diabetes y xantomas eruptivos, con suero francamente lechoso a simple vista por quilomicrones masivos.',
         isTargetDisease: true
       },
       {
-        disease: 'Pancreatitis Aguda Biliar / Litiásica',
+        disease: 'Pancreatitis aguda biliar / litiásica',
         plausibilityRationale: 'Causa más frecuente de pancreatitis, pero no cursa con suero lactescente, xantomas ni triglicéridos > 1800 mg/dL.',
         isTargetDisease: false
       },
       {
-        disease: 'Cetoacidosis Diabética con Dolor Abdominal Secundario',
+        disease: 'Cetoacidosis diabética con dolor abdominal secundario',
         plausibilityRationale: 'Explica la hiperglucemia descompensada y el dolor abdominal, pero la Lipasa > 900 U/L y el suero lechoso con pancreatitis en TAC confirman el cuadro primario pancreático.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Pancreatitis Aguda Hipertrigliceridémica',
+    targetDisease: 'Pancreatitis aguda hipertrigliceridémica',
     biomarkerOptions: [
       {
         id: 'bm_opt_lipase_tg_hypertri',
         biomarkerId: 'bm_trigliceridos',
-        biomarkerName: 'Lipasa Sérica (> 3x LSN) y Triglicéridos Séricos en Ayunas (> 1.000 mg/dL con Suero Lactescente)',
+        biomarkerName: 'Lipasa sérica (> 3x LSN) y triglicéridos séricos en ayunas (> 1.000 mg/dL con suero lactescente)',
         isCorrect: true,
         biochemicalRationale: 'La elevación masiva de Triglicéridos (> 1000 mg/dL) satura la lipoproteinlipasa (LPL) intestinal y vascular, acumulando quilomicrones en los capilares pancreáticos. La lipasa acinar hidroliza estos triglicéridos liberando altas concentraciones de Ácidos Grasos Libres (AGL) no esterificados. Los AGL generan toxicidad directa en la membrana acinar, acidosis microvascular, agregación plaquetaria e isquemia local, desencadenando pancreatitis necrotizante. Además, la lipemia extrema distorsiona el ensayo de Amilasa (dando falsos negativos espectrofotométricos), convirtiendo a la Lipasa Sérica + Triglicéridos en la combinación diagnóstica fundamental.',
         whyOptimalOrSuboptimal: 'Es la combinación diagnóstica óptima que confirma simultáneamente el daño celular acinar pancreático y la causa etiológica metabólica por hipertrigliceridemia extrema.'
@@ -1095,7 +1095,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_alt_panc_w',
         biomarkerId: 'bm_alt',
-        biomarkerName: 'Alanina Aminotransferasa (ALT) y Bilirrubina Total',
+        biomarkerName: 'Alanina aminotransferasa (ALT) y bilirrubina total',
         isCorrect: false,
         biochemicalRationale: 'Enzimas de colestasis o patología biliar obstructive.',
         whyOptimalOrSuboptimal: 'Son útiles para diagnosticar pancreatitis biliar, pero resultan normales o inespecíficas en la hipertrigliceridemia pura.'
@@ -1141,7 +1141,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       },
       chiefComplaint: 'Calambres dolorosos en manos y pies, adormecimiento peribucal, astenia progresiva y palpitaciones.',
       presentIllness: 'Dolores M., tratada de forma ininterrumpida con Omeprazol 40 mg/día desde hace 7 años por reflujo, consulta por 4 meses de cansancio marcado, debilidad generalizada, entumecimiento simétrico en manos y pies y calambres involuntarios en pantorrillas.',
-      pastMedicalHistory: ['Enfermedad por Reflujo Gastroesofágico (ERGE)', 'Osteopenia senil'],
+      pastMedicalHistory: ['Enfermedad por reflujo gastroesofágico (ERGE)', 'Osteopenia senil'],
       medications: ['Omeprazol 40 mg/24h (sin interrupción durante 7 años)', 'Carbonato de Calcio 500 mg/24h'],
       lifestyle: 'No fumadora. Dieta mediterránea equilibrada.'
     },
@@ -1160,28 +1160,28 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     },
     initialLabWork: [
       { test: 'Hemoglobina', result: '9.6', unit: 'g/dL', referenceRange: '12.0 - 15.5' },
-      { test: 'Volumen Corpuscular Medio (VCM)', result: '106', unit: 'fL', referenceRange: '80 - 100' },
-      { test: 'Calcio Sérico Total', result: '7.4', unit: 'mg/dL', referenceRange: '8.5 - 10.5' },
-      { test: 'Frotis de Sangre Periférica', result: 'Neutrófilos hipersegmentados y megaloblastos', unit: '', referenceRange: 'Normal' }
+      { test: 'Volumen corpuscular medio (VCM)', result: '106', unit: 'fL', referenceRange: '80 - 100' },
+      { test: 'Calcio sérico total', result: '7.4', unit: 'mg/dL', referenceRange: '8.5 - 10.5' },
+      { test: 'Frotis de sangre periférica', result: 'Neutrófilos hipersegmentados y megaloblastos', unit: '', referenceRange: 'Normal' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Malabsorción Múltiple Nutricional (Anemia Megaloblástica por Déficit de B12 e Hipocalcemia Sintomática por Hipomagnesemia Secundaria a IBP / Omeprazol)',
+        disease: 'Malabsorción múltiple nutricional (anemia megaloblástica por déficit de B12 e hipocalcemia sintomática por hipomagnesemia secundaria a IBP / omeprazol)',
         plausibilityRationale: 'Concordancia absoluta con la inhibición crónica de la acidez gástrica por Omeprazol, que impide la separación de la B12 alimentaria (macrocitosis) y bloquea los canales TRPM6/7 intestinales de magnesio, causando supresión de PTH e hipocalcemia sintomática (Trousseau/Chvostek positivos).',
         isTargetDisease: true
       },
       {
-        disease: 'Síndrome de Malabsorción por Insuficiencia Pancreática Crónica',
+        disease: 'Síndrome de malabsorción por insuficiencia pancreática crónica',
         plausibilityRationale: 'Puede generar malabsorción de vitaminas liposolubles, pero suele cursar con esteatorrea franca y la hipoclorhidria no es su causa.',
         isTargetDisease: false
       },
       {
-        disease: 'Hipoparateroidismo Primario Autoinmune',
+        disease: 'Hipoparateroidismo primario autoinmune',
         plausibilityRationale: 'Explica la hipocalcemia con Trousseau positivo, pero no justifica la anemia macrocítica por déficit de vitamina B12 ni se relaciona con el Omeprazol.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Malabsorción Nutricional Secundaria a Uso Crónico de Omeprazol (IBP)',
+    targetDisease: 'Malabsorción nutricional secundaria a uso crónico de omeprazol (IBP)',
     biomarkerOptions: [
       {
         id: 'bm_opt_b12_mg_omeprazol',
@@ -1258,33 +1258,33 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     },
     initialLabWork: [
       { test: 'Hemoglobina', result: '10.1', unit: 'g/dL', referenceRange: '12.0 - 15.5' },
-      { test: 'Volumen Corpuscular Medio (VCM)', result: '71', unit: 'fL', referenceRange: '80 - 100' },
+      { test: 'Volumen corpuscular medio (VCM)', result: '71', unit: 'fL', referenceRange: '80 - 100' },
       { test: 'Ferritina Sérica', result: '6', unit: 'ng/mL', referenceRange: '15 - 150' },
       { test: '25-OH Vitamina D3', result: '12', unit: 'ng/mL', referenceRange: '30 - 100' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Enfermedad Celíaca del Adulto con Enteropatía Atrófica Duodeno-Yeyunal y Síndrome de Malabsorción',
+        disease: 'Enfermedad celíaca del adulto con enteropatía atrófica duodeno-yeyunal y síndrome de malabsorción',
         plausibilityRationale: 'La atrofia de las vellosidades duodenales provocada por la respuesta autoinmune al gluten destruye la zona de mayor absorción activa de hierro y calcio, explicando la anemia ferropénica refractaria al hierro oral, la deficiencia de Vitamina D3 y la diarrea con distensión.',
         isTargetDisease: true
       },
       {
-        disease: 'Síndrome de Intestino Irritable con Predominio de Diarrea (SII-D)',
+        disease: 'Síndrome de intestino irritable con predominio de diarrea (SII-D)',
         plausibilityRationale: 'Explica los síntomas de distensión y cambios en ritmo intestinal, pero no justifica la anemia ferropénica orgánica severa ni la pérdida de peso.',
         isTargetDisease: false
       },
       {
-        disease: 'Insuficiencia Pancreática Exocrina por Pancreatitis Crónica',
+        disease: 'Insuficiencia pancreática exocrina por pancreatitis crónica',
         plausibilityRationale: 'Causa malabsorción y esteatorrea, pero la absorción de hierro inorgánico en duodeno depende de la mucosa y no de enzimas pancreáticas.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Enfermedad Celíaca del Adulto',
+    targetDisease: 'Enfermedad celíaca del adulto',
     biomarkerOptions: [
       {
         id: 'bm_opt_ttg_iga_celiac',
         biomarkerId: 'bm_ttg_iga',
-        biomarkerName: 'Anticuerpos Anti-Transglutaminasa Tisular IgA (tTG-IgA > 100 U/mL) e IgA Sérica Total',
+        biomarkerName: 'Anticuerpos anti-transglutaminasa tisular IgA (tTG-IgA > 100 U/mL) e IgA sérica total',
         isCorrect: true,
         biochemicalRationale: 'El tTG-IgA es el marcador de elección con sensibilidad y especificidad >98% para Enfermedad Celíaca. La respuesta inmune contra la tTG2 en presencia de gliadina atrofia las vellosidades duodenales (sitio primario de absorción de hierro, calcio y folato), causando anemia ferropénica refractaria al tratamiento oral. Es fundamental medir la IgA total para descartar falsos negativos por déficit selectivo de IgA.',
         whyOptimalOrSuboptimal: 'Es el biomarcador serológico no invasivo óptimo para diagnosticar la enteropatía sensible al gluten y guiar la biopsia duodenal.'
@@ -1357,11 +1357,11 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       },
       findings: [
         {
-          systemName: 'Pares Craneales y Examen Ocular',
+          systemName: 'Pares craneales y examen ocular',
           description: 'Ptosis palpebral derecha manifiesta tras mirada sostenida superior durante 60 segundos (fatigabilidad patológica). Prueba del hielo positiva (elevación de >2 mm de la hendidura palpebral tras 2 minutos de aplicación de hielo local). Diplopía a la mirada lateral extrema. Pupilas isocóricas y normorreactivas sin defecto pupilar aferente.'
         },
         {
-          systemName: 'Musculoesquelético y Neurológico Motor',
+          systemName: 'Musculoesquelético y neurológico motor',
           description: 'Fuerza proximal en extremidades superiores 4+/5 que declina con el esfuerzo repetido y se recupera tras 2 minutos de reposo. Reflejos osteotendinosos conservados (+2/4) simétricos. Sensibilidad táctil y algésica normal.'
         }
       ]
@@ -1370,8 +1370,8 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       { test: 'TSH Sérica', result: '2.10', unit: 'mUI/L', referenceRange: '0.40 - 4.00 (Descarta hipotiroidismo o tiroiditis autoinmune activa)' },
       { test: 'T4 Libre', result: '1.24', unit: 'ng/dL', referenceRange: '0.80 - 1.80' },
       { test: 'Hemograma Completo', result: 'Leucocitos 6.400 /µL, Hemoglobina 13.8 g/dL', unit: '', referenceRange: 'Normal' },
-      { test: 'Electromiografía (Estimulación Repetitiva a 3 Hz)', result: 'Decremento patológico > 12% en la amplitud del potencial de acción muscular compuesto (CMAP)', unit: '%', referenceRange: '< 10% de decremento' },
-      { test: 'TC Torácica con Contraste', result: 'Hiperplasia tímica linfoide sin evidencia de timoma invasivo ni masas mediastínicas', unit: '-', referenceRange: 'Normal' }
+      { test: 'Electromiografía (estimulación repetitiva a 3 hz)', result: 'Decremento patológico > 12% en la amplitud del potencial de acción muscular compuesto (CMAP)', unit: '%', referenceRange: '< 10% de decremento' },
+      { test: 'TC torácica con contraste', result: 'Hiperplasia tímica linfoide sin evidencia de timoma invasivo ni masas mediastínicas', unit: '-', referenceRange: 'Normal' }
     ],
     differentialDiagnoses: [
       {
@@ -1385,12 +1385,12 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: false
       },
       {
-        disease: 'Miopatía Mitocondrial (Oftalmoplejía Externa Progresiva)',
+        disease: 'Miopatía mitocondrial (oftalmoplejía externa progresiva)',
         plausibilityRationale: 'Cursa con ptosis y limitación ocular simétrica, pero la debilidad es fija y no fluctuante con el reposo diario, no responde a inhibidores de la colinesterasa ni presenta decremento en la electromiografía.',
         isTargetDisease: false
       },
       {
-        disease: 'Esclerosis Múltiple (Forma Brote-Remisión)',
+        disease: 'Esclerosis múltiple (forma brote-remisión)',
         plausibilityRationale: 'Puede cursar con diplopía y fatiga en mujeres jóvenes, pero suele presentar alteraciones pupilares (neuritis óptica con dolor), síntomas sensitivos/piramidales persistentes durante días y lesiones desmielinizantes en resonancia magnética cerebral.',
         isTargetDisease: false
       }
@@ -1400,7 +1400,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_achr_ab',
         biomarkerId: 'bm_achr_ab',
-        biomarkerName: 'Anticuerpos Anti-Receptor de Acetilcolina (AChR-Ab)',
+        biomarkerName: 'Anticuerpos anti-receptor de acetilcolina (AChR-Ab)',
         isCorrect: true,
         biochemicalRationale: 'Los autoanticuerpos frente al receptor nicotínico de acetilcolina (AChR-Ab) provocan la lisis de la membrana postsináptica mediada por complemento, aceleran la endocitosis y degradación del receptor (modulación antigénica) y bloquean el sitio de fijación del ligando. Esto reduce drásticamente el número de receptores nicotínicos funcionales en la placa motora, disminuyendo el potencial de placa terminal (EPP) por debajo del umbral para abrir los canales de sodio voltaje-dependientes.',
         whyOptimalOrSuboptimal: 'Es el biomarcador serológico de elección de máxima especificidad (>99%) y alta sensibilidad (~85%) para confirmar la Miastenia Gravis y evidenciar la alteración del receptor acoplado a canal iónico dependiente de ligando.'
@@ -1408,7 +1408,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_anti_vgcc_distractor',
         biomarkerId: 'bm_anti_vgcc',
-        biomarkerName: 'Anticuerpos Anti-Canales de Calcio Dependientes de Voltaje (Anti-VGCC)',
+        biomarkerName: 'Anticuerpos anti-canales de calcio dependientes de voltaje (Anti-VGCC)',
         isCorrect: false,
         biochemicalRationale: 'Autoanticuerpos dirigidos contra los canales Cav2.1 presinápticos que inhiben el influjo de calcio y la exocitosis cuántica de vesículas de acetilcolina.',
         whyOptimalOrSuboptimal: 'Es el biomarcador característico del Síndrome de Lambert-Eaton (defecto presináptico), no de la Miastenia Gravis (defecto postsináptico de canales iónicos activados por ligando).'
@@ -1416,7 +1416,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_ck_distractor',
         biomarkerId: 'bm_ck_total',
-        biomarkerName: 'Creatina Quinasa Sérica Total (CK)',
+        biomarkerName: 'Creatina quinasa sérica total (CK)',
         isCorrect: false,
         biochemicalRationale: 'Enzima citosólica miocítica indicadora de rotura del sarcolema en distrofias, miopatías inflamatorias o rabdomiólisis.',
         whyOptimalOrSuboptimal: 'En la miastenia gravis la arquitectura de la fibra muscular está íntegra y el defecto es puramente neuroquímico/molecular en la señalización del canal, por lo que la CK es estrictamente normal.'
@@ -1454,7 +1454,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       patientDemographics: {
         age: 34,
         gender: 'Masculino',
-        occupation: 'Médico Cooperante en Emergencias Sanitarias'
+        occupation: 'Médico cooperante en emergencias sanitarias'
       },
       chiefComplaint: 'Diarrea líquida inagotable blanquecina de 12 horas de evolución, vómitos repetidos, calambres musculares generalizados y sed abrasadora.',
       presentIllness: 'Carlos D., cooperante internacional de 34 años de regreso de un campo de refugiados tras inundaciones, inicia bruscamente un cuadro de evacuaciones acuosas masivas y continuas en "agua de arroz", con náuseas, vómitos, calambres y deshidratación severa.',
@@ -1472,11 +1472,11 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       },
       findings: [
         {
-          systemName: 'Signos Generales y de Hidratación',
+          systemName: 'Signos generales y de hidratación',
           description: 'Afectación severa del estado general: letárgico, ojos profundamente hundidos (enoftalmos), ausencia de lágrimas, lengua y mucosa yugal como "papel de lija", signo del pliegue cutáneo marcadamente positivo (>3 segundos en abdomen), frialdad distal y acrocianosis.'
         },
         {
-          systemName: 'Abdomen y Examen Fecal',
+          systemName: 'Abdomen y examen fecal',
           description: 'Abdomen blando, no doloroso a la palpación profunda, sin defensa muscular ni signos de peritonismo. Ruidos hidroaéreos marcadamente aumentados. Evacuación rectal continua de líquido lechoso transparente con detritus mucosos sin trazas de sangre.'
         }
       ]
@@ -1485,8 +1485,8 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       { test: 'Hematocrito (Hto)', result: '56', unit: '%', referenceRange: '40 - 52 (Hemoconcentración severa por fuga volumétrica masiva)' },
       { test: 'Creatinina Sérica', result: '2.4', unit: 'mg/dL', referenceRange: '0.7 - 1.3 (Fracaso renal agudo de origen prerrenal)' },
       { test: 'Potasio Sérico (K+)', result: '2.7', unit: 'mEq/L', referenceRange: '3.5 - 5.0 (Hipopotasemia severa por pérdida colónica de potasio)' },
-      { test: 'Gasometría Venosa Periférica', result: 'pH: 7.20, HCO3-: 11 mEq/L, pCO2: 29 mmHg (Acidosis metabólica severa con anión GAP normal por pérdida digestiva neta de HCO3-)', unit: 'mEq/L', referenceRange: 'pH 7.35-7.45; HCO3- 22-26' },
-      { test: 'Examen Fecal al Microscopio (Frotis con Azul de Metileno)', result: 'Ausencia total de leucocitos polimorfonucleares (PMN 0 por campo) y ausencia de eritrocitos (enteropatía puramente secretora sin lisis mucosa)', unit: 'PMN/campo', referenceRange: '0 PMN/campo' }
+      { test: 'Gasometría venosa periférica', result: 'pH: 7.20, HCO3-: 11 mEq/L, pCO2: 29 mmHg (Acidosis metabólica severa con anión GAP normal por pérdida digestiva neta de HCO3-)', unit: 'mEq/L', referenceRange: 'pH 7.35-7.45; HCO3- 22-26' },
+      { test: 'Examen fecal al microscopio (frotis con azul de metileno)', result: 'Ausencia total de leucocitos polimorfonucleares (PMN 0 por campo) y ausencia de eritrocitos (enteropatía puramente secretora sin lisis mucosa)', unit: 'PMN/campo', referenceRange: '0 PMN/campo' }
     ],
     differentialDiagnoses: [
       {
@@ -1500,12 +1500,12 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: false
       },
       {
-        disease: 'Diarrea Osmótica por Ingestión de Laxantes o Polialcoholes',
+        disease: 'Diarrea osmótica por ingestión de laxantes o polialcoholes',
         plausibilityRationale: 'Retiene agua en la luz por gradiente osmótico pero cede de inmediato con el ayuno oral estricto y no genera la pérdida masiva electrolítica letal característica de la toxina ADP-ribosiladora.',
         isTargetDisease: false
       },
       {
-        disease: 'Síndrome Carcinoide / Tumor Secretor de VIP (VIPoma)',
+        disease: 'Síndrome carcinoide / tumor secretor de VIP (VIPoma)',
         plausibilityRationale: 'Produce diarrea secretora acuosa profusa mediada por AMPc («cólera pancreático»), pero es una neoplasia neuroendocrina de instauración crónica a lo largo de meses, asociada a flushing facial y lesiones hepáticas metastásicas.',
         isTargetDisease: false
       }
@@ -1515,7 +1515,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_cholera_toxin_correct',
         biomarkerId: 'bm_cholera_toxin',
-        biomarkerName: 'Detección de Enterotoxina Colérica y Cultivo Selectivo TCBS',
+        biomarkerName: 'Detección de enterotoxina colérica y cultivo selectivo TCBS',
         isCorrect: true,
         biochemicalRationale: 'La toxina colérica es una enterotoxina de tipo AB5. La subunidad catalítica A1 transfiere de forma irreversible el grupo ADP-ribosa desde el NAD+ intracelular a la subunidad Gαs del complejo de la adenilato ciclasa. Al quedar bloqueada la actividad GTPásica intrínseca, Gαs se mantiene permanentemente unida a GTP en estado activo constante, produciendo una síntesis desmedida y continua de AMPc. El AMPc hiperactiva a la PKA, la cual mantiene permanentemente fosforilado y abierto al canal apical de cloruro CFTR e inhibe el intercambiador Na+/H+ (NHE3). La salida forzada de cloruro hacia la luz intestinal arrastra sodio, bicarbonato y agua a razón de hasta 1000 mL/hora, desatando la diarrea en "agua de arroz".',
         whyOptimalOrSuboptimal: 'Es el biomarcador y método microbiológico confirmatorio de referencia que identifica el mecanismo patogénico de la toxina sobre la proteína Gs y permite aislar el clon epidémico en el medio selectivo TCBS.'
@@ -1539,7 +1539,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_uric_acid_distractor',
         biomarkerId: 'bm_acido_urico',
-        biomarkerName: 'Ácido Úrico Sérico',
+        biomarkerName: 'Ácido úrico sérico',
         isCorrect: false,
         biochemicalRationale: 'Producto final de la degradación de bases púricas.',
         whyOptimalOrSuboptimal: 'Puede sufrir elevación reactiva leve por hemoconcentración y disminución del filtrado glomerular pero carece por completo de especificidad etiológica.'
@@ -1587,11 +1587,11 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       },
       findings: [
         {
-          systemName: 'Cardiovascular y Vascular Periférico',
+          systemName: 'Cardiovascular y vascular periférico',
           description: 'Latido de la punta enérgico e hiperdinámico. Ruidos cardíacos taquicárdicos sin soplos ni tercer ruido. Marcada palidez cutánea en cara y extremidades con frialdad acral y relleno capilar enlentecido durante el pico hipertensivo.'
         },
         {
-          systemName: 'Abdomen y Examen Físico General',
+          systemName: 'Abdomen y examen físico general',
           description: 'Abdomen blando, depresible, sin visceromegalias. No se auscultan soplos en arterias renales. Diaforesis visible con empapamiento de la ropa. Temblor postural fino distal en ambas manos.'
         }
       ]
@@ -1601,7 +1601,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       { test: 'Creatinina Sérica', result: '0.88', unit: 'mg/dL', referenceRange: '0.5 - 1.1' },
       { test: 'Iones en Sangre', result: 'Sodio 140 mEq/L, Potasio 4.1 mEq/L', unit: '', referenceRange: 'Normal' },
       { test: 'Electrocardiograma (ECG)', result: 'Taquicardia sinusal a 122 lpm sin alteraciones isquémicas agudas del segmento ST ni ondas Q patológicas', unit: '-', referenceRange: 'Normal', isAbnormal: true },
-      { test: 'Ecografía / TC Abdominal con Contraste', result: 'Masa nodular heterogénea hipercaptante de 4.3 x 3.8 cm en la glándula suprarrenal izquierda con áreas centrales quísticas necróticas', unit: 'cm', referenceRange: 'Sin nódulos', isAbnormal: true }
+      { test: 'Ecografía / TC abdominal con contraste', result: 'Masa nodular heterogénea hipercaptante de 4.3 x 3.8 cm en la glándula suprarrenal izquierda con áreas centrales quísticas necróticas', unit: 'cm', referenceRange: 'Sin nódulos', isAbnormal: true }
     ],
     differentialDiagnoses: [
       {
@@ -1610,17 +1610,17 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: true
       },
       {
-        disease: 'Hipertensión Arterial Esencial con Crisis Hipertensiva',
+        disease: 'Hipertensión arterial esencial con crisis hipertensiva',
         plausibilityRationale: 'La elevación de tensión arterial es severa, pero no cursa de forma paroxística con la tríada clásica ni asocia masa suprarrenal hipervascularizada.',
         isTargetDisease: false
       },
       {
-        disease: 'Crisis de Pánico / Trastorno de Angustia con Agorafobia',
+        disease: 'Crisis de pánico / trastorno de angustia con agorafobia',
         plausibilityRationale: 'Puede simular la descarga adrenérgica (temblor, palpitaciones, sudoración), pero rara vez alcanza tensiones arteriales superiores a 210/120 mmHg y no justifica la masa adrenal orgánica identificada en neuroimagen.',
         isTargetDisease: false
       },
       {
-        disease: 'Tirotoxicosis / Hipertiroidismo por Enfermedad de Graves',
+        disease: 'Tirotoxicosis / hipertiroidismo por enfermedad de Graves',
         plausibilityRationale: 'Cursa con taquicardia, sudoración y temblor por hipersensibilidad adrenérgica, pero la tensión arterial diastólica suele ser baja o normal (presión de pulso amplia), la clínica es continua y no paroxística y cursa con TSH inhibida.',
         isTargetDisease: false
       }
@@ -1630,7 +1630,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_metanephrines_correct',
         biomarkerId: 'bm_metanephrines_plasma',
-        biomarkerName: 'Metanefrinas Libres Fraccionadas en Plasma',
+        biomarkerName: 'Metanefrinas libres fraccionadas en plasma',
         isCorrect: true,
         biochemicalRationale: 'La secreción de noradrenalina y adrenalina por las células cromafines del feocromocitoma activa potentemente la cascada del receptor α1 acoplado a Gq: la subunidad Gαq activa a la Fosfolipasa C-β (PLC-β), que hidroliza el fosfatidilinositol 4,5-bisfosfato (PIP2) generando inositol 1,4,5-trifosfato (IP3) y diacilglicerol (DAG). El IP3 se une a sus receptores en el retículo sarcoplásmico liberando Ca2+ al citosol, lo que activa a la quinasa de cadena ligera de miosina (MLCK) y desencadena una vasoconstricción arteriolar masiva con picos de TA > 200 mmHg. En el corazón, las catecolaminas activan receptores β1 acoplados a Gs-adenilato ciclasa-AMPc-PKA, disparando la entrada de Ca2+ y la frecuencia cardíaca. Las metanefrinas libres plasmáticas son el biomarcador óptimo porque la enzima intratumoral Catecol-O-metiltransferasa (COMT) metaboliza continuamente las catecolaminas dentro del propio tumor en normetanefrina y metanefrina libres, liberándolas a la sangre de forma constante, lo que confiere una sensibilidad diagnóstica superior al 98% incluso entre paroxismos.',
         whyOptimalOrSuboptimal: 'Es el biomarcador de primera elección de máxima sensibilidad analítica (>98%) para diagnosticar el feocromocitoma e ilustrar la hiperactivación de las vías de transducción adrenérgica.'
@@ -1638,7 +1638,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_troponin_distractor',
         biomarkerId: 'bm_troponin_c',
-        biomarkerName: 'Troponina Cardíaca Ultrasensible (hs-cTn)',
+        biomarkerName: 'Troponina cardíaca ultrasensible (hs-cTn)',
         isCorrect: false,
         biochemicalRationale: 'Proteína miofibrilar marcadora de necrosis celular de miocitos cardíacos.',
         whyOptimalOrSuboptimal: 'Negativa o mínimamente elevada en ausencia de daño isquémico miocárdico directo o miocardiopatía de Takotsubo; no identifica la fuente catecolaminérgica de la crisis.'
@@ -1670,7 +1670,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     difficulty: 'avanzado',
     studentSummary: 'Irene G., una gimnasta delgada de 17 años que entrena a diario, consulta porque le han salido manchas oscuras, rugosas y aterciopeladas muy llamativas en la nuca y las axilas (acantosis nigricans severa), y sus reglas son muy infrecuentes. A pesar de no tener sobrepeso ni comer dulces, su insulina en sangre es astronómicamente alta (> 200 µUI/mL). Una mutación genética en el receptor tirosina quinasa de la insulina impide que sus células capten glucosa normalmente.',
     clinicalGlossary: [
-      { term: 'Receptor Tirosina Quinasa (RTK)', simpleDefinition: 'Tipo de receptor en la superficie de la célula que, al unirse la insulina, se autofosforila y pone en marcha la maquinaria para meter glucosa mediante GLUT4.' },
+      { term: 'Receptor tirosina quinasa (RTK)', simpleDefinition: 'Tipo de receptor en la superficie de la célula que, al unirse la insulina, se autofosforila y pone en marcha la maquinaria para meter glucosa mediante GLUT4.' },
       { term: 'Resistencia a la insulina tipo A', simpleDefinition: 'Trastorno genético raro en el que el receptor de insulina no funciona desde el nacimiento, cursando con niveles brutales de insulina en personas jóvenes y delgadas.' },
       { term: 'Acantosis por reacción cruzada', simpleDefinition: 'Al haber tanta insulina en la sangre, esta se confunde y activa los receptores de IGF-1 de la piel, haciendo crecer queratinocitos y oscureciendo los pliegues.' },
       { term: 'Hiperandrogenismo ovárico', simpleDefinition: 'Aumento de testosterona en la mujer provocado porque la insulina excesiva estimula directamente a las células del ovario, alterando la regla.' }
@@ -1684,7 +1684,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       patientDemographics: {
         age: 17,
         gender: 'Femenino',
-        occupation: 'Estudiante de Bachillerato y Gimnasta'
+        occupation: 'Estudiante de bachillerato y gimnasta'
       },
       chiefComplaint: 'Aparición progresiva de pigmentación oscura aterciopelada en pliegues cutáneos (acantosis nigricans severa), reglas muy irregulares y aumento del vello facial a pesar de ser deportista y delgada.',
       presentIllness: 'Irene G., adolescente de 17 años deportista de competición con complexión delgada (IMC 20.4 kg/m²), consulta por placas hiperpigmentadas, rugosas y aterciopeladas en la nuca y axilas de 18 meses de evolución. Presenta reglas muy irregulares cada 3-4 meses y aumento de vello facial, con cifras de insulina basal desmesuradamente altas sin sobrepeso.',
@@ -1706,46 +1706,46 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
           description: 'Acantosis nigricans exuberante grado 4 en cuello ("collar de terciopelo negro"), axilas con acrocordones múltiples y afectación simétrica en articulaciones metacarpofalángicas de las manos. Escala de Ferriman-Gallwey: 13/36 (hirsutismo moderado).'
         },
         {
-          systemName: 'Hábito Corporal y Endocrino',
+          systemName: 'Hábito corporal y endocrino',
           description: 'Hábito corporal no cushingoide: no presenta obesidad troncular, ni cara de luna llena, ni estrías violáceas abdominales ni giba de búfalo. Masa muscular bien definida compatible con actividad física atlética. Tiroides de tamaño y consistencia normal.'
         }
       ]
     },
     initialLabWork: [
-      { test: 'Glucosa Basal en Ayunas', result: '114', unit: 'mg/dL', referenceRange: '70 - 109 (Glucemia basal alterada / prediabetes)', isAbnormal: true },
+      { test: 'Glucosa basal en ayunas', result: '114', unit: 'mg/dL', referenceRange: '70 - 109 (Glucemia basal alterada / prediabetes)', isAbnormal: true },
       { test: 'TSH Sérica', result: '1.80', unit: 'mUI/L', referenceRange: '0.40 - 4.00 (Descarta hipotiroidismo como causa de oligomenorrea)' },
-      { test: 'Testosterona Total Sérica', result: '98', unit: 'ng/dL', referenceRange: '15 - 70 (Hiperandrogenismo ovárico secundario)', isAbnormal: true },
+      { test: 'Testosterona total sérica', result: '98', unit: 'ng/dL', referenceRange: '15 - 70 (Hiperandrogenismo ovárico secundario)', isAbnormal: true },
       { test: 'DHEA-Sulfato (DHEA-S)', result: '190', unit: 'μg/dL', referenceRange: '65 - 380 (Normal, excluye hiperplasia suprarrenal congénita o tumor adrenal)' },
       { test: 'Anticuerpos Anti-GAD65 y Anti-IA2', result: 'Negativos', unit: '-', referenceRange: 'Negativos (Descarta Diabetes Mellitus Tipo 1 o autoinmune)' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Síndrome de Resistencia a la Insulina Tipo A (Mutación en el gen del Receptor de Insulina - INSR)',
+        disease: 'Síndrome de resistencia a la insulina tipo A (mutación en el gen del receptor de insulina - INSR)',
         plausibilityRationale: 'Concordancia perfecta con acantosis nigricans masiva e hiperandrogenismo severo en una mujer joven no obesa, con ausencia de autoanticuerpos, normo/prediabetes e hiperinsulinemia basal descomunal derivada de un defecto genético en la transducción del receptor tirosina quinasa.',
         isTargetDisease: true
       },
       {
-        disease: 'Síndrome de Ovario Poliquístico (SOP) Clásico',
+        disease: 'Síndrome de ovario poliquístico (SOP) clásico',
         plausibilityRationale: 'Comparte oligomenorrea e hiperandrogenismo, pero en el SOP la resistencia a la insulina es típicamente leve a moderada y ligada a sobrepeso; no justifica una acantosis nigricans monstruosa generalizada con insulinas basales superiores a 150-250 µUI/mL en una paciente deportista delgada.',
         isTargetDisease: false
       },
       {
-        disease: 'Diabetes Mellitus Tipo 1 / LADA de Debut',
+        disease: 'Diabetes mellitus tipo 1 / LADA de debut',
         plausibilityRationale: 'Cursa con hiperglucemia en jóvenes no obesos, pero el mecanismo patogénico es el déficit absoluto de insulina por necrosis autoinmune de islotes pancreáticos, cursando con niveles basales de insulina casi indetectables y autoanticuerpos positivos.',
         isTargetDisease: false
       },
       {
-        disease: 'Síndrome de Cushing Primario (Adenoma Suprarrenal Cortical)',
+        disease: 'Síndrome de Cushing primario (adenoma suprarrenal cortical)',
         plausibilityRationale: 'Produce intolerancia hidrocarbonada e hirsutismo por exceso de esteroides, pero genera obesidad centrípeta marcada, hipertensión arterial, equimosis fáciles y elevación del cortisol libre urinario.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Síndrome de Resistencia a la Insulina Tipo A (Mutación en el gen del Receptor de Insulina - INSR)',
+    targetDisease: 'Síndrome de resistencia a la insulina tipo A (mutación en el gen del receptor de insulina - INSR)',
     biomarkerOptions: [
       {
         id: 'bm_opt_insulin_homa_correct',
         biomarkerId: 'bm_fasting_insulin',
-        biomarkerName: 'Insulina Basal en Ayunas e Índice HOMA-IR',
+        biomarkerName: 'Insulina basal en ayunas e índice HOMA-IR',
         isCorrect: true,
         biochemicalRationale: 'El receptor de insulina (INSR) es el prototipo de receptor de membrana con actividad tirosina quinasa intrínseca (RTK), compuesto por un heterotetrámero α2β2. La unión de la insulina a las subunidades alfa activa la actividad catalítica de las subunidades beta citosólicas, que se autofosforilan en residuos de tirosina y reclutan a proteínas adaptadoras como IRS-1. IRS-1 fosforilado activa a la fosfatidilinositol 3-quinasa (PI3K), que convierte PIP2 en PIP3 en la membrana plasmática, reclutando a PDK1 y fosforilando a Akt (Protein Kinasa B). Akt media la translocación de vesículas con transportadores GLUT4 a la membrana celular para captar glucosa en músculo y grasa. En el Síndrome Tipo A, mutaciones inactivadoras en el dominio tirosina quinasa impiden la autofosforilación y la activación de Akt. Como consecuencia, las células beta pancreáticas intentan vencer este bloqueo secretando cantidades astronómicas de insulina (> 150-300 µUI/mL, con HOMA-IR > 20). Esta concentración masiva de insulina circulante estimula por reacción cruzada los receptores de IGF-1 en queratinocitos dérmicos (desencadenando la proliferación epitelial aterciopelada de la acantosis nigricans) y en células de la teca ovárica (estimulando la síntesis autónoma de testosterona).',
         whyOptimalOrSuboptimal: 'La determinación de insulina basal extraordinariamente elevada en ayunas junto con el índice HOMA-IR y la normo/prediabetes confirman de forma concluyente la resistencia extrema a la insulina mediada por defecto en el receptor tirosina quinasa.'
@@ -1753,7 +1753,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_hba1c_distractor',
         biomarkerId: 'bm_hba1c',
-        biomarkerName: 'Hemoglobina Glicosilada (HbA1c)',
+        biomarkerName: 'Hemoglobina glicosilada (HbA1c)',
         isCorrect: false,
         biochemicalRationale: 'Marcador de glicación no enzimática de la hemoglobina dependiente de la glucemia media durante los 120 días previos.',
         whyOptimalOrSuboptimal: 'Solo indica el grado de alteración glucémica (prediabetes en 5.9%), pero es completamente incapaz de discriminar el mecanismo molecular de resistencia extrema mediado por receptor tirosina quinasa frente a otras formas de diabetes.'
@@ -1761,7 +1761,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_acylcarnitine_distractor',
         biomarkerId: 'bm_perfil_acilcarnitinas',
-        biomarkerName: 'Perfil de Acilcarnitinas en Sangre',
+        biomarkerName: 'Perfil de acilcarnitinas en sangre',
         isCorrect: false,
         biochemicalRationale: 'Biomarcador por espectrometría de masas en tándem de errores innatos de la beta-oxidación mitocondrial (como MCADD).',
         whyOptimalOrSuboptimal: 'Normal; no evalúa la cascada de fosforilación del receptor de insulina.'
@@ -1791,7 +1791,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     clinicalGlossary: [
       { term: 'Podagra', simpleDefinition: 'Nombre médico tradicional que describe la inflamación aguda, enrojecida, caliente y extremadamente dolorosa de la articulación del dedo gordo del pie.' },
       { term: 'Hiperuricemia', simpleDefinition: 'Nivel elevado de ácido úrico en sangre (superior a 6.0 mg/dL en mujeres o 7.0 mg/dL en hombres).' },
-      { term: 'Cristales de UMS (Urato Monosódico)', simpleDefinition: 'Sales de ácido úrico que forman pequeñas "agujas" cristalinas cuando su concentración en sangre o líquido articular supera los 6.8 mg/dL.' },
+      { term: 'Cristales de UMS (urato monosódico)', simpleDefinition: 'Sales de ácido úrico que forman pequeñas "agujas" cristalinas cuando su concentración en sangre o líquido articular supera los 6.8 mg/dL.' },
       { term: 'Microscopía de luz polarizada', simpleDefinition: 'Técnica de laboratorio donde los cristales de urato brillan con un color amarillo característico (birrefringencia negativa) cuando se alinean con la luz.' },
       { term: 'Colchicina vs Alopurinol', simpleDefinition: 'La colchicina frena la inflamación aguda desarmando a los glóbulos blancos. El alopurinol bloquea la enzima que fabrica ácido úrico, pero solo debe iniciarse semanas DESPUÉS de la crisis para no empeorar el ataque.' }
     ],
@@ -1800,7 +1800,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       patientDemographics: {
         age: 57,
         gender: 'Femenino',
-        occupation: 'Restauradora de Bienes Culturales'
+        occupation: 'Restauradora de bienes culturales'
       },
       chiefComplaint: 'Dolor lacerante insoportable, calor e hinchazón en el dedo gordo del pie derecho que la despertó a mitad de la noche.',
       presentIllness: 'Paciente de 57 años acude a urgencias cojeando y sin poder apoyar el pie por dolor muy severo (intensidad 9/10) de 8 horas de evolución en la articulación de la base del dedo gordo del pie derecho (podagra). Refiere una hipersensibilidad extrema: el simple roce de la sábana de la cama le resultaba insoportable. Cuenta que la noche anterior fue a una cena donde consumió mariscos, paté y varias copas de vino blanco. No ha sufrido ningún golpe ni traumatismo previo.',
@@ -1830,32 +1830,32 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     differentialDiagnoses: [
       {
-        disease: 'Artritis Gotosa Aguda por Cristales de Monourato Sódico (Gota)',
+        disease: 'Artritis gotosa aguda por cristales de monourato sódico (gota)',
         plausibilityRationale: 'Aparición súbita nocturna en la primera articulación metatarsofalángica (podagra), tras cena copiosa con marisco y vino en una mujer tratada con diuréticos tiazídicos, con signos de inflamación aguda sin traumatismo previo.',
         isTargetDisease: true
       },
       {
-        disease: 'Artritis Séptica (Infección Bacteriana en la Articulación)',
+        disease: 'Artritis séptica (infección bacteriana en la articulación)',
         plausibilityRationale: 'Produce hinchazón y dolor agudo en una articulación, pero no hay herida previa, no hay fiebre alta ni bacterias en el análisis.',
         isTargetDisease: false
       },
       {
-        disease: 'Pseudogota (Artropatía por Pirofosfato de Calcio)',
+        disease: 'Pseudogota (artropatía por pirofosfato de calcio)',
         plausibilityRationale: 'Otra enfermedad por cristales pero suele atacar a rodillas y muñecas, y sus cristales tienen forma de rombo en vez de agujas.',
         isTargetDisease: false
       },
       {
-        disease: 'Celulitis (Infección de la Piel del Pie)',
+        disease: 'Celulitis (infección de la piel del pie)',
         plausibilityRationale: 'La piel se pone roja y caliente, pero el dolor de la celulitis no está centrado específicamente en el interior de la articulación.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Artritis Gotosa Aguda por Cristales de Monourato Sódico (Gota)',
+    targetDisease: 'Artritis gotosa aguda por cristales de monourato sódico (gota)',
     biomarkerOptions: [
       {
         id: 'bm_opt_cristales_ums_correct',
         biomarkerId: 'bm_cristales_liquido_sinovial',
-        biomarkerName: 'Análisis de Líquido Articular con Microscopio Polarizado (Cristales de Urato)',
+        biomarkerName: 'Análisis de líquido articular con microscopio polarizado (cristales de urato)',
         isCorrect: true,
         biochemicalRationale: 'Al extraer una gota de líquido de la articulación inflamada con una pequeña aguja (artrocentesis) y mirarla al microscopio polarizado, se observan directamente los cristales de urato en forma de aguja dentro de los glóbulos blancos. Como brillan con birrefringencia negativa amarilla, dan el diagnóstico de certeza absoluta al 100%.',
         whyOptimalOrSuboptimal: 'Es la prueba estándar de oro (Gold Standard) indiscutible: permite ver con los propios ojos los cristales de ácido úrico causantes del ataque y descarta al mismo tiempo que haya bacterias (artritis séptica).'
@@ -1863,7 +1863,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_acido_urico_distractor',
         biomarkerId: 'bm_acido_urico',
-        biomarkerName: 'Ácido Úrico en Sangre (Uricemia aislada)',
+        biomarkerName: 'Ácido úrico en sangre (uricemia aislada)',
         isCorrect: false,
         biochemicalRationale: 'Aunque el ácido úrico esté alto en esta paciente, durante un ataque agudo hasta el 30% de los enfermos puede tener un ácido úrico engañosamente normal en sangre, porque gran parte de ese ácido úrico ha salido de la sangre para formar cristales dentro de la articulación.',
         whyOptimalOrSuboptimal: 'Orientativo pero insuficiente por sí solo: un ácido úrico normal en sangre no descarta un ataque de gota en plena fase aguda.'
@@ -1879,7 +1879,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_creatinina_distractor',
         biomarkerId: 'bm_creatinina',
-        biomarkerName: 'Creatinina Sérica (Función Renal)',
+        biomarkerName: 'Creatinina sérica (función renal)',
         isCorrect: false,
         biochemicalRationale: 'Parámetro habitual para comprobar si los riñones filtran correctamente la sangre.',
         whyOptimalOrSuboptimal: 'Nos sirve para comprobar la salud del riñón del paciente, pero no diagnostica el dolor articular.'
@@ -1887,8 +1887,8 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Perla Terapéutica para Estudiantes: En un ataque agudo de gota se utiliza Colchicina o antiinflamatorios para frenar a los glóbulos blancos. NUNCA se debe empezar a dar Alopurinol en pleno ataque agudo: si bajamos bruscamente el ácido úrico en sangre, los depósitos de cristales se disuelven de golpe y desprenden microagujas que reactivan y multiplican el dolor.',
     essentialBiomarkerIds: ['bm_cristales_liquido_sinovial', 'bm_acido_urico'],
-    categoryDocente: 'Enzimopatías y Metabolismo de Purinas',
-    molecularPathway: 'Purinas de la Dieta -> Enzima Xantina Oxidasa -> Ácido Úrico -> Cristales en Articulación -> Inflamación',
+    categoryDocente: 'Enzimopatías y metabolismo de purinas',
+    molecularPathway: 'Purinas de la dieta -> enzima xantina oxidasa -> ácido úrico -> cristales en articulación -> inflamación',
     molecularAlteration: 'El ácido úrico supera 6.8 mg/dL y forma cristales insolubles en las articulaciones más frías (dedo del pie)'
   },
   {
@@ -1934,21 +1934,21 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       { test: 'Hemograma Completo', result: 'Leucocitos 6.200 /µL, Hemoglobina 13.5 g/dL', unit: '', referenceRange: 'Normal' },
       { test: 'Hormona Tiroidea (TSH)', result: '2.1', unit: 'mUI/L', referenceRange: '0.4 - 4.0 (Tiroides normal)' },
       { test: 'Electromiograma (EMG) con estímulos repetidos', result: 'Caída progresiva (decremento del 24%) de la respuesta del músculo ante estímulos seguidos', unit: '%', referenceRange: 'Caída < 10%', isAbnormal: true },
-      { test: 'Prueba del Hielo en los Párpados', result: 'Colocar hielo en el párpado caído durante 2 minutos eleva y abre el párpado al enfriar la zona y frenar la degradación de acetilcolina', unit: '-', referenceRange: 'Negativo', isAbnormal: true }
+      { test: 'Prueba del hielo en los párpados', result: 'Colocar hielo en el párpado caído durante 2 minutos eleva y abre el párpado al enfriar la zona y frenar la degradación de acetilcolina', unit: '-', referenceRange: 'Negativo', isAbnormal: true }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Miastenia Gravis Autoinmune (Defecto en el Receptor del Músculo)',
+        disease: 'Miastenia gravis autoinmune (defecto en el receptor del músculo)',
         plausibilityRationale: 'Debilidad que fluctúa a lo largo del día, empeora con el uso repetido del músculo, afecta a párpados/voz/masticación y mejora con el reposo; prueba de electromiografía con caída de señal.',
         isTargetDisease: true
       },
       {
-        disease: 'Síndrome de Lambert-Eaton (Defecto en el Nervio Presináptico)',
+        disease: 'Síndrome de Lambert-Eaton (defecto en el nervio presináptico)',
         plausibilityRationale: 'Enfermedad similar pero donde la fuerza del músculo PARADÓJICAMENTE MEJORA tras hacer ejercicio unos segundos, y los reflejos están ausentes.',
         isTargetDisease: false
       },
       {
-        disease: 'Miopatía Inflamatoria / Polimiositis',
+        disease: 'Miopatía inflamatoria / polimiositis',
         plausibilityRationale: 'Produce debilidad muscular fija (no cambia a lo largo del día) y las células musculares se rompen, disparando la enzima CK a más de 1.000 U/L.',
         isTargetDisease: false
       },
@@ -1958,12 +1958,12 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Miastenia Gravis Autoinmune (Defecto en el Receptor del Músculo)',
+    targetDisease: 'Miastenia gravis autoinmune (defecto en el receptor del músculo)',
     biomarkerOptions: [
       {
         id: 'bm_opt_achr_correct',
         biomarkerId: 'bm_achr_ab',
-        biomarkerName: 'Anticuerpos Anti-Receptor de Acetilcolina (AChR-Ab en Sangre)',
+        biomarkerName: 'Anticuerpos anti-receptor de acetilcolina (AChR-Ab en sangre)',
         isCorrect: true,
         biochemicalRationale: 'El receptor de acetilcolina en el músculo es un poro que se abre cuando llega la acetilcolina. En la Miastenia Gravis, el sistema inmunitario fabrica autoanticuerpos dirigidos contra este receptor. Estos anticuerpos lo bloquean y provocan que la célula muscular lo internalice y lo destruya en los lisosomas. Detectar estos anticuerpos en la sangre confirma la Miastenia con más del 99% de certeza médica.',
         whyOptimalOrSuboptimal: 'Es el biomarcador específico y definitivo: demuestra exactamente el mecanismo autoinmune que está destruyendo la comunicación nervio-músculo.'
@@ -1971,7 +1971,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_anti_vgcc_distractor',
         biomarkerId: 'bm_anti_vgcc',
-        biomarkerName: 'Anticuerpos Anti-Canales de Calcio (Anti-VGCC)',
+        biomarkerName: 'Anticuerpos anti-canales de calcio (Anti-VGCC)',
         isCorrect: false,
         biochemicalRationale: 'Estos anticuerpos atacan a los canales de calcio del nervio antes de que se libere la acetilcolina (defecto presináptico).',
         whyOptimalOrSuboptimal: 'Solo sirve para diagnosticar el Síndrome de Lambert-Eaton (asociado muchas veces a tumores de pulmón), no la Miastenia Gravis clásica.'
@@ -1979,7 +1979,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_ck_distractor',
         biomarkerId: 'bm_ck_total',
-        biomarkerName: 'Creatina Quinasa Total (CK en Sangre)',
+        biomarkerName: 'Creatina quinasa total (CK en sangre)',
         isCorrect: false,
         biochemicalRationale: 'La CK es una enzima que está dentro del músculo y se escapa cuando la fibra muscular se rompe físicamente (necrosis o desgarro).',
         whyOptimalOrSuboptimal: 'Es totalmente normal en la Miastenia Gravis: el músculo está intacto por dentro, lo único que falla es el receptor de la superficie.'
@@ -1995,8 +1995,8 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Tratamiento Bioquímico Explicado Fácil: El fármaco principal es la Piridostigmina. Este medicamento frena a la enzima Acetilcolinesterasa (la encargada de degradar la acetilcolina). Al tardar más en romperse, la acetilcolina permanece más tiempo esperando en la sinapsis y tiene muchas más oportunidades de encontrar los pocos receptores que aún no han sido destruidos por los anticuerpos.',
     essentialBiomarkerIds: ['bm_achr_ab'],
-    categoryDocente: 'Receptores de Membrana, Neurotransmisión y Autoinmunidad',
-    molecularPathway: 'Nervio libera Acetilcolina -> Hendidura Sináptica -> Receptor Nicotínico en Músculo -> Entrada de Sodio -> Contracción',
+    categoryDocente: 'Receptores de membrana, neurotransmisión y autoinmunidad',
+    molecularPathway: 'Nervio libera acetilcolina -> hendidura sináptica -> receptor nicotínico en músculo -> entrada de sodio -> contracción',
     molecularAlteration: 'Autoanticuerpos bloquean y envían a degradar a los receptores nicotínicos de la superficie del músculo'
   },
   {
@@ -2040,7 +2040,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       ]
     },
     initialLabWork: [
-      { test: 'pH de la Sangre Arterial', result: '7.26', unit: '-', referenceRange: '7.35 - 7.45 (Acidosis respiratoria y metabólica)', isAbnormal: true },
+      { test: 'pH de la sangre arterial', result: '7.26', unit: '-', referenceRange: '7.35 - 7.45 (Acidosis respiratoria y metabólica)', isAbnormal: true },
       { test: 'Bicarbonato en Sangre', result: '15.2', unit: 'mEq/L', referenceRange: '22 - 26', isAbnormal: true },
       { test: 'pCO2 en Sangre', result: '52', unit: 'mmHg', referenceRange: '35 - 45 (Retención de CO2 por broncoespasmo y debilidad diafragmática)', isAbnormal: true },
       { test: 'Glucemia en Urgencias', result: '148', unit: 'mg/dL', referenceRange: '70 - 110 (Hiperglucemia reactiva por estrés)', isAbnormal: true },
@@ -2048,32 +2048,32 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     differentialDiagnoses: [
       {
-        disease: 'Intoxicación Aguda por Insecticida Organofosforado (Síndrome Colinérgico)',
+        disease: 'Intoxicación aguda por insecticida organofosforado (síndrome colinérgico)',
         plausibilityRationale: 'Reúne todos los signos típicos de exceso de acetilcolina: exceso de secreciones (saliva, sudor, moco), corazón lento, pupilas diminutas y temblores musculares tras contacto con pesticida.',
         isTargetDisease: true
       },
       {
-        disease: 'Intoxicación por Plaguicidas Carbamatos',
+        disease: 'Intoxicación por plaguicidas carbamatos',
         plausibilityRationale: 'Produce los mismos síntomas pero la unión del carbamato a la enzima se deshace sola de forma espontánea en 24 a 48 horas sin dejar la enzima dañada para siempre.',
         isTargetDisease: false
       },
       {
-        disease: 'Sobredosis por Medicamentos Opiáceos (Morfina/Fentanilo)',
+        disease: 'Sobredosis por medicamentos opiáceos (morfina/fentanilo)',
         plausibilityRationale: 'También produce pupilas muy pequeñas y presión baja, pero el paciente con opioides tiene la boca y los pulmones completamente secos y no tiene diarrea ni temblores.',
         isTargetDisease: false
       },
       {
-        disease: 'Gastroenteritis Infecciosa Aguda con Deshidratación',
+        disease: 'Gastroenteritis infecciosa aguda con deshidratación',
         plausibilityRationale: 'Puede dar vómitos y diarrea, pero nunca produce pupilas puntiformes, bradicardia extrema de 46 lpm ni temblores en los músculos.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Intoxicación Aguda por Insecticida Organofosforado (Síndrome Colinérgico)',
+    targetDisease: 'Intoxicación aguda por insecticida organofosforado (síndrome colinérgico)',
     biomarkerOptions: [
       {
         id: 'bm_opt_colinesterasa_correct',
         biomarkerId: 'bm_colinesterasa',
-        biomarkerName: 'Medición de la Actividad de la Enzima Acetilcolinesterasa en Sangre (AChE)',
+        biomarkerName: 'Medición de la actividad de la enzima acetilcolinesterasa en sangre (AChE)',
         isCorrect: true,
         biochemicalRationale: 'La prueba clave en el laboratorio es medir cuánta capacidad le queda a la enzima acetilcolinesterasa para romper acetilcolina. En este niño, la actividad enzimática ha caído a menos del 20% de su valor normal porque el pesticida ha inutilizado químicamente casi todas sus moléculas de enzima.',
         whyOptimalOrSuboptimal: 'Es el biomarcador definitivo: demuestra la inhibición directa de la enzima y avisa a los médicos de que deben administrar el antídoto antes de que el enlace químico sea irreversible.'
@@ -2081,7 +2081,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_ck_organo_distractor',
         biomarkerId: 'bm_ck_total',
-        biomarkerName: 'Creatina Quinasa Total (CK)',
+        biomarkerName: 'Creatina quinasa total (CK)',
         isCorrect: false,
         biochemicalRationale: 'Enzima que sube si los músculos sufren rotura por ejercicio extremo o golpes.',
         whyOptimalOrSuboptimal: 'No mide el veneno ni la función del nervio; puede subir algo por las contracciones musculares pero no sirve para diagnosticar la intoxicación.'
@@ -2089,7 +2089,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_achr_organo_distractor',
         biomarkerId: 'bm_achr_ab',
-        biomarkerName: 'Anticuerpos Anti-Receptor de Acetilcolina (AChR-Ab)',
+        biomarkerName: 'Anticuerpos anti-receptor de acetilcolina (AChR-Ab)',
         isCorrect: false,
         biochemicalRationale: 'Anticuerpos del sistema inmunitario de la Miastenia Gravis.',
         whyOptimalOrSuboptimal: 'Es una prueba de enfermedad autoinmune crónica; es completamente inútil en una intoxicación tóxica aguda de urgencias.'
@@ -2105,8 +2105,8 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Los Dos Antídotos que Salvan la Vida: 1) Atropina IV: medicamento que tapa los receptores de acetilcolina para secar de inmediato el moco de los pulmones y hacer que el corazón vuelva a latir rápido; 2) Pralidoxima (2-PAM): molécula que arranca el insecticida pegado a la enzima acetilcolinesterasa para reactivarla. ¡Debe darse en las primeras 24-48 horas antes de que ocurra el fenómeno de envejecimiento (aging), tras el cual la enzima queda destruida para siempre!',
     essentialBiomarkerIds: ['bm_colinesterasa'],
-    categoryDocente: 'Inhibición Enzimática Covalente y Toxicología Bioquímica',
-    molecularPathway: 'Plaguicida -> Bloqueo Covalente de Serina en Acetilcolinesterasa -> Acumulación de Acetilcolina -> Crisis Colinérgica',
+    categoryDocente: 'Inhibición enzimática covalente y toxicología Bioquímica',
+    molecularPathway: 'Plaguicida -> bloqueo covalente de serina en acetilcolinesterasa -> acumulación de acetilcolina -> crisis colinérgica',
     molecularAlteration: 'Inhibición química irreversible de la enzima que degrada el neurotransmisor acetilcolina en las sinapsis'
   },
   {
@@ -2150,16 +2150,16 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     },
     initialLabWork: [
       { test: 'Hematocrito (concentración de la sangre)', result: '51', unit: '%', referenceRange: '35 - 45 (Sangre muy espesa por falta de agua)', isAbnormal: true },
-      { test: 'Sodio en Sangre (Na+)', result: '132', unit: 'mEq/L', referenceRange: '135 - 145', isAbnormal: true },
+      { test: 'Sodio en sangre (na+)', result: '132', unit: 'mEq/L', referenceRange: '135 - 145', isAbnormal: true },
       { test: 'Potasio en Sangre (K+)', result: '2.6', unit: 'mEq/L', referenceRange: '3.5 - 5.0 (Peligrosamente bajo por pérdida en diarrea)', isAbnormal: true },
       { test: 'Bicarbonato en Sangre (HCO3-)', result: '9.8', unit: 'mEq/L', referenceRange: '21 - 28 (Acidosis metabólica grave)', isAbnormal: true },
       { test: 'pH de la Sangre', result: '7.18', unit: '-', referenceRange: '7.35 - 7.45 (Sangre muy ácida)', isAbnormal: true },
       { test: 'Urea en Sangre', result: '78', unit: 'mg/dL', referenceRange: '15 - 40 (Elevación prerrenal por hemoconcentración y choque)', isAbnormal: true },
-      { test: 'Cloro en Sangre (Cl-)', result: '108', unit: 'mEq/L', referenceRange: '96 - 106', isAbnormal: true }
+      { test: 'Cloro en sangre (cl-)', result: '108', unit: 'mEq/L', referenceRange: '96 - 106', isAbnormal: true }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Infección por Vibrio cholerae Productor de Toxina (Cólera Epidémico)',
+        disease: 'Infección por Vibrio cholerae productor de toxina (cólera epidémico)',
         plausibilityRationale: 'Diarrea líquida secretora enorme en agua de arroz sin dolor de tripa ni sangre tras comer mariscos, con colapso de la presión y pérdida masiva de potasio y bicarbonato.',
         isTargetDisease: true
       },
@@ -2169,7 +2169,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: false
       },
       {
-        disease: 'Gastroenteritis Infantil por Rotavirus',
+        disease: 'Gastroenteritis infantil por rotavirus',
         plausibilityRationale: 'Causa diarrea líquida en niños, pero suele empezar con fiebre y catarro previo, y no produce la pérdida de litros de agua tan repentina del cólera.',
         isTargetDisease: false
       },
@@ -2179,12 +2179,12 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Infección por Vibrio cholerae Productor de Toxina (Cólera Epidémico)',
+    targetDisease: 'Infección por Vibrio cholerae productor de toxina (cólera epidémico)',
     biomarkerOptions: [
       {
         id: 'bm_opt_cholera_correct',
         biomarkerId: 'bm_cholera_toxin',
-        biomarkerName: 'Detección de la Toxina Colérica y Cultivo en Agar TCBS',
+        biomarkerName: 'Detección de la toxina colérica y cultivo en agar TCBS',
         isCorrect: true,
         biochemicalRationale: 'La enterotoxina colérica es la responsable directa del cuadro: bloquea la proteína Gαs y deja encendido el canal CFTR, forzando la salida masiva de cloruro y agua. En el laboratorio, cultivar las heces en el medio especial agar TCBS (donde la bacteria forma colonias amarillas) y detectar la presencia de la toxina confirma de forma irrefutable que el paciente padece cólera.',
         whyOptimalOrSuboptimal: 'Es la prueba microbiológica y bioquímica de elección: identifica con precisión al microorganismo responsable y su toxina secretora.'
@@ -2200,7 +2200,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_creatinina_cholera_distractor',
         biomarkerId: 'bm_creatinina',
-        biomarkerName: 'Creatinina Sérica y Tasa de Filtrado',
+        biomarkerName: 'Creatinina sérica y tasa de filtrado',
         isCorrect: false,
         biochemicalRationale: 'Medida del daño que están sufriendo los riñones por no recibir sangre.',
         whyOptimalOrSuboptimal: 'Nos indica que hay un fracaso renal agudo por falta de líquidos (prerrenal), pero no señala la bacteria causante.'
@@ -2208,7 +2208,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_beta_ohb_cholera_distractor',
         biomarkerId: 'bm_beta_hidroxibutirato',
-        biomarkerName: 'Beta-Hidroxibutirato en Sangre (Cuerpos Cetónicos)',
+        biomarkerName: 'Beta-Hidroxibutirato en sangre (cuerpos cetónicos)',
         isCorrect: false,
         biochemicalRationale: 'Sustancia que fabrica el hígado cuando una persona lleva muchas horas sin comer o en la diabetes descompensada.',
         whyOptimalOrSuboptimal: 'No guarda relación con el mecanismo de la diarrea secretora bacteriana.'
@@ -2216,7 +2216,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'La Maravilla Bioquímica de la Rehidratación Oral (TRO): La toxina del cólera inutiliza la absorción normal de agua pero deja totalmente INTACTO al cotransportador SGLT-1 (que mete sodio junto con glucosa a las células). Por eso, darle al paciente una solución con la proporción exacta de azúcar y sal (suero oral) hace que el intestino reabsorba agua a gran velocidad, salvando millones de vidas en todo el mundo sin necesidad de sueros intravenosos.',
     essentialBiomarkerIds: ['bm_cholera_toxin'],
-    categoryDocente: 'Señalización por Proteínas G Heterotriméricas y Transportadores de Membrana',
+    categoryDocente: 'Señalización por proteínas G heterotriméricas y transportadores de membrana',
     molecularPathway: 'Toxina de Cólera -> Deja a Gαs encendida sin poder apagarse -> AMPc masivo -> Canal CFTR abierto -> Pérdida de 1L/h de agua',
     molecularAlteration: 'Modificación con ADP-ribosa en la proteína Gαs que le impide hidrolizar GTP a GDP'
   },
@@ -2231,8 +2231,8 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     difficulty: 'avanzado',
     studentSummary: 'Mateo R., estudiante universitario de 19 años de origen afrocaribeño, acuda a urgencias con dolores muy intensos e incapacitantes en la espalda, costillas y fémures tras disputar un partido de fútbol en una tarde invernal ventosa. Refiere además una fatiga creciente en los últimos días y nota el blanco de los ojos ligeramente amarillento. Una mutación en el gen de la beta-globina hace que sus glóbulos rojos pierdan su forma redonda y flexible bajo el frío y la deshidratación, adoptando forma de media luna ("hoz") que tapona los pequeños vasos capilares.',
     clinicalGlossary: [
-      { term: 'Drepanocito (Célula en Hoz)', simpleDefinition: 'Glóbulo rojo deformado con silueta de media luna o guadaña, rígido y frágil, incapaz de deformarse para cruzar capilares finos.' },
-      { term: 'Polimerización de Hemoglobina S (HbS)', simpleDefinition: 'Proceso químico por el cual las moléculas de hemoglobina mutada se agrupan formando largas fibras rígidas cuando el oxígeno escasea en los tejidos.' },
+      { term: 'Drepanocito (célula en hoz)', simpleDefinition: 'Glóbulo rojo deformado con silueta de media luna o guadaña, rígido y frágil, incapaz de deformarse para cruzar capilares finos.' },
+      { term: 'Polimerización de hemoglobina S (HbS)', simpleDefinition: 'Proceso químico por el cual las moléculas de hemoglobina mutada se agrupan formando largas fibras rígidas cuando el oxígeno escasea en los tejidos.' },
       { term: 'Crisis vasooclusiva dolorosa', simpleDefinition: 'Episodio de dolor muy agudo originado porque los hematíes falciformes se apelmazan y obstruyen el flujo de sangre a huesos y articulaciones (infartos óseos microscópicos).' },
       { term: 'Ictericia hemolítica y Haptoglobina', simpleDefinition: 'Los glóbulos rojos deformes se rompen prematuramente en el bazo (hemólisis), liberando hemoglobina que satura a la proteína haptoglobina y se convierte en bilirrubina indirecta (ojos amarillos).' },
       { term: 'Sustitución Glu6Val', simpleDefinition: 'Cambio de un solo aminoácido en la cadena de la hemoglobina: se sustituye un glutamato (con carga negativa hidrófila) por una valina (grasa e hidrófoba).' }
@@ -2242,7 +2242,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       patientDemographics: {
         age: 19,
         gender: 'Masculino',
-        occupation: 'Estudiante Universitario de Grado en Ciencias de la Actividad Física'
+        occupation: 'Estudiante universitario de grado en ciencias de la actividad física'
       },
       chiefComplaint: 'Dolor óseo y torácico punzante muy intenso (9/10), sensación de falta de aire y agotamiento tras realizar deporte bajo bajas temperaturas.',
       presentIllness: 'Mateo R., de 19 años, es traído al hospital por compañeros de equipo tras jugar un partido de fútbol federado en una tarde con viento gélido (5 °C) y sin suficiente hidratación previa. Hacia el final del encuentro sintió pinchazos lumbares y dolor óseo progresivo insoportable en ambos muslos y en la parrilla costal que le impidió caminar. Acompaña sensación de mareo, taquicardia y sensación de opresión torácica. Refiere episodios de dolor similar en su infancia en el Caribe que sus familiares llamaban "crisis reumáticas".',
@@ -2267,40 +2267,40 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     initialLabWork: [
       { test: 'Hemoglobina Total', result: '7.8', unit: 'g/dL', referenceRange: '13.5 - 17.5 (Anemia grave normocítica)', isAbnormal: true },
       { test: 'Hematocrito', result: '24.2', unit: '%', referenceRange: '40 - 52', isAbnormal: true },
-      { test: 'Volumen Corpuscular Medio (VCM)', result: '88', unit: 'fL', referenceRange: '80 - 100 (Normocítica)' },
+      { test: 'Volumen corpuscular medio (VCM)', result: '88', unit: 'fL', referenceRange: '80 - 100 (Normocítica)' },
       { test: 'Reticulocitos (Hematíes jóvenes)', result: '11.8', unit: '%', referenceRange: '0.5 - 2.5 (Respuesta medular regenerativa hiperactiva por rotura de glóbulos rojos)', isAbnormal: true },
       { test: 'Leucocitos Totales', result: '13.500', unit: '/µL', referenceRange: '4.500 - 11.000 (Leucocitosis reactiva por estrés e inflamación endotelial)', isAbnormal: true },
-      { test: 'Bilirrubina Total en Urgencias', result: '2.8', unit: 'mg/dL', referenceRange: '0.3 - 1.2 (Elevada con predominio indirecto/no conjugado)', isAbnormal: true },
+      { test: 'Bilirrubina total en urgencias', result: '2.8', unit: 'mg/dL', referenceRange: '0.3 - 1.2 (Elevada con predominio indirecto/no conjugado)', isAbnormal: true },
       { test: 'Electroforesis de Hemoglobinas / HPLC cuantitativo', result: '[NO SOLICITADO EN URGENCIA BÁSICA - Requiere solicitud específica para tipificación]', unit: '-', referenceRange: 'Normal: HbA > 95%' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Crisis Vasooclusiva por Anemia de Células Falciformes (Drepanocitosis)',
+        disease: 'Crisis vasooclusiva por anemia de células falciformes (drepanocitosis)',
         plausibilityRationale: 'Dolor óseo agudo e isquemia tisular precipitados por deshidratación y frío en un paciente joven de ascendencia afrocaribeña con anemia hemolítica regenerativa crónica y antecedentes familiares.',
         isTargetDisease: true
       },
       {
-        disease: 'Osteomielitis Aguda Multifocal / Artritis Séptica',
+        disease: 'Osteomielitis aguda multifocal / artritis séptica',
         plausibilityRationale: 'Cursa con dolor óseo y febrícula, pero suele localizarse en una sola metáfora ósea y asocia signos inflamatorios cutáneos externos marcados, no presentes aquí.',
         isTargetDisease: false
       },
       {
-        disease: 'Crisis Hemolítica por Déficit de Glucosa-6-Fosfato Deshidrogenasa (Favismo)',
+        disease: 'Crisis hemolítica por déficit de Glucosa-6-Fosfato deshidrogenasa (favismo)',
         plausibilityRationale: 'Produce anemia aguda con ictericia tras estrés oxidativo, pero suele ocurrir tras comer habas o fármacos oxidantes y no genera crisis oclusivas dolorosas en huesos.',
         isTargetDisease: false
       },
       {
-        disease: 'Trombosis Venosa Profunda Bilateral',
+        disease: 'Trombosis venosa profunda bilateral',
         plausibilityRationale: 'Causa dolor en extremidades pero produce asimetría marcada con hinchazón, fóvea y empastamiento muscular unilateral, a diferencia del dolor óseo multifocal.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Crisis Vasooclusiva por Anemia de Células Falciformes (Drepanocitosis)',
+    targetDisease: 'Crisis vasooclusiva por anemia de células falciformes (drepanocitosis)',
     biomarkerOptions: [
       {
         id: 'bm_opt_hb_electroforesis_correct',
         biomarkerId: 'bm_electroforesis_hb',
-        biomarkerName: 'Electroforesis de Hemoglobinas en Gel / HPLC (Cuantificación de HbS)',
+        biomarkerName: 'Electroforesis de hemoglobinas en gel / HPLC (cuantificación de HbS)',
         isCorrect: true,
         biochemicalRationale: 'La electroforesis en acetato de celulosa o el análisis cuantitativo por HPLC es el patrón de oro absoluto: identifica y cuantifica la banda patológica de Hemoglobina S (> 80% en pacientes homocigotos HbSS) frente a la ausencia de Hemoglobina A del adulto normal, confirmando de manera indiscutible la drepanocitosis.',
         whyOptimalOrSuboptimal: 'Es el biomarcador definitivo de certeza bioquímica y molecular para diagnosticar la hemoglobinopatía estructural subyacente.'
@@ -2308,7 +2308,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_ck_falciforme_distractor',
         biomarkerId: 'bm_ck_total',
-        biomarkerName: 'Creatina Quinasa Total (CK)',
+        biomarkerName: 'Creatina quinasa total (CK)',
         isCorrect: false,
         biochemicalRationale: 'Mide necrosis de fibra muscular estriada.',
         whyOptimalOrSuboptimal: 'Inespecífico; los microinfartos son primordialmente en la médula ósea y hueso cortical, por lo que la CK es normal o solo mínimamente reactiva sin confirmar la etiología falciforme.'
@@ -2316,7 +2316,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_troponina_falciforme_distractor',
         biomarkerId: 'bm_troponin_c',
-        biomarkerName: 'Troponina Cardíaca de Alta Sensibilidad (hs-cTn)',
+        biomarkerName: 'Troponina cardíaca de alta sensibilidad (hs-cTn)',
         isCorrect: false,
         biochemicalRationale: 'Biomarcador específico de necrosis miocárdica.',
         whyOptimalOrSuboptimal: 'Descarta un infarto de corazón, pero no diagnostica el origen de la crisis vasooclusiva ni la mutación en la hemoglobina.'
@@ -2324,7 +2324,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_acido_urico_falciforme_distractor',
         biomarkerId: 'bm_acido_urico',
-        biomarkerName: 'Ácido Úrico Sérico',
+        biomarkerName: 'Ácido úrico sérico',
         isCorrect: false,
         biochemicalRationale: 'Sustancia resultante del recambio acelerado de purinas por la eritropoyesis masiva.',
         whyOptimalOrSuboptimal: 'Puede estar discretamente elevado por la destrucción celular, pero carece de especificidad diagnóstica para hemoglobinopatías.'
@@ -2332,8 +2332,8 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Perla de Bioquímica Molecular de Proteínas: La sustitución puntual de Glu (ácido glutámico hidrófilo) por Val (valina hidrófoba alifática) en la posición 6 de la beta-globina transforma una molécula soluble en un polímero fibroso rígido. La hidroxiurea es el tratamiento farmacológico de elección porque reactiva la síntesis de Hemoglobina Fetal (HbF, alfa2-gamma2), que no contiene cadenas beta mutadas y actúa como un potente agente anti-polimerizante dentro de los hematíes.',
     essentialBiomarkerIds: ['bm_electroforesis_hb'],
-    categoryDocente: 'Estructura y Función de Proteínas (Hemoglobinopatías Moleculares)',
-    molecularPathway: 'Mutación Glu6Val en Beta-Globina -> Desoxigenación tisular -> Polimerización en fibras de HbS -> Deformación falciforme -> Vasooclusión y hemólisis',
+    categoryDocente: 'Estructura y función de proteínas (hemoglobinopatías moleculares)',
+    molecularPathway: 'Mutación Glu6Val en beta-globina -> desoxigenación tisular -> polimerización en fibras de HbS -> deformación falciforme -> vasooclusión y hemólisis',
     molecularAlteration: 'Sustitución puntual de ácido glutámico por valina en codón 6 de la cadena beta de hemoglobina'
   },
   {
@@ -2345,7 +2345,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     clinicalGlossary: [
       { term: 'Canal CFTR', simpleDefinition: 'Túnel en la membrana celular que transporta iones cloruro. En los pulmones y páncreas hidrata el moco; en la piel reabsorbe la sal del sudor.' },
       { term: 'Esteatorrea', simpleDefinition: 'Deposiciones con grasa no digerida, de color pálido amarillento, aspecto brillante y flotantes, debidas a que los conductos del páncreas están taponados y no llegan enzimas digestivas al intestino.' },
-      { term: 'Iontoforesis con Pilocarpina (Test del Sudor)', simpleDefinition: 'Prueba indolora que estimula la sudoración en el antebrazo con una corriente suave y recoge el sudor para medir los iones cloruro en el laboratorio.' },
+      { term: 'Iontoforesis con pilocarpina (test del sudor)', simpleDefinition: 'Prueba indolora que estimula la sudoración en el antebrazo con una corriente suave y recoge el sudor para medir los iones cloruro en el laboratorio.' },
       { term: 'Mutación Delta-F508 (ΔF508)', simpleDefinition: 'Pérdida de tres bases de ADN que elimina el aminoácido fenilalanina en la posición 508 de la proteína CFTR, impidiendo que llegue a la superficie celular.' },
       { term: 'Malabsorción de vitaminas liposolubles', simpleDefinition: 'Dificultad para absorber las vitaminas que viajan en la grasa (A, D, E y K) por falta de lipasa pancreática.' }
     ],
@@ -2380,37 +2380,37 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       { test: 'Hemograma Completo', result: 'Leucocitos 8.200 /µL, Hemoglobina 11.2 g/dL', unit: '', referenceRange: 'Normal' },
       { test: 'Glucemia en Ayunas', result: '86', unit: 'mg/dL', referenceRange: '70 - 105' },
       { test: 'Albúmina Sérica', result: '3.1', unit: 'g/dL', referenceRange: '3.8 - 5.0 (Hipoalbuminemia leve por malabsorción)', isAbnormal: true },
-      { test: 'Anticuerpos Antitransglutaminasa Tisular IgA (Celíaca)', result: '1.2', unit: 'U/mL', referenceRange: '< 7.0 (Descarta Celiaquía)', isAbnormal: false },
-      { test: 'Test de Cloruro en Sudor (Iontoforesis con Pilocarpina)', result: '[NO SOLICITADO - Parámetro confirmatorio a requerir por el clínico]', unit: '-', referenceRange: '< 30 mmol/L' }
+      { test: 'Anticuerpos antitransglutaminasa tisular IgA (celíaca)', result: '1.2', unit: 'U/mL', referenceRange: '< 7.0 (Descarta Celiaquía)', isAbnormal: false },
+      { test: 'Test de cloruro en sudor (iontoforesis con pilocarpina)', result: '[NO SOLICITADO - Parámetro confirmatorio a requerir por el clínico]', unit: '-', referenceRange: '< 30 mmol/L' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Fibrosis Quística (Mucoviscidosis)',
+        disease: 'Fibrosis quística (mucoviscidosis)',
         plausibilityRationale: 'Asociación característica de afectación respiratoria crónica por moco viscoso, insuficiencia pancreática exocrina con esteatorrea y piel con sabor salado (fallo en canal CFTR).',
         isTargetDisease: true
       },
       {
-        disease: 'Enfermedad Celíaca Clásica Infantil',
+        disease: 'Enfermedad celíaca clásica infantil',
         plausibilityRationale: 'Produce retraso de peso y diarrea crónica, pero no cursa con tos crónica por moco hiperviscoso y sus anticuerpos antitransglutaminasa son negativos en esta niña.',
         isTargetDisease: false
       },
       {
-        disease: 'Inmunodeficiencia Común Variable',
+        disease: 'Inmunodeficiencia común variable',
         plausibilityRationale: 'Cursa con infecciones respiratorias de repetición, pero no justifica la esteatorrea pancreática ni el sudor salado.',
         isTargetDisease: false
       },
       {
-        disease: 'Asma Infantil Grave no Controlada',
+        disease: 'Asma infantil grave no controlada',
         plausibilityRationale: 'Explica los ruidos en el pecho y la tos, pero no produce diarrea grasa esteatorreica ni pérdida de peso tan llamativa.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Fibrosis Quística (Mucoviscidosis)',
+    targetDisease: 'Fibrosis quística (mucoviscidosis)',
     biomarkerOptions: [
       {
         id: 'bm_opt_cloro_sudor_correct',
         biomarkerId: 'bm_cloruro_sudor',
-        biomarkerName: 'Test de Cloruro en Sudor (Iontoforesis con Pilocarpina)',
+        biomarkerName: 'Test de cloruro en sudor (iontoforesis con pilocarpina)',
         isCorrect: true,
         biochemicalRationale: 'El test del sudor es el patrón de oro diagnóstico irrefutable. En glándulas sudoríparas, el canal CFTR mutado no puede reabsorber el cloro del conducto, dando valores marcadamente patológicos (> 60 mmol/L en dos tomas independientes) que confirman la alteración funcional del canal.',
         whyOptimalOrSuboptimal: 'Prueba bioquímica de máxima sensibilidad y especificidad, recomendada internacionalmente como primer paso confirmatorio.'
@@ -2418,7 +2418,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_lipasa_fq_distractor',
         biomarkerId: 'bm_lipasa',
-        biomarkerName: 'Lipasa Sérica en Sangre',
+        biomarkerName: 'Lipasa sérica en sangre',
         isCorrect: false,
         biochemicalRationale: 'Enzima que se eleva en sangre durante la inflamación destructiva aguda del páncreas (pancreatitis).',
         whyOptimalOrSuboptimal: 'En la fibrosis quística la afectación pancreática es crónica y atrófica, por lo que la lipasa en sangre suele ser normal o estar incluso muy baja por agotamiento glandular.'
@@ -2426,7 +2426,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_gastrina_fq_distractor',
         biomarkerId: 'bm_gastrina',
-        biomarkerName: 'Gastrina Sérica en Ayunas',
+        biomarkerName: 'Gastrina sérica en ayunas',
         isCorrect: false,
         biochemicalRationale: 'Hormona estimulante del ácido gástrico secretada por células G del antro.',
         whyOptimalOrSuboptimal: 'Totalmente irrelevante para diagnosticar patología de transporte de cloruro epitelial.'
@@ -2442,8 +2442,8 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Perla de Bioquímica Fisiológica: El canal CFTR cumple papeles opuestos según el epitelio. En las vías respiratorias y páncreas secreta cloro hacia la luz (para arrastrar agua e hidratar el moco). En las glándulas sudoríparas reabsorbe cloro desde el sudor primario hacia el interior del cuerpo (para ahorrar sal). Por eso su fallo provoca secreciones pulmonares desecadas como cemento, y a la vez sudor salado hiperconcentrado.',
     essentialBiomarkerIds: ['bm_cloruro_sudor'],
-    categoryDocente: 'Transportadores de Iones y Canales de Membrana Celular',
-    molecularPathway: 'Receptor acoplado a Gs -> AMPc -> Activación de Proteína Quinasa A (PKA) -> Fosforilación de Canal CFTR -> Apertura y flujo de Cl-',
+    categoryDocente: 'Transportadores de iones y canales de membrana celular',
+    molecularPathway: 'Receptor acoplado a Gs -> AMPc -> activación de proteína quinasa A (PKA) -> fosforilación de canal CFTR -> apertura y flujo de cl-',
     molecularAlteration: 'Mutación en gen CFTR (típicamente deleción ΔF508) que provoca plegamiento erróneo y degradación proteosómica'
   },
   {
@@ -2488,25 +2488,25 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     },
     initialLabWork: [
       { test: 'Glucemia Neonatal', result: '48', unit: 'mg/dL', referenceRange: '60 - 90 (Hipoglucemia por inhibición de fosfoglucomutasa)', isAbnormal: true },
-      { test: 'Bilirrubina Total Sérica', result: '14.8', unit: 'mg/dL', referenceRange: '< 2.0 (Hiperbilirrubinemia mixta severa)', isAbnormal: true },
-      { test: 'Bilirrubina Directa / Conjugada', result: '4.6', unit: 'mg/dL', referenceRange: '< 0.4 (Signo de daño hepatocelular)', isAbnormal: true },
+      { test: 'Bilirrubina total sérica', result: '14.8', unit: 'mg/dL', referenceRange: '< 2.0 (Hiperbilirrubinemia mixta severa)', isAbnormal: true },
+      { test: 'Bilirrubina directa / conjugada', result: '4.6', unit: 'mg/dL', referenceRange: '< 0.4 (Signo de daño hepatocelular)', isAbnormal: true },
       { test: 'Transaminasa ALT', result: '185', unit: 'U/L', referenceRange: '10 - 45', isAbnormal: true },
       { test: 'Tiempo de Protrombina (INR)', result: '1.9', unit: '-', referenceRange: '0.9 - 1.2 (Fallo de síntesis hepática de factores)', isAbnormal: true },
-      { test: 'Actividad Enzimática de GALT en Hematíes', result: '[NO SOLICITADO - Requiere solicitud específica para diagnóstico de confirmación]', unit: '-', referenceRange: '18.5 - 28.5 µmol/h/g Hb' }
+      { test: 'Actividad enzimática de GALT en hematíes', result: '[NO SOLICITADO - Requiere solicitud específica para diagnóstico de confirmación]', unit: '-', referenceRange: '18.5 - 28.5 µmol/h/g Hb' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Galactosemia Clásica Infantil (Déficit de GALT)',
+        disease: 'Galactosemia clásica infantil (déficit de GALT)',
         plausibilityRationale: 'Inicio en los primeros días de vida tras iniciar leche con lactosa, con fallo hepático agudo, ictericia mixta, hipoglucemia y cataratas bilaterales en gota de aceite.',
         isTargetDisease: true
       },
       {
-        disease: 'Atresia Biliar Extrahepática',
+        disease: 'Atresia biliar extrahepática',
         plausibilityRationale: 'Causa ictericia neonatal colestásica y hepatomegalia, pero no cursa con cataratas precoces en cristalino ni hipoglucemias agudas.',
         isTargetDisease: false
       },
       {
-        disease: 'Ictericia Fisiológica del Neonato / Por Leche Materna',
+        disease: 'Ictericia fisiológica del neonato / por leche materna',
         plausibilityRationale: 'Frecuente en lactantes, pero es puramente por bilirrubina indirecta sin vómitos, sin hepatomegalia, sin alteración de coagulación ni cataratas.',
         isTargetDisease: false
       },
@@ -2516,12 +2516,12 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Galactosemia Clásica Infantil (Déficit de GALT)',
+    targetDisease: 'Galactosemia clásica infantil (déficit de GALT)',
     biomarkerOptions: [
       {
         id: 'bm_opt_galt_correct',
         biomarkerId: 'bm_galt_eritrocitaria',
-        biomarkerName: 'Medición Cuantitativa de la Actividad de GALT en Hematíes',
+        biomarkerName: 'Medición cuantitativa de la actividad de GALT en hematíes',
         isCorrect: true,
         biochemicalRationale: 'La cuantificación de la actividad enzimática de Galactosa-1-Fosfato Uridiltransferasa en glóbulos rojos por método de Beutler es la prueba diagnóstica de oro. Revela una actividad prácticamente indetectable (< 1-2% del control), lo que exige retirar la lactosa de inmediato para salvar la vida de la niña y evitar cirrosis y ceguera permanente.',
         whyOptimalOrSuboptimal: 'Biomarcador enzimático confirmatorio de elección indispensable para instaurar la dieta libre de galactosa.'
@@ -2553,7 +2553,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Perla de Terapéutica y Genética Metabólica: La retirada estricta e inmediata de la leche con lactosa y su sustitución por fórmulas a base de soja o aminoácidos resuelve en días la ictericia, revierte las cataratas incipientes y normaliza la función del hígado. Sin embargo, a largo plazo, los pacientes con galactosemia clásica pueden presentar dispraxia verbal y fallo ovárico precoz debido a la síntesis endógena de galactosa en el organismo.',
     essentialBiomarkerIds: ['bm_galt_eritrocitaria'],
-    categoryDocente: 'Metabolismo de Glúcidos (Vía de Leloir)',
+    categoryDocente: 'Metabolismo de glúcidos (vía de Leloir)',
     molecularPathway: 'Galactosa + ATP -> Galactosa-1-P (Galactoquinasa) -> [BLOQUEO EN GALT] -> Acumulación tóxica de Galactosa-1-P y reducción a Galactitol',
     molecularAlteration: 'Mutación en gen GALT (típicamente Q188R) que anula la actividad uridiltransferasa'
   },
@@ -2575,7 +2575,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       patientDemographics: {
         age: 48,
         gender: 'Masculino',
-        occupation: 'Jefe de Administración en Empresa de Logística'
+        occupation: 'Jefe de administración en empresa de logística'
       },
       chiefComplaint: 'Mareos intensos con visión doble, palpitaciones y desorientación por las mañanas que resuelven con la comida.',
       presentIllness: 'Gonzalo V., de 48 años, acude a la consulta por episodios progresivos desde hace 6 meses. Cuenta que al despertarse por las mañanas se siente "como si estuviera borracho": se tropieza, le cuesta encontrar las palabras y sufre sudores fríos profusos con taquicardia. Su esposa relata que en una ocasión le encontró balbuceando incoherentemente en la cocina y que tras obligarle a tomar un vaso de agua con abundante azúcar volvió a hablar normalmente en menos de 5 minutos. Ha ganado 8 kg de peso en los últimos meses porque come a deshoras y por las noches para prevenir los mareos.',
@@ -2598,39 +2598,39 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     },
     initialLabWork: [
       { test: 'Glucemia en Urgencias (durante mareo matutino espontáneo)', result: '38', unit: 'mg/dL', referenceRange: '70 - 100 (Hipoglucemia severa documentada)', isAbnormal: true },
-      { test: 'Hemoglobina Glicada (HbA1c)', result: '4.8', unit: '%', referenceRange: '4.0 - 5.6', isAbnormal: false },
+      { test: 'Hemoglobina glicada (HbA1c)', result: '4.8', unit: '%', referenceRange: '4.0 - 5.6', isAbnormal: false },
       { test: 'Función Hepática (ALT / AST)', result: 'ALT 22 U/L, AST 19 U/L', unit: '', referenceRange: 'Normal' },
       { test: 'Creatinina Sérica', result: '0.92', unit: 'mg/dL', referenceRange: '0.70 - 1.20' },
       { test: 'Determinación Conjunta de Insulina y Péptido C durante hipoglucemia', result: '[NO SOLICITADO - Clave diagnóstica requerida para diferenciar origen endógeno vs exógeno]', unit: '-', referenceRange: 'En hipoglucemia debe suprimirse a < 3 µUI/mL e < 0.2 ng/mL' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Insulinoma Pancreático (Tumor Neuroendocrino de Células Beta)',
+        disease: 'Insulinoma pancreático (tumor neuroendocrino de células beta)',
         plausibilityRationale: 'Cumple a la perfección la tríada de Whipple: hipoglucemias graves en ayunas que ceden con hidratos, aumento de peso defensivo y sospecha de secreción autónoma no suprimible de insulina endógena.',
         isTargetDisease: true
       },
       {
-        disease: 'Hipoglucemia Facticia por Inyección Subrepticia de Insulina',
+        disease: 'Hipoglucemia facticia por inyección subrepticia de insulina',
         plausibilityRationale: 'Produce exactamente las mismas bajadas de azúcar, pero la insulina comercial exógena cursa con péptido C indetectable.',
         isTargetDisease: false
       },
       {
-        disease: 'Insuficiencia Suprarrenal Primaria (Enfermedad de Addison)',
+        disease: 'Insuficiencia suprarrenal primaria (enfermedad de Addison)',
         plausibilityRationale: 'La falta de cortisol predispone a hipoglucemias, pero suele cursar con piel hiperpigmentada, presión arterial muy baja (hipotensión) y potasio alto en sangre.',
         isTargetDisease: false
       },
       {
-        disease: 'Epilepsia de Lóbulo Temporal',
+        disease: 'Epilepsia de lóbulo temporal',
         plausibilityRationale: 'Puede dar desorientación y episodios de confusión transitorios, pero las crisis epilépticas no se relacionan con el ayuno ni resuelven con zumo de naranja.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Insulinoma Pancreático (Tumor Neuroendocrino de Células Beta)',
+    targetDisease: 'Insulinoma pancreático (tumor neuroendocrino de células beta)',
     biomarkerOptions: [
       {
         id: 'bm_opt_peptido_c_correct',
         biomarkerId: 'bm_peptido_c',
-        biomarkerName: 'Medición de Péptido C y Ratio Insulina/Péptido C en Hipoglucemia',
+        biomarkerName: 'Medición de péptido C y ratio insulina/péptido C en hipoglucemia',
         isCorrect: true,
         biochemicalRationale: 'La confirmación del insulinoma exige demostrar que la insulina se está fabricando dentro del propio páncreas del paciente (secreción endógena) cuando la glucosa está por debajo de 55 mg/dL. En el insulinoma, el Péptido C se encuentra paradójicamente normal o elevado (≥ 0.6 ng/mL) en plena hipoglucemia, confirmando la autonomía tumoral.',
         whyOptimalOrSuboptimal: 'Biomarcador patognomónico que diferencia de forma indiscutible el tumor neuroendocrino de la administración encubierta de insulina.'
@@ -2646,7 +2646,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_ck_insulinoma_distractor',
         biomarkerId: 'bm_ck_total',
-        biomarkerName: 'Creatina Quinasa Total (CK)',
+        biomarkerName: 'Creatina quinasa total (CK)',
         isCorrect: false,
         biochemicalRationale: 'Marcador de rotura o inflamación muscular.',
         whyOptimalOrSuboptimal: 'No guarda ninguna relación con el metabolismo hidrocarbonado pancreático.'
@@ -2654,7 +2654,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_bilirrubina_insulinoma_distractor',
         biomarkerId: 'bm_bilirrubina_total',
-        biomarkerName: 'Bilirrubina Total Sérica',
+        biomarkerName: 'Bilirrubina total sérica',
         isCorrect: false,
         biochemicalRationale: 'Marcador de excreción biliar y hemólisis.',
         whyOptimalOrSuboptimal: 'Completamente normal; los insulinomas son tumores neuroendocrinos pequeños que no comprimen la vía biliar.'
@@ -2662,7 +2662,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Perla de Endocrinología Molecular: El diagnóstico bioquímico de insulinoma requiere el "Test de Ayuno de 72 horas supervisado": se retira la comida al paciente en el hospital y se monitoriza la glucemia cada 2-4 horas. Cuando la glucosa baja de 55 mg/dL, se extrae la tríada analítica dorada: Glucosa, Insulina y Péptido C. Si la insulina y el péptido C no se han suprimido, el diagnóstico de tumor neuroendocrino queda demostrado al 100%.',
     essentialBiomarkerIds: ['bm_peptido_c'],
-    categoryDocente: 'Regulación Hormonal del Metabolismo Energético',
+    categoryDocente: 'Regulación hormonal del metabolismo energético',
     molecularPathway: 'Hipersecreción autónoma de Insulina -> Activación masiva de receptor tirosina quinasa -> Internalización de GLUT4 en músculo y freno de glucogenólisis -> Hipoglucemia neuroglucopénica',
     molecularAlteration: 'Tumoración benigna de células beta pancreáticas con pérdida del feedback inhibitorio por hipoglucemia'
   },
@@ -2711,21 +2711,21 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       { test: 'T4 Libre', result: '3.85', unit: 'ng/dL', referenceRange: '0.80 - 1.80 (Marcaselevación tirotóxica)', isAbnormal: true },
       { test: 'T3 Libre', result: '9.2', unit: 'pg/mL', referenceRange: '2.0 - 4.4 (Elevada)', isAbnormal: true },
       { test: 'Hemograma Completo', result: 'Leucocitos 5.100 /µL, Hemoglobina 12.4 g/dL', unit: '', referenceRange: 'Normal' },
-      { test: 'Anticuerpos Estimulantes del Receptor de TSH (TRAb / TSI)', result: '[NO SOLICITADO - Requiere solicitud específica para confirmación etiológica]', unit: '-', referenceRange: '< 1.75 UI/L' }
+      { test: 'Anticuerpos estimulantes del receptor de TSH (TRAb / TSI)', result: '[NO SOLICITADO - Requiere solicitud específica para confirmación etiológica]', unit: '-', referenceRange: '< 1.75 UI/L' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Enfermedad de Graves-Basedow (Hipertiroidismo Autoinmune)',
+        disease: 'Enfermedad de Graves-Basedow (hipertiroidismo autoinmune)',
         plausibilityRationale: 'Tirotoxicosis primaria florida con bocio difuso vascular, orbitopatía infiltrativa (exoftalmos) y terreno autoinmune previo (vitíligo).',
         isTargetDisease: true
       },
       {
-        disease: 'Bocio Multinodular Tóxico (Enfermedad de Plummer)',
+        disease: 'Bocio multinodular tóxico (enfermedad de Plummer)',
         plausibilityRationale: 'Produce hipertiroidismo, pero el tiroides tiene múltiples nódulos irregulares heterogéneos y nunca asocia exoftalmos autoinmune.',
         isTargetDisease: false
       },
       {
-        disease: 'Tiroiditis Subaguda de De Quervain (Vírica)',
+        disease: 'Tiroiditis subaguda de de Quervain (vírica)',
         plausibilityRationale: 'Puede dar elevación transitoria de T4 libre, pero cursa con dolor cervical muy intenso en el cuello al tragar y VSG disparada (> 60 mm/h).',
         isTargetDisease: false
       },
@@ -2735,12 +2735,12 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Enfermedad de Graves-Basedow (Hipertiroidismo Autoinmune)',
+    targetDisease: 'Enfermedad de Graves-Basedow (hipertiroidismo autoinmune)',
     biomarkerOptions: [
       {
         id: 'bm_opt_trab_correct',
         biomarkerId: 'bm_trab_tsh',
-        biomarkerName: 'Anticuerpos Estimulantes del Receptor de TSH (TRAb / TSI)',
+        biomarkerName: 'Anticuerpos estimulantes del receptor de TSH (TRAb / TSI)',
         isCorrect: true,
         biochemicalRationale: 'La positividad de los anticuerpos estimulantes del receptor de TSH (TRAb/TSI > 1.75 UI/L) es el biomarcador serológico de certeza definitiva para la Enfermedad de Graves. Demuestra que el hipertiroidismo está provocado por autoanticuerpos agonistas que activan de forma continua la vía Gs-AMPc de los tirocitos.',
         whyOptimalOrSuboptimal: 'Biomarcador patognomónico de máxima sensibilidad (>97%) y especificidad (>99%) para guiar el tratamiento con fármacos antitiroideos.'
@@ -2756,7 +2756,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_ck_graves_distractor',
         biomarkerId: 'bm_ck_total',
-        biomarkerName: 'Creatina Quinasa Total (CK)',
+        biomarkerName: 'Creatina quinasa total (CK)',
         isCorrect: false,
         biochemicalRationale: 'Enzima muscular estriada.',
         whyOptimalOrSuboptimal: 'En el hipertiroidismo la CK suele estar paradójicamente baja o normal debido al aclaramiento acelerado; no confirma la autoinmunidad tiroidea.'
@@ -2772,7 +2772,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Perla de Farmacología y Bioquímica Clínica: Los fármacos antitiroideos de síntesis como el Metimazol o Tiamazol inhiben a la enzima Tiroperoxidasa (TPO), bloqueando la organificación del yodo y el acoplamiento de las yodotirosinas (MIT y DIT) en la tiroglobulina. Para el control sintomático rápido de la taquicardia y el temblor se utilizan betabloqueantes (propranolol), que además inhiben periféricamente la desyodasa que convierte T4 en T3 activa.',
     essentialBiomarkerIds: ['bm_trab_tsh'],
-    categoryDocente: 'Transducción de Señales Hormonales y Autoinmunidad Tiroidea',
+    categoryDocente: 'Transducción de señales hormonales y autoinmunidad tiroidea',
     molecularPathway: 'Autoanticuerpos TRAb se unen al receptor TSHR -> Activación de Proteína Gs -> Adenilato Ciclasa -> AMPc intracelular masivo -> Síntesis incontrolada de T3 y T4',
     molecularAlteration: 'Inmunoglobulinas IgG estimulantes del receptor de TSH con actividad agonista constitutiva'
   },
@@ -2818,38 +2818,38 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     initialLabWork: [
       { test: 'Creatinina Sérica', result: '1.05', unit: 'mg/dL', referenceRange: '0.70 - 1.20 (Función renal global preservada)' },
       { test: 'Urea en Sangre', result: '32', unit: 'mg/dL', referenceRange: '15 - 45' },
-      { test: 'Ácido Úrico en Sangre', result: '5.2', unit: 'mg/dL', referenceRange: '3.5 - 7.2 (Descarta gota)' },
-      { test: 'Calcio y Fósforo Séricos', result: 'Calcio 9.4 mg/dL, Fósforo 3.2 mg/dL', unit: '', referenceRange: 'Normal (Descarta hiperparatiroidismo)' },
+      { test: 'Ácido úrico en sangre', result: '5.2', unit: 'mg/dL', referenceRange: '3.5 - 7.2 (Descarta gota)' },
+      { test: 'Calcio y fósforo séricos', result: 'Calcio 9.4 mg/dL, Fósforo 3.2 mg/dL', unit: '', referenceRange: 'Normal (Descarta hiperparatiroidismo)' },
       { test: 'Cuantificación de Cistina en Orina de 24h / Test de Brand', result: '[NO SOLICITADO - Requiere solicitud específica para diagnóstico de la aminoaciduria]', unit: '-', referenceRange: '< 30 mg/24h' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Cistinuria con Litiasis Urinaria por Cistina',
+        disease: 'Cistinuria con litiasis urinaria por cistina',
         plausibilityRationale: 'Varón joven con nefrolitiasis bilateral/recidivante de inicio juvenil, expulsión de cálculos amarillentos, orina ácida y antecedente de hermana afectada.',
         isTargetDisease: true
       },
       {
-        disease: 'Nefrolitiasis por Oxalato Cálcico Monohidrato',
+        disease: 'Nefrolitiasis por oxalato cálcico monohidrato',
         plausibilityRationale: 'Es la causa más frecuente de piedras en el riñón, pero sus cristales son bipiramidales en "sobre de carta" y no cursa con aminoaciduria en orina.',
         isTargetDisease: false
       },
       {
-        disease: 'Litiasis Renal por Ácido Úrico',
+        disease: 'Litiasis renal por ácido úrico',
         plausibilityRationale: 'Forma piedras amarillentas en orina ácida, pero es típica de varones mayores con hiperuricemia franca, gota previa o síndrome metabólico.',
         isTargetDisease: false
       },
       {
-        disease: 'Cálculos Coraliformes por Infección (Estruvita / Fosfato Amónico Magnésico)',
+        disease: 'Cálculos coraliformes por infección (estruvita / fosfato amónico magnésico)',
         plausibilityRationale: 'Típicos de infecciones por bacterias productoras de ureasa (Proteus), pero cursan con orina fuertemente alcalina (pH > 7.5) y no ácida.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Cistinuria con Litiasis Urinaria por Cistina',
+    targetDisease: 'Cistinuria con litiasis urinaria por cistina',
     biomarkerOptions: [
       {
         id: 'bm_opt_cistina_orina_correct',
         biomarkerId: 'bm_cistina_orina',
-        biomarkerName: 'Cuantificación de Cistina en Orina de 24h y Test de Cianuro-Nitroprusiato',
+        biomarkerName: 'Cuantificación de cistina en orina de 24h y test de cianuro-nitroprusiato',
         isCorrect: true,
         biochemicalRationale: 'La determinación cuantitativa de cistina en orina de 24 horas (> 250 mg/día) y la positividad del test cualitativo de Brand (reacción púrpura con cianuro-nitroprusiato) confirma de forma concluyente el defecto del transportador tubular dibásico COLA.',
         whyOptimalOrSuboptimal: 'Biomarcador específico indiscutible que guía la alcalinización urinaria terapéutica y previene la destrucción renal crónica.'
@@ -2857,7 +2857,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_acido_urico_cistina_distractor',
         biomarkerId: 'bm_acido_urico',
-        biomarkerName: 'Ácido Úrico Sérico',
+        biomarkerName: 'Ácido úrico sérico',
         isCorrect: false,
         biochemicalRationale: 'Mide el catabolismo de purinas.',
         whyOptimalOrSuboptimal: 'Completamente normal; no ayuda a identificar la naturaleza química del cálculo de cistina.'
@@ -2881,7 +2881,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Perla de Fisiopatología y Manejo Terapéutico: El tratamiento bioquímico de la cistinuria se fundamenta en la curva de solubilidad del aminoácido. Aumentando la ingesta de agua a más de 3.5-4 litros al día y alcalinizando la orina con citrato potásico hasta un pH entre 7.5 y 8.0, la solubilidad de la cistina se multiplica por tres, disolviendo los cálculos pequeños y evitando nuevas intervenciones quirúrgicas.',
     essentialBiomarkerIds: ['bm_cistina_orina'],
-    categoryDocente: 'Transportadores Tubulares Renales y Metabolismo de Aminoácidos',
+    categoryDocente: 'Transportadores tubulares renales y metabolismo de aminoácidos',
     molecularPathway: 'Filtrado glomerular -> Reabsorción tubular proximal mediada por heterodímero rBAT/b0,+AT -> [BLOQUEO GENÉTICO] -> Excreción masiva de Cistina insoluble -> Cristales hexagonales',
     molecularAlteration: 'Mutación en genes SLC3A1 (subunidad pesada rBAT) o SLC7A9 (subunidad ligera b0,+AT)'
   },
@@ -2892,7 +2892,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     difficulty: 'avanzado',
     studentSummary: 'Tomás N., un lactante de 11 meses, es ingresado para estudio tras fracasar todos los tratamientos para una anemia severa con glóbulos rojos gigantes (anemia megaloblástica) que no ha respondido en absoluto a la administración de hierro, vitamina B12 ni ácido fólico. La madre refiere que el niño no gana peso, está muy pálido y que desde hace meses observa un polvillo o arenilla blanquecina cristalina en el fondo de los pañales al retirar la orina. Un bloqueo en la enzima UMP sintasa frena la fabricación de pirimidinas para el ADN, desbordando ácido orótico por la orina.',
     clinicalGlossary: [
-      { term: 'Aciduria Orótica Hereditaria', simpleDefinition: 'Enfermedad congénita muy rara donde falta la enzima UMP sintasa, impidiendo la síntesis de pirimidinas (citosina, timina y uracilo) necesarias para fabricar ADN.' },
+      { term: 'Aciduria orótica hereditaria', simpleDefinition: 'Enfermedad congénita muy rara donde falta la enzima UMP sintasa, impidiendo la síntesis de pirimidinas (citosina, timina y uracilo) necesarias para fabricar ADN.' },
       { term: 'Anemia Megaloblástica refractaria', simpleDefinition: 'Anemia con glóbulos rojos muy grandes (VCM alto) producida porque la médula ósea no puede fabricar ADN para dividir las células, y que no mejora con suplementos de B12 ni folato.' },
       { term: 'UMP Sintasa', simpleDefinition: 'Enzima con dos funciones que une el ácido orótico con el fosforribosil pirofosfato (PRPP) para generar nucleótidos de uridina.' },
       { term: 'Cristaluria por ácido orótico', simpleDefinition: 'Arenilla microscópica de cristales en forma de aguja que precipita en los pañales y puede llegar a obstruir las vías urinarias del bebé.' },
@@ -2920,47 +2920,47 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         sao2: '98%'
       },
       findings: [
-        { systemName: 'Aspecto General y Piel', description: 'Palidez cérea llamativa de piel y mucosas. Retraso pondoestatural severo (peso 6.8 kg a los 11 meses).' },
+        { systemName: 'Aspecto general y piel', description: 'Palidez cérea llamativa de piel y mucosas. Retraso pondoestatural severo (peso 6.8 kg a los 11 meses).' },
         { systemName: 'Neurológico', description: 'Hipotonía axial moderada con retraso madurativo psicomotor global.' },
         { systemName: 'Abdomen', description: 'Abdomen blando, sin hepatomegalia ni esplenomegalia palpable (descarta anemia hemolítica destructiva en bazo).' }
       ]
     },
     initialLabWork: [
       { test: 'Hemoglobina', result: '6.4', unit: 'g/dL', referenceRange: '11.0 - 14.0 (Anemia severa)', isAbnormal: true },
-      { test: 'Volumen Corpuscular Medio (VCM)', result: '114', unit: 'fL', referenceRange: '74 - 88 (Megaloblastosis franca con hematíes gigantes)', isAbnormal: true },
+      { test: 'Volumen corpuscular medio (VCM)', result: '114', unit: 'fL', referenceRange: '74 - 88 (Megaloblastosis franca con hematíes gigantes)', isAbnormal: true },
       { test: 'Vitamina B12 en Suero', result: '680', unit: 'pg/mL', referenceRange: '200 - 900 (Normal)', isAbnormal: false },
-      { test: 'Ácido Fólico Sérico', result: '14.2', unit: 'ng/mL', referenceRange: '4.0 - 20.0 (Normal)', isAbnormal: false },
+      { test: 'Ácido fólico sérico', result: '14.2', unit: 'ng/mL', referenceRange: '4.0 - 20.0 (Normal)', isAbnormal: false },
       { test: 'Amonio Plasmático', result: '32', unit: 'µmol/L', referenceRange: '15 - 55 (ESTRICTAMENTE NORMAL: descarta defecto del ciclo de la urea)', isAbnormal: false },
-      { test: 'Determinación Cuantitativa de Ácido Orótico en Orina', result: '[NO SOLICITADO - Clave confirmatoria diagnóstica]', unit: '-', referenceRange: '< 2.5 µmol/mmol creatinina' }
+      { test: 'Determinación cuantitativa de ácido orótico en orina', result: '[NO SOLICITADO - Clave confirmatoria diagnóstica]', unit: '-', referenceRange: '< 2.5 µmol/mmol creatinina' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Aciduria Orótica Hereditaria (Déficit de UMP Sintasa)',
+        disease: 'Aciduria orótica hereditaria (déficit de UMP sintasa)',
         plausibilityRationale: 'Anemia megaloblástica severa resistente a B12 y folato, retraso del desarrollo, cristales en el pañal y amonio sérico completamente normal.',
         isTargetDisease: true
       },
       {
-        disease: 'Déficit de Ornitina Transcarbamilasa (OTC) del Ciclo de la Urea',
+        disease: 'Déficit de ornitina transcarbamilasa (OTC) del ciclo de la urea',
         plausibilityRationale: 'También elimina gran cantidad de ácido orótico en orina, pero cursa SIEMPRE con hiperamonemia letal (> 200 µmol/L) y encefalopatía aguda por amonio.',
         isTargetDisease: false
       },
       {
-        disease: 'Anemia Perniciosa Infantil / Malabsorción de Cobalamina',
+        disease: 'Anemia perniciosa infantil / malabsorción de cobalamina',
         plausibilityRationale: 'Da anemia macrocítica y retraso motor, pero sus niveles de vitamina B12 están normales y no produce cristaluria de ácido orótico.',
         isTargetDisease: false
       },
       {
-        disease: 'Anemia de Fanconi (Aplasia Medular Congénita)',
+        disease: 'Anemia de Fanconi (aplasia medular congénita)',
         plausibilityRationale: 'Cursa con macrocitosis y fallo de medro, pero asocia trombopenia profunda, leucopenia y malformaciones óseas (pulgares ausentes).',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Aciduria Orótica Hereditaria (Déficit de UMP Sintasa)',
+    targetDisease: 'Aciduria orótica hereditaria (déficit de UMP sintasa)',
     biomarkerOptions: [
       {
         id: 'bm_opt_acido_orotico_correct',
         biomarkerId: 'bm_acido_orotico_orina',
-        biomarkerName: 'Cuantificación de Ácido Orótico en Orina',
+        biomarkerName: 'Cuantificación de ácido orótico en orina',
         isCorrect: true,
         biochemicalRationale: 'La determinación de ácido orótico en orina demuestra niveles masivamente elevados (> 100 veces el límite superior). En combinación con un nivel de amonio plasmático normal, confirma de forma inequívoca el bloqueo congénito de la UMP Sintasa en la síntesis de novo de pirimidinas.',
         whyOptimalOrSuboptimal: 'Biomarcador específico y definitivo que permite pautar el tratamiento sustitutivo con Uridina oral y revertir el cuadro.'
@@ -2976,7 +2976,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_ck_orotico_distractor',
         biomarkerId: 'bm_ck_total',
-        biomarkerName: 'Creatina Quinasa Total (CK)',
+        biomarkerName: 'Creatina quinasa total (CK)',
         isCorrect: false,
         biochemicalRationale: 'Marcador de daño miofibrilar.',
         whyOptimalOrSuboptimal: 'Completamente normal; la hipotonía es por carencia de nucleótidos cerebrales, no por miopatía inflamatoria.'
@@ -2992,7 +2992,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'La Salvación Terapéutica con Uridina: La suplementación con Uridina oral (100-150 mg/kg/día) es uno de los tratamientos metabólicos más espectaculares de la medicina. La uridina es fosforilada por la uridina quinasa a UMP, saltándose el bloqueo de la UMP sintasa. Esto reactiva la síntesis de ADN, normaliza la hemoglobina en menos de 3 semanas, desaparece la megaloblastosis y el niño retoma un crecimiento normal.',
     essentialBiomarkerIds: ['bm_acido_orotico_orina'],
-    categoryDocente: 'Metabolismo de Nucleótidos de Pirimidina',
+    categoryDocente: 'Metabolismo de nucleótidos de pirimidina',
     molecularPathway: 'Carbamoil-P -> Ácido Orótico -> [BLOQUEO EN UMP SINTASA] -> Carencia de UMP/UDP/UTP/dTTP -> Detención de síntesis de ADN y excreción masiva de Ácido Orótico',
     molecularAlteration: 'Mutación en gen UMPS que anula las actividades orotato fosforribosiltransferasa y OMP decarboxilasa'
   },
@@ -3041,7 +3041,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       { test: 'Glucemia y Gasometría', result: 'Glucosa 88 mg/dL, pH 7.39', unit: '', referenceRange: 'Normal' },
       { test: 'Función Hepática (ALT / AST)', result: 'ALT 24 U/L, AST 28 U/L', unit: '', referenceRange: 'Normal' },
       { test: 'Amonio y Lactato', result: 'Normales', unit: '', referenceRange: 'Normal' },
-      { test: 'Actividad de Hexosaminidasa A en Leucocitos / Suero', result: '[NO SOLICITADO - Determinación enzimática confirmatoria requerida]', unit: '-', referenceRange: '55 - 75% de la hexosaminidasa total' }
+      { test: 'Actividad de hexosaminidasa A en leucocitos / suero', result: '[NO SOLICITADO - Determinación enzimática confirmatoria requerida]', unit: '-', referenceRange: '55 - 75% de la hexosaminidasa total' }
     ],
     differentialDiagnoses: [
       {
@@ -3050,17 +3050,17 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         isTargetDisease: true
       },
       {
-        disease: 'Enfermedad de Niemann-Pick Tipo A (Déficit de Esfingomielinasa)',
+        disease: 'Enfermedad de Niemann-Pick tipo A (déficit de esfingomielinasa)',
         plausibilityRationale: 'Produce mancha rojo cereza macular y neurodegeneración similar, pero cursa SIEMPRE con hepatomegalia y esplenomegalia masivas.',
         isTargetDisease: false
       },
       {
-        disease: 'Enfermedad de Krabbe (Leucodistrofia de Células Globoides)',
+        disease: 'Enfermedad de Krabbe (leucodistrofia de células globoides)',
         plausibilityRationale: 'Cursa con irritabilidad y regresión motora, pero produce hipertonía espástica precoz y no mancha rojo cereza macular.',
         isTargetDisease: false
       },
       {
-        disease: 'Atrofia Muscular Espinal Tipo 1 (Enfermedad de Werdnig-Hoffmann)',
+        disease: 'Atrofia muscular espinal tipo 1 (enfermedad de Werdnig-Hoffmann)',
         plausibilityRationale: 'Produce hipotonía severa infantil, pero respeta totalmente la retina y la visión y no cursa con hiperacusia acústica.',
         isTargetDisease: false
       }
@@ -3070,7 +3070,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_hexosaminidasa_correct',
         biomarkerId: 'bm_hexosaminidasa_a',
-        biomarkerName: 'Medición de Actividad de Beta-Hexosaminidasa A en Leucocitos y Suero',
+        biomarkerName: 'Medición de actividad de beta-hexosaminidasa A en leucocitos y suero',
         isCorrect: true,
         biochemicalRationale: 'La cuantificación enzimática mediante fluorometría con sustrato 4-MUG demuestra un déficit selectivo y casi total de la isoenzima Hexosaminidasa A termolábil (< 5% del valor de referencia), confirmando categóricamente el diagnóstico de Tay-Sachs.',
         whyOptimalOrSuboptimal: 'Biomarcador enzimático confirmatorio de elección absoluta en enfermedades lisosómicas por gangliosidosis GM2.'
@@ -3078,7 +3078,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_ck_taysachs_distractor',
         biomarkerId: 'bm_ck_total',
-        biomarkerName: 'Creatina Quinasa Total (CK)',
+        biomarkerName: 'Creatina quinasa total (CK)',
         isCorrect: false,
         biochemicalRationale: 'Marcador de lesión de la fibra muscular.',
         whyOptimalOrSuboptimal: 'La debilidad es puramente por degeneración del sistema nervioso central, no por enfermedad muscular periférica.'
@@ -3094,7 +3094,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_bilirrubina_taysachs_distractor',
         biomarkerId: 'bm_bilirrubina_total',
-        biomarkerName: 'Bilirrubina Total Sérica',
+        biomarkerName: 'Bilirrubina total sérica',
         isCorrect: false,
         biochemicalRationale: 'Marcador hepático y de hemólisis.',
         whyOptimalOrSuboptimal: 'Completamente normal; la retina no tiene relación con el metabolismo de la hemoglobina.'
@@ -3102,7 +3102,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Perla de Bioquímica de Esfingolípidos y Genética: La mutación más frecuente en poblaciones de alto riesgo es una inserción de 4 pares de bases (TATCadit) en el exón 11 del gen HEXA que provoca un cambio en la pauta de lectura (frameshift) y un codón de parada prematuro. El cribado masivo de portadores mediante ensayo de Hexosaminidasa A en suero o PCR genética en comunidades ha reducido la incidencia de esta devastadora enfermedad en más de un 90%.',
     essentialBiomarkerIds: ['bm_hexosaminidasa_a'],
-    categoryDocente: 'Metabolismo de Lípidos Complejos y Enfermedades Lisosómicas',
+    categoryDocente: 'Metabolismo de lípidos complejos y enfermedades lisosómicas',
     molecularPathway: 'Gangliósido GM2 -> [BLOQUEO EN HEXOSAMINIDASA A] -> Acumulación masiva de GM2 en lisosomas neuronales -> Balonamiento y muerte neuronal en SNC y retina',
     molecularAlteration: 'Mutaciones inactivadoras en el gen HEXA que impiden la formación de la subunidad alfa de la Hexosaminidasa A'
   },
@@ -3115,7 +3115,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     clinicalGlossary: [
       { term: 'Encefalopatía de Wernicke', simpleDefinition: 'Urgencia médica aguda causada por falta de vitamina B1 caracterizada por la tríada clásica: 1) Confusión mental aguda, 2) Marcha inestable y descoordinada (ataxia), y 3) Parálisis o movimientos oculares anormales (oftalmoplejía/nistagmo).' },
       { term: 'Pirofosfato de Tiamina (TPP)', simpleDefinition: 'Forma activa de la vitamina B1 que actúa como "ayudante" indispensable para que las enzimas metabolizadoras de azúcar puedan alimentar al cerebro.' },
-      { term: 'Complejo Piruvato Deshidrogenasa (PDH)', simpleDefinition: 'Enzima clave que permite que el piruvato de la glucosa entre al ciclo de Krebs para fabricar energía aeróbica.' },
+      { term: 'Complejo piruvato deshidrogenasa (PDH)', simpleDefinition: 'Enzima clave que permite que el piruvato de la glucosa entre al ciclo de Krebs para fabricar energía aeróbica.' },
       { term: 'Riesgo del suero glucosado sin tiamina', simpleDefinition: 'Regla de oro de urgencias: NUNCA poner glucosa a un alcohólico desnutrido sin administrar antes Tiamina intravenosa, porque la glucosa agota la poca tiamina que le queda y desencadena la encefalopatía.' },
       { term: 'Transcetolasa eritrocitaria', simpleDefinition: 'Enzima de los glóbulos rojos cuya actividad aumenta enormemente en el laboratorio al añadirle TPP in vitro si el paciente tiene déficit de tiamina (Efecto TPP > 25%).' }
     ],
@@ -3141,46 +3141,46 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
         sao2: '96%'
       },
       findings: [
-        { systemName: 'Neurológico - Pares Craneales', description: 'Nistagmo horizontal bilateral espontáneo y parálisis del VI par craneal bilateral (incapacidad para abducir los ojos hacia fuera, oftalmoplejía externa).' },
-        { systemName: 'Neurológico - Marcha y Cerebelo', description: 'Ataxia cerebelosa troncal severa: base de sustentación muy amplia, incapacidad absoluta para caminar en tándem o mantenerse de pie con los pies juntos.' },
+        { systemName: 'Neurológico - pares craneales', description: 'Nistagmo horizontal bilateral espontáneo y parálisis del VI par craneal bilateral (incapacidad para abducir los ojos hacia fuera, oftalmoplejía externa).' },
+        { systemName: 'Neurológico - marcha y cerebelo', description: 'Ataxia cerebelosa troncal severa: base de sustentación muy amplia, incapacidad absoluta para caminar en tándem o mantenerse de pie con los pies juntos.' },
         { systemName: 'Esfera Mental', description: 'Estado confusional agudo con apatía marcada, desorientación temporoespacial completa y memoria inmediata abolida con tendencia a rellenar huecos con invenciones ficticias (confabulación).' }
       ]
     },
     initialLabWork: [
       { test: 'Glucemia en Sangre', result: '162', unit: 'mg/dL', referenceRange: '70 - 110 (Tras inicio de suero glucosado)', isAbnormal: true },
-      { test: 'Alcohol en Sangre (Etanolemia)', result: '0.4', unit: 'g/L', referenceRange: '< 0.5 (Nivel bajo: descarta que el cuadro se deba a embriaguez aguda)', isAbnormal: false },
+      { test: 'Alcohol en sangre (etanolemia)', result: '0.4', unit: 'g/L', referenceRange: '< 0.5 (Nivel bajo: descarta que el cuadro se deba a embriaguez aguda)', isAbnormal: false },
       { test: 'Lactato Plasmático', result: '4.8', unit: 'mmol/L', referenceRange: '0.5 - 2.2 (Acidosis láctica por incapacidad de metabolizar piruvato vía PDH)', isAbnormal: true },
       { test: 'Magnesio Sérico', result: '1.2', unit: 'mg/dL', referenceRange: '1.7 - 2.4 (Hipomagnesemia grave por alcoholismo; el Mg es cofactor de la tiamina)', isAbnormal: true },
-      { test: 'Actividad de Transcetolasa Eritrocitaria con Efecto TPP', result: '[NO SOLICITADO - Marcador funcional confirmatorio de carencia de vitamina B1]', unit: '-', referenceRange: 'Efecto TPP < 15%' }
+      { test: 'Actividad de transcetolasa eritrocitaria con efecto TPP', result: '[NO SOLICITADO - Marcador funcional confirmatorio de carencia de vitamina B1]', unit: '-', referenceRange: 'Efecto TPP < 15%' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Encefalopatía de Wernicke Aguda por Déficit de Tiamina (Vitamina B1)',
+        disease: 'Encefalopatía de Wernicke aguda por déficit de tiamina (vitamina B1)',
         plausibilityRationale: 'Tríada clásica completa (confusión, ataxia y oftalmoplejía/nistagmo) desencadenada tras infusión de glucosa en paciente con alcoholismo crónico y desnutrición.',
         isTargetDisease: true
       },
       {
-        disease: 'Encefalopatía Hepática Hiperamonémica (Descompensación Cirrótica)',
+        disease: 'Encefalopatía hepática hiperamonémica (descompensación cirrótica)',
         plausibilityRationale: 'Frecuente en alcohólicos, pero cursa con temblor aleteante (flapping tremor/asterixis) y amonio muy elevado, y no produce la oftalmoplejía ni nistagmo característicos de Wernicke.',
         isTargetDisease: false
       },
       {
-        disease: 'Ictus Isquémico del Tronco del Encéfalo / Territorio Vertebrobasilar',
+        disease: 'Ictus isquémico del tronco del encéfalo / territorio vertebrobasilar',
         plausibilityRationale: 'Puede dar ataxia y diplopía, pero suele ser de instauración hiperaguda en segundos y asocia hemiparesia o asimetría facial marcada.',
         isTargetDisease: false
       },
       {
-        disease: 'Hematoma Subdural Crónico',
+        disease: 'Hematoma subdural crónico',
         plausibilityRationale: 'Frecuente tras caídas en alcohólicos, pero la TC cerebral urgente descarta colecciones hemorrágicas intracraneales en este paciente.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Encefalopatía de Wernicke Aguda por Déficit de Tiamina (Vitamina B1)',
+    targetDisease: 'Encefalopatía de Wernicke aguda por déficit de tiamina (vitamina B1)',
     biomarkerOptions: [
       {
         id: 'bm_opt_tiamina_correct',
         biomarkerId: 'bm_tiamina_transcetolasa',
-        biomarkerName: 'Actividad de Transcetolasa Eritrocitaria y Coeficiente de Activación por TPP',
+        biomarkerName: 'Actividad de transcetolasa eritrocitaria y coeficiente de activación por TPP',
         isCorrect: true,
         biochemicalRationale: 'La determinación de la transcetolasa en eritrocitos y el incremento de su actividad in vitro tras añadir pirofosfato de tiamina (Efecto TPP > 25%) es el biomarcador funcional de referencia. Demuestra la depleción crítica intracelular de la coenzima activa de la vitamina B1.',
         whyOptimalOrSuboptimal: 'Biomarcador fisiopatológico directo que confirma la deficiencia de tiamina y justifica el tratamiento parenteral urgente para evitar secuelas de Korsakoff irreversibles.'
@@ -3204,7 +3204,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
       {
         id: 'bm_opt_acido_urico_wernicke_distractor',
         biomarkerId: 'bm_acido_urico',
-        biomarkerName: 'Ácido Úrico Sérico',
+        biomarkerName: 'Ácido úrico sérico',
         isCorrect: false,
         biochemicalRationale: 'Catabolismo de purinas.',
         whyOptimalOrSuboptimal: 'Completamente irrelevante en la fisiopatología de las coenzimas del metabolismo hidrocarbonado.'
@@ -3212,7 +3212,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'La Regla de Oro del Paciente en Urgencias: "Antes de la Glucosa, la Tiamina". Nunca se debe administrar suero glucosado a un paciente desnutrido o con consumo crónico de alcohol sin administrar previamente 500 mg de Tiamina intravenosa junto con magnesio. Si la glucosa entra a las células cerebrales sin tiamina, agota las últimas reservas de TPP y desencadena una necrosis hemorrágica irreversible de los cuerpos mamilares (Síndrome amnésico de Korsakoff crónico e incurable).',
     essentialBiomarkerIds: ['bm_tiamina_transcetolasa'],
-    categoryDocente: 'Cofactores Vitamínicos y Complejos Multienzimáticos (PDH y Alfa-KGDH)',
+    categoryDocente: 'Cofactores vitamínicos y complejos multienzimáticos (PDH y Alfa-KGDH)',
     molecularPathway: 'Déficit de TPP -> Bloqueo simultáneo de Piruvato Deshidrogenasa y Alfa-Cetoglutarato Deshidrogenasa -> Fallo de síntesis de ATP en neuronas y acidosis láctica focal',
     molecularAlteration: 'Carencia grave de Pirofosfato de Tiamina e hipomagnesemia que anula la actividad de los complejos deshidrogenasa dependientes de TPP'
   },
@@ -3224,8 +3224,8 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     studentSummary: 'Don Manuel V., jubilado de 68 años con antecedentes de hipertensión de larga evolución, consulta por una sensación creciente de falta de aire (disnea) que ha empeorado en las últimas semanas: se fatiga al subir un tramo de escaleras y por las noches se despierta sobresaltado con sensación de asfixia, teniendo que dormir incorporado sobre tres almohadas (ortopnea). Además, sus piernas y tobillos se han hinchado de forma blanda y simétrica (edemas maleolares). Cuando las cavidades del corazón se dilatan y soportan una presión excesiva, los miocitos ventriculares sintetizan y liberan un péptido natriurético protector para intentar eliminar agua y sal.',
     clinicalGlossary: [
       { term: 'Ortopnea', simpleDefinition: 'Dificultad severa para respirar que aparece al estar completamente tumbado boca arriba y que mejora de inmediato al sentarse o incorporarse con almohadas.' },
-      { term: 'Disnea Paroxística Nocturna', simpleDefinition: 'Episodio en el que el paciente se despierta de repente a mitad de la noche sofocado y con sensación de ahogo, necesitando abrir la ventana para coger aire.' },
-      { term: 'Péptido Natriurético Cerebral (NT-proBNP)', simpleDefinition: 'Hormona que las paredes del corazón fabrican cuando están sobrecargadas o estiradas por exceso de presión de líquido, siendo el marcador por excelencia de insuficiencia cardíaca.' },
+      { term: 'Disnea paroxística nocturna', simpleDefinition: 'Episodio en el que el paciente se despierta de repente a mitad de la noche sofocado y con sensación de ahogo, necesitando abrir la ventana para coger aire.' },
+      { term: 'Péptido natriurético cerebral (NT-proBNP)', simpleDefinition: 'Hormona que las paredes del corazón fabrican cuando están sobrecargadas o estiradas por exceso de presión de líquido, siendo el marcador por excelencia de insuficiencia cardíaca.' },
       { term: 'Edema maleolar con fóvea', simpleDefinition: 'Hinchazón en los tobillos que deja una marca o hundimiento visible durante varios segundos al presionar con el dedo pulgar.' },
       { term: 'Crepitantes pulmonares basales', simpleDefinition: 'Ruidos parecidos al frotar pelos cerca de la oreja que se escuchan con el fonendoscopio en la base de los pulmones al acumularse líquido por fallo de bombeo cardíaco.' }
     ],
@@ -3258,40 +3258,40 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     },
     initialLabWork: [
       { test: 'Hemograma Completo', result: 'Leucocitos 7.100 /µL, Hemoglobina 13.6 g/dL', unit: '', referenceRange: 'Normal' },
-      { test: 'Troponina Cardíaca de Alta Sensibilidad (hs-cTn)', result: '18', unit: 'ng/L', referenceRange: '< 50 ng/L (Descarta infarto agudo de miocardio como desencadenante)', isAbnormal: false },
+      { test: 'Troponina cardíaca de alta sensibilidad (hs-cTn)', result: '18', unit: 'ng/L', referenceRange: '< 50 ng/L (Descarta infarto agudo de miocardio como desencadenante)', isAbnormal: false },
       { test: 'Creatinina Sérica', result: '1.28', unit: 'mg/dL', referenceRange: '0.70 - 1.20 (Leve reducción de filtrado glomerular)', isAbnormal: true },
       { test: 'Iones en Sangre', result: 'Sodio 136 mEq/L, Potasio 4.4 mEq/L', unit: '', referenceRange: 'Normal' },
       { test: 'Radiografía de Tórax', result: 'Cardiomegalia con índice cardiotorácico > 0.55 y redistribución vascular apical con líneas B de Kerley', unit: '-', referenceRange: 'Normal' },
-      { test: 'Péptido Natriurético N-terminal (NT-proBNP en Sangre)', result: '[NO SOLICITADO - Biomarcador esencial a solicitar para estratificación y confirmación]', unit: '-', referenceRange: '< 125 pg/mL en < 75 años (< 300 pg/mL para descartar)' }
+      { test: 'Péptido natriurético N-terminal (NT-proBNP en sangre)', result: '[NO SOLICITADO - Biomarcador esencial a solicitar para estratificación y confirmación]', unit: '-', referenceRange: '< 125 pg/mL en < 75 años (< 300 pg/mL para descartar)' }
     ],
     differentialDiagnoses: [
       {
-        disease: 'Insuficiencia Cardíaca Congestiva Descompensada (Fallo Ventricular Izquierdo y Derecho)',
+        disease: 'Insuficiencia cardíaca congestiva descompensada (fallo ventricular izquierdo y derecho)',
         plausibilityRationale: 'Presencia de disnea paroxística nocturna, ortopnea, ingurgitación yugular, crepitantes basales bilaterales, edemas con fóvea y cardiomegalia radiológica con troponina normal.',
         isTargetDisease: true
       },
       {
-        disease: 'Agudización de Enfermedad Pulmonar Obstructiva Crónica (EPOC)',
+        disease: 'Agudización de enfermedad pulmonar obstructiva crónica (EPOC)',
         plausibilityRationale: 'Puede dar ahogo y edemas, pero cursa predominantemente con tos productiva con esputo purulento, sibilancias espiratorias difusas y no con ingurgitación yugular aislada.',
         isTargetDisease: false
       },
       {
-        disease: 'Cirrosis Hepática con Síndrome Ascítico-Edematoso',
+        disease: 'Cirrosis hepática con síndrome ascítico-edematoso',
         plausibilityRationale: 'Produce hinchazón de piernas, pero cursa con ascitis prominente en abdomen, estigmas cutáneos (arañas vasculares) y no produce crepitantes pulmonares bilaterales.',
         isTargetDisease: false
       },
       {
-        disease: 'Insuficiencia Venosa Crónica Periférica Aislada',
+        disease: 'Insuficiencia venosa crónica periférica aislada',
         plausibilityRationale: 'Justifica los edemas en los tobillos, pero es incapaz de provocar el ahogo en reposo, la ortopnea ni los crepitantes en los pulmones.',
         isTargetDisease: false
       }
     ],
-    targetDisease: 'Insuficiencia Cardíaca Congestiva Descompensada (Fallo Ventricular Izquierdo y Derecho)',
+    targetDisease: 'Insuficiencia cardíaca congestiva descompensada (fallo ventricular izquierdo y derecho)',
     biomarkerOptions: [
       {
         id: 'bm_opt_ntprobnp_correct',
         biomarkerId: 'bm_nt_probnp',
-        biomarkerName: 'Fracción N-Terminal del Pro-Péptido Natriurético Tipo B (NT-proBNP)',
+        biomarkerName: 'Fracción N-Terminal del pro-péptido natriurético tipo B (NT-proBNP)',
         isCorrect: true,
         biochemicalRationale: 'El NT-proBNP es el biomarcador neurohormonal de elección absoluta recomendado por las guías clínicas internacionales (ESC / AHA). Los cardiomiocitos ventriculares lo liberan directamente en respuesta al estrés biomecánico de pared y sobrecarga diastólica. Un valor marcadamente elevado (> 1.800 pg/mL) confirma de inmediato la insuficiencia cardíaca descompensada y guía la terapia descongestiva urgente con diuréticos de asa.',
         whyOptimalOrSuboptimal: 'Biomarcador con valor predictivo negativo del 98% para descartar y altísima especificidad para confirmar el fallo de bomba cardíaco.'
@@ -3323,7 +3323,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Perla de Cardiología Molecular: El proBNP se sintetiza como un péptido de 108 aminoácidos en los miocitos ventriculares. La enzima furina o corina lo escinde en dos fragmentos: el péptido activo BNP (77-108, vida media de 20 min) y el fragmento inerte NT-proBNP (1-76, vida media de 90-120 min). El NT-proBNP es analíticamente superior en el laboratorio porque tiene mayor estabilidad in vitro en el tubo de ensayo y no sufre interferencia por los fármacos inhibidores de neprilisina (sacubitrilo/valsartán), que degradan al BNP pero no al NT-proBNP.',
     essentialBiomarkerIds: ['bm_nt_probnp'],
-    categoryDocente: 'Péptidos Natriuréticos y Regulación de la Homeostasis Hidrosalina',
+    categoryDocente: 'Péptidos natriuréticos y regulación de la homeostasis hidrosalina',
     molecularPathway: 'Sobrecarga de presión en ventrículo -> Estiramiento biomecánico de miocitos -> Síntesis de proBNP -> Escisión en BNP (activador de guanilato ciclasa y GMPc) y NT-proBNP',
     molecularAlteration: 'Aumento masivo de la tensión parietal del miocardio ventricular secundario a disfunción sistólica o diastólica'
   }

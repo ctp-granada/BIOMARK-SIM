@@ -12,7 +12,7 @@ interface VademecumViewProps {
 
 const SYSTEM_CONFIG: Record<OrganSystem | 'all', { label: string; icon: React.ReactNode; color: string; badgeClass: string; borderClass: string }> = {
   all: { 
-    label: 'Todos los Sistemas', 
+    label: 'Todos los sistemas', 
     icon: <BookOpen className="inline-block w-[1em] h-[1em]" />, 
     color: 'slate', 
     badgeClass: 'bg-slate-100 text-slate-800 border-slate-200', 
@@ -26,21 +26,21 @@ const SYSTEM_CONFIG: Record<OrganSystem | 'all', { label: string; icon: React.Re
     borderClass: 'border-rose-200 hover:border-rose-300' 
   },
   hepatic: { 
-    label: 'Hepático y Biliar', 
+    label: 'Hepático y biliar', 
     icon: <Droplet className="inline-block w-[1em] h-[1em]" />, 
     color: 'amber', 
     badgeClass: 'bg-amber-50 text-amber-800 border-amber-200', 
     borderClass: 'border-amber-200 hover:border-amber-300' 
   },
   metabolic: { 
-    label: 'Metabólico y Endocrino', 
+    label: 'Metabólico y endocrino', 
     icon: <Zap className="inline-block w-[1em] h-[1em]" />, 
     color: 'emerald', 
     badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-200', 
     borderClass: 'border-emerald-200 hover:border-emerald-300' 
   },
   renal: { 
-    label: 'Renal y Urinario', 
+    label: 'Renal y urinario', 
     icon: <Droplet className="inline-block w-[1em] h-[1em]" />, 
     color: 'blue', 
     badgeClass: 'bg-blue-50 text-blue-800 border-blue-200', 
@@ -126,12 +126,12 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
 
             <div className="flex items-center gap-2.5 flex-wrap">
               <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
-                <span>Vademécum de Biomarcadores</span>
+                <span>Vademécum de biomarcadores</span>
               </h1>
               <BiochemicalInfoTooltip
-                title="Catálogo de Biomarcadores y Diagnóstico Bioquímico"
+                title="Catálogo de biomarcadores y diagnóstico bioquímico"
                 mechanism="Un biomarcador es una molécula cuantificable en fluidos biológicos (sangre, orina, LCR) cuya concentración y cinética temporal reflejan un proceso fisiológico normal, un estado patológico (lisis celular, sobrecarga mecánica, colestasis) o la respuesta a una terapia."
-                molecularKey="Ventana cinética • Sensibilidad • Especificidad • Valores de corte"
+                molecularKey="Ventana cinética • sensibilidad • especificidad • valores de corte"
                 clinicalRelevance="La correcta interpretación de la semivida y del pico de elevación evita falsos diagnósticos por toma hiperprecoz o tardía."
               />
             </div>
@@ -304,7 +304,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
                     </span>
                   ) : <span />}
                   <span className="text-blue-600 group-hover:text-blue-800 font-bold flex items-center gap-1 text-[11px]">
-                    <span>Ver Ficha Técnica</span>
+                    <span>Ver ficha técnica</span>
                     <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                   </span>
                 </div>
@@ -388,15 +388,15 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
             <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-3">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-blue-600" />
-                <span>Cinética Temporal Plasmática</span>
+                <span>Cinética temporal plasmática</span>
               </span>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-center">
                 <div className="p-2.5 rounded-xl bg-white border border-slate-200">
-                  <span className="text-[10px] text-slate-400 block uppercase">Inicio Elevación</span>
+                  <span className="text-[10px] text-slate-400 block uppercase">Inicio elevación</span>
                   <strong className="text-slate-800 text-[11px] block mt-0.5">{selectedBiomarker.temporalWindow.elevationStart}</strong>
                 </div>
                 <div className="p-2.5 rounded-xl bg-white border border-slate-200">
-                  <span className="text-[10px] text-slate-400 block uppercase">Pico Máximo</span>
+                  <span className="text-[10px] text-slate-400 block uppercase">Pico máximo</span>
                   <strong className="text-amber-800 text-[11px] block mt-0.5">{selectedBiomarker.temporalWindow.peak}</strong>
                 </div>
                 <div className="p-2.5 rounded-xl bg-white border border-slate-200">
@@ -415,7 +415,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
               <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
                 <strong className="text-slate-900 text-xs block mb-1 flex items-center gap-1.5 font-bold">
                   <Stethoscope className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Indicación Diagnóstica Principal:</span>
+                  <span>Indicación diagnóstica principal:</span>
                 </strong>
                 <p className="text-slate-700 leading-relaxed">{selectedBiomarker.diagnosticIndication}</p>
               </div>
@@ -423,7 +423,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
               <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
                 <strong className="text-slate-900 text-xs block mb-1 flex items-center gap-1.5 font-bold">
                   <Info className="w-3.5 h-3.5 text-teal-600" />
-                  <span>Relevancia Bioquímica y Fisiopatológica:</span>
+                  <span>Relevancia Bioquímica y fisiopatológica:</span>
                 </strong>
                 <p className="text-slate-700 leading-relaxed">{selectedBiomarker.clinicalRelevance}</p>
               </div>
@@ -434,7 +434,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
               <div className="p-3.5 rounded-lg bg-amber-50/50 border border-amber-200">
                 <strong className="text-amber-900 block mb-2 font-bold flex items-center gap-1.5">
                   <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Falsos Positivos Clave:</span>
+                  <span>Falsos positivos clave:</span>
                 </strong>
                 <ul className="space-y-1 text-slate-700 list-disc list-inside">
                   {selectedBiomarker.falsePositivesNegatives.falsePositives.map((fp, i) => (
@@ -446,7 +446,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
               <div className="p-3.5 rounded-lg bg-rose-50/50 border border-rose-200">
                 <strong className="text-rose-900 block mb-2 font-bold flex items-center gap-1.5">
                   <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
-                  <span>Falsos Negativos Clave:</span>
+                  <span>Falsos negativos clave:</span>
                 </strong>
                 <ul className="space-y-1 text-slate-700 list-disc list-inside">
                   {selectedBiomarker.falsePositivesNegatives.falseNegatives.map((fn, i) => (
@@ -461,7 +461,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
               <div className="p-3.5 rounded-lg bg-emerald-50/50 border border-emerald-200 text-xs">
                 <strong className="text-emerald-900 block mb-1.5 font-bold flex items-center gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Contextos de Utilidad Discriminatoria:</span>
+                  <span>Contextos de utilidad discriminatoria:</span>
                 </strong>
                 <ul className="space-y-1 text-slate-700 list-disc list-inside">
                   {selectedBiomarker.discriminatoryContexts.map((dc, i) => (

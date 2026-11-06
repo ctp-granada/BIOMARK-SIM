@@ -15,7 +15,7 @@ export const AdaptiveProgressBanner: React.FC<AdaptiveProgressBannerProps> = ({ 
     cardiac: 'Cardíaco',
     hepatic: 'Hepático / Ictericias',
     metabolic: 'Metabolismo / β-Oxidación',
-    renal: 'Renal / Urea / Uricemia',
+    renal: 'Renal / urea / uricemia',
     pancreatic: 'Pancreático-Digestivo',
     neuromuscular: 'Neuromuscular / Señalización'
   };
@@ -35,7 +35,7 @@ export const AdaptiveProgressBanner: React.FC<AdaptiveProgressBannerProps> = ({ 
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Progreso Adaptativo</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Progreso adaptativo</span>
               <span className="px-2 py-0.5 rounded text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 capitalize">
                 Nivel {userProgress.currentLevel}
               </span>
@@ -71,7 +71,7 @@ export const AdaptiveProgressBanner: React.FC<AdaptiveProgressBannerProps> = ({ 
         <div className="flex items-center justify-between mb-3">
           <span className="text-[10px] font-bold uppercase text-slate-500 tracking-wider flex items-center gap-1.5">
             <TrendingUp className="w-3.5 h-3.5 text-slate-700" />
-            <span>Dominio de Sistemas Orgánicos</span>
+            <span>Dominio de sistemas orgánicos</span>
           </span>
           <span className="text-[11px] text-slate-400 hidden sm:inline font-medium">
             Retención y aciertos analíticos por especialidad

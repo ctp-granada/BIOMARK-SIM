@@ -18,9 +18,9 @@ const SYSTEM_TABS: { id: OrganSystem | 'all'; label: string; icon: React.ReactNo
   { id: 'all', label: 'Todos', icon: <LayoutGrid className="inline-block w-[1em] h-[1em]" /> },
   { id: 'pancreatic', label: 'Pancreático-Digestivo', icon: <Microscope className="inline-block w-[1em] h-[1em]" /> },
   { id: 'cardiac', label: 'Cardíaco', icon: <HeartPulse className="inline-block w-[1em] h-[1em]" /> },
-  { id: 'hepatic', label: 'Hepático / Ictericias', icon: <Droplets className="inline-block w-[1em] h-[1em]" /> },
-  { id: 'metabolic', label: 'Metabólico / β-Oxid.', icon: <Zap className="inline-block w-[1em] h-[1em]" /> },
-  { id: 'renal', label: 'Renal / Uricemia', icon: <Bean className="inline-block w-[1em] h-[1em]" /> },
+  { id: 'hepatic', label: 'Hepático / ictericias', icon: <Droplets className="inline-block w-[1em] h-[1em]" /> },
+  { id: 'metabolic', label: 'Metabólico / β-oxid.', icon: <Zap className="inline-block w-[1em] h-[1em]" /> },
+  { id: 'renal', label: 'Renal / uricemia', icon: <Bean className="inline-block w-[1em] h-[1em]" /> },
   { id: 'neuromuscular', label: 'Neuromuscular', icon: <Brain className="inline-block w-[1em] h-[1em]" /> },
 ];
 
@@ -35,43 +35,43 @@ interface PresetBattery {
 const PRESET_BATTERIES: PresetBattery[] = [
   {
     id: 'preset_pancreatic_tg',
-    name: 'Perfil Pancreático & Lipemia',
-    description: 'Lipasa + Triglicéridos + Amilasa',
+    name: 'Perfil pancreático & lipemia',
+    description: 'Lipasa + triglicéridos + amilasa',
     system: 'pancreatic',
     biomarkerIds: ['bm_lipasa', 'bm_trigliceridos', 'bm_amilasa']
   },
   {
     id: 'preset_digestive_malabsorp',
-    name: 'Perfil Celíaca & Malabsorción',
-    description: 'tTG-IgA + Vitamina B12 + Magnesio',
+    name: 'Perfil celíaca & malabsorción',
+    description: 'tTG-IgA + vitamina B12 + magnesio',
     system: 'pancreatic',
     biomarkerIds: ['bm_ttg_iga', 'bm_vitamina_b12', 'bm_magnesio']
   },
   {
     id: 'preset_cardiac_ami',
-    name: 'Perfil Síndrome Coronario',
+    name: 'Perfil síndrome coronario',
     description: 'Troponina hs + CK-MB + NT-proBNP',
     system: 'cardiac',
     biomarkerIds: ['bm_troponin_c', 'bm_ckmb', 'bm_nt_probnp']
   },
   {
     id: 'preset_hepatic_cholestasis',
-    name: 'Perfil Hepático & Colestasis',
+    name: 'Perfil hepático & colestasis',
     description: 'Bilirrubinas + FA + GGT + ALT',
     system: 'hepatic',
     biomarkerIds: ['bm_bilirrubina_total', 'bm_bilirrubina_directa', 'bm_fosfatasa_alcalina', 'bm_ggt', 'bm_alt']
   },
   {
     id: 'preset_metabolic_crisis',
-    name: 'Perfil Cetoacidosis / β-Oxidación',
-    description: 'Glucosa + Cuerpos Cetónicos + Acilcarnitinas',
+    name: 'Perfil cetoacidosis / β-oxidación',
+    description: 'Glucosa + cuerpos cetónicos + acilcarnitinas',
     system: 'metabolic',
     biomarkerIds: ['bm_glucosa', 'bm_beta_hidroxibutirato', 'bm_perfil_acilcarnitinas']
   },
   {
     id: 'preset_renal_nitrogen',
-    name: 'Perfil Ciclo Urea & Uricemia',
-    description: 'Amonio + Ácido Úrico + Creatinina + Urea',
+    name: 'Perfil ciclo urea & uricemia',
+    description: 'Amonio + ácido úrico + creatinina + urea',
     system: 'renal',
     biomarkerIds: ['bm_amonio_plasmatico', 'bm_acido_urico', 'bm_creatinina', 'bm_urea']
   }
@@ -174,7 +174,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
             <div className="flex items-center gap-2 mb-1">
               <span className="px-2.5 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider bg-slate-900 text-emerald-400 border border-slate-800 flex items-center gap-1">
                 <ClipboardList className="w-3 h-3 text-emerald-400" />
-                <span>Petitorio Analítico Multianalítica</span>
+                <span>Petitorio analítico multianalítica</span>
               </span>
               <span className="text-[10px] font-medium text-slate-400">
                 • Solicitud de Pruebas de Laboratorio
@@ -193,7 +193,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
             <div>
               <div className="text-[10px] text-slate-400 font-bold uppercase flex items-center gap-1">
                 <Wallet className="w-3 h-3 text-emerald-400" />
-                <span>Coste Petición</span>
+                <span>Coste petición</span>
               </div>
               <div className={`text-base font-mono font-bold ${isOverBudget ? 'text-rose-400' : 'text-emerald-400'}`}>
                 {totalCost.toLocaleString('es-ES')} € <span className="text-xs text-slate-400 font-sans">({selectedBiomarkerIds.length} pruebas)</span>
@@ -201,7 +201,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
             </div>
             <div className="h-8 w-px bg-slate-800" />
             <div>
-              <div className="text-[10px] text-slate-400 font-bold uppercase">Presupuesto Restante</div>
+              <div className="text-[10px] text-slate-400 font-bold uppercase">Presupuesto restante</div>
               <div className="text-base font-mono font-bold text-slate-200">
                 {projectedRemainingBudget.toLocaleString('es-ES')} €
               </div>
@@ -213,7 +213,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
         <div className="mt-4 pt-4 border-t border-slate-800/80">
           <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-300 mb-2">
             <Star className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Perfiles Rápidos Sugeridos por Especialidad:</span>
+            <span>Perfiles rápidos sugeridos por especialidad:</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {PRESET_BATTERIES.map((preset) => {
@@ -493,17 +493,17 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
               {selectedBiomarkerIds.length > 0 && (
                 <div className="pt-3 border-t border-slate-800 space-y-2 text-xs">
                   <div className="flex justify-between items-center text-slate-300">
-                    <span>Pruebas Solicitadas:</span>
+                    <span>Pruebas solicitadas:</span>
                     <span className="font-bold text-white font-mono">{selectedBiomarkerIds.length}</span>
                   </div>
                   <div className="flex justify-between items-center text-slate-300">
-                    <span>Gasto Presupuestario:</span>
+                    <span>Gasto presupuestario:</span>
                     <span className={`font-bold font-mono ${isOverBudget ? 'text-rose-400' : 'text-slate-200'}`}>
                       -{totalCost.toLocaleString('es-ES')} €
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-slate-300">
-                    <span>Presupuesto Final:</span>
+                    <span>Presupuesto final:</span>
                     <span className={`font-bold font-mono ${projectedRemainingBudget < 1000 ? 'text-rose-400' : 'text-emerald-400'}`}>
                       {projectedRemainingBudget.toLocaleString('es-ES')} €
                     </span>
@@ -535,7 +535,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                 {isProcessingOrder ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin text-slate-400" />
-                    <span>Enviando al Laboratorio STAT...</span>
+                    <span>Enviando al laboratorio STAT...</span>
                   </>
                 ) : (
                   <>
@@ -579,7 +579,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                     <BookOpen className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900">Interconsulta de Parámetro</h4>
+                    <h4 className="text-sm font-bold text-slate-900">Interconsulta de parámetro</h4>
                     <p className="text-[11px] text-slate-500 font-medium">Acceso a la utilidad diagnóstica</p>
                   </div>
                 </div>
@@ -651,7 +651,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                   }`}
                 >
                   <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Confirmar e Interconsultar (-50 €)</span>
+                  <span>Confirmar e interconsultar (-50 €)</span>
                 </button>
               </div>
             </motion.div>

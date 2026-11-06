@@ -71,7 +71,7 @@ export const DailyChallengeBanner: React.FC<DailyChallengeBannerProps> = ({
             <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl text-center w-full lg:w-64 space-y-1">
               <div className="flex items-center justify-center gap-1.5 text-emerald-400 font-bold text-xs uppercase tracking-wide">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span>¡Reto Diario Completado!</span>
+                <span>¡Reto diario completado!</span>
               </div>
               <p className="text-[11px] text-slate-400 font-normal">
                 Puntuación obtenida: <strong className="text-white font-semibold">{dailyState?.scoreEarned} XP</strong>
@@ -94,7 +94,7 @@ export const DailyChallengeBanner: React.FC<DailyChallengeBannerProps> = ({
               className="w-full lg:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
             >
               <Zap className="w-4 h-4 text-white" />
-              <span className="uppercase">Iniciar Reto Diario (2 min)</span>
+              <span className="uppercase">Iniciar reto diario (2 min)</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           )}

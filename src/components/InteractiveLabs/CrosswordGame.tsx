@@ -283,10 +283,10 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
         <div>
           <div className="flex items-center gap-2 text-teal-600 text-xs font-bold uppercase tracking-wider mb-1">
             <Grid className="w-4 h-4" />
-            <span>Minijuego Clínico • Razonamiento Cruzado</span>
+            <span>Minijuego clínico • razonamiento cruzado</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <span>Crucigrama de Laboratorio Clínico</span>
+            <span>Crucigrama de laboratorio clínico</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 font-mono">
               +250-300 € Dinero
             </span>
@@ -527,7 +527,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
                 <div>
                   <div className="flex items-center gap-2 justify-center sm:justify-start">
                     <span className="text-xs font-bold text-teal-400 uppercase tracking-wider">
-                      ¡Crucigrama Completado con Éxito!
+                      Crucigrama completado
                     </span>
                     <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-500/30 text-teal-200 border border-teal-400/30 font-mono">
                       Tiempo: {formatTime(elapsedSeconds)}
@@ -554,7 +554,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
                 ) : (
                   <div className="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>¡Fondos y XP acreditados!</span>
+                    <span>Fondos y XP añadidos</span>
                   </div>
                 )}
 
@@ -564,7 +564,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
                     className="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center gap-2 cursor-pointer border border-slate-700 transition-colors"
                   >
                     <Stethoscope className="w-4 h-4 text-emerald-400" />
-                    <span>Volver a Casos</span>
+                    <span>Volver a casos</span>
                   </button>
                 )}
               </div>

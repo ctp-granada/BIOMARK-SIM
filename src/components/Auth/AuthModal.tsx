@@ -48,7 +48,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
 
         if (error) throw error;
         if (data.user) {
-          setSuccessMessage('¡Sesión iniciada con éxito! Sincronizando progreso...');
+          setSuccessMessage('Sesión iniciada. Sincronizando progreso...');
           setTimeout(() => {
             onSuccess?.();
             onClose();
@@ -70,13 +70,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
 
         if (data.user) {
           if (data.session) {
-            setSuccessMessage('¡Cuenta de alumno creada y conectada con éxito!');
+            setSuccessMessage('Cuenta creada. Ya has iniciado sesión.');
             setTimeout(() => {
               onSuccess?.();
               onClose();
             }, 1200);
           } else {
-            setSuccessMessage('¡Registro completado! Si se requiere confirmación por email, revisa tu bandeja.');
+            setSuccessMessage('Registro completado. Si se requiere confirmación por email, revisa tu bandeja.');
             setTimeout(() => {
               onClose();
             }, 2500);
@@ -114,7 +114,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             <ShieldCheck className="w-6 h-6 text-cyan-200" />
           </div>
           <h2 className="text-xl font-bold">
-            {isLogin ? 'Acceso Alumnos y Residentes' : 'Registro de Alumno'}
+            {isLogin ? 'Acceso alumnos y residentes' : 'Registro de Alumno'}
           </h2>
           <p className="text-xs text-blue-100 mt-1 max-w-xs mx-auto">
             Sincroniza tus casos resueltos, medallas de laboratorio, racha y estadísticas en la nube con Supabase.
@@ -210,12 +210,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
               ) : isLogin ? (
                 <>
                   <LogIn className="w-4 h-4" />
-                  <span>Iniciar Sesión</span>
+                  <span>Iniciar sesión</span>
                 </>
               ) : (
                 <>
                   <UserPlus className="w-4 h-4" />
-                  <span>Crear Cuenta de Alumno</span>
+                  <span>Crear cuenta de alumno</span>
                 </>
               )}
             </button>

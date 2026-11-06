@@ -360,7 +360,7 @@ export const PracticasSeminariosView: React.FC<PracticasSeminariosViewProps> = (
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-amber-950 shrink-0" />
               <span>
-                <strong>Modo Organización Docente Activo:</strong> Conectado como{' '}
+                <strong>Modo organización docente activo:</strong> Conectado como{' '}
                 <span className="font-mono font-bold underline">{coordinatorEmail}</span>. Puedes reasignar profesorado y turnos directamente en la tabla o desde el panel.
               </span>
             </div>

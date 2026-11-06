@@ -379,7 +379,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-3.5 h-3.5 rounded-md bg-lime-400 border border-lime-600 inline-block"></span>
-            <span>Subgrupos 1 al 15 (Grupos A y B)</span>
+            <span>Subgrupos 1 al 15 (grupos A y B)</span>
           </div>
         </div>
 

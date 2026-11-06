@@ -674,14 +674,14 @@ export const App: React.FC = () => {
               onClick={() => setSatisfactionSurveyOpen(true)}
               className="text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
             >
-              <span>Encuesta de Calidad</span>
+              <span>Encuesta de calidad</span>
             </button>
 
             <button
               onClick={() => setSatisfactionMetricsOpen(true)}
               className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
             >
-              <span>Panel del Profesorado</span>
+              <span>Panel del profesorado</span>
             </button>
           </div>
         </div>

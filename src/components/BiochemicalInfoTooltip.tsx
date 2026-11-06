@@ -113,7 +113,7 @@ export const BiochemicalInfoTooltip: React.FC<BiochemicalInfoTooltipProps> = ({
           {/* Molecular Key */}
           {molecularKey && (
             <div className="mt-2.5 p-2 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] text-amber-200/90 flex items-start gap-1.5">
-              <strong className="text-amber-400 shrink-0 font-bold">Diana Clave:</strong>
+              <strong className="text-amber-400 shrink-0 font-bold">Diana clave:</strong>
               <span>{molecularKey}</span>
             </div>
           )}
@@ -121,7 +121,7 @@ export const BiochemicalInfoTooltip: React.FC<BiochemicalInfoTooltipProps> = ({
           {/* Clinical Relevance */}
           {clinicalRelevance && (
             <div className="mt-2 pt-2 border-t border-slate-800/80 text-[10px] text-slate-400">
-              <strong className="text-emerald-400">Relevancia Clínica: </strong>
+              <strong className="text-emerald-400">Relevancia clínica: </strong>
               <span>{clinicalRelevance}</span>
             </div>
           )}

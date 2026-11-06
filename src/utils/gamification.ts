@@ -15,7 +15,7 @@ export function getStreakMultiplier(streak: number): StreakInfo {
   if (streak >= 5) {
     return {
       multiplier: 2.0,
-      label: 'Racha Épica',
+      label: 'Racha épica',
       bonusText: '+100% XP (x2.0)',
       isHot: true,
       color: 'text-amber-500 bg-amber-500/10 border-amber-500/30'
@@ -24,7 +24,7 @@ export function getStreakMultiplier(streak: number): StreakInfo {
   if (streak >= 3) {
     return {
       multiplier: 1.5,
-      label: 'Racha Activa',
+      label: 'Racha activa',
       bonusText: '+50% XP (x1.5)',
       isHot: true,
       color: 'text-orange-500 bg-orange-500/10 border-orange-500/30'
@@ -71,9 +71,9 @@ export function getPlayerRank(xp: number): PlayerRank {
   if (current >= 2500) {
     return {
       rank: 'Catedrático de Bioquímica Clínica',
-      nextRank: 'Máximo Escalafón Alcanzado',
+      nextRank: 'Máximo escalafón alcanzado',
       nextRankTitle: 'Máximo Escalafón',
-      title: 'Catedrático de Bioquímica Clínica',
+      title: 'Catedrático de Bioquímica clínica',
       shortTitle: 'Catedrático',
       levelNumber: 5,
       currentXp: current,
@@ -89,10 +89,10 @@ export function getPlayerRank(xp: number): PlayerRank {
   }
   if (current >= 1500) {
     return {
-      rank: 'Médico Adjunto de Urgencias',
+      rank: 'Médico adjunto de urgencias',
       nextRank: 'Catedrático de Bioquímica Clínica',
       nextRankTitle: 'Catedrático de Bioquímica',
-      title: 'Médico Adjunto de Urgencias',
+      title: 'Médico adjunto de urgencias',
       shortTitle: 'Médico Adjunto',
       levelNumber: 4,
       currentXp: current,
@@ -109,9 +109,9 @@ export function getPlayerRank(xp: number): PlayerRank {
   if (current >= 800) {
     return {
       rank: 'Médico Residente R3/R4',
-      nextRank: 'Médico Adjunto de Urgencias',
+      nextRank: 'Médico adjunto de urgencias',
       nextRankTitle: 'Médico Adjunto',
-      title: 'Médico Residente R3/R4',
+      title: 'Médico residente R3/R4',
       shortTitle: 'Residente Mayor',
       levelNumber: 3,
       currentXp: current,
@@ -130,7 +130,7 @@ export function getPlayerRank(xp: number): PlayerRank {
       rank: 'Médico Residente R1/R2',
       nextRank: 'Médico Residente R3/R4',
       nextRankTitle: 'Residente R3/R4',
-      title: 'Médico Residente R1/R2',
+      title: 'Médico residente R1/R2',
       shortTitle: 'Residente R1/R2',
       levelNumber: 2,
       currentXp: current,
@@ -177,7 +177,7 @@ export function getPatientHealth(lives: number): PatientHealth {
     return {
       percent: 100,
       status: 'Estable',
-      label: '3/3 Vidas de Guardia',
+      label: '3/3 Vidas de guardia',
       color: 'text-rose-500',
       heartClass: 'fill-rose-500 text-rose-500'
     };
@@ -186,7 +186,7 @@ export function getPatientHealth(lives: number): PatientHealth {
     return {
       percent: 66,
       status: 'Comprometido',
-      label: '2/3 Vidas de Guardia',
+      label: '2/3 Vidas de guardia',
       color: 'text-amber-500',
       heartClass: 'fill-amber-500 text-amber-500'
     };
@@ -195,7 +195,7 @@ export function getPatientHealth(lives: number): PatientHealth {
     return {
       percent: 33,
       status: 'Crítico',
-      label: '1/3 Vida Restante',
+      label: '1/3 Vida restante',
       color: 'text-rose-600 animate-pulse',
       heartClass: 'fill-rose-600 text-rose-600'
     };
@@ -231,7 +231,7 @@ export function getBudgetInfo(budget: number): BudgetInfo {
   if (safeBudget > 2000) {
     return {
       percent,
-      label: 'Presupuesto Solvente',
+      label: 'Presupuesto solvente',
       status: 'healthy',
       color: 'text-emerald-600 bg-emerald-50 border-emerald-200',
       colorClass: 'text-emerald-600 bg-emerald-50 border-emerald-200',
@@ -245,7 +245,7 @@ export function getBudgetInfo(budget: number): BudgetInfo {
   if (safeBudget >= 1000) {
     return {
       percent,
-      label: 'Presupuesto Ajustado',
+      label: 'Presupuesto ajustado',
       status: 'caution',
       color: 'text-amber-600 bg-amber-50 border-amber-200',
       colorClass: 'text-amber-600 bg-amber-50 border-amber-200',
@@ -258,13 +258,13 @@ export function getBudgetInfo(budget: number): BudgetInfo {
   }
   return {
     percent,
-    label: 'Presupuesto Crítico (< 1.000 €)',
+    label: 'Presupuesto crítico (< 1.000 €)',
     status: 'critical',
     color: 'text-rose-600 bg-rose-50 border-rose-200 animate-pulse',
     colorClass: 'text-rose-600 bg-rose-50 border-rose-200 animate-pulse',
     badgeBg: 'bg-rose-50 text-rose-800 border-rose-200',
     icon: 'ShieldAlert',
-    advice: '¡Alerta financiera! Quedan menos de 1.000 €. Solicita solo pruebas imprescindibles o gana fondos en el Parque.',
+    advice: 'Presupuesto bajo. Quedan menos de 1.000 €. Solicita solo pruebas imprescindibles o gana fondos en el Parque.',
     isRedAlert: true,
     statusText: `${formatted} Crítico`
   };

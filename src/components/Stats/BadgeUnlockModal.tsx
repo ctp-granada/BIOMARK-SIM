@@ -40,7 +40,7 @@ export const BadgeUnlockModal: React.FC<BadgeUnlockModalProps> = ({
 
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider mb-2">
             <Star className="w-3.5 h-3.5" />
-            ¡Insignia Desbloqueada!
+            Insignia conseguida
           </div>
 
           <h2 className="text-xl font-extrabold text-slate-900 mb-2">
@@ -70,7 +70,7 @@ export const BadgeUnlockModal: React.FC<BadgeUnlockModalProps> = ({
                 onClick={onViewGallery}
                 className="flex-1 py-3 px-4 rounded-xl bg-emerald-600 text-white font-bold text-sm transition-all shadow-md shadow-emerald-600/20 flex items-center justify-center gap-1.5"
               >
-                <span>Ver Insignias</span>
+                <span>Ver insignias</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             )}

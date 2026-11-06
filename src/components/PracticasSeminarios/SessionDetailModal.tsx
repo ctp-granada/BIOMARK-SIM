@@ -132,7 +132,7 @@ export const SessionDetailModal: React.FC<SessionDetailModalProps> = ({
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
               <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium mb-1">
                 <Clock className="w-3.5 h-3.5 text-amber-600" />
-                <span>Horario y Turno</span>
+                <span>Horario y turno</span>
               </div>
               <p className="text-sm font-bold text-slate-900">
                 {session.timeRange}
@@ -160,7 +160,7 @@ export const SessionDetailModal: React.FC<SessionDetailModalProps> = ({
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
               <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium mb-1">
                 <Users className="w-3.5 h-3.5 text-amber-600" />
-                <span>Subgrupo y Grupo</span>
+                <span>Subgrupo y grupo</span>
               </div>
               <p className="text-sm font-bold text-slate-900">
                 Subgrupo {session.groupNumber}
