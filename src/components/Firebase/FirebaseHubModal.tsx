@@ -146,20 +146,20 @@ service cloud.firestore {
 }`;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-xs overflow-y-auto">
-      <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 overflow-y-auto">
+      <div className="bg-white rounded-lg shadow-lg border border-slate-200 max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         
         {/* Header with Firebase theme & UGR badge */}
-        <div className="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 text-white p-5 flex items-center justify-between shrink-0">
+        <div className="bg-amber-600 text-white p-5 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-inner">
+            <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shadow-inner">
               <Flame className="w-6 h-6 text-amber-200 fill-amber-300" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-xl font-bold tracking-tight">Centro de Control Firebase</h2>
+                <h2 className="text-xl font-bold tracking-tight">Centro de control Firebase</h2>
                 <span className="bg-amber-500/30 text-amber-100 text-xs px-2 py-0.5 rounded-full font-medium border border-amber-400/30">
-                  Firestore & Hosting UGR
+                  Firestore & hosting UGR
                 </span>
               </div>
               <p className="text-xs text-amber-100/90 mt-0.5">
@@ -198,7 +198,7 @@ service cloud.firestore {
             }`}
           >
             <Database className="w-3.5 h-3.5" />
-            <span>Sembrado de Datos (Firestore)</span>
+            <span>Sembrado de datos (Firestore)</span>
           </button>
 
           <button
@@ -210,7 +210,7 @@ service cloud.firestore {
             }`}
           >
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Reglas de Seguridad</span>
+            <span>Reglas de seguridad</span>
           </button>
 
           <button
@@ -222,7 +222,7 @@ service cloud.firestore {
             }`}
           >
             <Terminal className="w-3.5 h-3.5" />
-            <span>Despliegue & Hosting</span>
+            <span>Despliegue & hosting</span>
           </button>
         </div>
 
@@ -314,7 +314,7 @@ service cloud.firestore {
                       ) : (
                         <>
                           <Server className="w-3.5 h-3.5 text-slate-500" />
-                          <span>Probar Conexión Firestore</span>
+                          <span>Probar conexión Firestore</span>
                         </>
                       )}
                     </button>
@@ -329,7 +329,7 @@ service cloud.firestore {
                   <div className="flex items-center gap-2">
                     {saveSuccess && (
                       <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1">
-                        <CheckCircle2 className="w-4 h-4" /> ¡Configuración guardada!
+                        <CheckCircle2 className="w-4 h-4" /> Configuración guardada
                       </span>
                     )}
                     <button
@@ -353,7 +353,7 @@ service cloud.firestore {
                   <div>
                     <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                       <FolderTree className="w-4 h-4 text-orange-600" />
-                      Arquitectura NoSQL de Colecciones en Firestore
+                      Arquitectura NoSQL de colecciones en Firestore
                     </h3>
                     <p className="text-xs text-slate-600 mt-1">
                       Estructura diseñada para la Facultad de Medicina UGR optimizada para consultas en tiempo real:
@@ -367,12 +367,12 @@ service cloud.firestore {
                     {seeding ? (
                       <>
                         <RefreshCw className="w-4 h-4 animate-spin" />
-                        <span>Subiendo Datos...</span>
+                        <span>Subiendo datos...</span>
                       </>
                     ) : (
                       <>
                         <UploadCloud className="w-4 h-4" />
-                        <span>Sembrar Datos en Firestore</span>
+                        <span>Sembrar datos en Firestore</span>
                       </>
                     )}
                   </button>
@@ -381,21 +381,21 @@ service cloud.firestore {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
                   <div className="p-3 bg-white rounded-lg border border-slate-200">
                     <span className="text-[11px] font-mono font-bold text-orange-700">/cases</span>
-                    <p className="text-xs font-semibold text-slate-800 mt-0.5">Casos Clínicos UGR</p>
+                    <p className="text-xs font-semibold text-slate-800 mt-0.5">Casos clínicos UGR</p>
                     <p className="text-[11px] text-slate-500 mt-1">
                       Casos de patologías cardíacas, hepáticas, renales, pancreáticas y metabólicas con ECG y constantes.
                     </p>
                   </div>
                   <div className="p-3 bg-white rounded-lg border border-slate-200">
                     <span className="text-[11px] font-mono font-bold text-orange-700">/biomarkers</span>
-                    <p className="text-xs font-semibold text-slate-800 mt-0.5">Catálogo Analítico</p>
+                    <p className="text-xs font-semibold text-slate-800 mt-0.5">Catálogo analítico</p>
                     <p className="text-[11px] text-slate-500 mt-1">
                       Troponinas, NT-proBNP, transaminasas, lipasa, gasometría, perfiles lipídicos y costes de pruebas.
                     </p>
                   </div>
                   <div className="p-3 bg-white rounded-lg border border-slate-200">
                     <span className="text-[11px] font-mono font-bold text-orange-700">/users/{'{uid}'}/attempts</span>
-                    <p className="text-xs font-semibold text-slate-800 mt-0.5">Historial Alumnos</p>
+                    <p className="text-xs font-semibold text-slate-800 mt-0.5">Historial alumnos</p>
                     <p className="text-[11px] text-slate-500 mt-1">
                       Puntuaciones, rachas, insignias médicas desbloqueadas y progreso de cada estudiante.
                     </p>
@@ -441,12 +441,12 @@ service cloud.firestore {
                   {copiedSection === 'rules' ? (
                     <>
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-700">¡Copiado!</span>
+                      <span className="text-emerald-700">Copiado</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5 text-slate-500" />
-                      <span>Copiar Reglas</span>
+                      <span>Copiar reglas</span>
                     </>
                   )}
                 </button>
@@ -514,7 +514,7 @@ service cloud.firestore {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold transition-colors cursor-pointer"
                 >
-                  <span>Ir a Firebase Console</span>
+                  <span>Ir a Firebase console</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>

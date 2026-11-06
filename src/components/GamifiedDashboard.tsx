@@ -7,8 +7,9 @@ import {
   getStreakMultiplier
 } from '../utils/gamification';
 import { evaluateUserBadges } from '../data/badges';
-import { Heart, Flame, Wallet, RefreshCw, Trophy, AlertTriangle, Award, Crown, Sparkles, HelpCircle, Info, TrendingUp, TrendingDown, Gamepad2, Coins } from 'lucide-react';
+import { Heart, Flame, Wallet, RefreshCw, Trophy, AlertTriangle, Award, Crown, Star, HelpCircle, Info, TrendingUp, TrendingDown, Gamepad2, Coins } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { NamedIcon } from './NamedIcon';
 
 interface GamifiedDashboardProps {
   userProgress: UserProgress;
@@ -52,13 +53,13 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
     cardiac: 'Cardíaco',
     hepatic: 'Hepático / Ictericias',
     metabolic: 'Metabolismo / β-Oxidación',
-    renal: 'Renal / Urea / Uricemia',
+    renal: 'Renal / urea / uricemia',
     pancreatic: 'Pancreático-Digestivo',
     neuromuscular: 'Neuromuscular / Señalización'
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs mb-6 overflow-hidden">
+    <div className="bg-white rounded-lg border border-slate-200 p-5 shadow-xs mb-6 overflow-hidden">
       {/* Top Header: Player Profile Rank & Hearts */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-5 border-b border-slate-100">
         
@@ -72,7 +73,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
         >
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase flex items-center gap-1">
-              Perfil Facultativo
+              Perfil facultativo
               {onOpenRanking && <Trophy className="w-3 h-3 text-amber-400" />}
             </span>
             <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${rank.badgeBg} ${rank.badgeTextColor} ${rank.badgeBorder}`}>
@@ -82,7 +83,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
 
           <div className="flex items-center gap-3 my-1">
             <div className="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl shrink-0">
-              {rank.icon}
+              <NamedIcon name={rank.icon} />
             </div>
             <div className="min-w-0">
               <h3 className="font-bold text-xs sm:text-sm text-white leading-tight truncate">{rank.title}</h3>
@@ -110,8 +111,8 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
         <div className="bg-white rounded-xl p-4 border border-slate-200/90 flex flex-col justify-between shadow-2xs">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500">Parque Lúdico</span>
-              <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">+Dinero 💰</span>
+              <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500">Parque lúdico</span>
+              <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">+Dinero</span>
             </div>
 
             <div className="flex items-center gap-3 my-2">
@@ -119,7 +120,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                 <Coins className="w-5 h-5 text-amber-600" />
               </div>
               <div>
-                <span className="text-xs font-black text-slate-900 block font-mono">
+                <span className="text-xs font-bold text-slate-900 block font-mono">
                   {userProgress.budget.toLocaleString('es-ES')} € Fondos
                 </span>
                 <span className="text-[10px] text-slate-500 block leading-tight">
@@ -137,7 +138,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                 title="Juega en el Parque para ganar dinero (+250 € a +300 € de fondos) y conseguir puntos extra"
               >
                 <Gamepad2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Ganar Dinero en el Parque</span>
+                <span>Ganar dinero en el parque</span>
               </button>
             )}
           </div>
@@ -182,23 +183,23 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                         <div
                           onMouseEnter={() => setShowBudgetTooltip(true)}
                           onMouseLeave={() => setShowBudgetTooltip(false)}
-                          className="absolute z-50 left-0 top-full mt-2 w-72 sm:w-80 bg-slate-950 text-white rounded-xl p-3.5 shadow-2xl border border-slate-800 text-xs backdrop-blur-md pointer-events-auto transition-all animate-in fade-in zoom-in-95 duration-150"
+                          className="absolute z-50 left-0 top-full mt-2 w-72 sm:w-80 bg-slate-950 text-white rounded-xl p-3.5 shadow-lg border border-slate-800 text-xs pointer-events-auto transition-all animate-in fade-in zoom-in-95 duration-150"
                         >
                           <div className="flex items-center gap-1.5 font-bold text-slate-100 pb-2 border-b border-slate-800 text-[11px] uppercase tracking-wide">
                             <Info className="w-4 h-4 text-emerald-400 shrink-0" />
-                            <span>Gestión de Presupuesto Clínico (5.000 €)</span>
+                            <span>Gestión de presupuesto clínico (5.000 €)</span>
                           </div>
 
                           <div className="space-y-2 mt-2.5 text-[11px] leading-relaxed">
                             <div className="p-2 rounded-lg bg-slate-900 border border-slate-800">
-                              <strong className="text-rose-400 block font-semibold">Costes de Pruebas Reales</strong>
+                              <strong className="text-rose-400 block font-semibold">Costes de pruebas reales</strong>
                               <span className="text-slate-300 text-[10px]">
                                 Cada biomarcador solicitado descuenta un coste hospitalario real (45 € a 180 €). Solicitar pruebas innecesarias penaliza la eficiencia.
                               </span>
                             </div>
 
                             <div className="p-2 rounded-lg bg-slate-900 border border-slate-800">
-                              <strong className="text-emerald-400 block font-semibold">Reembolsos & Ganancias</strong>
+                              <strong className="text-emerald-400 block font-semibold">Reembolsos & ganancias</strong>
                               <span className="text-slate-300 text-[10px]">
                                 Aciertos diagnósticos otorgan bonificaciones asistenciales. Juega en el Parque para ganar entre 250 € y 300 € por minijuego.
                               </span>
@@ -252,7 +253,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
         <div
           className={`border rounded-xl p-4 flex flex-col justify-between shadow-2xs relative overflow-hidden transition-all duration-300 ${
             isStreakingUp
-              ? 'bg-gradient-to-br from-amber-50/80 via-white to-yellow-50/50 border-amber-400 ring-2 ring-amber-400/40 shadow-md shadow-amber-200/50'
+              ? 'bg-amber-50/80 border-amber-400 ring-2 ring-amber-400/40 shadow-md shadow-amber-200/50'
               : 'bg-white border-slate-200/90'
           }`}
         >
@@ -290,7 +291,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                   }`}
                 />
               </motion.div>
-              <span>Racha de Aciertos</span>
+              <span>Racha de aciertos</span>
             </span>
 
             <motion.span
@@ -302,7 +303,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                   : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
               }`}
             >
-              {isStreakingUp ? '¡+1 Acierto Dorado! ✨' : streakInfo.label}
+              {isStreakingUp ? '+1 acierto seguido' : streakInfo.label}
             </motion.span>
           </div>
 
@@ -319,7 +320,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
               }
               transition={{ duration: 1.2, ease: 'easeInOut' }}
             >
-              {isStreakingUp ? '🌟' : '✨'}
+              <Flame className="w-5 h-5 text-amber-600" />
             </motion.span>
 
             <div className="relative inline-flex items-baseline">
@@ -360,7 +361,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                   times: [0, 0.3, 0.55, 0.8, 1],
                   ease: 'easeInOut'
                 }}
-                className="text-2xl font-black font-mono leading-none tracking-tight inline-block"
+                className="text-2xl font-bold font-mono leading-none tracking-tight inline-block"
               >
                 {userProgress.streak}
               </motion.span>
@@ -431,7 +432,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
               <div className="flex items-center -space-x-1 ml-1">
                 {unlockedBadges.slice(0, 4).map((b) => (
                   <span key={b.id} title={b.title} className="text-sm cursor-help">
-                    {b.icon}
+                    <NamedIcon name={b.icon} />
                   </span>
                 ))}
               </div>
@@ -444,7 +445,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
               className="text-xs font-semibold text-slate-800 hover:text-emerald-700 flex items-center gap-1 cursor-pointer transition-colors"
             >
               <Trophy className="w-3.5 h-3.5 text-slate-700" />
-              <span>Insignias & Analíticas</span>
+              <span>Insignias & analíticas</span>
             </button>
           )}
         </div>

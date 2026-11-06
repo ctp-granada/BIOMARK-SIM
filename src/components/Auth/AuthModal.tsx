@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Mail, Lock, User as UserIcon, LogIn, UserPlus, AlertCircle, CheckCircle2, X, Sparkles, ShieldCheck } from 'lucide-react';
+import { Mail, Lock, User as UserIcon, LogIn, UserPlus, AlertCircle, CheckCircle2, X, Star, ShieldCheck } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -48,7 +48,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
 
         if (error) throw error;
         if (data.user) {
-          setSuccessMessage('¡Sesión iniciada con éxito! Sincronizando progreso...');
+          setSuccessMessage('Sesión iniciada. Sincronizando progreso...');
           setTimeout(() => {
             onSuccess?.();
             onClose();
@@ -70,13 +70,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
 
         if (data.user) {
           if (data.session) {
-            setSuccessMessage('¡Cuenta de alumno creada y conectada con éxito!');
+            setSuccessMessage('Cuenta creada. Ya has iniciado sesión.');
             setTimeout(() => {
               onSuccess?.();
               onClose();
             }, 1200);
           } else {
-            setSuccessMessage('¡Registro completado! Si se requiere confirmación por email, revisa tu bandeja.');
+            setSuccessMessage('Registro completado. Si se requiere confirmación por email, revisa tu bandeja.');
             setTimeout(() => {
               onClose();
             }, 2500);
@@ -100,21 +100,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 animate-in fade-in duration-200">
+      <div className="bg-white rounded-lg max-w-md w-full shadow-lg border border-slate-200 overflow-hidden relative">
         {/* Header decoration */}
-        <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-cyan-600 p-6 text-white text-center relative">
+        <div className="bg-blue-700 p-6 text-white text-center relative">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
-          <div className="w-12 h-12 rounded-xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center mx-auto mb-3 shadow-inner">
+          <div className="w-12 h-12 rounded-xl bg-white/15 border border-white/20 flex items-center justify-center mx-auto mb-3 shadow-inner">
             <ShieldCheck className="w-6 h-6 text-cyan-200" />
           </div>
           <h2 className="text-xl font-bold">
-            {isLogin ? 'Acceso Alumnos y Residentes' : 'Registro de Alumno'}
+            {isLogin ? 'Acceso alumnos y residentes' : 'Registro de Alumno'}
           </h2>
           <p className="text-xs text-blue-100 mt-1 max-w-xs mx-auto">
             Sincroniza tus casos resueltos, medallas de laboratorio, racha y estadísticas en la nube con Supabase.
@@ -141,7 +141,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             {!isLogin && (
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Nombre Completo / Alumno
+                  Nombre completo / alumno
                 </label>
                 <div className="relative">
                   <UserIcon className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -160,7 +160,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="block text-xs font-semibold text-slate-700">
-                  Correo Electrónico Institucional UGR
+                  Correo electrónico institucional UGR
                 </label>
                 <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">
                   @correo.ugr.es / @go.ugr.es
@@ -203,19 +203,19 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold text-sm rounded-xl shadow-md hover:shadow-lg disabled:opacity-50 transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
+              className="w-full py-2.5 px-4 bg-blue-600 text-white font-semibold text-sm rounded-xl shadow-md hover:shadow-lg disabled:opacity-50 transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
             >
               {loading ? (
                 <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
               ) : isLogin ? (
                 <>
                   <LogIn className="w-4 h-4" />
-                  <span>Iniciar Sesión</span>
+                  <span>Iniciar sesión</span>
                 </>
               ) : (
                 <>
                   <UserPlus className="w-4 h-4" />
-                  <span>Crear Cuenta de Alumno</span>
+                  <span>Crear cuenta de alumno</span>
                 </>
               )}
             </button>
@@ -232,7 +232,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
               }}
               className="text-xs text-blue-600 hover:text-blue-800 font-semibold transition-colors inline-flex items-center gap-1"
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <Star className="w-3.5 h-3.5" />
               {isLogin
                 ? '¿Eres nuevo? Regístrate para guardar tu progreso'
                 : '¿Ya tienes cuenta? Inicia sesión aquí'}

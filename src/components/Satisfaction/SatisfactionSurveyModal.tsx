@@ -1,23 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {
-  X,
-  CheckCircle2,
-  Sparkles,
-  Send,
-  Heart,
-  MessageSquare,
-  Award,
-  ChevronRight,
-  ChevronLeft,
-  Stethoscope,
-  Gamepad2,
-  Brain,
-  ShieldCheck,
-  TrendingUp,
-  FileText,
-  Clock,
-  Laptop
-} from 'lucide-react';
+import { X, CheckCircle2, Star, Send, Heart, MessageSquare, Award, ChevronRight, ChevronLeft, Stethoscope, Gamepad2, Brain, ShieldCheck, TrendingUp, FileText, Clock, Laptop } from 'lucide-react';
 import {
   satisfactionService,
   SUS_STATEMENTS,
@@ -244,7 +226,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
               type="button"
               key={val}
               onClick={() => onChange(val)}
-              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-xs font-black transition-all flex items-center justify-center cursor-pointer ${
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-xs font-bold transition-all flex items-center justify-center cursor-pointer ${
                 isSelected
                   ? 'bg-amber-600 text-white shadow-md ring-2 ring-amber-400 scale-105'
                   : 'bg-white border border-slate-200 text-slate-700 hover:bg-amber-50 hover:border-amber-300'
@@ -265,10 +247,10 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
   return (
     <div
       ref={scrollContainerRef}
-      className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/75 backdrop-blur-sm p-3 sm:p-6 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/75 p-3 sm:p-6 animate-in fade-in duration-200"
     >
       <div className="min-h-full flex items-start justify-center py-4 sm:py-8">
-        <div className="bg-white rounded-3xl max-w-3xl w-full p-5 sm:p-8 border border-slate-200 shadow-2xl relative text-slate-900">
+        <div className="bg-white rounded-xl max-w-3xl w-full p-5 sm:p-8 border border-slate-200 shadow-lg relative text-slate-900">
           
           {/* Close button */}
           <button
@@ -285,7 +267,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                 <CheckCircle2 className="w-10 h-10" />
               </div>
               <div className="space-y-2">
-                <h2 className="text-2xl font-black text-slate-900">
+                <h2 className="text-2xl font-bold text-slate-900">
                   ¡Muchas Gracias por tu Contribución a la Investigación Docente!
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
@@ -293,8 +275,8 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                 </p>
               </div>
 
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold shadow-2xs">
-                <Sparkles className="w-4 h-4 text-amber-600 animate-spin" />
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold shadow-2xs">
+                <Star className="w-4 h-4 text-amber-600 animate-spin" />
                 <span>¡Recompensa desbloqueada: +150 XP y +100 € de presupuesto añadidos a tu ficha de guardia!</span>
               </div>
             </div>
@@ -303,7 +285,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
               {/* Header */}
               <div className="space-y-2 mb-6">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[10px] uppercase font-black tracking-wider text-amber-900 bg-amber-100 px-3 py-1 rounded-full border border-amber-300/80 inline-flex items-center gap-1">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-amber-900 bg-amber-100 px-3 py-1 rounded-full border border-amber-300/80 inline-flex items-center gap-1">
                     <Brain className="w-3 h-3 text-amber-800" />
                     Investigación Docente PID 26-158 · UGR
                   </span>
@@ -312,7 +294,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                   </span>
                 </div>
 
-                <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                   Cuestionario de Evaluación del Impacto en el Razonamiento Clínico
                 </h2>
                 <p className="text-xs text-slate-600 leading-relaxed">
@@ -321,7 +303,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
               </div>
 
               {/* Step indicator bar */}
-              <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-3 mb-6">
+              <div className="bg-slate-50 border border-slate-200/90 rounded-lg p-3 mb-6">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-700 mb-2">
                   <span>Paso {currentStep} de 5: {
                     currentStep === 1 ? 'Perfil Académico & Consentimiento' :
@@ -335,7 +317,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                 {/* Progress track */}
                 <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
                   <div
-                    className="bg-gradient-to-r from-amber-600 to-amber-500 h-full transition-all duration-300 rounded-full"
+                    className="bg-amber-600 h-full transition-all duration-300 rounded-full"
                     style={{ width: `${currentStep * 20}%` }}
                   />
                 </div>
@@ -383,7 +365,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                 {/* PASO 1: DATOS ACADÉMICOS Y CONSENTIMIENTO ÉTICO */}
                 {currentStep === 1 && (
                   <div className="space-y-4 animate-in fade-in duration-200">
-                    <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200/80 space-y-3">
+                    <div className="p-4 rounded-lg bg-amber-50/70 border border-amber-200/80 space-y-3">
                       <div className="flex items-center gap-2 text-amber-950 font-extrabold text-xs">
                         <ShieldCheck className="w-4 h-4 text-amber-700" />
                         <span>Consentimiento Informado para Investigación Docente Universitaria</span>
@@ -512,11 +494,11 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                       {CLINICAL_ITEMS_CONFIG.map((cfg) => (
                         <div
                           key={cfg.id}
-                          className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+                          className="p-3.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
                         >
                           <div className="space-y-0.5 max-w-md">
                             <div className="flex items-center gap-1.5">
-                              <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-rose-100 text-rose-800 border border-rose-200">
+                              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-rose-100 text-rose-800 border border-rose-200">
                                 {cfg.code}
                               </span>
                               <span className="text-xs font-bold text-slate-900">{cfg.label}</span>
@@ -546,11 +528,11 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                       {GAMIFICATION_ITEMS_CONFIG.map((cfg) => (
                         <div
                           key={cfg.id}
-                          className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+                          className="p-3.5 rounded-lg bg-slate-50 border border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
                         >
                           <div className="space-y-0.5 max-w-md">
                             <div className="flex items-center gap-1.5">
-                              <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200">
+                              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200">
                                 {cfg.code}
                               </span>
                               <span className="text-xs font-bold text-slate-900">{cfg.label}</span>
@@ -591,7 +573,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                           className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-xs"
                         >
                           <div className="flex items-start gap-2 max-w-sm sm:max-w-md">
-                            <span className="text-[10px] font-black text-indigo-700 bg-indigo-100/70 w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                            <span className="text-[10px] font-bold text-indigo-700 bg-indigo-100/70 w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5">
                               {item.id}
                             </span>
                             <span className="text-slate-800 font-medium leading-snug">
@@ -606,7 +588,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                     </div>
 
                     {/* Carga cognitiva percibida */}
-                    <div className="p-3.5 rounded-2xl bg-indigo-50/60 border border-indigo-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div className="p-3.5 rounded-lg bg-indigo-50/60 border border-indigo-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                       <div className="space-y-0.5 max-w-md">
                         <span className="text-xs font-bold text-indigo-950">
                           Carga Cognitiva Subjetiva (Dificultad de la plataforma)
@@ -631,9 +613,9 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                     </div>
 
                     {/* Comparativa Pre-Post Self-Efficacy */}
-                    <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 space-y-3.5">
+                    <div className="p-4 rounded-lg bg-amber-50/80 border border-amber-200 space-y-3.5">
                       <div className="space-y-0.5">
-                        <span className="text-xs font-black text-amber-950">
+                        <span className="text-xs font-bold text-amber-950">
                           Autopercepción de Competencia Clínica (Medida Pre vs. Post)
                         </span>
                         <p className="text-[11px] text-amber-900/90">
@@ -697,10 +679,10 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                         </select>
                       </div>
 
-                      <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+                      <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5">
                         <div className="flex justify-between items-center text-xs">
                           <span className="font-bold text-slate-800">Recomendación a pares (NPS):</span>
-                          <span className="font-mono font-black text-amber-700 text-sm">{nps} / 10</span>
+                          <span className="font-mono font-bold text-amber-700 text-sm">{nps} / 10</span>
                         </div>
                         <input
                           type="range"
@@ -804,7 +786,7 @@ export const SatisfactionSurveyModal: React.FC<SatisfactionSurveyModalProps> = (
                       <button
                         type="submit"
                         disabled={submitting}
-                        className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white text-xs font-black flex items-center gap-2 shadow-md transition-all cursor-pointer disabled:opacity-50"
+                        className="px-6 py-2.5 rounded-xl bg-amber-600 text-white text-xs font-bold flex items-center gap-2 shadow-md transition-all cursor-pointer disabled:opacity-50"
                       >
                         <Send className="w-4 h-4" />
                         <span>{submitting ? 'Guardando en la Nube...' : 'Enviar Encuesta (+150 XP, +100 €)'}</span>

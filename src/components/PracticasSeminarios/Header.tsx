@@ -1,17 +1,5 @@
 import React from 'react';
-import {
-  Download,
-  Printer,
-  GraduationCap,
-  ChevronLeft,
-  ChevronRight,
-  Table as TableIcon,
-  CalendarDays,
-  ShieldCheck,
-  Lock,
-  Clock,
-  Sparkles,
-} from 'lucide-react';
+import { Download, Printer, GraduationCap, ChevronLeft, ChevronRight, Table as TableIcon, CalendarDays, ShieldCheck, Lock, Clock, Star } from 'lucide-react';
 import { COURSE_INFO } from '../../data/practicasSeminarios/curriculumData';
 
 interface HeaderProps {
@@ -40,22 +28,22 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="bg-white border-b border-amber-200 sticky top-0 z-30 shadow-xs">
       {/* Top Gold Medicine Accent Bar */}
-      <div className="h-1 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500"></div>
+      <div className="h-1 bg-amber-400"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           {/* Title & Subject Header */}
           <div className="flex items-start gap-3">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500 to-yellow-500 text-amber-950 flex items-center justify-center shadow-xs shrink-0 mt-0.5 border border-amber-400/40">
+            <div className="w-11 h-11 rounded-xl bg-amber-500 text-amber-950 flex items-center justify-center shadow-xs shrink-0 mt-0.5 border border-amber-400/40">
               <GraduationCap className="w-6 h-6 text-amber-950" />
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900">
-                  Bioquímica Médica • Prácticas y Seminarios
+                  Bioquímica Médica • prácticas y seminarios
                 </h1>
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
-                  <Sparkles className="w-3 h-3 text-amber-600" />
+                  <Star className="w-3 h-3 text-amber-600" />
                   {COURSE_INFO.degree} • {COURSE_INFO.groups}
                 </span>
               </div>
@@ -151,7 +139,7 @@ export const Header: React.FC<HeaderProps> = ({
                 ) : (
                   <>
                     <Lock className="w-3.5 h-3.5 text-slate-500" />
-                    <span className="hidden sm:inline">Organizar / Coordinar</span>
+                    <span className="hidden sm:inline">Organizar / coordinar</span>
                   </>
                 )}
               </button>
@@ -173,7 +161,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <CalendarDays className="w-3.5 h-3.5 text-amber-600" />
-              <span>Vista Mensual (Feb - May)</span>
+              <span>Vista mensual (feb - may)</span>
             </button>
 
             <button
@@ -187,7 +175,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <TableIcon className="w-3.5 h-3.5 text-sky-600" />
-              <span>Cronograma Oficial Completo</span>
+              <span>Cronograma oficial completo</span>
             </button>
           </div>
 
@@ -196,13 +184,13 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-sky-50 border border-sky-200 text-sky-950 font-medium">
               <Clock className="w-3 h-3 text-sky-600" />
               <span>
-                <strong>Turno Mañana:</strong> 8:30 - 11:00 h
+                <strong>Turno mañana:</strong> 8:30 - 11:00 h
               </span>
             </div>
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-purple-50 border border-purple-200 text-purple-950 font-medium">
               <Clock className="w-3 h-3 text-purple-600" />
               <span>
-                <strong>Turno Tarde:</strong> 16:00 - 18:30 h
+                <strong>Turno tarde:</strong> 16:00 - 18:30 h
               </span>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ClinicalCase } from '../../types';
-import { X, User, Activity, FileText, Heart, AlertCircle, Sparkles, ArrowRight, CheckCircle2, GraduationCap, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
+import { X, User, Activity, FileText, Heart, AlertCircle, Star, ArrowRight, CheckCircle2, GraduationCap, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
 
 interface CaseDetailModalProps {
   caseData: ClinicalCase | null;
@@ -18,8 +18,8 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
   if (!caseData) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 flex flex-col my-auto">
+    <div className="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-lg border border-slate-200 flex flex-col my-auto">
         {/* Header */}
         <div className="p-6 bg-slate-900 text-white border-b border-slate-800 flex items-start justify-between sticky top-0 z-10">
           <div>
@@ -50,7 +50,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
                 <User className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-xs font-bold uppercase text-slate-400 block">Filiación del Paciente</span>
+                <span className="text-xs font-bold uppercase text-slate-400 block">Filiación del paciente</span>
                 <span className="font-bold text-slate-900">
                   {caseData.clinicalHistory.patientDemographics.gender}, {caseData.clinicalHistory.patientDemographics.age} años — {caseData.clinicalHistory.patientDemographics.occupation}
                 </span>
@@ -64,14 +64,14 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <span className="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300 flex items-center gap-1.5">
                   <GraduationCap className="w-4 h-4 text-emerald-700" />
-                  Guía Didáctica y Glosario Clínico
+                  Guía didáctica y glosario clínico
                 </span>
               </div>
 
               {caseData.studentSummary && (
                 <div className="bg-white/90 rounded-lg p-3 border border-emerald-100/90">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-900 block mb-1">
-                    Orientación Clínica del Caso
+                    Orientación clínica del caso
                   </span>
                   <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
                     {caseData.studentSummary}
@@ -82,7 +82,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
               {caseData.biochemicalConceptSimple && (
                 <div className="bg-white/90 rounded-lg p-3 border border-emerald-100/90">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-900 block mb-1">
-                    Mecanismo Bioquímico y Fisiopatológico:
+                    Mecanismo bioquímico y fisiopatológico:
                   </span>
                   <p className="text-xs text-slate-700 font-mono leading-relaxed bg-emerald-50/40 p-2.5 rounded border border-emerald-100">
                     {caseData.biochemicalConceptSimple}
@@ -99,7 +99,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
                   >
                     <span className="flex items-center gap-1.5">
                       <BookOpen className="w-3.5 h-3.5 text-emerald-700" />
-                      Glosario de Términos Médicos del Caso ({caseData.clinicalGlossary.length})
+                      Glosario de términos médicos del caso ({caseData.clinicalGlossary.length})
                     </span>
                     <span className="text-xs text-emerald-700 flex items-center gap-0.5">
                       {showGlossary ? <>Ocultar <ChevronUp className="w-3.5 h-3.5" /></> : <>Ver definiciones <ChevronDown className="w-3.5 h-3.5" /></>}
@@ -123,10 +123,10 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
 
           {/* Molecular Signaling Pathway Section (Docencia Departamental) */}
           {caseData.molecularPathway && (
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/90 rounded-xl p-4 space-y-2">
+            <div className="bg-amber-50 border border-amber-200/90 rounded-xl p-4 space-y-2">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-200 text-amber-900 border border-amber-300">
-                  Transducción de Señales & Vía Molecular
+                  Transducción de señales & vía molecular
                 </span>
                 {caseData.signalingType && 
                  !caseData.signalingType.toLowerCase().includes('ligand') && 
@@ -155,15 +155,15 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
           <div className="space-y-3">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center space-x-2">
               <FileText className="w-4 h-4 text-cyan-600" />
-              <span>Anamnesis y Enfermedad Actual</span>
+              <span>Anamnesis y enfermedad actual</span>
             </h3>
             <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200 space-y-3">
               <div>
-                <span className="text-xs font-bold text-slate-500 block">Motivo de Consulta:</span>
+                <span className="text-xs font-bold text-slate-500 block">Motivo de consulta:</span>
                 <p className="text-sm font-medium text-slate-800 italic">"{caseData.clinicalHistory.chiefComplaint}"</p>
               </div>
               <div>
-                <span className="text-xs font-bold text-slate-500 block">Enfermedad Actual:</span>
+                <span className="text-xs font-bold text-slate-500 block">Enfermedad actual:</span>
                 <p className="text-sm text-slate-700 leading-relaxed">{caseData.clinicalHistory.presentIllness}</p>
               </div>
             </div>
@@ -172,7 +172,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
           {/* Past History & Meds Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">Antecedentes Personales</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">Antecedentes personales</span>
               <ul className="list-disc list-inside text-xs text-slate-700 space-y-1">
                 {caseData.clinicalHistory.pastMedicalHistory.map((pmh, idx) => (
                   <li key={idx}>{pmh}</li>
@@ -180,7 +180,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
               </ul>
             </div>
             <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">Tratamiento Habitual</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">Tratamiento habitual</span>
               <ul className="list-disc list-inside text-xs text-slate-700 space-y-1">
                 {caseData.clinicalHistory.medications.map((med, idx) => (
                   <li key={idx}>{med}</li>
@@ -193,7 +193,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
           <div className="space-y-3">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center space-x-2">
               <Heart className="w-4 h-4 text-rose-600" />
-              <span>Examen Físico y Signos Vitales</span>
+              <span>Examen físico y signos vitales</span>
             </h3>
             <div className="bg-slate-50/70 p-4 rounded-xl border border-slate-200 space-y-4">
               {/* Vital Signs Grid */}
@@ -236,15 +236,15 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
           <div className="space-y-3">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center space-x-2">
               <Activity className="w-4 h-4 text-blue-600" />
-              <span>Pruebas Complementarias Iniciales</span>
+              <span>Pruebas complementarias iniciales</span>
             </h3>
             <div className="overflow-x-auto rounded-xl border border-slate-200">
               <table className="w-full text-left text-xs">
                 <thead className="bg-slate-100 text-slate-600 font-bold uppercase tracking-wider">
                   <tr>
-                    <th className="p-3">Prueba / Parámetro</th>
+                    <th className="p-3">Prueba / parámetro</th>
                     <th className="p-3">Resultado</th>
-                    <th className="p-3">Rango de Referencia</th>
+                    <th className="p-3">Rango de referencia</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 bg-white">
@@ -264,7 +264,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
           <div className="p-4 bg-emerald-50/60 rounded-xl border border-emerald-200/70 flex items-center justify-between gap-4">
             <div className="space-y-0.5">
               <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">
-                Objetivo Docente del Caso
+                Objetivo docente del caso
               </span>
               <p className="text-xs text-slate-700">
                 Analice los datos clínicos y constantes del paciente para seleccionar razonadamente los biomarcadores bioquímicos de mayor utilidad diagnóstica.
@@ -279,7 +279,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
           >
-            Cerrar Historia
+            Cerrar historia
           </button>
 
           <button
@@ -289,7 +289,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
             }}
             className="px-6 py-2.5 rounded-xl text-sm font-bold bg-cyan-700 hover:bg-cyan-800 text-white shadow-lg shadow-cyan-900/20 flex items-center space-x-2 transition-colors"
           >
-            <span>Resolver Caso Clínico</span>
+            <span>Resolver caso clínico</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

@@ -1,19 +1,7 @@
 import React, { useState } from 'react';
 import { TemplateWeek, FilterState, ComputedSession, ShiftType } from '../../types/practicasSeminarios';
 import { PROFESSORS_LIST, PROFESSOR_EMAILS } from '../../data/practicasSeminarios/curriculumData';
-import {
-  Clock,
-  MapPin,
-  Lock,
-  Unlock,
-  CheckCircle2,
-  Mail,
-  User,
-  Sparkles,
-  Info,
-  Calendar,
-  Layers,
-} from 'lucide-react';
+import { Clock, MapPin, Lock, Unlock, CheckCircle2, Mail, User, Star, Info, Calendar, Layers, BookOpen, GraduationCap, Microscope } from 'lucide-react';
 
 interface MatrixTableViewProps {
   startMonday: Date;
@@ -66,13 +54,13 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
   ];
 
   return (
-    <div className="bg-white rounded-2xl border border-amber-200 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-lg border border-amber-200 shadow-sm overflow-hidden">
       {/* View Header Info */}
-      <div className="px-6 py-4 border-b border-amber-200/80 bg-gradient-to-r from-amber-50/80 via-yellow-50/50 to-amber-50/80 flex items-center justify-between flex-wrap gap-3">
+      <div className="px-6 py-4 border-b border-amber-200/80 bg-amber-50/80 flex items-center justify-between flex-wrap gap-3">
         <div>
           <div className="flex items-center gap-2 flex-wrap">
             <h2 className="text-lg font-bold text-slate-950">
-              Cronograma Oficial de Prácticas y Seminarios
+              Cronograma oficial de prácticas y seminarios
             </h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-400 text-amber-950 border border-amber-500/40">
               Facultad de Medicina • UGR
@@ -118,9 +106,9 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
               </th>
 
               {/* PRÁCTICAS Blue Banner (LAB L-5/6) */}
-              <th colSpan={5} className="p-3 border-r-4 border-r-slate-600 text-center bg-gradient-to-r from-sky-600 to-blue-700 text-white shadow-xs">
+              <th colSpan={5} className="p-3 border-r-4 border-r-slate-600 text-center bg-sky-600 text-white shadow-xs">
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-base">🔬</span>
+                  <span className="text-base"><Microscope className="inline-block w-[1em] h-[1em]" /></span>
                   <span className="font-extrabold tracking-wide uppercase text-sm">
                     PRÁCTICAS 8.30-11 HRS / 16-18.30 HRS • LAB L-5/6
                   </span>
@@ -128,9 +116,9 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
               </th>
 
               {/* SEMINARIOS Purple Banner (AULA S3) */}
-              <th colSpan={5} className="p-3 border-r border-purple-300 text-center bg-gradient-to-r from-purple-700 to-indigo-700 text-white shadow-xs">
+              <th colSpan={5} className="p-3 border-r border-purple-300 text-center bg-purple-700 text-white shadow-xs">
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-base">📖</span>
+                  <span className="text-base"><BookOpen className="inline-block w-[1em] h-[1em]" /></span>
                   <span className="font-extrabold tracking-wide uppercase text-sm">
                     SEMINARIOS 8.30-11 HRS / 16-18.30 HRS • AULA S3
                   </span>
@@ -153,7 +141,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                   }`}
                 >
                   <div className="flex flex-col items-center justify-center gap-0.5">
-                    <span className="w-5 h-5 rounded-full bg-sky-700 text-white flex items-center justify-center text-[11px] font-black shadow-xs">
+                    <span className="w-5 h-5 rounded-full bg-sky-700 text-white flex items-center justify-center text-[11px] font-bold shadow-xs">
                       {d.label}
                     </span>
                     <span className="text-[8px] uppercase tracking-wider text-sky-800 font-extrabold">Práctica</span>
@@ -168,7 +156,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                   className="p-2 border-r border-purple-200 bg-purple-100/90 text-purple-950 w-28"
                 >
                   <div className="flex flex-col items-center justify-center gap-0.5">
-                    <span className="w-5 h-5 rounded-full bg-purple-700 text-white flex items-center justify-center text-[11px] font-black shadow-xs">
+                    <span className="w-5 h-5 rounded-full bg-purple-700 text-white flex items-center justify-center text-[11px] font-bold shadow-xs">
                       {d.label}
                     </span>
                     <span className="text-[8px] uppercase tracking-wider text-purple-800 font-extrabold">Seminario</span>
@@ -191,20 +179,20 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                   {/* Block Banner Divider */}
                   {isFirstWeekOfBlock && week.blockNumber && (
                     <tr className="border-t-2 border-amber-300 font-bold">
-                      <td className="p-2 text-center bg-amber-400 text-amber-950 font-black border-r border-amber-300 text-xs uppercase">
+                      <td className="p-2 text-center bg-amber-400 text-amber-950 font-bold border-r border-amber-300 text-xs uppercase">
                         Bloque {week.blockNumber}
                       </td>
                       <td
                         colSpan={5}
-                        className="p-2 text-center bg-sky-100 text-sky-950 font-black border-r-4 border-r-slate-600 text-xs uppercase tracking-wide"
+                        className="p-2 text-center bg-sky-100 text-sky-950 font-bold border-r-4 border-r-slate-600 text-xs uppercase tracking-wide"
                       >
-                        🔬 {week.practiceTitle}
+                        {week.practiceTitle}
                       </td>
                       <td
                         colSpan={5}
-                        className="p-2 text-center bg-purple-100 text-purple-950 font-black border-r border-purple-200 text-xs uppercase tracking-wide"
+                        className="p-2 text-center bg-purple-100 text-purple-950 font-bold border-r border-purple-200 text-xs uppercase tracking-wide"
                       >
-                        📖 {week.seminarTitle}
+                        {week.seminarTitle}
                       </td>
                     </tr>
                   )}
@@ -235,10 +223,10 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                       </td>
                       <td
                         colSpan={10}
-                        className="p-3 text-center font-black text-amber-950 border-r border-amber-300"
+                        className="p-3 text-center font-bold text-amber-950 border-r border-amber-300"
                       >
                         <div className="flex items-center justify-center gap-2 text-sm uppercase tracking-wide">
-                          <span>🎓</span>
+                          <span><GraduationCap className="inline-block w-[1em] h-[1em]" /></span>
                           <span>{week.practiceTitle}</span>
                         </div>
                         <p className="text-xs font-semibold text-amber-900 mt-1">
@@ -253,7 +241,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                     <tr className="border-b border-slate-200 hover:bg-slate-50/60 transition-colors">
                       {/* Fechas Column */}
                       <td className="p-3 text-center font-bold border-r border-slate-200 bg-slate-50/70 align-middle">
-                        <span className="block text-slate-950 font-black text-xs">{week.dateLabel}</span>
+                        <span className="block text-slate-950 font-bold text-xs">{week.dateLabel}</span>
                         <span className="text-[10px] text-slate-500 font-medium block">
                           Semana {week.weekIndex}
                         </span>
@@ -266,7 +254,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                             }`}
                             title={week.notes}
                           >
-                            {week.notes.toLowerCase().includes('semana santa') ? '✝️ Semana Santa' : '*Festivo parcial'}
+                            {week.notes.toLowerCase().includes('semana santa') ? 'Semana Santa' : '*Festivo parcial'}
                           </span>
                         )}
                       </td>
@@ -303,7 +291,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                               <button
                                 type="button"
                                 onClick={() => session && onSelectSessionById(session.id)}
-                                className="w-8 h-8 rounded-full bg-lime-400 text-slate-950 flex items-center justify-center font-black text-sm shadow-xs border-2 border-lime-500/60 hover:scale-105 transition-transform"
+                                className="w-8 h-8 rounded-full bg-lime-400 text-slate-950 flex items-center justify-center font-bold text-sm shadow-xs border-2 border-lime-500/60 transition-transform"
                                 title={`Subgrupo ${ass.groupNumber} (Haz clic para ver detalles)`}
                               >
                                 {ass.groupNumber}
@@ -325,7 +313,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                                     }
                                   }}
                                   className="w-full text-[10px] py-0.5 px-1 rounded border border-sky-300 bg-white font-bold text-sky-950 shadow-2xs hover:border-sky-500 cursor-pointer focus:ring-1 focus:ring-sky-500"
-                                  title="Franja horaria: Mañana (8:30-11:00) o Tarde (16:00-18:30)"
+                                  title="Franja horaria: mañana (8:30-11:00) o tarde (16:00-18:30)"
                                 >
                                   <option value="mañana">8:30 - 11 h</option>
                                   <option value="tarde">16 - 18:30 h</option>
@@ -402,7 +390,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                               <button
                                 type="button"
                                 onClick={() => session && onSelectSessionById(session.id)}
-                                className="w-8 h-8 rounded-full bg-lime-400 text-slate-950 flex items-center justify-center font-black text-sm shadow-xs border-2 border-lime-500/60 hover:scale-105 transition-transform"
+                                className="w-8 h-8 rounded-full bg-lime-400 text-slate-950 flex items-center justify-center font-bold text-sm shadow-xs border-2 border-lime-500/60 transition-transform"
                                 title={`Subgrupo ${ass.groupNumber} (Haz clic para ver detalles)`}
                               >
                                 {ass.groupNumber}
@@ -424,7 +412,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
                                     }
                                   }}
                                   className="w-full text-[10px] py-0.5 px-1 rounded border border-purple-300 bg-white font-bold text-purple-950 shadow-2xs hover:border-purple-500 cursor-pointer focus:ring-1 focus:ring-purple-500"
-                                  title="Franja horaria: Mañana (8:30-11:00) o Tarde (16:00-18:30)"
+                                  title="Franja horaria: mañana (8:30-11:00) o tarde (16:00-18:30)"
                                 >
                                   <option value="mañana">8:30 - 11 h</option>
                                   <option value="tarde">16 - 18:30 h</option>
@@ -498,7 +486,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
           </div>
           <div className="flex items-center gap-1.5">
             <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-900 border border-purple-300">
-              ✝️ Semana Santa
+              Semana Santa
             </span>
           </div>
         </div>
@@ -506,7 +494,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
         <div className="flex items-center gap-3">
           <span className="inline-flex items-center gap-1.5 font-bold text-slate-900">
             <span className="w-3 h-3 rounded-full bg-lime-400 border border-lime-600 inline-block"></span>
-            Subgrupos 1 al 15 (Grupos A y B)
+            Subgrupos 1 al 15 (grupos A y B)
           </span>
         </div>
       </div>

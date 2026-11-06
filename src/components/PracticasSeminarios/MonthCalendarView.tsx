@@ -1,15 +1,5 @@
 import React, { useMemo } from 'react';
-import {
-  ChevronLeft,
-  ChevronRight,
-  Clock,
-  User,
-  Mail,
-  Calendar,
-  Sparkles,
-  MapPin,
-  GraduationCap,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, User, Mail, Calendar, Star, MapPin, GraduationCap, CalendarX } from 'lucide-react';
 import { ComputedSession, FilterState } from '../../types/practicasSeminarios';
 import { getMonthDaysGrid, getHolyWeekInfo } from '../../utils/practicasSeminarios/perpetualDateUtils';
 
@@ -86,10 +76,10 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
     // Holy Week detection
     const holyTitle = holyWeek.getHolyDayTitle(date);
     if (holyTitle) {
-      return `✝️ ${holyTitle}`;
+      return `${holyTitle}`;
     }
     if (holyWeek.isDateInHolyWeek(date)) {
-      return '✝️ Semana Santa (No lectivo)';
+      return 'Semana Santa (No lectivo)';
     }
 
     return null;
@@ -112,9 +102,9 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-amber-200 shadow-xs overflow-hidden">
+    <div className="bg-white rounded-lg border border-amber-200 shadow-xs overflow-hidden">
       {/* Month Navigation & Title Header */}
-      <div className="px-6 py-4 border-b border-amber-200 bg-gradient-to-r from-amber-50/70 via-white to-amber-50/70 flex items-center justify-between flex-wrap gap-4">
+      <div className="px-6 py-4 border-b border-amber-200 bg-amber-50/70 flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1 bg-white border border-amber-200 rounded-xl p-1 shadow-2xs">
             <button
@@ -143,7 +133,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
               <span className="text-amber-700/80 font-normal">{year}</span>
             </h2>
             <p className="text-xs text-slate-600">
-              2º Semestre • Prácticas (LAB L-5/6) y Seminarios (AULA S3) • Grupos A y B
+              2º Semestre • prácticas (LAB L-5/6) y seminarios (AULA S3) • grupos A y B
             </p>
           </div>
         </div>
@@ -170,9 +160,9 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
 
       {/* Semana Santa Banner if present in current month */}
       {isHolyWeekInThisMonth && (
-        <div className="px-6 py-2.5 bg-gradient-to-r from-purple-100/90 via-amber-50 to-purple-100/90 border-b border-purple-200 flex items-center justify-between flex-wrap gap-2 text-xs text-purple-950">
+        <div className="px-6 py-2.5 bg-purple-100/90 border-b border-purple-200 flex items-center justify-between flex-wrap gap-2 text-xs text-purple-950">
           <div className="flex items-center gap-2 font-bold">
-            <span className="text-base">✝️</span>
+            <span className="text-base"><CalendarX className="inline-block w-[1em] h-[1em]" /></span>
             <span>Semana Santa {year}: {holyWeek.dateRangeLabel}</span>
             <span className="text-[11px] font-medium text-purple-800 hidden sm:inline">
               • Periodo no lectivo y festivo universitario oficial UGR
@@ -217,7 +207,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
               {/* Day Number Header */}
               <div className="flex items-center justify-between mb-1.5 gap-1">
                 <span
-                  className={`text-sm font-black w-6 h-6 rounded-full flex items-center justify-center ${
+                  className={`text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center ${
                     daySessions.length > 0 && isCurrentMonth
                       ? 'bg-amber-500 text-slate-950 shadow-2xs border border-amber-600/30'
                       : isHolyWeek && isCurrentMonth
@@ -239,7 +229,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
                     }`}
                     title={holyDayTitle || 'Semana Santa'}
                   >
-                    ✝️ {holyDayTitle || 'Semana Santa'}
+                    {holyDayTitle || 'Semana Santa'}
                   </span>
                 )}
 
@@ -306,7 +296,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
                           {session.startTime} - {session.endTime}
                         </span>
                         <span
-                          className={`px-1.5 py-0.5 rounded text-[9px] font-black border ${
+                          className={`px-1.5 py-0.5 rounded text-[9px] font-bold border ${
                             isPractice
                               ? 'bg-sky-200 text-sky-950 border-sky-400'
                               : isExam
@@ -314,16 +304,16 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
                               : 'bg-purple-200 text-purple-950 border-purple-400'
                           }`}
                         >
-                          {isPractice ? '🔬 LAB L-5/6' : isExam ? '📝 EXAMEN' : '📖 AULA S3'}
+                          {isPractice ? 'LAB L-5/6' : isExam ? 'EXAMEN' : 'AULA S3'}
                         </span>
                       </div>
 
                       {/* Middle row: Activity & Subgroup */}
                       <div className="mt-1 flex items-center justify-between gap-1">
-                        <span className="font-black text-xs text-slate-900 truncate">
+                        <span className="font-bold text-xs text-slate-900 truncate">
                           {session.activityCode}
                         </span>
-                        <span className="px-1.5 py-0.2 rounded-full text-[10px] font-black bg-lime-400 text-slate-950 border border-lime-600/50">
+                        <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-lime-400 text-slate-950 border border-lime-600/50">
                           Gr. {session.groupNumber}
                         </span>
                       </div>
@@ -384,12 +374,12 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
           </div>
           <div className="flex items-center gap-1.5">
             <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-900 border border-purple-300">
-              ✝️ Semana Santa ({holyWeek.dateRangeLabel})
+              Semana Santa ({holyWeek.dateRangeLabel})
             </span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-3.5 h-3.5 rounded-md bg-lime-400 border border-lime-600 inline-block"></span>
-            <span>Subgrupos 1 al 15 (Grupos A y B)</span>
+            <span>Subgrupos 1 al 15 (grupos A y B)</span>
           </div>
         </div>
 

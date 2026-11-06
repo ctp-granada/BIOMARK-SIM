@@ -1,26 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  BookOpen, 
-  GraduationCap, 
-  FileText, 
-  CheckCircle2, 
-  HelpCircle, 
-  Download, 
-  ExternalLink, 
-  BookmarkCheck, 
-  ChevronRight, 
-  Sparkles, 
-  Award,
-  Layers,
-  Search,
-  BookMarked,
-  FlaskConical,
-  RefreshCw,
-  Droplets,
-  Calendar,
-  Dna,
-  Network
-} from 'lucide-react';
+import { BookOpen, GraduationCap, FileText, CheckCircle2, HelpCircle, Download, ExternalLink, BookmarkCheck, ChevronRight, Star, Award, Layers, Search, BookMarked, FlaskConical, RefreshCw, Droplets, Calendar, Dna, Network } from 'lucide-react';
 import { RandleCycleLab } from '../InteractiveLabs/RandleCycleLab';
 import { JaundiceSimulatorLab } from '../InteractiveLabs/JaundiceSimulatorLab';
 import { HemostasisLab } from '../InteractiveLabs/HemostasisLab';
@@ -130,11 +109,11 @@ const OFFICIAL_SYLLABUS: SyllabusTopic[] = [
   {
     number: 18,
     title: "Metabolismo de neurotransmisores",
-    description: "Síntesis y degradación. Receptores. Acetil-Colina. Neuropéptidos. Endocannabinoides. Otros."
+    description: "Síntesis y degradación. Receptores. Acetil-colina. Neuropéptidos. Endocannabinoides. Otros."
   },
   {
     number: 19,
-    title: "Metabolismo de Nucleótidos",
+    title: "Metabolismo de nucleótidos",
     description: "Síntesis, degradación y vías de recuperación de purinas y pirimidinas. Hiperuricemias. Síntesis de desoxirrbonucleótidos."
   },
   {
@@ -268,12 +247,12 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 text-white rounded-2xl p-6 sm:p-8 border border-amber-800 shadow-xs relative overflow-hidden">
+      <div className="bg-amber-700 text-white rounded-lg p-6 sm:p-8 border border-amber-800 shadow-xs relative overflow-hidden">
         <div className="max-w-3xl space-y-3">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-amber-900/60 text-amber-200 border border-amber-400/40 flex items-center gap-1.5">
               <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
-              Portal Docente Oficial
+              Portal docente oficial
             </span>
             <span className="px-2.5 py-0.5 rounded text-[11px] font-semibold text-amber-100 bg-amber-900/40 border border-amber-500/30">
               Departamento de Bioquímica y Biología Molecular III e Inmunología • Facultad de Medicina UGR
@@ -281,7 +260,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
-            <span>Material Docente y Guía Académica de Bioquímica Médica</span>
+            <span>Material docente y guía académica de Bioquímica Médica</span>
           </h1>
 
           <p className="text-sm text-amber-50/90 leading-relaxed">
@@ -291,15 +270,15 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
       </div>
 
       {/* Sub-Navigation Tabs */}
-      <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200 overflow-x-auto">
+      <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-lg border border-slate-200 overflow-x-auto">
         {[
-          { id: 'temario', label: 'Temario Oficial', icon: BookOpen },
-          { id: 'vademecum', label: 'Vademécum de Biomarcadores', icon: Droplets },
+          { id: 'temario', label: 'Temario oficial', icon: BookOpen },
+          { id: 'vademecum', label: 'Vademécum de biomarcadores', icon: Droplets },
           { id: 'practicas-seminarios', label: 'Prácticas y Seminarios (Calendario & Organización)', icon: Calendar },
-          { id: 'simuladores', label: 'Simuladores (Apoyo al Aprendizaje)', icon: FlaskConical },
-          { id: 'autoevaluacion', label: 'Autoevaluación Test', icon: HelpCircle },
-          { id: 'bibliografia', label: 'Bibliografía Recomendada', icon: BookMarked },
-          { id: 'guia', label: 'Guía Docente & Evaluación', icon: FileText }
+          { id: 'simuladores', label: 'Simuladores (apoyo al aprendizaje)', icon: FlaskConical },
+          { id: 'autoevaluacion', label: 'Autoevaluación test', icon: HelpCircle },
+          { id: 'bibliografia', label: 'Bibliografía recomendada', icon: BookMarked },
+          { id: 'guia', label: 'Guía docente & evaluación', icon: FileText }
         ].map((tab) => {
           const Icon = tab.icon;
           return (
@@ -323,18 +302,18 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
       {activeTab === 'temario' && (
         <div className="space-y-6 animate-fadeIn">
           {/* Header Card */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-xs">
+          <div className="bg-white rounded-xl border border-slate-200 p-6 sm:p-7 shadow-xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-slate-950 text-emerald-400">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-950 text-emerald-400">
                     PROGRAMA TEÓRICO (7 créditos)
                   </span>
                   <span className="text-xs font-semibold text-slate-500">
                     Bioquímica Médica
                   </span>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                   Temario
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 mt-1">
@@ -343,14 +322,14 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
               </div>
 
               {/* Total count badge */}
-              <div className="px-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-right self-start sm:self-auto">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Temas</span>
-                <span className="text-lg font-black text-slate-900 font-mono">27 Temas</span>
+              <div className="px-4 py-2.5 rounded-lg bg-slate-50 border border-slate-200 text-right self-start sm:self-auto">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total temas</span>
+                <span className="text-lg font-bold text-slate-900 font-mono">27 Temas</span>
               </div>
             </div>
 
             {/* Search bar */}
-            <div className="mt-5 bg-slate-50 rounded-2xl border border-slate-200 p-3 sm:p-4 flex items-center gap-3">
+            <div className="mt-5 bg-slate-50 rounded-lg border border-slate-200 p-3 sm:p-4 flex items-center gap-3">
               <Search className="w-4 h-4 text-slate-400 shrink-0" />
               <input
                 type="text"
@@ -375,15 +354,15 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
             {filteredTopics.map((topic) => (
               <div
                 key={topic.number}
-                className="bg-white rounded-2xl border border-slate-200 hover:border-slate-300 p-4 sm:p-5 shadow-xs transition-all"
+                className="bg-white rounded-lg border border-slate-200 hover:border-slate-300 p-4 sm:p-5 shadow-xs transition-all"
               >
                 <div className="flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-slate-950 text-emerald-400 flex items-center justify-center font-mono font-black text-sm shrink-0 shadow-2xs">
+                  <div className="w-9 h-9 rounded-xl bg-slate-950 text-emerald-400 flex items-center justify-center font-mono font-bold text-sm shrink-0 shadow-2xs">
                     {topic.number}
                   </div>
                   <div className="flex-1 space-y-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60 font-mono">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60 font-mono">
                         Tema {topic.number}
                       </span>
                       <h3 className="text-sm font-bold text-slate-900">
@@ -399,7 +378,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
             ))}
 
             {filteredTopics.length === 0 && (
-              <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 text-slate-500 text-xs">
+              <div className="p-8 text-center bg-white rounded-lg border border-slate-200 text-slate-500 text-xs">
                 No se han encontrado temas con el criterio de búsqueda "{searchFilter}".
               </div>
             )}
@@ -418,17 +397,17 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
       {activeTab === 'simuladores' && (
         <div className="space-y-6 animate-fadeIn">
           {/* Header Card */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-900 border border-blue-200 flex items-center gap-1">
                   <FlaskConical className="w-3 h-3 text-blue-600" />
-                  Biblioteca Médica · Apoyo al Aprendizaje
+                  Biblioteca Médica · apoyo al aprendizaje
                 </span>
-                <span className="text-[11px] text-slate-500 font-medium">3 Modelos Fisiopatológicos</span>
+                <span className="text-[11px] text-slate-500 font-medium">3 Modelos fisiopatológicos</span>
               </div>
               <h2 className="text-lg font-bold text-slate-900">
-                Simuladores Interactivos de Fisiopatología Molecular
+                Simuladores interactivos de fisiopatología molecular
               </h2>
               <p className="text-xs text-slate-600 max-w-3xl leading-relaxed">
                 Herramientas docentes dinámicas integradas en la Biblioteca para afianzar el temario oficial del Departamento: 
@@ -459,7 +438,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
                 }`}
               >
                 <FlaskConical className="w-3.5 h-3.5" />
-                <span>Simulador Ictericias</span>
+                <span>Simulador ictericias</span>
               </button>
 
               <button
@@ -483,7 +462,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
                 }`}
               >
                 <Dna className="w-3.5 h-3.5 text-indigo-300" />
-                <span>Lanzadera Carnitina</span>
+                <span>Lanzadera carnitina</span>
               </button>
 
               <button
@@ -501,7 +480,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
           </div>
 
           {/* Render Active Simulator Component */}
-          <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 sm:p-6 shadow-xs">
+          <div className="rounded-lg overflow-hidden border border-slate-200 bg-white p-4 sm:p-6 shadow-xs">
             {selectedSimulator === 'randle' && <RandleCycleLab />}
             {selectedSimulator === 'ictericias' && <JaundiceSimulatorLab />}
             {selectedSimulator === 'hemostasia' && <HemostasisLab />}
@@ -521,9 +500,9 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
       {/* TAB 3: BANCO DE AUTOEVALUACIÓN TEST */}
       {activeTab === 'autoevaluacion' && (
         <div className="space-y-6 animate-fadeIn">
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-2">
+          <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-2">
             <h2 className="text-base font-bold text-slate-900">
-              Banco de Preguntas Tipo Test Departamentales (Convocatorias Previas)
+              Banco de preguntas tipo test departamentales (convocatorias previas)
             </h2>
             <p className="text-xs text-slate-600">
               Ponga a prueba su razonamiento fisiopatológico con preguntas comentadas por el equipo docente.
@@ -537,7 +516,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
               const isCorrect = selectedOpt === q.correctIndex;
 
               return (
-                <div key={q.id} className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4 text-xs">
+                <div key={q.id} className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-4 text-xs">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-2">
                     <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                       Pregunta #{q.id} • {q.module}
@@ -586,7 +565,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
                       isCorrect ? 'bg-emerald-50/70 text-emerald-950 border border-emerald-200' : 'bg-rose-50/70 text-rose-950 border border-rose-200'
                     }`}>
                       <span className="font-bold block uppercase text-[10px] tracking-wider">
-                        Justificación Bioquímica Oficial:
+                        Justificación bioquímica oficial:
                       </span>
                       <p className="leading-relaxed">
                         {q.rationale}
@@ -634,7 +613,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
                 tag: "Normativa Profesional y Guías"
               }
             ].map((book, idx) => (
-              <div key={idx} className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-3">
+              <div key={idx} className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-3">
                 <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">
                   {book.tag}
                 </span>
@@ -655,10 +634,10 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
 
       {/* TAB 5: GUÍA DOCENTE & EVALUACIÓN */}
       {activeTab === 'guia' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6 text-xs animate-fadeIn">
+        <div className="bg-white rounded-lg border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6 text-xs animate-fadeIn">
           <div className="border-b border-slate-100 pb-4">
             <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">
-              Ficha Técnica Oficial de la Asignatura
+              Ficha técnica oficial de la asignatura
             </span>
             <h2 className="text-lg font-bold text-slate-900 mt-1">
               Bioquímica Médica • Grado en Medicina (Universidad de Granada)
@@ -670,21 +649,21 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/90 space-y-1">
-              <span className="font-bold text-slate-900 block text-[11px]">Examen Final Teórico-Práctico (60%)</span>
+              <span className="font-bold text-slate-900 block text-[11px]">Examen final teórico-práctico (60%)</span>
               <p className="text-slate-600 leading-relaxed">
                 Prueba objetiva de opción múltiple (preguntas tipo test de 4 alternativas con penalización de 0.33 por error) y resolución de casos clínicos de integración bioquímica.
               </p>
             </div>
 
             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/90 space-y-1">
-              <span className="font-bold text-slate-900 block text-[11px]">Simulador y Laboratorios (20%)</span>
+              <span className="font-bold text-slate-900 block text-[11px]">Simulador y laboratorios (20%)</span>
               <p className="text-slate-600 leading-relaxed">
                 Evaluación continua de casos clínicos resueltos en el simulador BIOMARK-SIM, retos diarios y prácticas con los laboratorios interactivos (Randle, Ictericias, Hemostasia).
               </p>
             </div>
 
             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/90 space-y-1">
-              <span className="font-bold text-slate-900 block text-[11px]">Seminarios y Talleres (20%)</span>
+              <span className="font-bold text-slate-900 block text-[11px]">Seminarios y talleres (20%)</span>
               <p className="text-slate-600 leading-relaxed">
                 Asistencia participativa, resolución de problemas analíticos de laboratorio y defensa de casos en grupos reducidos de seminario.
               </p>
@@ -692,7 +671,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
           </div>
 
           <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-slate-700 leading-relaxed space-y-2">
-            <span className="font-bold text-slate-900 block">Sede Docente:</span>
+            <span className="font-bold text-slate-900 block">Sede docente:</span>
             <p>
               Facultad de Medicina, Universidad de Granada (UGR). Edificio Central, Avenida de la Investigación 11, Parque Tecnológico de la Salud (PTS), 18016 Granada.
             </p>

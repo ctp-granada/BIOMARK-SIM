@@ -2,23 +2,7 @@ import React, { useState } from 'react';
 import { UserProgress, CaseAttemptRecord } from '../../types';
 import { evaluateUserBadges } from '../../data/badges';
 import { CLINICAL_CASES_DATABASE } from '../../data/clinicalCases';
-import {
-  Trophy,
-  Award,
-  Zap,
-  Sparkles,
-  CheckCircle2,
-  Calendar,
-  Flame,
-  ShieldCheck,
-  TrendingUp,
-  Clock,
-  Star,
-  ChevronDown,
-  Filter,
-  Layers,
-  ArrowUpRight
-} from 'lucide-react';
+import { Trophy, Award, Zap, Star, CheckCircle2, Calendar, Flame, ShieldCheck, TrendingUp, Clock, ChevronDown, Filter, Layers, ArrowUpRight, Hourglass } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export interface MilestoneTimelineProps {
@@ -68,7 +52,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
           : `Caso Avanzado Completado: ${record.caseTitle}`,
         subtitle: `Superado con éxito diagnosticando con ${record.selectedBiomarkerName}.`,
         timestamp: record.timestamp,
-        badgeTag: isExpert ? 'Dificultad Experto ⭐⭐⭐' : 'Nivel Avanzado ⭐⭐',
+        badgeTag: isExpert ? 'Dificultad Experto' : 'Nivel Avanzado',
         badgeColor: isExpert
           ? 'bg-purple-100 text-purple-800 border-purple-300'
           : 'bg-amber-100 text-amber-800 border-amber-300',
@@ -87,7 +71,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
         title: `Insignia Obtenida: ${record.badgeUnlocked}`,
         subtitle: `Logro desbloqueado tras resolver "${record.caseTitle}".`,
         timestamp: record.timestamp,
-        badgeTag: 'Insignia Desbloqueada 🏅',
+        badgeTag: 'Insignia Desbloqueada',
         badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-300',
         icon: <Trophy className="w-4 h-4 text-emerald-600" />,
         details: 'Acreditación facultativa sumada a tu expediente.',
@@ -108,7 +92,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
         title: `Insignia de Maestría: ${b.title}`,
         subtitle: b.description,
         timestamp: 'Hito Acreditado',
-        badgeTag: b.category === 'special' ? 'Especial 🌟' : 'Sistema Clínico 🏅',
+        badgeTag: b.category === 'special' ? 'Especial' : 'Sistema Clínico',
         badgeColor: b.badgeBg + ' ' + b.badgeTextColor + ' ' + b.badgeBorder,
         icon: <Award className="w-4 h-4 text-indigo-600" />,
         details: b.requirementDescription,
@@ -125,7 +109,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
       title: `Racha de Aciertos en Guardia: ${userProgress.streak} Consecutivos`,
       subtitle: `Bonificador multiplicador de experiencia activado en el hospital.`,
       timestamp: 'Racha Activa',
-      badgeTag: 'Racha de Fuego 🔥',
+      badgeTag: 'Racha de Fuego',
       badgeColor: 'bg-rose-100 text-rose-800 border-rose-300',
       icon: <Flame className="w-4 h-4 text-rose-600 fill-rose-600" />,
       details: 'Precisión diagnóstica sin fallos en guardias continuas.'
@@ -137,10 +121,10 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
     milestones.push({
       id: 'first-case',
       type: 'difficulty',
-      title: 'Bautismo en Guardia Hospitalaria',
+      title: 'Bautismo en guardia hospitalaria',
       subtitle: 'Comienzo oficial de la rotación y primer caso clínico atendido.',
       timestamp: 'Inicio de Rotación',
-      badgeTag: 'Primer Turno 🏥',
+      badgeTag: 'Primer Turno',
       badgeColor: 'bg-blue-100 text-blue-800 border-blue-300',
       icon: <CheckCircle2 className="w-4 h-4 text-blue-600" />,
       details: 'Ingreso al simulador de Bioquímica Clínica.'
@@ -154,16 +138,16 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
   });
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
+    <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-6">
       {/* Header and Filter Buttons */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
         <div>
           <div className="flex items-center gap-2 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-1">
             <Clock className="w-4 h-4" />
-            <span>Línea Temporal de Progresión</span>
+            <span>Línea temporal de progresión</span>
           </div>
-          <h2 className="text-lg font-black text-slate-900 tracking-tight flex items-center gap-2">
-            <span>Cronología de Hitos & Conquistas Médicas</span>
+          <h2 className="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <span>Cronología de hitos & conquistas médicas</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-mono font-bold">
               {filteredMilestones.length} hitos
             </span>
@@ -208,7 +192,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <span>Nivel Alto</span>
+            <span>Nivel alto</span>
           </button>
           <button
             onClick={() => setSelectedFilter('streak')}
@@ -247,9 +231,9 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
 
               {/* Card Container */}
               <div
-                className={`p-4 rounded-2xl border transition-all ${
+                className={`p-4 rounded-lg border transition-all ${
                   item.highlight
-                    ? 'bg-gradient-to-r from-emerald-50/40 via-white to-slate-50 border-emerald-200 shadow-2xs'
+                    ? 'bg-emerald-50/40 border-emerald-200 shadow-2xs'
                     : 'bg-white border-slate-200 hover:border-slate-300'
                 }`}
               >
@@ -282,7 +266,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
 
                 {item.details && (
                   <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center gap-1.5 text-[11px] text-slate-500 font-mono">
-                    <Sparkles className="w-3 h-3 text-amber-500" />
+                    <Star className="w-3 h-3 text-amber-500" />
                     <span>{item.details}</span>
                   </div>
                 )}
@@ -291,9 +275,9 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
           ))}
         </div>
       ) : (
-        <div className="text-center py-10 space-y-3 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
-          <div className="w-12 h-12 rounded-2xl bg-slate-200/60 text-slate-500 flex items-center justify-center mx-auto text-xl">
-            ⏳
+        <div className="text-center py-10 space-y-3 bg-slate-50 rounded-lg border border-slate-200 border-dashed">
+          <div className="w-12 h-12 rounded-lg bg-slate-200/60 text-slate-500 flex items-center justify-center mx-auto text-xl">
+            <Hourglass className="inline-block w-[1em] h-[1em]" />
           </div>
           <h4 className="text-sm font-bold text-slate-800">
             Aún no se registran hitos en esta categoría

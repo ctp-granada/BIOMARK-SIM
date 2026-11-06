@@ -1,25 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  Trophy,
-  Play,
-  RotateCcw,
-  CheckCircle2,
-  XCircle,
-  HelpCircle,
-  Clock,
-  Sparkles,
-  ArrowRight,
-  ShieldCheck,
-  Award,
-  Wallet,
-  Zap,
-  Send,
-  CornerDownLeft,
-  Volume2,
-  Lightbulb,
-  Coins,
-  AlertCircle
-} from 'lucide-react';
+import { Trophy, Play, RotateCcw, CheckCircle2, XCircle, HelpCircle, Clock, Star, ArrowRight, ShieldCheck, Award, Wallet, Zap, Send, CornerDownLeft, Volume2, Lightbulb, Coins, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { audioService } from '../../utils/audioService';
 
@@ -242,9 +222,7 @@ const ROSCO_QUESTIONS: RoscoQuestion[] = [
   }
 ];
 
-// ==========================================
 // FUNCIÓN DE NORMALIZACIÓN DE CADENAS
-// ==========================================
 /**
  * Normaliza una cadena de texto para la validación permisiva de respuestas:
  * 1. Convierte a minúsculas (.toLowerCase())
@@ -594,16 +572,16 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
   const currentQ = ROSCO_QUESTIONS[currentIndex];
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-xs space-y-6">
+    <div className="bg-white rounded-lg border border-slate-200 p-4 sm:p-6 shadow-xs space-y-6">
       {/* Title & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
         <div>
           <div className="flex items-center gap-2 text-rose-600 text-xs font-bold uppercase tracking-wider mb-1">
             <Trophy className="w-4 h-4" />
-            <span>Pasapalabra Bioquímico & Diagnóstico Clínico</span>
+            <span>Pasapalabra bioquímico & diagnóstico clínico</span>
           </div>
-          <h2 className="text-xl font-black text-slate-900">
-            El Rosco Metabólico de Medicina
+          <h2 className="text-xl font-bold text-slate-900">
+            El Rosco metabólico de Medicina
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
             Escribe el concepto bioquímico para cada letra del abecedario. Se acepta flexibilidad ortográfica y abreviaturas médicas.
@@ -623,10 +601,10 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
           <div
             className={`px-3.5 py-1.5 rounded-xl font-mono font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs ${
               isPlaying && timeLeft <= 15
-                ? 'bg-rose-100 border-2 border-rose-400 text-rose-700 animate-pulse ring-2 ring-rose-400/30'
+                ? 'bg-rose-100 border-2 border-rose-400 text-rose-700 ring-2 ring-rose-400/30'
                 : 'bg-slate-100 border border-slate-200 text-slate-700'
             }`}
-            title="Cuenta atrás de 90 segundos. ¡Al llegar a cero se penaliza el presupuesto y se reinicia la partida!"
+            title="Cuenta atrás de 90 segundos. Si llega a cero, se descuenta presupuesto y la partida empieza de nuevo."
           >
             <Clock className={`w-3.5 h-3.5 ${isPlaying && timeLeft <= 15 ? 'text-rose-600 animate-spin' : 'text-slate-500'}`} />
             <span>
@@ -637,7 +615,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
           {!isPlaying && !isFinished && (
             <button
               onClick={handleStartGame}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
             >
               <Play className="w-4 h-4 fill-white" />
               <span>Iniciar Rosco (90s)</span>
@@ -660,15 +638,15 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
       <div className="grid grid-cols-3 gap-3 text-center text-xs">
         <div className="p-2.5 sm:p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold">
           <span className="text-[10px] uppercase block text-emerald-600">Aciertos</span>
-          <span className="text-lg font-black">{correctCount}</span>
+          <span className="text-lg font-bold">{correctCount}</span>
         </div>
         <div className="p-2.5 sm:p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 font-bold">
           <span className="text-[10px] uppercase block text-rose-600">Fallos</span>
-          <span className="text-lg font-black">{wrongCount}</span>
+          <span className="text-lg font-bold">{wrongCount}</span>
         </div>
         <div className="p-2.5 sm:p-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 font-bold">
           <span className="text-[10px] uppercase block text-blue-600">Restantes</span>
-          <span className="text-lg font-black">
+          <span className="text-lg font-bold">
             {ROSCO_QUESTIONS.length - correctCount - wrongCount}
           </span>
         </div>
@@ -678,50 +656,50 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
       {isFinished ? (
         isTimeout ? (
           /* Timeout Penalty & Forced Restart Screen */
-          <div className="bg-rose-50 rounded-2xl border-2 border-rose-300 p-8 text-center space-y-4 shadow-sm animate-fadeIn">
-            <div className="w-16 h-16 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center mx-auto shadow-md border border-rose-200">
-              <Clock className="w-8 h-8 text-rose-600 animate-pulse" />
+          <div className="bg-rose-50 rounded-lg border-2 border-rose-300 p-8 text-center space-y-4 shadow-sm animate-fadeIn">
+            <div className="w-16 h-16 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center mx-auto shadow-md border border-rose-200">
+              <Clock className="w-8 h-8 text-rose-600 " />
             </div>
 
             <div className="space-y-1">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-rose-200/80 text-rose-900 border border-rose-300 shadow-xs">
-                ⏰ ¡Tiempo Agotado! (0:00)
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-200/80 text-rose-900 border border-rose-300 shadow-xs">
+                Tiempo agotado (0:00)
               </span>
-              <h3 className="text-2xl font-black text-slate-900 pt-1">
+              <h3 className="text-2xl font-bold text-slate-900 pt-1">
                 La guardia no esperó: tiempo límite alcanzado
               </h3>
             </div>
 
             <p className="text-xs sm:text-sm text-slate-700 max-w-md mx-auto leading-relaxed">
               El temporizador de 90 segundos ha llegado a cero antes de completar el rosco. Se ha aplicado una sanción de guardia de{' '}
-              <strong className="text-rose-700 font-black font-mono bg-rose-100 px-2 py-0.5 rounded border border-rose-200">
+              <strong className="text-rose-700 font-bold font-mono bg-rose-100 px-2 py-0.5 rounded border border-rose-200">
                 -{TIMEOUT_PENALTY_BUDGET} €
               </strong>{' '}
               en tu presupuesto.
             </p>
 
             <div className="p-3 bg-white/90 rounded-xl border border-rose-200 max-w-sm mx-auto text-xs text-slate-600 shadow-xs">
-              ⚠️ La partida se ha bloqueado. Debes <strong className="text-slate-900">reiniciar la partida</strong> para restablecer el rosco con un nuevo contador de 90 segundos.
+              La partida se ha bloqueado. Debes <strong className="text-slate-900">reiniciar la partida</strong> para restablecer el rosco con un nuevo contador de 90 segundos.
             </div>
 
             <div className="pt-2">
               <button
                 onClick={handleStartGame}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-bold text-sm shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2 mx-auto cursor-pointer transition-all active:scale-95"
+                className="px-6 py-3 rounded-xl bg-rose-600 text-white font-bold text-sm shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2 mx-auto cursor-pointer transition-all active:scale-95"
               >
                 <RotateCcw className="w-4 h-4" />
-                <span>Reiniciar Partida Obligatoria (90s)</span>
+                <span>Reiniciar partida obligatoria (90s)</span>
               </button>
             </div>
           </div>
         ) : (
-          <div className="bg-slate-50 rounded-2xl border border-slate-200 p-8 text-center space-y-4">
-            <div className="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto shadow-md">
+          <div className="bg-slate-50 rounded-lg border border-slate-200 p-8 text-center space-y-4">
+            <div className="w-16 h-16 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center mx-auto shadow-md">
               <Trophy className="w-8 h-8" />
             </div>
 
-            <h3 className="text-xl font-black text-slate-900">
-              ¡Rosco Metabólico Completado!
+            <h3 className="text-xl font-bold text-slate-900">
+              Rosco completado
             </h3>
 
             <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
@@ -731,15 +709,15 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
             {!rewardClaimed ? (
               <button
                 onClick={handleClaimReward}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 mx-auto cursor-pointer transition-all active:scale-95"
+                className="px-6 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 mx-auto cursor-pointer transition-all active:scale-95"
               >
                 <Wallet className="w-4 h-4" />
-                <span>Acreditar Recompensas de Guardia (+Presupuesto & XP)</span>
+                <span>Acreditar recompensas de guardia (+presupuesto & XP)</span>
               </button>
             ) : (
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-100 border border-emerald-300 text-emerald-800 font-bold text-xs">
                 <CheckCircle2 className="w-4 h-4" />
-                <span>¡Recompensas sumadas a tu perfil con éxito!</span>
+                <span>Recompensas añadidas a tu perfil.</span>
               </div>
             )}
           </div>
@@ -767,7 +745,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
             } else if (status === 'passed') {
               btnStyle = 'bg-amber-400 text-amber-950 border-amber-500 font-bold';
             } else if (isCurrent) {
-              btnStyle = 'bg-blue-600 text-white border-cyan-400 ring-4 ring-cyan-400/50 scale-125 z-20 animate-pulse';
+              btnStyle = 'bg-blue-600 text-white border-cyan-400 ring-4 ring-cyan-400/50 scale-125 z-20 ';
             }
 
             return (
@@ -778,7 +756,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
                   top: `${topPercent}%`,
                   transform: 'translate(-50%, -50%)'
                 }}
-                className={`absolute w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center font-black text-xs sm:text-sm border transition-all duration-300 shadow-xs ${btnStyle}`}
+                className={`absolute w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border transition-all duration-300 shadow-xs ${btnStyle}`}
                 title={`${q.letter}: ${status || 'pendiente'}`}
               >
                 {q.letter}
@@ -787,13 +765,13 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
           })}
 
           {/* Central Question & Answer Card */}
-          <div className="w-[72%] h-[72%] rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl p-4 sm:p-5 flex flex-col items-center justify-between text-center relative z-10 overflow-hidden">
+          <div className="w-[72%] h-[72%] rounded-xl bg-slate-900 border border-slate-800 shadow-lg p-4 sm:p-5 flex flex-col items-center justify-between text-center relative z-10 overflow-hidden">
             {isPlaying && currentQ ? (
               <>
                 {/* Header: Letter badge & system */}
                 <div className="w-full flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-black text-base shadow-sm">
+                    <span className="w-8 h-8 rounded-xl bg-blue-500 text-white flex items-center justify-center font-bold text-base shadow-sm">
                       {currentQ.letter}
                     </span>
                     <div className="text-left">
@@ -835,7 +813,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
                 {hintsUsed[currentIndex] && (
                   <div className="w-full py-1.5 px-3 rounded-xl bg-amber-500/20 border border-amber-400/50 text-amber-200 text-xs font-semibold flex items-center justify-between shadow-xs">
                     <div className="flex items-center gap-2">
-                      <span className="text-amber-400 text-sm">💡</span>
+                      <span className="text-amber-400 text-sm"><Lightbulb className="inline-block w-[1em] h-[1em]" /></span>
                       <span>
                         2ª letra revelada:{' '}
                         <strong className="text-white font-mono text-sm uppercase px-1.5 py-0.5 rounded bg-amber-500/40 border border-amber-400/60 shadow-xs">
@@ -927,18 +905,18 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
             ) : (
               /* Pre-game Welcome Screen Inside the Rosco */
               <div className="m-auto space-y-3 px-2">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 text-cyan-400 flex items-center justify-center mx-auto border border-indigo-500/40">
-                  <Sparkles className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-lg bg-indigo-500/20 text-cyan-400 flex items-center justify-center mx-auto border border-indigo-500/40">
+                  <Star className="w-6 h-6" />
                 </div>
-                <h4 className="text-sm sm:text-base font-black text-white">
-                  Rosco de Bioquímica Clínica
+                <h4 className="text-sm sm:text-base font-bold text-white">
+                  Rosco de Bioquímica clínica
                 </h4>
                 <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed max-w-xs mx-auto">
                   25 letras de laboratorio. Tienes <strong className="text-amber-300 font-bold">90 segundos</strong> de cuenta atrás: ¡si el tiempo llega a cero se penalizan <strong className="text-rose-400 font-bold">-100 €</strong> de presupuesto y deberás reiniciar! Usa <strong className="text-cyan-300 font-bold">Pista (-50 €)</strong> si dudas con una letra.
                 </p>
                 <button
                   onClick={handleStartGame}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs inline-flex items-center gap-2 shadow-md cursor-pointer transition-all active:scale-95"
+                  className="px-5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs inline-flex items-center gap-2 shadow-md cursor-pointer transition-all active:scale-95"
                 >
                   <Play className="w-4 h-4 fill-white" />
                   <span>Comenzar Rosco (90s)</span>

@@ -30,17 +30,17 @@ export const PrintModal: React.FC<PrintModalProps> = ({
   const standaloneUrl = window.location.href;
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-amber-300 overflow-hidden my-auto animate-in fade-in zoom-in duration-150">
+    <div className="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+      <div className="bg-white w-full max-w-lg rounded-lg shadow-lg border border-amber-300 overflow-hidden my-auto animate-in fade-in zoom-in duration-150">
         {/* Header */}
-        <div className="p-4 sm:p-5 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-amber-950 flex items-center justify-between border-b border-amber-400">
+        <div className="p-4 sm:p-5 bg-amber-500 text-amber-950 flex items-center justify-between border-b border-amber-400">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-950 text-amber-400 flex items-center justify-center shadow-xs">
               <Printer className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-base sm:text-lg font-bold text-slate-950">
-                Imprimir o Guardar en PDF
+                Imprimir o guardar en PDF
               </h2>
               <p className="text-xs text-amber-950/80 font-medium">
                 Bioquímica Médica • Facultad de Medicina (UGR)
@@ -80,7 +80,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({
                 <strong>Asignatura:</strong> {COURSE_INFO.subject} ({COURSE_INFO.degree})
               </li>
               <li>
-                <strong>Curso y Semestre:</strong> {academicYear} - {academicYear + 1} (2º Semestre: Febrero a Mayo)
+                <strong>Curso y semestre:</strong> {academicYear} - {academicYear + 1} (2º Semestre: Febrero a Mayo)
               </li>
               <li>
                 <strong>Filtro de grupo:</strong>{' '}
@@ -106,7 +106,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({
               className="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-xs transition-colors flex items-center justify-center gap-2 text-center border border-amber-600/30"
             >
               <ExternalLink className="w-4 h-4" />
-              <span>Abrir en Pestaña Nueva para Imprimir / PDF (Recomendado)</span>
+              <span>Abrir en pestaña nueva para imprimir / PDF (recomendado)</span>
             </a>
 
             <button
@@ -121,7 +121,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({
 
           {/* Keyboard tip */}
           <div className="text-center text-[11px] text-slate-500 pt-1">
-            💡 Consejo: También puedes pulsar{' '}
+            Consejo: También puedes pulsar{' '}
             <kbd className="px-1.5 py-0.5 bg-slate-200 border border-slate-300 rounded font-mono font-bold text-slate-800">
               Ctrl + P
             </kbd>{' '}

@@ -666,7 +666,7 @@ export const App: React.FC = () => {
               className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700 text-xs"
               title="Contador de visitas en tiempo real conectado a Firebase Firestore"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-400 " />
               <span>Visitas: <strong className="text-white font-mono">{visitorStats.totalVisits.toLocaleString('es-ES')}</strong></span>
             </div>
 
@@ -674,14 +674,14 @@ export const App: React.FC = () => {
               onClick={() => setSatisfactionSurveyOpen(true)}
               className="text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
             >
-              <span>Encuesta de Calidad</span>
+              <span>Encuesta de calidad</span>
             </button>
 
             <button
               onClick={() => setSatisfactionMetricsOpen(true)}
               className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
             >
-              <span>Panel del Profesorado</span>
+              <span>Panel del profesorado</span>
             </button>
           </div>
         </div>

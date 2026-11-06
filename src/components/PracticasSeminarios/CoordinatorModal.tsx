@@ -15,8 +15,7 @@ import {
   Eye,
   EyeOff,
   KeyRound,
-  GraduationCap,
-} from 'lucide-react';
+  GraduationCap, BookOpen, FlaskConical } from 'lucide-react';
 import { TemplateWeek, ShiftType } from '../../types/practicasSeminarios';
 import { PROFESSORS_LIST, PROFESSOR_EMAILS, TEMPLATE_WEEKS } from '../../data/practicasSeminarios/curriculumData';
 
@@ -149,7 +148,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
 
     try {
       localStorage.setItem('ugr_medicina_coordinator_pin', newPasswordInput.trim());
-      setPasswordChangeSuccess('¡Clave de coordinación actualizada con éxito!');
+      setPasswordChangeSuccess('Clave de coordinación actualizada.');
       setNewPasswordInput('');
       setConfirmPasswordInput('');
       showStatus('Clave actualizada correctamente.');
@@ -320,7 +319,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
       const currentUrl = window.location.origin + window.location.pathname;
       const fullShareUrl = `${currentUrl}#docencia=${encoded}`;
       navigator.clipboard.writeText(fullShareUrl);
-      showStatus('¡Enlace copiado! Al abrirlo se cargarán estas asignaciones automáticamente.');
+      showStatus('Enlace copiado Al abrirlo se cargarán estas asignaciones automáticamente.');
     } catch {
       alert('Error al generar enlace.');
     }
@@ -330,10 +329,10 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
   const dayNames = ['', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-      <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl border border-amber-300 overflow-hidden my-auto max-h-[92vh] flex flex-col">
+    <div className="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+      <div className="bg-white w-full max-w-4xl rounded-lg shadow-lg border border-amber-300 overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Modal Header with Medicine Yellow Accents */}
-        <div className="p-4 sm:p-5 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-amber-950 flex items-center justify-between shrink-0 border-b border-amber-400">
+        <div className="p-4 sm:p-5 bg-amber-500 text-amber-950 flex items-center justify-between shrink-0 border-b border-amber-400">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-950 text-amber-400 flex items-center justify-center font-bold shadow-xs shrink-0">
               <ShieldCheck className="w-5 h-5" />
@@ -341,10 +340,10 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-base sm:text-lg font-bold text-slate-950">
-                  Panel de Coordinación y Asignación Docente
+                  Panel de coordinación y asignación docente
                 </h2>
                 {coordinatorEmail && (
-                  <span className="px-2 py-0.5 rounded-full text-[11px] font-black bg-amber-950 text-amber-300">
+                  <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-950 text-amber-300">
                     {coordinatorEmail}
                   </span>
                 )}
@@ -377,11 +376,11 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
           {!coordinatorEmail ? (
             <div className="max-w-md mx-auto py-6 space-y-5">
               <div className="text-center space-y-1">
-                <div className="w-12 h-12 bg-amber-100 text-amber-800 rounded-2xl mx-auto flex items-center justify-center mb-2 border border-amber-300">
+                <div className="w-12 h-12 bg-amber-100 text-amber-800 rounded-lg mx-auto flex items-center justify-center mb-2 border border-amber-300">
                   <Lock className="w-6 h-6 text-amber-700" />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900">
-                  Acceso para Organización y Asignación Docente
+                  Acceso para organización y asignación docente
                 </h3>
                 <p className="text-xs text-slate-600">
                   Selecciona tu usuario de la lista de profesores de Bioquímica Médica e introduce la clave para organizar y asignar los días y turnos.
@@ -447,7 +446,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                   type="submit"
                   className="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-xs transition-colors border border-amber-600/30"
                 >
-                  Acceder a la Organización
+                  Acceder a la organización
                 </button>
               </form>
             </div>
@@ -466,7 +465,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
-                    1. Asignar Días, Profesores y Turnos
+                    1. Asignar días, profesores y turnos
                   </button>
 
                   <button
@@ -478,7 +477,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
-                    2. Plantilla de Profesores ({professorsList.length})
+                    2. Plantilla de profesores ({professorsList.length})
                   </button>
 
                   <button
@@ -490,7 +489,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
-                    3. Guardar / Compartir
+                    3. Guardar / compartir
                   </button>
                 </div>
 
@@ -560,7 +559,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                       <div className="bg-white rounded-xl border border-sky-200 overflow-hidden shadow-2xs">
                         <div className="bg-sky-500 text-white px-3.5 py-2 flex items-center justify-between font-bold">
                           <span className="flex items-center gap-1.5">
-                            <span>🥼</span>
+                            <span><FlaskConical className="inline-block w-[1em] h-[1em]" /></span>
                             <span>PRÁCTICAS • LAB L-5/6</span>
                           </span>
                           <span className="text-[11px] font-normal">{currentWeek.practiceTitle}</span>
@@ -636,7 +635,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                       <div className="bg-white rounded-xl border border-purple-200 overflow-hidden shadow-2xs">
                         <div className="bg-purple-600 text-white px-3.5 py-2 flex items-center justify-between font-bold">
                           <span className="flex items-center gap-1.5">
-                            <span>📖</span>
+                            <span><BookOpen className="inline-block w-[1em] h-[1em]" /></span>
                             <span>SEMINARIOS • AULA S3</span>
                           </span>
                           <span className="text-[11px] font-normal">{currentWeek.seminarTitle}</span>
@@ -728,7 +727,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-slate-700 mb-1 font-semibold">
-                          Nombre y Apellidos:
+                          Nombre y apellidos:
                         </label>
                         <input
                           type="text"
@@ -849,7 +848,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                   {/* Backup / Export JSON Card */}
                   <div className="p-4 bg-white border border-slate-200 rounded-xl space-y-3">
                     <span className="font-bold text-slate-900 block">
-                      Copia de Seguridad y Archivo para Años Siguientes (JSON)
+                      Copia de seguridad y archivo para años siguientes (JSON)
                     </span>
                     <p className="text-slate-600">
                       Descarga un archivo con toda la asignación docente. En los años siguientes podrás volver a cargarlo en un clic.
@@ -882,7 +881,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                     <div className="flex items-center gap-2">
                       <KeyRound className="w-4 h-4 text-amber-700 shrink-0" />
                       <span className="font-bold text-slate-900">
-                        Cambiar Clave de Acceso de Coordinación
+                        Cambiar clave de acceso de coordinación
                       </span>
                     </div>
 
@@ -967,7 +966,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
             onClick={onClose}
             className="px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs transition-colors"
           >
-            Cerrar Ventana
+            Cerrar ventana
           </button>
         </div>
       </div>

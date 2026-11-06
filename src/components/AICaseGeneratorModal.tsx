@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ClinicalCase, OrganSystem, DifficultyLevel } from '../types';
-import { Sparkles, X, Loader2, AlertCircle, BookOpen, Layers, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { Star, X, Loader2, AlertCircle, BookOpen, Layers, CheckCircle2, ShieldAlert, Bean, Brain, Droplets, HeartPulse, Microscope, Zap } from 'lucide-react';
 
 interface AICaseGeneratorModalProps {
   isOpen: boolean;
@@ -10,65 +10,65 @@ interface AICaseGeneratorModalProps {
 
 const SYSTEM_CURRICULUM_DETAILS: Record<OrganSystem, {
   label: string;
-  icon: string;
+  icon: React.ReactNode;
   subtopics: { id: string; name: string }[];
   biomarkers: string[];
 }> = {
   cardiac: {
-    label: '🫀 Cardíaco y Síndrome Coronario',
-    icon: '🫀',
+    label: 'Cardíaco y síndrome coronario',
+    icon: <HeartPulse className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
       { id: 'scasest_iam', name: 'SCASEST / IAM Agudo en ventana precoz (2-4 horas)' },
       { id: 'reinfarction', name: 'Sospecha de Reinfarto precoz a los 4 días (Cinética CK-MB vs Troponina)' },
-      { id: 'heart_failure', name: 'Insuficiencia Cardíaca aguda / Disnea cardiogénica (NT-proBNP)' }
+      { id: 'heart_failure', name: 'Insuficiencia cardíaca aguda / disnea cardiogénica (NT-proBNP)' }
     ],
     biomarkers: ['Troponina hs-cTn', 'CK-MB Masa', 'CK Total', 'NT-proBNP', 'LDH']
   },
   hepatic: {
-    label: '🪵 Hepático e Ictericias',
-    icon: '🪵',
+    label: 'Hepático e ictericias',
+    icon: <Droplets className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
-      { id: 'obstructive_jaundice', name: 'Ictericia Posthepática / Obstructiva (Bilirrubina Directa, FA, GGT)' },
-      { id: 'hemolytic_jaundice', name: 'Ictericia Prehepática / Hemolítica (Bilirrubina Indirecta, Haptoglobina)' },
+      { id: 'obstructive_jaundice', name: 'Ictericia posthepática / obstructiva (bilirrubina directa, FA, GGT)' },
+      { id: 'hemolytic_jaundice', name: 'Ictericia prehepática / hemolítica (bilirrubina indirecta, haptoglobina)' },
       { id: 'toxic_hepatitis', name: 'Hepatitis Aguda Citolítica (ALT / AST extremas > 1000 U/L)' },
-      { id: 'alcoholic_liver', name: 'Hepatopatía Alcohólica (Cociente AST/ALT > 2 y GGT)' }
+      { id: 'alcoholic_liver', name: 'Hepatopatía alcohólica (cociente AST/ALT > 2 y GGT)' }
     ],
     biomarkers: ['Bilirrubina Directa', 'Bilirrubina Total', 'ALT (GPT)', 'AST (GOT)', 'GGT', 'Fosfatasa Alcalina']
   },
   metabolic: {
-    label: '⚡ Metabolismo, β-Oxidación y Glúcidos',
-    icon: '⚡',
+    label: 'Metabolismo, β-oxidación y glúcidos',
+    icon: <Zap className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
-      { id: 'mcadd_defect', name: 'Deficiencia de MCADD / Defecto de β-Oxidación (Hipoglucemia Hipocetósica)' },
+      { id: 'mcadd_defect', name: 'Deficiencia de MCADD / defecto de β-oxidación (hipoglucemia hipocetósica)' },
       { id: 'diabetic_ketoacidosis', name: 'Cetoacidosis Diabética (β-Hidroxibutirato elevado > 3.0 mmol/L)' },
-      { id: 'insulin_resistance', name: 'Resistencia a la Insulina y Síndrome Metabólico (Triglicéridos/Glucosa)' }
+      { id: 'insulin_resistance', name: 'Resistencia a la insulina y síndrome metabólico (triglicéridos/glucosa)' }
     ],
     biomarkers: ['Perfil Acilcarnitinas (C8)', 'Carnitina Libre C0', 'β-Hidroxibutirato', 'Glucemia en Ayunas', 'HbA1c', 'Triglicéridos']
   },
   renal: {
-    label: '🫘 Renal, Ciclo de la Urea y Purinas',
-    icon: '🫘',
+    label: 'Renal, ciclo de la urea y purinas',
+    icon: <Bean className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
-      { id: 'otc_deficiency', name: 'Defecto Ciclo de la Urea por Déficit de OTC (Hiperamonemia masiva)' },
-      { id: 'gout_hyperuricemia', name: 'Artritis Gotosa Aguda / Hiperuricemia Primaria (Ácido Úrico sérico)' },
-      { id: 'tumor_lysis', name: 'Síndrome de Lisis Tumoral / Hiperuricemia Secundaria masiva' }
+      { id: 'otc_deficiency', name: 'Defecto ciclo de la urea por déficit de OTC (hiperamonemia masiva)' },
+      { id: 'gout_hyperuricemia', name: 'Artritis gotosa aguda / hiperuricemia primaria (ácido úrico sérico)' },
+      { id: 'tumor_lysis', name: 'Síndrome de lisis tumoral / hiperuricemia secundaria masiva' }
     ],
     biomarkers: ['Amonio Plasmático (tubo frío)', 'Ácido Úrico', 'Urea Sérica', 'Creatinina Sérica', 'eGFR']
   },
   pancreatic: {
-    label: '🔬 Pancreático-Digestivo y Malabsorción',
-    icon: '🔬',
+    label: 'Pancreático-Digestivo y malabsorción',
+    icon: <Microscope className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
       { id: 'hypertriglyceridemic_pancreatitis', name: 'Pancreatitis por Hipertrigliceridemia (>1000 mg/dL con suero lechoso)' },
-      { id: 'omeprazole_chronic', name: 'Uso Crónico de Omeprazol/IBPs (Hipomagnesemia, Hipocalcemia y Déficit B12)' },
-      { id: 'celiac_disease', name: 'Enfermedad Celíaca del Adulto (Anticuerpos tTG-IgA y Malabsorción)' },
-      { id: 'acute_biliary_pancreatitis', name: 'Pancreatitis Aguda Biliar Clásica (Lipasa sérica > 3x LSN)' }
+      { id: 'omeprazole_chronic', name: 'Uso crónico de omeprazol/IBPs (hipomagnesemia, hipocalcemia y déficit B12)' },
+      { id: 'celiac_disease', name: 'Enfermedad celíaca del adulto (anticuerpos tTG-IgA y malabsorción)' },
+      { id: 'acute_biliary_pancreatitis', name: 'Pancreatitis aguda biliar clásica (lipasa sérica > 3x LSN)' }
     ],
     biomarkers: ['Lipasa Sérica', 'Triglicéridos Séricos', 'tTG-IgA', 'Vitamina B12', 'Magnesio / Calcio', 'Amilasa Total']
   },
   neuromuscular: {
-    label: '🧠 Neuromuscular y Señalización Celular',
-    icon: '🧠',
+    label: 'Neuromuscular y señalización celular',
+    icon: <Brain className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
       { id: 'myasthenia_gravis', name: 'Miastenia Gravis (Receptores nicotínicos AChR y canales iónicos)' },
       { id: 'lambert_eaton', name: 'Síndrome de Lambert-Eaton (Canales de calcio VGCC presinápticos)' }
@@ -132,16 +132,16 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col my-6 animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-slate-900/70 flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-white rounded-lg max-w-xl w-full shadow-lg border border-slate-200 overflow-hidden flex flex-col my-6 animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="p-5 bg-gradient-to-r from-purple-900 via-indigo-900 to-slate-900 text-white flex items-center justify-between">
+        <div className="p-5 bg-purple-900 text-white flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-2.5 bg-purple-500/20 rounded-xl border border-purple-400/30 text-purple-300">
-              <Sparkles className="w-5 h-5 animate-pulse" />
+              <Star className="w-5 h-5 " />
             </div>
             <div>
-              <h2 className="font-bold text-lg leading-tight">Generador de Casos Clínicos por IA</h2>
+              <h2 className="font-bold text-lg leading-tight">Generador de casos clínicos por IA</h2>
               <p className="text-xs text-purple-200">Alineado al temario, patologías y marcadores estudiados</p>
             </div>
           </div>
@@ -163,7 +163,7 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
           <div className="space-y-1.5">
             <label className="font-bold text-slate-800 block flex items-center gap-1.5">
               <Layers className="w-4 h-4 text-purple-600" />
-              <span>1. Sistema Orgánico del Temario:</span>
+              <span>1. Sistema orgánico del temario:</span>
             </label>
             <select
               value={system}
@@ -174,11 +174,11 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
               }}
               className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl font-medium text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
             >
-              <option value="cardiac">🫀 Cardíaco y Síndrome Coronario (SCASEST, IAM, Reinfarto, IC)</option>
-              <option value="hepatic">🪵 Hepático e Ictericias (Prehepática, Posthepática, Citólisis, Alcohol)</option>
-              <option value="metabolic">⚡ Metabolismo y β-Oxidación (MCADD, Cetoacidosis, Resistencia Insulina)</option>
-              <option value="renal">🫘 Renal y Ciclo de la Urea (Amonio, OTC, Gota, Lisis Tumoral)</option>
-              <option value="pancreatic">🔬 Pancreático-Digestivo (Pancreatitis, IBPs/Omeprazol, Celíaca)</option>
+              <option value="cardiac">Cardíaco y síndrome coronario (SCASEST, IAM, reinfarto, IC)</option>
+              <option value="hepatic">Hepático e ictericias (prehepática, posthepática, citólisis, alcohol)</option>
+              <option value="metabolic">Metabolismo y β-oxidación (MCADD, cetoacidosis, resistencia insulina)</option>
+              <option value="renal">Renal y ciclo de la urea (amonio, OTC, gota, lisis tumoral)</option>
+              <option value="pancreatic">Pancreático-Digestivo (pancreatitis, IBPs/omeprazol, celíaca)</option>
             </select>
           </div>
 
@@ -186,17 +186,17 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
           <div className="space-y-1.5">
             <label className="font-bold text-slate-800 block flex items-center gap-1.5">
               <BookOpen className="w-4 h-4 text-indigo-600" />
-              <span>2. Enfoque Fisiopatológico Específico:</span>
+              <span>2. Enfoque fisiopatológico específico:</span>
             </label>
             <select
               value={selectedSubtopic}
               onChange={(e) => setSelectedSubtopic(e.target.value)}
               className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl font-medium text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
             >
-              <option value="">🎲 Síntesis Curricular Automática (Cualquier escenario del módulo)</option>
+              <option value="">Síntesis curricular automática (cualquier escenario del módulo)</option>
               {currentCurriculum.subtopics.map((st) => (
                 <option key={st.id} value={st.id}>
-                  📌 {st.name}
+                  {st.name}
                 </option>
               ))}
             </select>
@@ -226,7 +226,7 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
           <div className="space-y-1.5">
             <label className="font-bold text-slate-800 block flex items-center gap-1.5">
               <ShieldAlert className="w-4 h-4 text-amber-600" />
-              <span>3. Calibración de Dificultad:</span>
+              <span>3. Calibración de dificultad:</span>
             </label>
             <div className="grid grid-cols-3 gap-2">
               <button
@@ -277,7 +277,7 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
           </div>
 
           <div className="p-3 bg-purple-50/80 rounded-xl border border-purple-100 text-[11px] text-purple-900 leading-relaxed">
-            <span className="font-bold">Garantía Académica:</span> El caso generado evaluará la discriminación analítica entre 4 opciones con fundamentación bioquímica y valores de laboratorio numéricos concordantes con la práctica clínica real.
+            <span className="font-bold">Garantía académica:</span> El caso generado evaluará la discriminación analítica entre 4 opciones con fundamentación bioquímica y valores de laboratorio numéricos concordantes con la práctica clínica real.
           </div>
         </div>
 
@@ -298,12 +298,12 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
             {isLoading ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Sintetizando Caso Clínico...</span>
+                <span>Sintetizando caso clínico...</span>
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4" />
-                <span>Generar Caso Ahora</span>
+                <Star className="w-4 h-4" />
+                <span>Generar caso ahora</span>
               </>
             )}
           </button>

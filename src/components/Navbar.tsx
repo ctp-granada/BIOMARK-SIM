@@ -2,38 +2,9 @@ import React from 'react';
 import { ActiveModule, UserProgress } from '../types';
 import { getPlayerRank, getStreakMultiplier } from '../utils/gamification';
 import { User } from '@supabase/supabase-js';
-import {
-  Home,
-  Building2,
-  Stethoscope,
-  Target,
-  FlaskConical,
-  GraduationCap,
-  BookOpen,
-  BarChart3,
-  Heart,
-  Flame,
-  Sparkles,
-  Zap,
-  LogIn,
-  LogOut,
-  User as UserIcon,
-  Cloud,
-  RefreshCw,
-  ArrowLeft,
-  Trees,
-  Gamepad2,
-  Trophy,
-  Coins,
-  Wallet,
-  Calendar,
-  Volume2,
-  VolumeX,
-  Star,
-  Lock,
-  Check
-} from 'lucide-react';
+import { Home, Building2, Stethoscope, Target, FlaskConical, GraduationCap, BookOpen, BarChart3, Heart, Flame, Star, Zap, LogIn, LogOut, User as UserIcon, Cloud, RefreshCw, ArrowLeft, Trees, Gamepad2, Trophy, Coins, Wallet, Calendar, Volume2, VolumeX, Lock, Check } from 'lucide-react';
 import { audioService } from '../utils/audioService';
+import { NamedIcon } from './NamedIcon';
 
 interface NavbarProps {
   activeModule: ActiveModule;
@@ -82,7 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-40">
       {/* 1. TOP HEADER: Medical Gold Institutional Bar (Facultad de Medicina UGR) */}
-      <div className="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700 text-white px-4 py-2.5 sm:py-3 border-b border-amber-800 shadow-xs">
+      <div className="bg-amber-700 text-white px-4 py-2.5 sm:py-3 border-b border-amber-800 shadow-xs">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
           
           {/* Main Brand Identifier: Bioquímica Médica UGR */}
@@ -92,9 +63,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveModule('inicio')}
           >
             {/* Official Subject Logo: Caduceo + ADN + Granada UGR */}
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white p-1 shadow-xs border border-amber-300/90 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform overflow-hidden">
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-white p-1 shadow-xs border border-amber-300/90 flex items-center justify-center shrink-0 transition-transform overflow-hidden">
               <img
-                src="/course_logo.jpg"
+                src="/logo-asignatura.png"
                 alt="Logo Bioquímica Médica UGR"
                 className="w-full h-full object-contain"
               />
@@ -109,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   Facultad de Medicina UGR
                 </span>
                 <span className="bg-amber-950/80 border border-amber-400/60 text-amber-200 text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline-flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-300 " />
                   PID 26-158
                 </span>
               </div>
@@ -141,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 ) : (
                   <>
                     <Cloud className="w-3.5 h-3.5 text-amber-300" />
-                    <span className="text-amber-100 font-medium hidden sm:inline">Nube Activa</span>
+                    <span className="text-amber-100 font-medium hidden sm:inline">Nube activa</span>
                   </>
                 )}
               </div>
@@ -168,7 +139,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-900/70 hover:bg-amber-900 text-white text-xs font-semibold transition-all shadow-2xs border border-amber-400/50 cursor-pointer"
               >
                 <LogIn className="w-3.5 h-3.5 text-amber-300" />
-                <span>Acceso Alumno UGR</span>
+                <span>Acceso alumno UGR</span>
               </button>
             )}
 
@@ -181,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   title="Encuesta de Satisfacción completada (Ver informe docente o actualizar)"
                 >
                   <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="hidden sm:inline">¡Opinión enviada!</span>
+                  <span className="hidden sm:inline">Opinión enviada. Gracias.</span>
                   <span className="bg-emerald-950 text-emerald-300 border border-emerald-500/30 text-[9px] font-bold px-1.5 py-0.2 rounded-full hidden md:inline">
                     Completada
                   </span>
@@ -189,12 +160,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               ) : (
                 <button
                   onClick={onOpenSatisfactionSurvey}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-amber-950 text-xs font-black transition-all shadow-sm cursor-pointer group"
-                  title="¡Danos tu opinión! (PID 26-158) - ¡Gana +150 XP y +100 €!"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-amber-950 text-xs font-bold transition-all shadow-sm cursor-pointer group"
+                  title="Danos tu opinión (PID 26-158) - +150 XP y +100 €"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-950" />
-                  <span>¡Danos tu opinión!</span>
-                  <span className="bg-amber-950 text-amber-300 text-[9px] font-black px-1.5 py-0.2 rounded-full hidden sm:inline">
+                  <Star className="w-3.5 h-3.5 text-amber-950" />
+                  <span>Danos tu opinión</span>
+                  <span className="bg-amber-950 text-amber-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full hidden sm:inline">
                     +150 XP
                   </span>
                 </button>
@@ -224,10 +195,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 id="tour-navbar-tutorial-btn"
                 onClick={onStartTour}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-900/50 hover:bg-amber-900/80 border border-amber-500/40 text-amber-100 hover:text-white text-xs font-medium transition-all cursor-pointer shadow-2xs"
-                title="Iniciar Tutorial Rápido Guiado (Hospital, Biblioteca, Juegos)"
+                title="Iniciar tutorial rápido guiado (hospital, biblioteca, juegos)"
               >
-                <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-                <span className="hidden sm:inline">Tutorial Rápido</span>
+                <Star className="w-3.5 h-3.5 text-amber-300 " />
+                <span className="hidden sm:inline">Tutorial rápido</span>
               </button>
             )}
           </div>
@@ -246,10 +217,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => setActiveModule('inicio')}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-800 hover:bg-amber-700 text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer group"
-                title="Volver a la Pantalla Principal (Hospital, Biblioteca, Parque)"
+                title="Volver a la pantalla principal (hospital, biblioteca, parque)"
               >
                 <ArrowLeft className="w-3.5 h-3.5 text-amber-200 group-hover:-translate-x-0.5 transition-transform" />
-                <span>Volver al Inicio</span>
+                <span>Volver al inicio</span>
               </button>
 
               <div className="h-5 w-px bg-slate-200 shrink-0 hidden sm:block" />
@@ -271,11 +242,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <Stethoscope className="w-3.5 h-3.5" />
-                    <span>Casos Clínicos</span>
+                    <span>Casos clínicos</span>
                     {!hasCompletedSurvey && userProgress.casesAttempted >= 4 && (
                       <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-0.5">
-                        <Sparkles className="w-2.5 h-2.5 text-amber-700" />
-                        <span>¡Danos tu opinión!</span>
+                        <Star className="w-2.5 h-2.5 text-amber-700" />
+                        <span>Danos tu opinión</span>
                       </span>
                     )}
                   </button>
@@ -287,7 +258,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       title="Volver a la selección de casos"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
-                      <span>Volver al Catálogo</span>
+                      <span>Volver al catálogo</span>
                     </button>
                   )}
                 </div>
@@ -310,7 +281,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <GraduationCap className="w-3.5 h-3.5" />
-                    <span>Temario Oficial</span>
+                    <span>Temario oficial</span>
                   </button>
 
                   <button
@@ -322,7 +293,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <Calendar className="w-3.5 h-3.5 text-amber-700" />
-                    <span>Prácticas y Seminarios</span>
+                    <span>Prácticas y seminarios</span>
                   </button>
 
                   <button
@@ -346,7 +317,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <FlaskConical className="w-3.5 h-3.5 text-blue-600" />
-                    <span>Simuladores de Aprendizaje</span>
+                    <span>Simuladores de aprendizaje</span>
                   </button>
                 </div>
               )}
@@ -368,7 +339,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <Gamepad2 className="w-3.5 h-3.5" />
-                    <span>El Rosco & Minijuegos</span>
+                    <span>El Rosco & minijuegos</span>
                     {!hasCompletedSurvey ? (
                       <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-0.5">
                         <Lock className="w-2.5 h-2.5 text-amber-700" />
@@ -376,7 +347,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       </span>
                     ) : (
                       <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-white text-emerald-700 border border-emerald-300">
-                        +💰 Dinero
+                        +Dinero
                       </span>
                     )}
                   </button>
@@ -390,7 +361,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                    <span>Reto Diario (2x XP)</span>
+                    <span>Reto diario (2x XP)</span>
                   </button>
                 </div>
               )}
@@ -412,7 +383,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <BarChart3 className="w-3.5 h-3.5" />
-                    <span>Progreso & Insignias</span>
+                    <span>Progreso & insignias</span>
                   </button>
 
                   <button
@@ -424,7 +395,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <Trophy className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Ranking de Alumnos</span>
+                    <span>Ranking de alumnos</span>
                   </button>
                 </div>
               )}
@@ -445,7 +416,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   >
                     <Coins className="w-3.5 h-3.5 text-amber-600" />
                     <span className="text-[10px] font-bold uppercase tracking-tight hidden sm:inline">Fondos:</span>
-                    <span className="text-xs font-black font-mono">{userProgress.budget.toLocaleString('es-ES')} €</span>
+                    <span className="text-xs font-bold font-mono">{userProgress.budget.toLocaleString('es-ES')} €</span>
                   </div>
 
                   {userProgress.streak > 0 && (
@@ -465,16 +436,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => setActiveModule('ranking')}
                 title="Ver Escalafón y Ranking Top 10"
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-xl border text-xs font-semibold shadow-2xs hover:scale-105 transition-all cursor-pointer ${rank.badgeBg} ${rank.badgeTextColor} ${rank.badgeBorder}`}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-xl border text-xs font-semibold shadow-2xs transition-all cursor-pointer ${rank.badgeBg} ${rank.badgeTextColor} ${rank.badgeBorder}`}
               >
-                <span>{rank.icon}</span>
+                <span><NamedIcon name={rank.icon} /></span>
                 <span className="truncate max-w-[110px] sm:max-w-[130px]">{rank.shortTitle}</span>
               </button>
 
               {/* XP Score Badge - Clickable to open Ranking */}
               <button
                 onClick={() => setActiveModule('ranking')}
-                title="Ver Ranking Global de Puntos"
+                title="Ver ranking global de puntos"
                 className="bg-slate-900 hover:bg-slate-800 text-white px-3 py-1 rounded-xl flex items-center gap-1.5 text-xs font-bold font-mono shadow-2xs border border-slate-800 hover:border-emerald-500/50 transition-all cursor-pointer"
               >
                 <span className="text-emerald-400">XP</span>
@@ -509,7 +480,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="px-2 py-1 rounded-lg flex flex-col items-center gap-0.5 text-amber-300 font-bold"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="text-[9px]">Plano Ciudad</span>
+            <span className="text-[9px]">Plano ciudad</span>
           </button>
           {isHospital && (
             <button
@@ -571,7 +542,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <Gamepad2 className="w-4 h-4" />
-                <span className="text-[9px]">Rosco & Dinero</span>
+                <span className="text-[9px]">Rosco & dinero</span>
               </button>
               <button
                 onClick={() => setActiveModule('reto-diario')}

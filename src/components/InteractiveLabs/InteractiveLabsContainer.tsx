@@ -37,13 +37,13 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
   return (
     <div className="space-y-6">
       {/* Top Bar: Biblioteca Biomédica · Materiales de Apoyo al Aprendizaje */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+      <div className="bg-white rounded-lg border border-slate-200 p-4 shadow-xs flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           {onBackToPortal && (
             <button
               onClick={onBackToPortal}
               className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
-              title="Volver al Portal / Material Docente"
+              title="Volver al portal / material docente"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
@@ -51,11 +51,11 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
           <div>
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 block bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                Biblioteca Biomédica · Materiales de Apoyo al Aprendizaje (Curso 26-27)
+                Biblioteca biomédica · materiales de apoyo al aprendizaje (curso 26-27)
               </span>
             </div>
             <h2 className="text-base font-bold text-slate-900 mt-0.5">
-              Simuladores Interactivos y Modelos Fisiopatológicos de Apoyo
+              Simuladores interactivos y modelos fisiopatológicos de apoyo
             </h2>
           </div>
         </div>
@@ -84,7 +84,7 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
               }`}
             >
               <FlaskConical className={`w-3.5 h-3.5 ${selectedLab === 'ictericias' ? 'text-white' : 'text-amber-600'}`} />
-              <span>Simulador Ictericias</span>
+              <span>Simulador ictericias</span>
             </button>
 
             <button
@@ -108,8 +108,8 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
               }`}
             >
               <Dna className={`w-3.5 h-3.5 ${selectedLab === 'carnitina' ? 'text-white' : 'text-indigo-600'}`} />
-              <span>Lanzadera de Carnitina</span>
-              <span className="text-[9px] bg-amber-400 text-amber-950 font-black px-1.5 py-0.2 rounded-full uppercase">Nuevo</span>
+              <span>Lanzadera de carnitina</span>
+              <span className="text-[9px] bg-amber-400 text-amber-950 font-bold px-1.5 py-0.2 rounded-full uppercase">Nuevo</span>
             </button>
 
             <button
@@ -121,7 +121,7 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
               }`}
             >
               <Network className={`w-3.5 h-3.5 ${selectedLab === 'integra' ? 'text-white' : 'text-teal-600'}`} />
-              <span>Integración Metabólica (Integra)</span>
+              <span>Integración metabólica (Integra)</span>
             </button>
           </div>
 
@@ -132,13 +132,13 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
             title="Ir al Parque Biomédico para jugar a minijuegos y ganar dinero"
           >
             <Trees className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Ir al Parque (Minijuegos) 💰</span>
+            <span>Ir al parque (minijuegos)</span>
           </button>
         </div>
       </div>
 
       {/* Render selected simulator */}
-      <div className="rounded-2xl overflow-hidden">
+      <div className="rounded-lg overflow-hidden">
         {selectedLab === 'randle' && <RandleCycleLab />}
         {selectedLab === 'ictericias' && <JaundiceSimulatorLab />}
         {selectedLab === 'hemostasia' && <HemostasisLab />}

@@ -74,14 +74,14 @@ export const SessionDetailModal: React.FC<SessionDetailModalProps> = ({
   const isPractice = session.activityType === 'practica';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 animate-in fade-in duration-150">
       <div
-        className="bg-white rounded-2xl max-w-lg w-full border border-amber-200 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150"
+        className="bg-white rounded-lg max-w-lg w-full border border-amber-200 shadow-lg overflow-hidden animate-in zoom-in-95 duration-150"
         role="dialog"
         aria-modal="true"
       >
         {/* Modal Top Header with Medicine Golden Yellow Accents */}
-        <div className="p-6 border-b border-amber-200 bg-gradient-to-r from-amber-50 via-yellow-50/70 to-amber-100/50 flex items-start justify-between gap-4">
+        <div className="p-6 border-b border-amber-200 bg-amber-50 flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 flex-wrap mb-1">
               <span
@@ -94,7 +94,7 @@ export const SessionDetailModal: React.FC<SessionDetailModalProps> = ({
                 {session.activityCode}
               </span>
               <span className="text-xs font-bold text-amber-950">
-                Semana {session.weekIndex} • Curso {academicYear}-{academicYear + 1}
+                Semana {session.weekIndex} • curso {academicYear}-{academicYear + 1}
               </span>
               <span className="text-xs text-slate-500">• Medicina UGR</span>
             </div>
@@ -132,7 +132,7 @@ export const SessionDetailModal: React.FC<SessionDetailModalProps> = ({
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
               <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium mb-1">
                 <Clock className="w-3.5 h-3.5 text-amber-600" />
-                <span>Horario y Turno</span>
+                <span>Horario y turno</span>
               </div>
               <p className="text-sm font-bold text-slate-900">
                 {session.timeRange}
@@ -160,7 +160,7 @@ export const SessionDetailModal: React.FC<SessionDetailModalProps> = ({
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
               <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium mb-1">
                 <Users className="w-3.5 h-3.5 text-amber-600" />
-                <span>Subgrupo y Grupo</span>
+                <span>Subgrupo y grupo</span>
               </div>
               <p className="text-sm font-bold text-slate-900">
                 Subgrupo {session.groupNumber}
@@ -175,7 +175,7 @@ export const SessionDetailModal: React.FC<SessionDetailModalProps> = ({
           <div className="p-4 rounded-xl bg-amber-50/80 border border-amber-200 flex flex-col justify-between gap-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-full bg-amber-500 text-amber-950 flex items-center justify-center font-black text-base shadow-xs shrink-0 border border-amber-600/30">
+                <div className="w-11 h-11 rounded-full bg-amber-500 text-amber-950 flex items-center justify-center font-bold text-base shadow-xs shrink-0 border border-amber-600/30">
                   {session.professor.charAt(0) || '?'}
                 </div>
                 <div>
