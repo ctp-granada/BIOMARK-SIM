@@ -80,5 +80,21 @@ service cloud.firestore {
       allow create, update: if true;
       allow delete: if isAdmin();
     }
+
+    // Activación de casos por bloques: la lee todo el alumnado; solo se cambia con la clave
+    // del profesorado. La clave viaja en una entrada de teacher_sessions escrita en la misma
+    // operación (createdAt == request.time), que nadie puede leer.
+    match /teacher_sessions/{sessionId} {
+      allow read, delete: if false;
+      allow create, update: if request.resource.data.clave == 'acido orotico'
+                            && request.resource.data.createdAt == request.time;
+    }
+
+    match /course_settings/{settingId} {
+      allow read: if true;
+      allow write: if request.resource.data.sessionId is string
+        && getAfter(/databases/$(database)/documents/teacher_sessions/$(request.resource.data.sessionId)).data.clave == 'acido orotico'
+        && getAfter(/databases/$(database)/documents/teacher_sessions/$(request.resource.data.sessionId)).data.createdAt == request.time;
+    }
   }
 }

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { ClinicalCase, OrganSystem, DifficultyLevel, UserProgress, ActiveModule } from '../../types';
+import { ClinicalCase, DifficultyLevel, UserProgress, ActiveModule } from '../../types';
+import { SYLLABUS_BLOCKS, topicsLabel } from '../../data/caseBlocks';
+import { CaseAvailability, OPEN_AVAILABILITY, getCaseBlockId, isCaseAvailable } from '../../lib/caseAvailability';
 import { CaseCard } from './CaseCard';
 import { Stethoscope, Star, ArrowLeft, ArrowRight, Coins, Gamepad2, BookOpen, Search, Filter, Heart, HelpCircle, FolderOpen, GraduationCap, Lock, Brain, Droplet, HeartPulse, TestTube, User, Zap } from 'lucide-react';
 import { HospitalDoctorWelcomeModal } from './HospitalDoctorWelcomeModal';
@@ -12,109 +14,9 @@ interface CaseListProps {
   onOpenAICaseModal?: () => void;
   userProgress?: UserProgress;
   onNavigate?: (module: ActiveModule) => void;
+  availability?: CaseAvailability;
 }
 
-interface ThematicBlock {
-  id: OrganSystem;
-  blockNumber: number;
-  title: string;
-  shortName: string;
-  iconEmoji: React.ReactNode;
-  gradient: string;
-  badgeBg: string;
-  borderHover: string;
-  accentText: string;
-  description: string;
-  curriculumTopics: string;
-  keyBiomarkers: string[];
-}
-
-const THEMATIC_BLOCKS: ThematicBlock[] = [
-  {
-    id: 'cardiac',
-    blockNumber: 1,
-    title: 'Patología cardiovascular & necrosis miocárdica',
-    shortName: 'Cardiovascular',
-    iconEmoji: <HeartPulse className="inline-block w-[1em] h-[1em]" />,
-    gradient: 'from-rose-500/10 via-red-500/5 to-transparent',
-    badgeBg: 'bg-rose-100 text-rose-800 border-rose-200',
-    borderHover: 'hover:border-rose-400 group-hover:shadow-rose-500/10',
-    accentText: 'text-rose-700',
-    description: 'Diagnóstico precoz de Síndromes Coronarios Agudos, infarto agudo de miocardio (IAMCEST/SCASEST), insuficiencia cardíaca congestiva descompensada y crisis hipertensivas.',
-    curriculumTopics: 'Cinética de necrosis miocárdica • Ventanas temporales • Péptidos natriuréticos',
-    keyBiomarkers: ['Troponina hs-cTn', 'NT-proBNP', 'CK-MB', 'Mioglobina', 'LDH-1']
-  },
-  {
-    id: 'hepatic',
-    blockNumber: 2,
-    title: 'Patología hepática, citólisis e ictericias',
-    shortName: 'Hepático / Ictericias',
-    iconEmoji: <TestTube className="inline-block w-[1em] h-[1em]" />,
-    gradient: 'from-amber-500/10 via-yellow-500/5 to-transparent',
-    badgeBg: 'bg-amber-100 text-amber-900 border-amber-200',
-    borderHover: 'hover:border-amber-400 group-hover:shadow-amber-500/10',
-    accentText: 'text-amber-800',
-    description: 'Enzimología del daño hepatocelular agudo y crónico, obstrucción biliar posthepática (coledocolitiasis), cirrosis descompensada y errores innatos de la galactosa.',
-    curriculumTopics: 'Enzimas de escape celular • Colestasis • Fraccionamiento de bilirrubina (Directa vs Indirecta)',
-    keyBiomarkers: ['ALT / GPT', 'AST / GOT', 'Bilirrubina directa / indirecta', 'Fosfatasa Alcalina', 'GGT', 'GALT']
-  },
-  {
-    id: 'metabolic',
-    blockNumber: 3,
-    title: 'Metabolismo energético, glúcidos y cetoacidosis',
-    shortName: 'Metabolismo / Glúcidos',
-    iconEmoji: <Zap className="inline-block w-[1em] h-[1em]" />,
-    gradient: 'from-emerald-500/10 via-teal-500/5 to-transparent',
-    badgeBg: 'bg-emerald-100 text-emerald-800 border-emerald-200',
-    borderHover: 'hover:border-emerald-400 group-hover:shadow-emerald-500/10',
-    accentText: 'text-emerald-800',
-    description: 'Regulación de la glucemia por insulina y glucagón, cetoacidosis diabética, hipoglucemias en ayunas (insulinoma y péptido C), beta-oxidación mitocondrial (MCAD), hipertiroidismo de Graves y déficit vitamínico (tiamina).',
-    curriculumTopics: 'Glucólisis y Gluconeogénesis • Cetogénesis • Tríada de Whipple • Vía de pentosas y TPP',
-    keyBiomarkers: ['Glucosa', 'Beta-Hidroxibutirato', 'Péptido C', 'Insulina', 'TRAb / TSI', 'Tiamina (Efecto TPP)']
-  },
-  {
-    id: 'renal',
-    blockNumber: 4,
-    title: 'Función renal, purinas (gota) y metabolismo nitrogenado',
-    shortName: 'Renal / purinas / urea',
-    iconEmoji: <Droplet className="inline-block w-[1em] h-[1em]" />,
-    gradient: 'from-blue-500/10 via-sky-500/5 to-transparent',
-    badgeBg: 'bg-blue-100 text-blue-800 border-blue-200',
-    borderHover: 'hover:border-blue-400 group-hover:shadow-blue-500/10',
-    accentText: 'text-blue-800',
-    description: 'Filtrado glomerular y daño tubular renal, artritis gotosa aguda por cristales de monourato sódico (podagra), litiasis juvenil por transportador COLA (cistinuria) y síntesis de pirimidinas (aciduria orótica).',
-    curriculumTopics: 'Aclaramiento de creatinina • Solubilidad del ácido úrico • Reabsorción tubular de aminoácidos',
-    keyBiomarkers: ['Ácido Úrico', 'Cristales UMS Sinovial', 'Cistina en Orina', 'Ácido Orótico', 'Creatinina', 'Urea']
-  },
-  {
-    id: 'pancreatic',
-    blockNumber: 5,
-    title: 'Páncreas exocrino y patología digestiva',
-    shortName: 'Páncreas / Digestivo',
-    iconEmoji: <Stethoscope className="inline-block w-[1em] h-[1em]" />,
-    gradient: 'from-purple-500/10 via-violet-500/5 to-transparent',
-    badgeBg: 'bg-purple-100 text-purple-800 border-purple-200',
-    borderHover: 'hover:border-purple-400 group-hover:shadow-purple-500/10',
-    accentText: 'text-purple-800',
-    description: 'Necrosis e inflamación del parénquima pancreático (pancreatitis aguda litiásica y alcohólica), insuficiencia exocrina pancreática y mucoviscidosis (fibrosis quística por disfunción del canal CFTR).',
-    curriculumTopics: 'Activación de cimógenos • Enzimas acinares • Regulación del canal de cloruro CFTR',
-    keyBiomarkers: ['Lipasa Sérica', 'Amilasa', 'Test de cloruro en sudor (CFTR)', 'Elastasa Fecal']
-  },
-  {
-    id: 'neuromuscular',
-    blockNumber: 6,
-    title: 'Trastornos neuromusculares, toxicología y hemoglobina',
-    shortName: 'Neuromuscular / Tóxicos',
-    iconEmoji: <Brain className="inline-block w-[1em] h-[1em]" />,
-    gradient: 'from-indigo-500/10 via-cyan-500/5 to-transparent',
-    badgeBg: 'bg-indigo-100 text-indigo-800 border-indigo-200',
-    borderHover: 'hover:border-indigo-400 group-hover:shadow-indigo-500/10',
-    accentText: 'text-indigo-800',
-    description: 'Fisiopatología de la placa motora (miastenia gravis autoinmune), inhibición irreversible de la acetilcolinesterasa por insecticidas organofosforados y hemoglobinopatías estructurales moleculares (anemia falciforme / HbS).',
-    curriculumTopics: 'Neurotransmisión colinérgica • Envejecimiento enzimático • Polimerización de hemoglobinas',
-    keyBiomarkers: ['Anticuerpos Anti-AChR', 'Colinesterasa sérica (AChE)', 'Electroforesis HbS', 'CK Total']
-  }
-];
 
 export const CaseList: React.FC<CaseListProps> = ({
   cases,
@@ -122,10 +24,11 @@ export const CaseList: React.FC<CaseListProps> = ({
   onStartChallenge,
   onOpenAICaseModal,
   userProgress,
-  onNavigate
+  onNavigate,
+  availability = OPEN_AVAILABILITY
 }) => {
-  // Block-first architecture: null = thematic blocks overview, OrganSystem = inside block
-  const [selectedBlock, setSelectedBlock] = useState<OrganSystem | null>(null);
+  // null = vista de bloques; id de bloque = dentro del bloque
+  const [selectedBlock, setSelectedBlock] = useState<string | null>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<DifficultyLevel | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showDoctorModal, setShowDoctorModal] = useState<boolean>(() => {
@@ -136,9 +39,9 @@ export const CaseList: React.FC<CaseListProps> = ({
   const currentLives = userProgress ? userProgress.lives : 3;
 
   // Filter cases when inside a selected block
-  const activeBlockConfig = THEMATIC_BLOCKS.find((b) => b.id === selectedBlock);
+  const activeBlockConfig = SYLLABUS_BLOCKS.find((b) => b.id === selectedBlock);
 
-  const blockCases = selectedBlock ? cases.filter((c) => c.system === selectedBlock) : [];
+  const blockCases = selectedBlock ? cases.filter((c) => getCaseBlockId(c.id, availability) === selectedBlock) : [];
 
   const filteredCasesInBlock = blockCases.filter((c) => {
     if (selectedDifficulty !== 'all' && c.difficulty !== selectedDifficulty) return false;
@@ -338,7 +241,7 @@ export const CaseList: React.FC<CaseListProps> = ({
                 <span>Bloques temáticos de la asignatura</span>
               </h2>
               <p className="text-xs text-slate-500">
-                Selecciona el bloque que estás cursando. Cada bloque contiene únicamente los casos clínicos de ese ámbito médico.
+                Los bloques siguen el orden del temario. El profesorado los va abriendo a medida que avanza la asignatura.
               </p>
             </div>
             <span className="text-xs font-mono font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-lg border border-slate-200 self-start sm:self-auto">
@@ -346,71 +249,65 @@ export const CaseList: React.FC<CaseListProps> = ({
             </span>
           </div>
 
-          {/* Grid of the 6 Thematic Blocks */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {THEMATIC_BLOCKS.map((block) => {
-              const casesCount = cases.filter((c) => c.system === block.id).length;
+            {SYLLABUS_BLOCKS.map((block) => {
+              const inBlock = cases.filter((c) => getCaseBlockId(c.id, availability) === block.id);
+              const openCount = inBlock.filter((c) => isCaseAvailable(c, availability)).length;
+              const locked = openCount === 0;
+              const partial = !locked && openCount < inBlock.length;
               return (
                 <div
                   key={block.id}
                   onClick={() => {
+                    if (locked) return;
                     setSelectedBlock(block.id);
                     setSelectedDifficulty('all');
                     setSearchQuery('');
                   }}
-                  className={`group bg-white rounded-xl border border-slate-200 p-5 shadow-xs transition-all duration-200 cursor-pointer flex flex-col justify-between hover:shadow-md hover:-translate-y-0.5 ${block.borderHover}`}
+                  aria-disabled={locked}
+                  className={`group bg-white rounded-xl border p-5 flex flex-col justify-between transition-all duration-200 ${
+                    locked
+                      ? 'border-slate-200 bg-slate-50 cursor-not-allowed'
+                      : 'border-slate-200 shadow-xs cursor-pointer hover:shadow-md hover:-translate-y-0.5 hover:border-emerald-400'
+                  }`}
                 >
-                  <div className="space-y-3.5">
-                    {/* Block Header Badges */}
+                  <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="px-2.5 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider bg-slate-900 text-white">
-                        BLOQUE {block.blockNumber}
+                      <span className={`px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider ${locked ? 'bg-slate-300 text-slate-700' : 'bg-slate-900 text-white'}`}>
+                        Bloque {block.number}
                       </span>
-                      <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${block.badgeBg}`}>
-                        {casesCount} {casesCount === 1 ? 'caso' : 'casos'}
-                      </span>
-                    </div>
-
-                    {/* Title with Emoji */}
-                    <div>
-                      <div className="text-2xl mb-1">{block.iconEmoji}</div>
-                      <h3 className="font-extrabold text-slate-900 text-base leading-snug group-hover:text-teal-900 transition-colors">
-                        {block.title}
-                      </h3>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-0.5 block">
-                        {block.curriculumTopics}
+                      <span className="text-[11px] font-semibold text-slate-500">
+                        {partial ? `${openCount} de ${inBlock.length} casos` : `${inBlock.length} ${inBlock.length === 1 ? 'caso' : 'casos'}`}
                       </span>
                     </div>
-
-                    {/* Summary Description */}
-                    <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
-                      {block.description}
-                    </p>
-
-                    {/* Biomarkers Tags */}
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1.5">
-                        Biomarcadores evaluados:
-                      </span>
+                      <h3 className={`font-bold text-base leading-snug ${locked ? 'text-slate-500' : 'text-slate-900'}`}>{block.title}</h3>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-0.5 block">{topicsLabel(block)}</span>
+                    </div>
+                    <p className={`text-xs leading-relaxed ${locked ? 'text-slate-400' : 'text-slate-600'}`}>{block.description}</p>
+                    {!locked && (
                       <div className="flex flex-wrap gap-1.5">
-                        {block.keyBiomarkers.map((bm, idx) => (
-                          <span
-                            key={idx}
-                            className="text-[10px] font-semibold bg-slate-50 text-slate-700 px-2 py-0.5 rounded-md border border-slate-200"
-                          >
+                        {block.keyBiomarkers.map((bm) => (
+                          <span key={bm} className="text-[10px] font-semibold bg-slate-50 text-slate-700 px-2 py-0.5 rounded-md border border-slate-200">
                             {bm}
                           </span>
                         ))}
                       </div>
-                    </div>
+                    )}
                   </div>
-
-                  {/* Card Bottom CTA Button */}
-                  <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                    <span>Acceder a los casos del bloque {block.blockNumber}</span>
-                    <div className="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center transition-colors">
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
+                  <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
+                    {locked ? (
+                      <span className="flex items-center gap-1.5 text-slate-500">
+                        <Lock className="w-3.5 h-3.5" /> Se abrirá al llegar a {topicsLabel(block).toLowerCase()}
+                      </span>
+                    ) : (
+                      <>
+                        <span className="text-slate-900 group-hover:text-emerald-700 transition-colors">Ver los casos del bloque {block.number}</span>
+                        <div className="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center transition-colors">
+                          <ArrowRight className="w-4 h-4" />
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               );
@@ -446,11 +343,10 @@ export const CaseList: React.FC<CaseListProps> = ({
             <div className="bg-white rounded-xl border border-slate-200 p-5 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="space-y-1.5 max-w-2xl">
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">{activeBlockConfig.iconEmoji}</span>
                   <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-900 text-white">
-                    BLOQUE {activeBlockConfig.blockNumber}
+                    Bloque {activeBlockConfig.number}
                   </span>
-                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${activeBlockConfig.badgeBg}`}>
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold border bg-slate-100 text-slate-700 border-slate-200">
                     {blockCases.length} casos registrados
                   </span>
                 </div>
@@ -462,7 +358,7 @@ export const CaseList: React.FC<CaseListProps> = ({
                 </p>
                 <div className="flex items-center gap-1.5 text-xs text-slate-500 pt-1">
                   <GraduationCap className="w-4 h-4 text-emerald-600" />
-                  <span className="font-medium">{activeBlockConfig.curriculumTopics}</span>
+                  <span className="font-medium">{topicsLabel(activeBlockConfig)}</span>
                 </div>
               </div>
 
@@ -513,14 +409,23 @@ export const CaseList: React.FC<CaseListProps> = ({
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredCasesInBlock.map((c) => (
-                <CaseCard
-                  key={c.id}
-                  caseData={c}
-                  onSelectCase={onSelectCase}
-                  onStartChallenge={onStartChallenge}
-                />
-              ))}
+              {filteredCasesInBlock.map((c) =>
+                isCaseAvailable(c, availability) ? (
+                  <CaseCard
+                    key={c.id}
+                    caseData={c}
+                    onSelectCase={onSelectCase}
+                    onStartChallenge={onStartChallenge}
+                  />
+                ) : (
+                  <div key={c.id} className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5 flex flex-col justify-between gap-3">
+                    <p className="text-sm font-semibold text-slate-500">{c.title}</p>
+                    <p className="text-xs text-slate-400 flex items-center gap-1.5">
+                      <Lock className="w-3.5 h-3.5" /> Aún no disponible
+                    </p>
+                  </div>
+                )
+              )}
             </div>
           )}
 

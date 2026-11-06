@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   ActiveModule,
   ClinicalCase,
@@ -56,6 +56,8 @@ import {
   retryPendingSurveys,
 } from './lib/firebase';
 import { BIOMARKERS_DATABASE } from './data/biomarkers';
+import { CaseAvailabilityModal } from './components/Teacher/CaseAvailabilityModal';
+import { getInitialAvailability, subscribeToCaseAvailability, getAvailableCases } from './lib/caseAvailability';
 import { audioService } from './utils/audioService';
 
 const STORAGE_PROGRESS_KEY = 'biomark_user_progress_v2';
@@ -111,7 +113,15 @@ export const App: React.FC = () => {
 
   // Daily Challenge State
   const [dailyState, setDailyState] = useState<DailyChallengeState | null>(() => loadDailyChallengeState());
-  const dailyCase = getDailyChallengeCase(CLINICAL_CASES_DATABASE);
+  // Casos que el profesorado ha abierto para el alumnado
+  const [caseAvailability, setCaseAvailability] = useState(() => getInitialAvailability());
+  const [caseAvailabilityOpen, setCaseAvailabilityOpen] = useState(false);
+  useEffect(() => subscribeToCaseAvailability(setCaseAvailability), []);
+  const availableCases = useMemo(() => {
+    const open = getAvailableCases(CLINICAL_CASES_DATABASE, caseAvailability);
+    return open.length > 0 ? open : CLINICAL_CASES_DATABASE;
+  }, [caseAvailability]);
+  const dailyCase = getDailyChallengeCase(availableCases);
 
   // Modals & Feedback
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -473,11 +483,11 @@ export const App: React.FC = () => {
       setIsDailyChallengeActive(false);
       return;
     }
-    const currentIndex = CLINICAL_CASES_DATABASE.findIndex(
+    const currentIndex = availableCases.findIndex(
       (c) => c.id === currentChallengeCase?.id
     );
-    const nextIndex = (currentIndex + 1) % CLINICAL_CASES_DATABASE.length;
-    setCurrentChallengeCase(CLINICAL_CASES_DATABASE[nextIndex]);
+    const nextIndex = (currentIndex + 1) % availableCases.length;
+    setCurrentChallengeCase(availableCases[nextIndex]);
     setConsultedLibraryInChallenge(false);
   };
 
@@ -531,7 +541,7 @@ export const App: React.FC = () => {
             onStartChallenge={handleStartChallenge}
             onStartDailyChallenge={handleStartDailyChallenge}
             userProgress={userProgress}
-            cases={CLINICAL_CASES_DATABASE}
+            cases={availableCases}
             onAddXP={(amt) => handleAddBonusXP(amt, 'Trivia Ciudad')}
             onEarnBudget={handleEarnBudget}
             onRechargeLife={handleRechargeLife}
@@ -547,6 +557,7 @@ export const App: React.FC = () => {
             onOpenAICaseModal={() => setAiCaseModalOpen(true)}
             userProgress={userProgress}
             onNavigate={setActiveModule}
+            availability={caseAvailability}
           />
         )}
 
@@ -689,6 +700,13 @@ export const App: React.FC = () => {
             >
               <span>Panel del profesorado</span>
             </button>
+
+            <button
+              onClick={() => setCaseAvailabilityOpen(true)}
+              className="text-xs text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+            >
+              <span>Activar casos</span>
+            </button>
           </div>
         </div>
       </footer>
@@ -774,6 +792,13 @@ export const App: React.FC = () => {
             budget: prev.budget + 100
           }));
         }}
+      />
+
+      <CaseAvailabilityModal
+        isOpen={caseAvailabilityOpen}
+        onClose={() => setCaseAvailabilityOpen(false)}
+        cases={CLINICAL_CASES_DATABASE}
+        availability={caseAvailability}
       />
 
       {/* Teaching Metrics & Quality Modal (For Professors) */}

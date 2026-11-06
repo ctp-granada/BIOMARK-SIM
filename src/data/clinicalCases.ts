@@ -626,6 +626,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     clinicalHistory: {
       patientDemographics: {
         age: 1.2,
+        ageLabel: '14 meses',
         gender: 'Masculino',
         occupation: 'Lactante'
       },
@@ -726,6 +727,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     clinicalHistory: {
       patientDemographics: {
         age: 0.01,
+        ageLabel: '4 días',
         gender: 'Masculino',
         occupation: 'Neonato'
       },
@@ -2447,6 +2449,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     clinicalHistory: {
       patientDemographics: {
         age: 14,
+        ageLabel: '14 días',
         gender: 'Femenino',
         occupation: 'Neonato (14 días de vida)'
       },
@@ -2886,6 +2889,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     clinicalHistory: {
       patientDemographics: {
         age: 11,
+        ageLabel: '11 meses',
         gender: 'Masculino',
         occupation: 'Lactante (11 meses)'
       },
@@ -2997,6 +3001,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     clinicalHistory: {
       patientDemographics: {
         age: 8,
+        ageLabel: '8 meses',
         gender: 'Masculino',
         occupation: 'Lactante (8 meses)'
       },

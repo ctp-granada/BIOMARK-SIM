@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ClinicalCase, UserProgress } from '../../types';
+import { ClinicalCase, UserProgress, formatPatientAge } from '../../types';
 import { DailyChallengeState, getFormattedDailyDate } from '../../utils/dailyChallenge';
 import { Star, Clock, Zap, CheckCircle2, ArrowRight, Flame, ShieldAlert, Trophy, Calendar, AlertTriangle, Stethoscope, Heart, Timer, Award, Activity, User, RefreshCw, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -177,7 +177,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
                 Demografía
               </div>
               <div className="font-bold text-slate-800 mt-1">
-                {dailyCase.clinicalHistory.patientDemographics.age} años • {dailyCase.clinicalHistory.patientDemographics.gender}
+                {formatPatientAge(dailyCase.clinicalHistory.patientDemographics)} • {dailyCase.clinicalHistory.patientDemographics.gender}
               </div>
             </div>
 

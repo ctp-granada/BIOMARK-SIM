@@ -77,6 +77,8 @@ export interface DifferentialDiagnosis {
 export interface ClinicalHistory {
   patientDemographics: {
     age: number;
+    /** Texto de la edad cuando no se expresa en años (p. ej. «14 días») */
+    ageLabel?: string;
     gender: string;
     occupation?: string;
   };
@@ -208,4 +210,9 @@ export interface UserProgress {
   systemStats: Record<OrganSystem, { attempted: number; correct: number }>;
   history: CaseAttemptRecord[];
   unlockedBadges?: string[];
+}
+
+
+export function formatPatientAge(d: { age: number; ageLabel?: string }): string {
+  return d.ageLabel ?? `${d.age} años`;
 }
