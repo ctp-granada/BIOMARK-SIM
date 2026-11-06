@@ -15,14 +15,14 @@ import {
   serverTimestamp,
   Firestore
 } from 'firebase/firestore';
-import firebaseAppletConfig from '../../firebase-applet-config.json';
+import firebaseConfig from '../../firebase-config.json';
 import { SatisfactionFeedback } from '../utils/satisfactionService';
 import { UserProgress, CaseAttemptRecord } from '../types';
 
-const app = initializeApp(firebaseAppletConfig);
+const app = initializeApp(firebaseConfig);
 
-export const db: Firestore = (firebaseAppletConfig as any).firestoreDatabaseId
-  ? getFirestore(app, (firebaseAppletConfig as any).firestoreDatabaseId)
+export const db: Firestore = (firebaseConfig as any).firestoreDatabaseId
+  ? getFirestore(app, (firebaseConfig as any).firestoreDatabaseId)
   : getFirestore(app);
 
 export enum OperationType {
@@ -69,24 +69,86 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
   return errInfo;
 }
 
+const PENDING_SURVEYS_KEY = 'biomark_pending_surveys';
+const CLOUD_TIMEOUT_MS = 12000;
+
+// Sin conexión, Firestore deja la escritura en cola y la promesa no se resuelve;
+// pasado un tiempo prudencial la damos por fallida.
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('Tiempo de espera agotado al contactar con Firebase')), ms);
+    promise.then(
+      (value) => { clearTimeout(timer); resolve(value); },
+      (err) => { clearTimeout(timer); reject(err); }
+    );
+  });
+}
+
+function readPendingSurveys(): SatisfactionFeedback[] {
+  try {
+    return JSON.parse(localStorage.getItem(PENDING_SURVEYS_KEY) || '[]');
+  } catch {
+    return [];
+  }
+}
+
+function writePendingSurveys(list: SatisfactionFeedback[]) {
+  try {
+    if (list.length) localStorage.setItem(PENDING_SURVEYS_KEY, JSON.stringify(list));
+    else localStorage.removeItem(PENDING_SURVEYS_KEY);
+  } catch {}
+}
+
+export function queuePendingSurvey(survey: SatisfactionFeedback) {
+  const list = readPendingSurveys().filter((s) => s.id !== survey.id);
+  writePendingSurveys([...list, survey]);
+}
+
+export function countPendingSurveys(): number {
+  return readPendingSurveys().length;
+}
+
+// Cada encuesta se guarda con su propio id, de modo que reintentar nunca crea duplicados.
 export async function saveSatisfactionSurveyToCloud(
   survey: SatisfactionFeedback
 ): Promise<string> {
   const profile = getOrCreateStudentProfile();
+  const docRef = doc(db, 'satisfaction_surveys', survey.id);
   try {
-    const docRef = await addDoc(collection(db, 'satisfaction_surveys'), {
-      ...survey,
-      studentId: profile.studentId,
-      studentName: profile.name,
-      uploadedAt: serverTimestamp(),
-      clientTimestamp: new Date().toISOString()
-    });
+    const existing = await withTimeout(getDocFromServer(docRef), CLOUD_TIMEOUT_MS);
+    if (existing.exists()) return docRef.id;
+    await withTimeout(
+      setDoc(docRef, {
+        ...survey,
+        studentId: profile.studentId,
+        studentName: profile.name,
+        uploadedAt: serverTimestamp(),
+        clientTimestamp: new Date().toISOString()
+      }),
+      CLOUD_TIMEOUT_MS
+    );
     return docRef.id;
   } catch (error) {
     console.warn('Error al guardar encuesta en Firestore:', error);
     handleFirestoreError(error, OperationType.CREATE, 'satisfaction_surveys');
     throw error;
   }
+}
+
+// Reenvía las encuestas que no llegaron a Firebase. Devuelve cuántas siguen pendientes.
+export async function retryPendingSurveys(): Promise<number> {
+  const pending = readPendingSurveys();
+  if (!pending.length) return 0;
+  const stillPending: SatisfactionFeedback[] = [];
+  for (const survey of pending) {
+    try {
+      await saveSatisfactionSurveyToCloud(survey);
+    } catch {
+      stillPending.push(survey);
+    }
+  }
+  writePendingSurveys(stillPending);
+  return stillPending.length;
 }
 
 export async function fetchSatisfactionSurveysFromCloud(): Promise<SatisfactionFeedback[]> {
@@ -634,12 +696,12 @@ export interface FirebaseConfig {
 
 export function getSavedFirebaseConfig(): FirebaseConfig {
   return {
-    apiKey: (firebaseAppletConfig as any).apiKey || '',
-    authDomain: (firebaseAppletConfig as any).authDomain || '',
-    projectId: (firebaseAppletConfig as any).projectId || '',
-    storageBucket: (firebaseAppletConfig as any).storageBucket || '',
-    messagingSenderId: (firebaseAppletConfig as any).messagingSenderId || '',
-    appId: (firebaseAppletConfig as any).appId || ''
+    apiKey: (firebaseConfig as any).apiKey || '',
+    authDomain: (firebaseConfig as any).authDomain || '',
+    projectId: (firebaseConfig as any).projectId || '',
+    storageBucket: (firebaseConfig as any).storageBucket || '',
+    messagingSenderId: (firebaseConfig as any).messagingSenderId || '',
+    appId: (firebaseConfig as any).appId || ''
   };
 }
 

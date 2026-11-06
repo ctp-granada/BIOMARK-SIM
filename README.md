@@ -39,7 +39,7 @@ npm start
 
 Otros scripts: `npm run lint` (comprobación de tipos) y `npm run clean`.
 
-La configuración de Firebase está en `firebase-applet-config.json`. Las variables de `.env.example` solo son necesarias para el generador de casos (ver más abajo).
+La configuración de Firebase está en `firebase-config.json`. Las variables de `.env.example` solo son necesarias para el generador de casos (ver más abajo).
 
 ## Estructura
 
