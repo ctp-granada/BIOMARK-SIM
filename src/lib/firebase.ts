@@ -15,14 +15,14 @@ import {
   serverTimestamp,
   Firestore
 } from 'firebase/firestore';
-import firebaseAppletConfig from '../../firebase-applet-config.json';
+import firebaseConfig from '../../firebase-config.json';
 import { SatisfactionFeedback } from '../utils/satisfactionService';
 import { UserProgress, CaseAttemptRecord } from '../types';
 
-const app = initializeApp(firebaseAppletConfig);
+const app = initializeApp(firebaseConfig);
 
-export const db: Firestore = (firebaseAppletConfig as any).firestoreDatabaseId
-  ? getFirestore(app, (firebaseAppletConfig as any).firestoreDatabaseId)
+export const db: Firestore = (firebaseConfig as any).firestoreDatabaseId
+  ? getFirestore(app, (firebaseConfig as any).firestoreDatabaseId)
   : getFirestore(app);
 
 export enum OperationType {
@@ -634,12 +634,12 @@ export interface FirebaseConfig {
 
 export function getSavedFirebaseConfig(): FirebaseConfig {
   return {
-    apiKey: (firebaseAppletConfig as any).apiKey || '',
-    authDomain: (firebaseAppletConfig as any).authDomain || '',
-    projectId: (firebaseAppletConfig as any).projectId || '',
-    storageBucket: (firebaseAppletConfig as any).storageBucket || '',
-    messagingSenderId: (firebaseAppletConfig as any).messagingSenderId || '',
-    appId: (firebaseAppletConfig as any).appId || ''
+    apiKey: (firebaseConfig as any).apiKey || '',
+    authDomain: (firebaseConfig as any).authDomain || '',
+    projectId: (firebaseConfig as any).projectId || '',
+    storageBucket: (firebaseConfig as any).storageBucket || '',
+    messagingSenderId: (firebaseConfig as any).messagingSenderId || '',
+    appId: (firebaseConfig as any).appId || ''
   };
 }
 
