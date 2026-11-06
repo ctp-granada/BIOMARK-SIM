@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ClinicalCase } from '../../types';
+import { ClinicalCase, formatPatientAge } from '../../types';
 import { X, User, Activity, FileText, Heart, AlertCircle, Star, ArrowRight, CheckCircle2, GraduationCap, ChevronDown, ChevronUp, BookOpen } from 'lucide-react';
 
 interface CaseDetailModalProps {
@@ -52,7 +52,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
               <div>
                 <span className="text-xs font-bold uppercase text-slate-400 block">Filiación del paciente</span>
                 <span className="font-bold text-slate-900">
-                  {caseData.clinicalHistory.patientDemographics.gender}, {caseData.clinicalHistory.patientDemographics.age} años — {caseData.clinicalHistory.patientDemographics.occupation}
+                  {caseData.clinicalHistory.patientDemographics.gender}, {formatPatientAge(caseData.clinicalHistory.patientDemographics)} — {caseData.clinicalHistory.patientDemographics.occupation}
                 </span>
               </div>
             </div>

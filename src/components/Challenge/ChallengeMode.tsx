@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ClinicalCase, BiomarkerOption, UserProgress } from '../../types';
+import { ClinicalCase, BiomarkerOption, UserProgress, formatPatientAge } from '../../types';
 import { BIOMARKERS_DATABASE } from '../../data/biomarkers';
 import { getBudgetInfo, getStreakMultiplier } from '../../utils/gamification';
 import { MultiBiomarkerLabPanel } from './MultiBiomarkerLabPanel';
@@ -290,7 +290,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
             <div className="flex items-center gap-2">
               <User className="w-3.5 h-3.5 text-slate-400" />
               <span className="font-bold text-slate-900">
-                {currentCase.clinicalHistory.patientDemographics.gender}, {currentCase.clinicalHistory.patientDemographics.age} años
+                {currentCase.clinicalHistory.patientDemographics.gender}, {formatPatientAge(currentCase.clinicalHistory.patientDemographics)}
               </span>
               <span className="text-slate-400">•</span>
               <span className="italic text-slate-600 line-clamp-1">
@@ -326,7 +326,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
                 </div>
                 <div className="px-3 py-1.5 bg-slate-50 rounded-xl border border-slate-200 text-xs font-medium text-slate-700">
                   <span className="font-bold text-slate-900">
-                    {currentCase.clinicalHistory.patientDemographics.gender}, {currentCase.clinicalHistory.patientDemographics.age} años
+                    {currentCase.clinicalHistory.patientDemographics.gender}, {formatPatientAge(currentCase.clinicalHistory.patientDemographics)}
                   </span>
                   <span className="text-slate-400 mx-1.5">•</span>
                   <span>{currentCase.clinicalHistory.patientDemographics.occupation}</span>

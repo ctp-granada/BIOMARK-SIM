@@ -1,5 +1,5 @@
 import React from 'react';
-import { ClinicalCase, OrganSystem } from '../../types';
+import { ClinicalCase, OrganSystem, formatPatientAge } from '../../types';
 import { User, Activity, ChevronRight, Dna } from 'lucide-react';
 
 interface CaseCardProps {
@@ -53,7 +53,7 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseData, onSelectCase, onSt
           <div className="flex items-center space-x-2 text-slate-700 font-medium bg-slate-50 p-2.5 rounded-xl border border-slate-100">
             <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             <span>
-              {caseData.clinicalHistory.patientDemographics.gender}, {caseData.clinicalHistory.patientDemographics.age} años ({caseData.clinicalHistory.patientDemographics.occupation})
+              {caseData.clinicalHistory.patientDemographics.gender}, {formatPatientAge(caseData.clinicalHistory.patientDemographics)} ({caseData.clinicalHistory.patientDemographics.occupation})
             </span>
           </div>
 
