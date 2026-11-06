@@ -1,9 +1,7 @@
 import { ClinicalCase } from '../types';
 
 export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
-  // ==========================================
   // CASOS CARDÍACOS
-  // ==========================================
   {
     id: 'case_cardiac_01',
     title: 'Tomás B.: Dolor opresivo en el pecho y sudor frío',
@@ -107,9 +105,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     expertClinicalKey: 'Regla de Oro en el Dolor de Pecho: La Troponina Cardíaca ultrasensible es el único marcador con suficiente rapidez (se eleva a las 2-3 horas) y especificidad cardíaca para demostrar que las células del corazón se están rompiendo, permitiendo distinguir un infarto con necrosis de una angina de pecho.'
   },
 
-  // ==========================================
   // CASOS HEPÁTICOS Y DE COLESTASIS (ICTERICIAS)
-  // ==========================================
   {
     id: 'case_hepatic_01',
     title: 'Carmen R.: Coloración amarillenta y fatiga intensa',
@@ -413,9 +409,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     essentialBiomarkerIds: ['bm_alt', 'bm_ast']
   },
 
-  // ==========================================
   // CASOS METABÓLICOS Y BETA-OXIDACIÓN
-  // ==========================================
   {
     id: 'case_metabolic_01',
     title: 'Javier T.: Manchas oscuras en el cuello y aumento de peso',
@@ -715,9 +709,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     expertClinicalKey: 'La Hipoglucemia Hipocetósica (Glucosa baja + β-hidroxibutirato bajo + Ácidos Grasos Libres altos) es el sello distintivo de los Defectos en la Beta-Oxidación de Ácidos Grasos (MCADD).'
   },
 
-  // ==========================================
   // CASOS RENALES, CICLO DE LA UREA E HIPERURICEMIAS
-  // ==========================================
   {
     id: 'case_renal_01',
     title: 'Bebé Mateo (4 días): Dificultad para despertar y vómitos tras tomar leche',
@@ -1017,9 +1009,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     essentialBiomarkerIds: ['bm_acido_urico', 'bm_ldh']
   },
 
-  // ==========================================
   // CASOS PANCREÁTICOS
-  // ==========================================
   {
     id: 'case_pancreatic_01',
     title: 'Andrés K.: Dolor fuerte de estómago en cinturón y sangre lechosa',
@@ -1316,9 +1306,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     ],
     expertClinicalKey: 'Ante una anemia ferropénica refractaria al hierro oral en un adulto joven con síntomas digestivos o antecedentes autoinmunes (Tiroiditis de Hashimoto), el tamizaje serológico primario de elección es el anticuerpo Anti-Transglutaminasa Tisular IgA (tTG-IgA) junto a la determinación de IgA Total sérica.'
   },
-  // ==========================================
   // CASOS NEUROMUSCULARES Y SEÑALIZACIÓN CELULAR
-  // ==========================================
   {
     id: 'case_neuromuscular_01',
     title: 'Dra. Sofía R.: Párpados caídos y visión doble al final de la jornada',
@@ -1779,9 +1767,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     essentialBiomarkerIds: ['bm_fasting_insulin']
   },
 
-  // ==========================================
   // BLOQUE 1: TRASTORNOS ENZIMÁTICOS, TOXICOLOGÍA Y ENZIMOPATÍAS (CASOS ADAPTADOS DIDÁCTICOS)
-  // ==========================================
   {
     id: 'case_marks_gota_01',
     title: 'Matilde C.: Dolor agudo e inflamación en el dedo gordo tras una cena abundante',
@@ -2221,9 +2207,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     molecularAlteration: 'Modificación con ADP-ribosa en la proteína Gαs que le impide hidrolizar GTP a GDP'
   },
 
-  // ==========================================
   // BLOQUE: PATOLOGÍA MOLECULAR Y TRANSPORTE DE MEMBRANA
-  // ==========================================
   {
     id: 'case_marks_falciforme_01',
     title: 'Mateo R. (19 años): Dolor agudo en huesos y pecho tras partido de fútbol en día frío',

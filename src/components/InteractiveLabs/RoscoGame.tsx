@@ -222,9 +222,7 @@ const ROSCO_QUESTIONS: RoscoQuestion[] = [
   }
 ];
 
-// ==========================================
 // FUNCIÓN DE NORMALIZACIÓN DE CADENAS
-// ==========================================
 /**
  * Normaliza una cadena de texto para la validación permisiva de respuestas:
  * 1. Convierte a minúsculas (.toLowerCase())

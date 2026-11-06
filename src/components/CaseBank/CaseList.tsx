@@ -229,9 +229,7 @@ export const CaseList: React.FC<CaseListProps> = ({
         </div>
       )}
 
-      {/* ========================================================================= */}
       {/* DOCTOR WELCOME BANNER: EXPLAINING CASE BANK & HOSPITAL BUDGET (REQUEST 5)  */}
-      {/* ========================================================================= */}
       <div className="bg-teal-600/10 border border-teal-200 rounded-xl p-5 sm:p-6 shadow-xs relative overflow-hidden">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-5">
           {/* Doctor Vector Artwork Drawing */}
@@ -330,9 +328,7 @@ export const CaseList: React.FC<CaseListProps> = ({
         </div>
       </div>
 
-      {/* ========================================================================= */}
       {/* VIEW 1: THEMATIC BLOCKS FIRST (REQUEST 6)                                 */}
-      {/* ========================================================================= */}
       {selectedBlock === null ? (
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
@@ -422,9 +418,7 @@ export const CaseList: React.FC<CaseListProps> = ({
           </div>
         </div>
       ) : (
-        /* ========================================================================= */
         /* VIEW 2: CASES OF THE SELECTED BLOCK (REQUEST 6)                           */
-        /* ========================================================================= */
         <div className="space-y-6">
           {/* Back Navigation Button to All Blocks */}
           <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">

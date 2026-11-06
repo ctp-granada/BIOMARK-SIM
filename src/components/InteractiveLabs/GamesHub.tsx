@@ -260,9 +260,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
     }, 4500);
   };
 
-  // -------------------------------------------------------------
   // GAME 1: REANIMADOR BIOQUÍMICO (TRIVIA)
-  // -------------------------------------------------------------
   const [triviaQuestions, setTriviaQuestions] = useState<EmergencyQuestion[]>([]);
   const [triviaIdx, setTriviaIdx] = useState<number>(0);
   const [selectedTriviaOption, setSelectedTriviaOption] = useState<number | null>(null);
@@ -323,9 +321,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
     }
   };
 
-  // -------------------------------------------------------------
   // GAME 2: CLASIFICADOR FLASH DE BIOMARCADORES (30s)
-  // -------------------------------------------------------------
   const [classifierActive, setClassifierActive] = useState<boolean>(false);
   const [classifierTimeLeft, setClassifierTimeLeft] = useState<number>(30);
   const [classifierQueue, setClassifierQueue] = useState<ClassifierBiomarker[]>([]);
@@ -411,9 +407,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
     }, 250);
   };
 
-  // -------------------------------------------------------------
   // GAME 3: MEMORIA DE ENZIMAS & DIAGNÓSTICO (PAREJAS)
-  // -------------------------------------------------------------
   interface CardItem {
     cardId: string;
     pairId: string;
@@ -825,9 +819,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         </button>
       </div>
 
-      {/* ========================================================= */}
       {/* 0. EL ROSCO METABÓLICO (PASAPALABRA) */}
-      {/* ========================================================= */}
       {activeTab === 'rosco' && (
         <RoscoGame
           currentBudget={userProgress.budget}
@@ -837,9 +829,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         />
       )}
 
-      {/* ========================================================= */}
       {/* SOPA DE LETRAS DE BIOMARCADORES */}
-      {/* ========================================================= */}
       {activeTab === 'sopa' && (
         <WordSearchGame
           onEarnBudget={onEarnBudget}
@@ -848,9 +838,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         />
       )}
 
-      {/* ========================================================= */}
       {/* CRUCIGRAMA DE LABORATORIO CLÍNICO */}
-      {/* ========================================================= */}
       {activeTab === 'crucigrama' && (
         <CrosswordGame
           onEarnBudget={onEarnBudget}
@@ -859,9 +847,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         />
       )}
 
-      {/* ========================================================= */}
       {/* 1. TRIVIA REANIMADOR */}
-      {/* ========================================================= */}
       {activeTab === 'trivia' && (
         <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-6">
           <div className="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -997,9 +983,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         </div>
       )}
 
-      {/* ========================================================= */}
       {/* 2. CLASIFICADOR FLASH (30s) */}
-      {/* ========================================================= */}
       {activeTab === 'clasificador' && (
         <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-6">
           <div className="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -1172,9 +1156,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         </div>
       )}
 
-      {/* ========================================================= */}
       {/* 3. PAREJAS DE DIAGNÓSTICO (MEMORY) */}
-      {/* ========================================================= */}
       {activeTab === 'memoria' && (
         <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-6">
           <div className="flex items-center justify-between pb-4 border-b border-slate-100">

@@ -661,7 +661,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
       {/* ========================================================================= */}
       {/* 3. MODAL / ENTRANCE DRAWER CUANDO SE ELIGE EN EL MAPA (HOSPITAL/BIBLIO/PARQUE) */}
-      {/* ========================================================================= */}
       {currentModalData && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 animate-in fade-in duration-200">
           <div className="bg-white rounded-xl max-w-3xl w-full border border-slate-200 shadow-lg overflow-hidden flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-200">
