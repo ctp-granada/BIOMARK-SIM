@@ -65,7 +65,7 @@ export const DailyTimerHUD: React.FC<DailyTimerHUDProps> = ({
             <div className="flex items-center gap-2 flex-wrap">
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-400 text-slate-950 flex items-center gap-1 shadow-xs">
                 <Star className="w-3 h-3 text-slate-950" />
-                Reto Clínico Diario
+                Reto clínico diario
               </span>
               {!isExpired && (
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-indigo-500/30 border border-indigo-400 text-indigo-200 flex items-center gap-1">

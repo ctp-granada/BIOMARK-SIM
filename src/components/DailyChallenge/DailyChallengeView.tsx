@@ -55,7 +55,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
             <div className="flex items-center gap-2 flex-wrap">
               <span className="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-400 text-slate-950 flex items-center gap-1.5 shadow-md">
                 <Star className="w-3.5 h-3.5 fill-slate-950" />
-                Reto Clínico Diario
+                Reto clínico diario
               </span>
 
               <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-white/10 text-indigo-200 border border-white/20 flex items-center gap-1">
@@ -65,12 +65,12 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
 
               <span className="px-3 py-1 rounded-full text-[11px] font-extrabold uppercase bg-red-500/20 text-red-300 border border-red-400/40 flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5" />
-                Límite 120 Segundos
+                Límite 120 segundos
               </span>
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-              Caso de Alta Complejidad del Día
+              Caso de alta complejidad del día
             </h1>
 
             <p className="text-sm sm:text-base text-indigo-100/90 leading-relaxed">
@@ -130,7 +130,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
                 <span className="text-[11px] font-bold text-slate-900 tracking-wide uppercase">
-                  120 Seg • Bonificación 2.0x XP
+                  120 Seg • bonificación 2.0x XP
                 </span>
               </motion.button>
             )}
@@ -151,7 +151,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
               </div>
               <div>
                 <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
-                  Ficha del Paciente del Día
+                  Ficha del paciente del día
                 </span>
                 <h3 className="text-lg font-bold text-slate-900">
                   {dailyCase.title}
@@ -184,7 +184,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
             <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs sm:col-span-2">
               <div className="text-slate-400 font-bold uppercase text-[10px] flex items-center gap-1">
                 <Activity className="w-3 h-3 text-blue-500" />
-                Motivo de Consulta Urgente
+                Motivo de consulta urgente
               </div>
               <div className="font-bold text-slate-800 mt-1 line-clamp-1">
                 {dailyCase.clinicalHistory.chiefComplaint}
@@ -195,7 +195,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
           {/* Present Illness */}
           <div className="space-y-2">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-              Enfermedad Actual
+              Enfermedad actual
             </h4>
             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 text-sm text-slate-700 leading-relaxed">
               {dailyCase.clinicalHistory.presentIllness}
@@ -205,7 +205,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
           {/* Vital Signs & Initial Physical Exam */}
           <div className="space-y-2">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-              Constantes Vitales y Exploración Física Inicial
+              Constantes vitales y exploración física inicial
             </h4>
             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 text-xs text-slate-700 space-y-2">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pb-2 border-b border-slate-200/60 font-semibold text-slate-800">
@@ -242,7 +242,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
           <div className="bg-white rounded-lg p-5 border border-slate-200 shadow-xs space-y-3">
             <h3 className="text-sm font-bold text-slate-900 uppercase tracking-tight flex items-center gap-2">
               <Award className="w-4 h-4 text-amber-500" />
-              Reglas del Reto Diario
+              Reglas del reto diario
             </h3>
 
             <ul className="space-y-2.5 text-xs text-slate-600">
@@ -271,7 +271,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
           <div className="bg-slate-900 text-white rounded-lg p-5 shadow-xs space-y-4">
             <h3 className="text-xs font-bold uppercase tracking-wider text-indigo-300 flex items-center gap-1.5">
               <Flame className="w-4 h-4 text-orange-400 fill-orange-400" />
-              Tu Rendimiento de Retos
+              Tu rendimiento de retos
             </h3>
 
             <div className="grid grid-cols-2 gap-3">

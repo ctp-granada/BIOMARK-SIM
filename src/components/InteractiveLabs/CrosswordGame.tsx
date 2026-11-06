@@ -549,7 +549,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
                     className="px-5 py-3 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/30 flex items-center gap-2 cursor-pointer transition-all active:scale-95"
                   >
                     <Wallet className="w-4 h-4" />
-                    <span>Cobrar Recompensa (+{Math.max(250, 300 - revealedCount * 10)} € & +150 XP)</span>
+                    <span>Cobrar recompensa (+{Math.max(250, 300 - revealedCount * 10)} € & +150 XP)</span>
                   </button>
                 ) : (
                   <div className="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs flex items-center gap-2">

@@ -133,7 +133,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
               <span className="text-amber-700/80 font-normal">{year}</span>
             </h2>
             <p className="text-xs text-slate-600">
-              2º Semestre • Prácticas (LAB L-5/6) y Seminarios (AULA S3) • Grupos A y B
+              2º Semestre • prácticas (LAB L-5/6) y seminarios (AULA S3) • grupos A y B
             </p>
           </div>
         </div>

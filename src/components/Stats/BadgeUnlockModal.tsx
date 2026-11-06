@@ -62,7 +62,7 @@ export const BadgeUnlockModal: React.FC<BadgeUnlockModalProps> = ({
               onClick={onClose}
               className="flex-1 py-3 px-4 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm hover:bg-slate-50 transition-colors"
             >
-              Continuar Guardia
+              Continuar guardia
             </button>
             {onViewGallery && (
               <button

@@ -340,7 +340,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-base sm:text-lg font-bold text-slate-950">
-                  Panel de Coordinación y Asignación Docente
+                  Panel de coordinación y asignación docente
                 </h2>
                 {coordinatorEmail && (
                   <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-950 text-amber-300">
@@ -380,7 +380,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                   <Lock className="w-6 h-6 text-amber-700" />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900">
-                  Acceso para Organización y Asignación Docente
+                  Acceso para organización y asignación docente
                 </h3>
                 <p className="text-xs text-slate-600">
                   Selecciona tu usuario de la lista de profesores de Bioquímica Médica e introduce la clave para organizar y asignar los días y turnos.
@@ -446,7 +446,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                   type="submit"
                   className="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs shadow-xs transition-colors border border-amber-600/30"
                 >
-                  Acceder a la Organización
+                  Acceder a la organización
                 </button>
               </form>
             </div>
@@ -465,7 +465,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
-                    1. Asignar Días, Profesores y Turnos
+                    1. Asignar días, profesores y turnos
                   </button>
 
                   <button
@@ -477,7 +477,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
-                    2. Plantilla de Profesores ({professorsList.length})
+                    2. Plantilla de profesores ({professorsList.length})
                   </button>
 
                   <button
@@ -489,7 +489,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
-                    3. Guardar / Compartir
+                    3. Guardar / compartir
                   </button>
                 </div>
 
@@ -727,7 +727,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-slate-700 mb-1 font-semibold">
-                          Nombre y Apellidos:
+                          Nombre y apellidos:
                         </label>
                         <input
                           type="text"
@@ -848,7 +848,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                   {/* Backup / Export JSON Card */}
                   <div className="p-4 bg-white border border-slate-200 rounded-xl space-y-3">
                     <span className="font-bold text-slate-900 block">
-                      Copia de Seguridad y Archivo para Años Siguientes (JSON)
+                      Copia de seguridad y archivo para años siguientes (JSON)
                     </span>
                     <p className="text-slate-600">
                       Descarga un archivo con toda la asignación docente. En los años siguientes podrás volver a cargarlo en un clic.
@@ -881,7 +881,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                     <div className="flex items-center gap-2">
                       <KeyRound className="w-4 h-4 text-amber-700 shrink-0" />
                       <span className="font-bold text-slate-900">
-                        Cambiar Clave de Acceso de Coordinación
+                        Cambiar clave de acceso de coordinación
                       </span>
                     </div>
 
@@ -966,7 +966,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
             onClick={onClose}
             className="px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs transition-colors"
           >
-            Cerrar Ventana
+            Cerrar ventana
           </button>
         </div>
       </div>

@@ -159,7 +159,7 @@ service cloud.firestore {
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-bold tracking-tight">Centro de control Firebase</h2>
                 <span className="bg-amber-500/30 text-amber-100 text-xs px-2 py-0.5 rounded-full font-medium border border-amber-400/30">
-                  Firestore & Hosting UGR
+                  Firestore & hosting UGR
                 </span>
               </div>
               <p className="text-xs text-amber-100/90 mt-0.5">
@@ -353,7 +353,7 @@ service cloud.firestore {
                   <div>
                     <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                       <FolderTree className="w-4 h-4 text-orange-600" />
-                      Arquitectura NoSQL de Colecciones en Firestore
+                      Arquitectura NoSQL de colecciones en Firestore
                     </h3>
                     <p className="text-xs text-slate-600 mt-1">
                       Estructura diseñada para la Facultad de Medicina UGR optimizada para consultas en tiempo real:

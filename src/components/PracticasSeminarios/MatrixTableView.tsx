@@ -60,7 +60,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
         <div>
           <div className="flex items-center gap-2 flex-wrap">
             <h2 className="text-lg font-bold text-slate-950">
-              Cronograma Oficial de Prácticas y Seminarios
+              Cronograma oficial de prácticas y seminarios
             </h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-400 text-amber-950 border border-amber-500/40">
               Facultad de Medicina • UGR
@@ -494,7 +494,7 @@ export const MatrixTableView: React.FC<MatrixTableViewProps> = ({
         <div className="flex items-center gap-3">
           <span className="inline-flex items-center gap-1.5 font-bold text-slate-900">
             <span className="w-3 h-3 rounded-full bg-lime-400 border border-lime-600 inline-block"></span>
-            Subgrupos 1 al 15 (Grupos A y B)
+            Subgrupos 1 al 15 (grupos A y B)
           </span>
         </div>
       </div>

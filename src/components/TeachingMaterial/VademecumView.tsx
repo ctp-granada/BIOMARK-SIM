@@ -117,7 +117,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
               )}
               <span className="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-blue-600/30 text-blue-300 border border-blue-500/30 flex items-center gap-1.5">
                 <FileText className="w-3.5 h-3.5 text-blue-300" />
-                Vademécum Clínico Analítico
+                Vademécum clínico analítico
               </span>
               <span className="px-2.5 py-0.5 rounded text-[11px] font-semibold text-slate-300 bg-slate-900 border border-slate-800">
                 Departamento de Bioquímica Médica • Facultad de Medicina UGR
@@ -259,7 +259,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
                   {/* Reference Values Quick Box */}
                   <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-xs space-y-1">
                     <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                      Rango de Referencia Normal
+                      Rango de referencia normal
                     </div>
                     <div className="font-semibold text-slate-800 text-[11px] truncate" title={bm.referenceValues.conventional}>
                       {bm.referenceValues.conventional}
@@ -340,7 +340,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
                 </h2>
                 {selectedBiomarker.isoforms && (
                   <p className="text-xs text-slate-500 font-mono">
-                    Isoformas / Subtipos: {selectedBiomarker.isoforms}
+                    Isoformas / subtipos: {selectedBiomarker.isoforms}
                   </p>
                 )}
               </div>
@@ -358,7 +358,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-4 rounded-lg bg-blue-50/60 border border-blue-100 space-y-1.5">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-800 block">
-                  Valores de Referencia Fisiológicos
+                  Valores de referencia fisiológicos
                 </span>
                 <div className="text-sm font-bold text-slate-900">
                   {selectedBiomarker.referenceValues.conventional}
@@ -372,7 +372,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
 
               <div className="p-4 rounded-lg bg-amber-50/60 border border-amber-100 space-y-1.5">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 block">
-                  Punto de Corte Diagnóstico (Cutoff)
+                  Punto de corte diagnóstico (cutoff)
                 </span>
                 <div className="text-sm font-bold text-amber-950 font-mono">
                   {selectedBiomarker.diagnosticParams.optimalCutoff}
@@ -480,7 +480,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
                 onClick={() => setSelectedBiomarker(null)}
                 className="px-5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors cursor-pointer"
               >
-                Cerrar Ficha
+                Cerrar ficha
               </button>
             </div>
           </div>

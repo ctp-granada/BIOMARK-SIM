@@ -40,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div>
               <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900">
-                  Bioquímica Médica • Prácticas y Seminarios
+                  Bioquímica Médica • prácticas y seminarios
                 </h1>
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
                   <Star className="w-3 h-3 text-amber-600" />

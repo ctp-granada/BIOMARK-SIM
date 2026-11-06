@@ -103,7 +103,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
           )}
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-rose-600 block">
-              Resolución de Caso Clínico #{currentCase.id}
+              Resolución de caso clínico #{currentCase.id}
             </span>
             <h2 className="text-sm sm:text-base font-bold text-slate-900 leading-tight">
               {currentCase.title}
@@ -217,7 +217,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
           <div className="flex justify-between items-center text-[10px] mb-1">
             <span className="font-semibold text-slate-300 flex items-center gap-1">
               <Wallet className="w-3.5 h-3.5 text-emerald-400" />
-              Presupuesto de Guardia
+              Presupuesto de guardia
             </span>
             <span className={`font-mono font-bold ${budgetInfo.isRedAlert ? 'text-rose-400 ' : 'text-slate-200'}`}>
               {budgetInfo.statusText}
@@ -257,7 +257,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
             </div>
             <div>
               <h2 className="text-xs font-bold uppercase text-slate-800 tracking-wider flex items-center gap-2">
-                <span>Caso Clínico #{currentCase.id.slice(-4).toUpperCase()}</span>
+                <span>Caso clínico #{currentCase.id.slice(-4).toUpperCase()}</span>
                 <span className="text-slate-400 font-normal">•</span>
                 <span className="text-slate-600 font-semibold">{currentCase.title}</span>
               </h2>
@@ -320,7 +320,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
               <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
-                    Paciente en Consulta / Guardia
+                    Paciente en consulta / guardia
                   </span>
                   <h3 className="text-base sm:text-lg font-bold text-slate-900">{currentCase.title}</h3>
                 </div>
@@ -336,7 +336,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
               {/* Anamnesis y Enfermedad Actual */}
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1.5">
-                  Anamnesis & Enfermedad Actual
+                  Anamnesis & enfermedad actual
                 </span>
                 <p className="text-xs sm:text-sm text-slate-700 leading-relaxed italic bg-slate-50 p-4 rounded-xl border border-slate-100 font-normal">
                   "{currentCase.clinicalHistory.presentIllness}"
@@ -346,7 +346,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
                   <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-                    Exploración Física & Signos Vitales
+                    Exploración física & signos vitales
                   </h4>
                   <ul className="text-xs space-y-1 text-slate-700 font-medium">
                     <li>• P.A: {currentCase.physicalExam.vitalSigns.bp} | F.C: {currentCase.physicalExam.vitalSigns.hr}</li>
@@ -359,7 +359,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
 
                 <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
                   <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-                    Antecedentes y Contexto Clínico
+                    Antecedentes y contexto clínico
                   </h4>
                   <ul className="text-xs space-y-1 text-slate-700 font-medium">
                     {currentCase.clinicalHistory.pastMedicalHistory.length > 0 ? (
@@ -387,7 +387,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
                   <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
                     <span className="text-[10px] font-bold uppercase text-slate-500 tracking-wider flex items-center gap-1.5">
                       <Activity className="w-3.5 h-3.5 text-cyan-600" />
-                      Analítica Básica de Triaje de Urgencias:
+                      Analítica básica de triaje de urgencias:
                     </span>
                     <span className="text-[10px] text-slate-500 italic">
                       Parámetros rutinarios basales ya disponibles. Solicita abajo los biomarcadores específicos.
@@ -474,7 +474,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
               <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
                 <span className="text-emerald-700 text-[10px] font-bold uppercase tracking-[0.15em] flex items-center gap-1.5">
                   <Target className="w-3.5 h-3.5" />
-                  Pregunta de Decisión Clínica
+                  Pregunta de decisión clínica
                 </span>
                 <span className="text-[10px] font-mono text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 uppercase font-semibold">
                   Dificultad: {currentCase.difficulty}
@@ -559,10 +559,10 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({
                         <div className="flex items-center justify-between text-[11px] font-bold text-emerald-900">
                           <span className="flex items-center gap-1.5">
                             <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
-                            Ficha Diagnóstica Consultada:
+                            Ficha diagnóstica consultada:
                           </span>
                           <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[9px] font-semibold border border-emerald-200">
-                            -50 € Presupuesto Aplicado
+                            -50 € Presupuesto aplicado
                           </span>
                         </div>
                         <div>

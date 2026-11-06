@@ -94,7 +94,7 @@ export const SessionDetailModal: React.FC<SessionDetailModalProps> = ({
                 {session.activityCode}
               </span>
               <span className="text-xs font-bold text-amber-950">
-                Semana {session.weekIndex} • Curso {academicYear}-{academicYear + 1}
+                Semana {session.weekIndex} • curso {academicYear}-{academicYear + 1}
               </span>
               <span className="text-xs text-slate-500">• Medicina UGR</span>
             </div>

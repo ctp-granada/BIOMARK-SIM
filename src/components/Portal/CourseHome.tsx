@@ -46,7 +46,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight">
             Departamento de Bioquímica y Biología Molecular III e Inmunología
             <span className="block text-lg sm:text-xl font-normal text-amber-100 mt-1">
-              Portal Oficial de la Asignatura y Plataforma de Aprendizaje Clínico
+              Portal oficial de la asignatura y plataforma de aprendizaje clínico
             </span>
           </h1>
 
@@ -100,10 +100,10 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
         <div className="flex items-center justify-between mb-4">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
-              Estructura Docente
+              Estructura docente
             </span>
             <h2 className="text-lg sm:text-xl font-bold text-slate-900">
-              Espacios de Aprendizaje y Prácticas
+              Espacios de aprendizaje y prácticas
             </h2>
           </div>
         </div>
@@ -119,7 +119,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
                 <Stethoscope className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-800 transition-colors">
-                Simulador de Casos Clínicos
+                Simulador de casos clínicos
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Entrenamiento con pacientes virtuales. Petición analítica razonada, coste de biomarcadores y retroalimentación bioquímica inmediata.
@@ -141,7 +141,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
                 <FlaskConical className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-800 transition-colors">
-                Laboratorios Interactivos
+                Laboratorios interactivos
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Modelos cinéticos dinámicos: el Ciclo de Randle, Simulador de Ictericias de adulto/neonato y la Cascada de Coagulación.
@@ -163,7 +163,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
                 <GraduationCap className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-800 transition-colors">
-                Material Docente Oficial
+                Material docente oficial
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Temario oficial de 27 temas, calendario de prácticas y seminarios, preguntas tipo test de autoevaluación comentadas y bibliografía docente oficial.
@@ -185,7 +185,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
                 <BookOpen className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-800 transition-colors">
-                Biblioteca de Biomarcadores
+                Biblioteca de biomarcadores
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Compendio analítico completo: valores de referencia, ventanas cinéticas, sensibilidad, especificidad y falsos positivos.
@@ -204,10 +204,10 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 block">
-              Biblioteca Biomédica • Materiales de Apoyo al Aprendizaje
+              Biblioteca biomédica • materiales de apoyo al aprendizaje
             </span>
             <h2 className="text-lg sm:text-xl font-bold text-white mt-0.5">
-              Simuladores Interactivos de Fisiopatología Molecular (Biblioteca)
+              Simuladores interactivos de fisiopatología molecular (biblioteca)
             </h2>
           </div>
           <button
@@ -254,11 +254,11 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
             <div className="flex items-center justify-between">
               <span className="text-2xl"><TestTube className="inline-block w-[1em] h-[1em]" /></span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                Diagnóstico Clínico
+                Diagnóstico clínico
               </span>
             </div>
             <h3 className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
-              Simulador de Ictericias
+              Simulador de ictericias
             </h3>
             <p className="text-xs text-slate-400 leading-relaxed">
               Diagnóstico diferencial de ictericias con sliders analíticos de BT, BD, transaminasas y FA. Probeta de orina reactiva, acolia fecal y panel neonatal BIND/Kramer.
@@ -281,7 +281,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
               </span>
             </div>
             <h3 className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
-              Hemostasia & Coagulación
+              Hemostasia & coagulación
             </h3>
             <p className="text-xs text-slate-400 leading-relaxed">
               Plataforma interactiva con animación paso a paso de la cascada intrínseca, extrínseca y común, señalización plaquetaria AMPc/calcio y la Tríada de Virchow.
@@ -301,7 +301,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-base font-bold text-slate-900 tracking-tight">
-                  Avisos de Nuevo Material y Actualizaciones
+                  Avisos de nuevo material y actualizaciones
                 </h3>
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
                   Activo
@@ -335,7 +335,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
                 <span className="text-[10px] text-slate-400 font-mono">Nuevo</span>
               </div>
               <h4 className="text-xs font-bold text-slate-900 leading-snug">
-                Caso Clínico: Cetoacidosis Diabética e Hiperpotasemia Severa
+                Caso clínico: cetoacidosis diabética e hiperpotasemia severa
               </h4>
               <p className="text-[11px] text-slate-600 leading-relaxed">
                 Nuevo caso con analítica de gasometría arterial, cetonemia, ionograma con cálculo de Anión Gap e indicación de insulinoterapia.
@@ -362,7 +362,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
                 <span className="text-[10px] text-slate-400 font-mono">Actualizado</span>
               </div>
               <h4 className="text-xs font-bold text-slate-900 leading-snug">
-                Guía Docente: Algoritmos ESC 2024 para Troponina Ultrasensible
+                Guía docente: algoritmos ESC 2024 para troponina ultrasensible
               </h4>
               <p className="text-[11px] text-slate-600 leading-relaxed">
                 Documento docente oficial con curvas cinéticas de elevación precoz (0h/1h/3h) y diagnóstico diferencial entre SCA y daño miocárdico secundario.
@@ -389,7 +389,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
                 <span className="text-[10px] text-slate-400 font-mono">Interactivo</span>
               </div>
               <h4 className="text-xs font-bold text-slate-900 leading-snug">
-                Simulador Dinámico de Hemostasia y Cascada de Coagulación
+                Simulador dinámico de hemostasia y cascada de coagulación
               </h4>
               <p className="text-[11px] text-slate-600 leading-relaxed">
                 Laboratorio virtual interactivo con animación paso a paso de las vías intrínseca, extrínseca y común, y pruebas de TTPA e INR.

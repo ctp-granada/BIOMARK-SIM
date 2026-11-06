@@ -370,7 +370,7 @@ export const PracticasSeminariosView: React.FC<PracticasSeminariosViewProps> = (
                 onClick={() => setIsCoordinatorModalOpen(true)}
                 className="px-2.5 py-1 rounded-lg bg-amber-950 hover:bg-black text-amber-300 font-bold transition-colors shadow-2xs cursor-pointer"
               >
-                Panel de Coordinación
+                Panel de coordinación
               </button>
               <button
                 type="button"

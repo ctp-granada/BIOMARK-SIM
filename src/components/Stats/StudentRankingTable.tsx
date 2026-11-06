@@ -247,7 +247,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
             <div className="flex items-center gap-2 flex-wrap">
               <span className="px-3 py-0.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-amber-600 text-white flex items-center gap-1.5 shadow-2xs">
                 <Trophy className="w-3.5 h-3.5 text-amber-200" />
-                Escalafón Clínico Oficial
+                Escalafón clínico oficial
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-emerald-900 bg-emerald-100/70 border border-emerald-200 flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 " />
@@ -259,7 +259,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
             </div>
 
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight">
-              Ranking de Alumnos · Casos Clínicos Resueltos
+              Ranking de alumnos · casos clínicos resueltos
             </h1>
 
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -318,7 +318,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6 pt-5 border-t border-amber-200/60">
           <div className="bg-white p-3.5 rounded-lg border border-slate-200/90 shadow-2xs">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
-              Alumnos con Casos
+              Alumnos con casos
             </span>
             <div className="flex items-baseline gap-1">
               <span className="text-2xl font-bold text-slate-900">{statsSummary.totalStudents}</span>
@@ -328,7 +328,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
 
           <div className="bg-white p-3.5 rounded-lg border border-slate-200/90 shadow-2xs">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
-              Casos Resueltos Totales
+              Casos resueltos totales
             </span>
             <div className="flex items-baseline gap-1">
               <span className="text-2xl font-bold text-emerald-700">{statsSummary.totalSolvedCases}</span>
@@ -338,7 +338,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
 
           <div className="bg-white p-3.5 rounded-lg border border-slate-200/90 shadow-2xs">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
-              Puntuación Media
+              Puntuación media
             </span>
             <div className="flex items-baseline gap-1">
               <span className="text-2xl font-bold text-amber-700">{statsSummary.avgScore}</span>
@@ -348,7 +348,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
 
           <div className="bg-white p-3.5 rounded-lg border border-slate-200/90 shadow-2xs">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
-              Puntuación Máxima
+              Puntuación máxima
             </span>
             <div className="flex items-baseline gap-1">
               <span className="text-2xl font-bold text-purple-700">{statsSummary.topScore}</span>
@@ -371,7 +371,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                 </div>
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full inline-block mb-0.5">
-                    Líder del Escalafón
+                    Líder del escalafón
                   </span>
                   <h3 className="font-extrabold text-slate-900 text-sm truncate max-w-[160px]">
                     {rankings[0].name}
@@ -407,7 +407,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                 </div>
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full inline-block mb-0.5">
-                    Segundo Puesto
+                    Segundo puesto
                   </span>
                   <h3 className="font-extrabold text-slate-900 text-sm truncate max-w-[160px]">
                     {rankings[1].name}
@@ -443,7 +443,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                 </div>
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full inline-block mb-0.5">
-                    Tercer Puesto
+                    Tercer puesto
                   </span>
                   <h3 className="font-extrabold text-slate-900 text-sm truncate max-w-[160px]">
                     {rankings[2].name}
@@ -723,7 +723,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
             <form onSubmit={handleSaveProfile} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                  Nombre o Alias del Estudiante
+                  Nombre o alias del estudiante
                 </label>
                 <input
                   type="text"
@@ -737,7 +737,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                  Subgrupo de Prácticas
+                  Subgrupo de prácticas
                 </label>
                 <select
                   value={editSubgroup}
@@ -762,7 +762,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                   type="submit"
                   className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-xs cursor-pointer"
                 >
-                  Guardar Perfil
+                  Guardar perfil
                 </button>
               </div>
             </form>

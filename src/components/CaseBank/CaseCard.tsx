@@ -65,7 +65,7 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseData, onSelectCase, onSt
         {/* Initial Lab Preview */}
         <div className="border-t border-slate-100 pt-3 mt-2">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
-            Analítica Inicial Disponible:
+            Analítica inicial disponible:
           </span>
           <div className="flex flex-wrap gap-1.5">
             {caseData.initialLabWork.slice(0, 3).map((lab, idx) => (

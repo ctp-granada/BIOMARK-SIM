@@ -131,7 +131,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
             <span>Rendimiento académico & historial clínico</span>
           </div>
           <h1 className="text-2xl font-bold text-slate-900">
-            Estadísticas Globales de Diagnóstico
+            Estadísticas globales de diagnóstico
           </h1>
           <p className="text-xs text-slate-500 mt-1">
             Métricas de precisión, gestión de guardias e historial de resoluciones de casos clínicos.
@@ -139,7 +139,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
           <div className="flex items-center gap-2 mt-2.5">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[11px] font-bold">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-              Sincronizado con Firebase Firestore (Progreso y Encuestas)
+              Sincronizado con Firebase Firestore (progreso y encuestas)
             </span>
           </div>
         </div>
@@ -164,7 +164,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
           <div>
             <div className="flex items-center gap-2 flex-wrap mb-0.5">
               <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-2 py-0.5 rounded border border-amber-200">
-                Calidad Docente & Acreditación UGR
+                Calidad docente & acreditación UGR
               </span>
               <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 flex items-center gap-1">
                 <Star className="w-3 h-3 text-emerald-600" />
@@ -172,7 +172,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
               </span>
             </div>
             <h3 className="text-sm sm:text-base font-bold text-slate-900">
-              Evaluación de Satisfacción del Alumnado con la Plataforma
+              Evaluación de satisfacción del alumnado con la plataforma
             </h3>
             <p className="text-xs text-slate-600 mt-0.5 max-w-2xl">
               Tu opinión como estudiante de Medicina es fundamental para evaluar el impacto formativo de los casos clínicos, la gamificación y los simuladores de la asignatura.
@@ -262,7 +262,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
               <span>Analítica del desempeño clínico</span>
             </div>
             <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              Evolución Temporal del Rendimiento & Puntuación
+              Evolución temporal del rendimiento & puntuación
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
               Curva de aprendizaje del alumno y trayectoria de puntos de experiencia (XP) a lo largo del tiempo.
@@ -279,7 +279,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              XP Acumulado
+              XP acumulado
             </button>
             <button
               onClick={() => setChartViewMode('delta')}
@@ -289,7 +289,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              XP por Caso
+              XP por caso
             </button>
           </div>
         </div>

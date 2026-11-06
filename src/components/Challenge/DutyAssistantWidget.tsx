@@ -86,7 +86,7 @@ export const DutyAssistantWidget: React.FC<DutyAssistantWidgetProps> = ({
                 </span>
               ) : (
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30">
-                  Consejos de Eficiencia
+                  Consejos de eficiencia
                 </span>
               )}
             </div>
@@ -131,7 +131,7 @@ export const DutyAssistantWidget: React.FC<DutyAssistantWidgetProps> = ({
               <Star className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
               <div className="space-y-1">
                 <div className="text-[11px] font-bold text-amber-300 uppercase tracking-wide">
-                  Orientación del Adjunto del Laboratorio de Urgencias:
+                  Orientación del adjunto del laboratorio de urgencias:
                 </div>
                 <p className="italic text-slate-200 leading-relaxed">
                   {advice.supervisorQuote}
@@ -149,7 +149,7 @@ export const DutyAssistantWidget: React.FC<DutyAssistantWidgetProps> = ({
                 <div className="flex items-center justify-between text-emerald-300 font-bold text-xs pb-1 border-b border-emerald-800/40">
                   <span className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    Biomarcadores Clave Costo-Efectivos
+                    Biomarcadores clave costo-efectivos
                   </span>
                   <span className="text-[10px] font-mono bg-emerald-900/80 px-2 py-0.5 rounded text-emerald-200 border border-emerald-700">
                     Total: -{totalRecommendedCost} €
@@ -198,7 +198,7 @@ export const DutyAssistantWidget: React.FC<DutyAssistantWidgetProps> = ({
                 <div className="flex items-center text-rose-300 font-bold text-xs pb-1 border-b border-rose-800/40">
                   <span className="flex items-center gap-1.5">
                     <XCircle className="w-4 h-4 text-rose-400" />
-                    Pruebas a Evitar en Este Contexto (Sobrecoste)
+                    Pruebas a evitar en este contexto (sobrecoste)
                   </span>
                 </div>
 

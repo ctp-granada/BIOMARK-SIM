@@ -64,14 +64,14 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <span className="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300 flex items-center gap-1.5">
                   <GraduationCap className="w-4 h-4 text-emerald-700" />
-                  Guía Didáctica y Glosario Clínico
+                  Guía didáctica y glosario clínico
                 </span>
               </div>
 
               {caseData.studentSummary && (
                 <div className="bg-white/90 rounded-lg p-3 border border-emerald-100/90">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-900 block mb-1">
-                    Orientación Clínica del Caso
+                    Orientación clínica del caso
                   </span>
                   <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
                     {caseData.studentSummary}
@@ -82,7 +82,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
               {caseData.biochemicalConceptSimple && (
                 <div className="bg-white/90 rounded-lg p-3 border border-emerald-100/90">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-900 block mb-1">
-                    Mecanismo Bioquímico y Fisiopatológico:
+                    Mecanismo bioquímico y fisiopatológico:
                   </span>
                   <p className="text-xs text-slate-700 font-mono leading-relaxed bg-emerald-50/40 p-2.5 rounded border border-emerald-100">
                     {caseData.biochemicalConceptSimple}
@@ -99,7 +99,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
                   >
                     <span className="flex items-center gap-1.5">
                       <BookOpen className="w-3.5 h-3.5 text-emerald-700" />
-                      Glosario de Términos Médicos del Caso ({caseData.clinicalGlossary.length})
+                      Glosario de términos médicos del caso ({caseData.clinicalGlossary.length})
                     </span>
                     <span className="text-xs text-emerald-700 flex items-center gap-0.5">
                       {showGlossary ? <>Ocultar <ChevronUp className="w-3.5 h-3.5" /></> : <>Ver definiciones <ChevronDown className="w-3.5 h-3.5" /></>}
@@ -126,7 +126,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
             <div className="bg-amber-50 border border-amber-200/90 rounded-xl p-4 space-y-2">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-200 text-amber-900 border border-amber-300">
-                  Transducción de Señales & Vía Molecular
+                  Transducción de señales & vía molecular
                 </span>
                 {caseData.signalingType && 
                  !caseData.signalingType.toLowerCase().includes('ligand') && 
@@ -264,7 +264,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
           <div className="p-4 bg-emerald-50/60 rounded-xl border border-emerald-200/70 flex items-center justify-between gap-4">
             <div className="space-y-0.5">
               <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">
-                Objetivo Docente del Caso
+                Objetivo docente del caso
               </span>
               <p className="text-xs text-slate-700">
                 Analice los datos clínicos y constantes del paciente para seleccionar razonadamente los biomarcadores bioquímicos de mayor utilidad diagnóstica.
@@ -279,7 +279,7 @@ export const CaseDetailModal: React.FC<CaseDetailModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-colors"
           >
-            Cerrar Historia
+            Cerrar historia
           </button>
 
           <button

@@ -40,7 +40,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({
             </div>
             <div>
               <h2 className="text-base sm:text-lg font-bold text-slate-950">
-                Imprimir o Guardar en PDF
+                Imprimir o guardar en PDF
               </h2>
               <p className="text-xs text-amber-950/80 font-medium">
                 Bioquímica Médica • Facultad de Medicina (UGR)

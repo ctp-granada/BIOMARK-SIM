@@ -252,7 +252,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
           <div className="flex items-center gap-2 flex-wrap">
             <span className="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-amber-900/60 text-amber-200 border border-amber-400/40 flex items-center gap-1.5">
               <GraduationCap className="w-3.5 h-3.5 text-amber-300" />
-              Portal Docente Oficial
+              Portal docente oficial
             </span>
             <span className="px-2.5 py-0.5 rounded text-[11px] font-semibold text-amber-100 bg-amber-900/40 border border-amber-500/30">
               Departamento de Bioquímica y Biología Molecular III e Inmunología • Facultad de Medicina UGR
@@ -402,12 +402,12 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-900 border border-blue-200 flex items-center gap-1">
                   <FlaskConical className="w-3 h-3 text-blue-600" />
-                  Biblioteca Médica · Apoyo al Aprendizaje
+                  Biblioteca Médica · apoyo al aprendizaje
                 </span>
                 <span className="text-[11px] text-slate-500 font-medium">3 Modelos fisiopatológicos</span>
               </div>
               <h2 className="text-lg font-bold text-slate-900">
-                Simuladores Interactivos de Fisiopatología Molecular
+                Simuladores interactivos de fisiopatología molecular
               </h2>
               <p className="text-xs text-slate-600 max-w-3xl leading-relaxed">
                 Herramientas docentes dinámicas integradas en la Biblioteca para afianzar el temario oficial del Departamento: 
@@ -502,7 +502,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
         <div className="space-y-6 animate-fadeIn">
           <div className="bg-white rounded-lg border border-slate-200 p-6 shadow-xs space-y-2">
             <h2 className="text-base font-bold text-slate-900">
-              Banco de Preguntas Tipo Test Departamentales (Convocatorias Previas)
+              Banco de preguntas tipo test departamentales (convocatorias previas)
             </h2>
             <p className="text-xs text-slate-600">
               Ponga a prueba su razonamiento fisiopatológico con preguntas comentadas por el equipo docente.
@@ -565,7 +565,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
                       isCorrect ? 'bg-emerald-50/70 text-emerald-950 border border-emerald-200' : 'bg-rose-50/70 text-rose-950 border border-rose-200'
                     }`}>
                       <span className="font-bold block uppercase text-[10px] tracking-wider">
-                        Justificación Bioquímica Oficial:
+                        Justificación Bioquímica oficial:
                       </span>
                       <p className="leading-relaxed">
                         {q.rationale}
@@ -637,7 +637,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
         <div className="bg-white rounded-lg border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6 text-xs animate-fadeIn">
           <div className="border-b border-slate-100 pb-4">
             <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">
-              Ficha Técnica Oficial de la Asignatura
+              Ficha técnica oficial de la asignatura
             </span>
             <h2 className="text-lg font-bold text-slate-900 mt-1">
               Bioquímica Médica • Grado en Medicina (Universidad de Granada)

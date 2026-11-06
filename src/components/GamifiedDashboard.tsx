@@ -73,7 +73,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
         >
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase flex items-center gap-1">
-              Perfil Facultativo
+              Perfil facultativo
               {onOpenRanking && <Trophy className="w-3 h-3 text-amber-400" />}
             </span>
             <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${rank.badgeBg} ${rank.badgeTextColor} ${rank.badgeBorder}`}>

@@ -338,7 +338,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 leading-tight">
-              Plano de la Ciudad Biomédica UGR
+              Plano de la ciudad biomédica UGR
             </h1>
 
             <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
@@ -431,7 +431,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                  Experiencia Alumno
+                  Experiencia alumno
                 </span>
                 <div className="flex items-baseline gap-1">
                   <span className="text-base font-bold text-slate-900">{userXP}</span>
@@ -446,7 +446,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                  Casos Superados
+                  Casos superados
                 </span>
                 <div className="flex items-baseline gap-1">
                   <span className="text-base font-bold text-slate-900">{completedCasesCount}</span>
@@ -708,7 +708,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                  Descripción del Área Formativa
+                  Descripción del área formativa
                 </h4>
                 <p className="text-sm text-slate-700 leading-relaxed font-normal">
                   {currentModalData.description}
@@ -735,7 +735,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               {/* Secondary Facilities Actions */}
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">
-                  Accesos Directos y Actividades
+                  Accesos directos y actividades
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {currentModalData.secondaryActions.map((sec, idx) => {
@@ -898,7 +898,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-slate-900">
-                    Notificar Nuevo Material Docente
+                    Notificar nuevo material docente
                   </h3>
                   <p className="text-xs text-slate-500">
                     Aparecerá en el tablón de avisos para todos los alumnos
@@ -916,7 +916,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <form onSubmit={handlePublishNotice} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                  Tipo de Material
+                  Tipo de material
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   <button
@@ -928,7 +928,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                         : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
-                    Caso Clínico
+                    Caso clínico
                   </button>
                   <button
                     type="button"
@@ -939,7 +939,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                         : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
-                    Guía / Apuntes
+                    Guía / apuntes
                   </button>
                   <button
                     type="button"
@@ -950,14 +950,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                         : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
-                    Lab Virtual
+                    Lab virtual
                   </button>
                 </div>
               </div>
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                  Título del Material o Caso
+                  Título del material o caso
                 </label>
                 <input
                   type="text"
@@ -971,7 +971,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                  Descripción o Instrucciones
+                  Descripción o instrucciones
                 </label>
                 <textarea
                   rows={3}

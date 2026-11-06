@@ -581,7 +581,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
             <span>Pasapalabra bioquímico & diagnóstico clínico</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900">
-            El Rosco Metabólico de Medicina
+            El Rosco metabólico de Medicina
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
             Escribe el concepto bioquímico para cada letra del abecedario. Se acepta flexibilidad ortográfica y abreviaturas médicas.
@@ -909,7 +909,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
                   <Star className="w-6 h-6" />
                 </div>
                 <h4 className="text-sm sm:text-base font-bold text-white">
-                  Rosco de Bioquímica Clínica
+                  Rosco de Bioquímica clínica
                 </h4>
                 <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed max-w-xs mx-auto">
                   25 letras de laboratorio. Tienes <strong className="text-amber-300 font-bold">90 segundos</strong> de cuenta atrás: ¡si el tiempo llega a cero se penalizan <strong className="text-rose-400 font-bold">-100 €</strong> de presupuesto y deberás reiniciar! Usa <strong className="text-cyan-300 font-bold">Pista (-50 €)</strong> si dudas con una letra.

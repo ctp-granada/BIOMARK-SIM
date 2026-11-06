@@ -177,11 +177,11 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                 <span>Petitorio analítico multianalítica</span>
               </span>
               <span className="text-[10px] font-medium text-slate-400">
-                • Solicitud de Pruebas de Laboratorio
+                • Solicitud de pruebas de laboratorio
               </span>
             </div>
             <h3 className="text-lg font-bold text-white tracking-tight">
-              Orden de Laboratorio y Selección Múltiple de Biomarcadores
+              Orden de laboratorio y selección múltiple de biomarcadores
             </h3>
             <p className="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
               Seleccione uno o más biomarcadores para formular la batería analítica óptima. Evalúa la pertinencia diagnóstica, especificidad y gestión del presupuesto sanitario.
@@ -341,10 +341,10 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                             <div className="flex items-center justify-between text-[11px] font-bold text-emerald-900">
                               <span className="flex items-center gap-1.5">
                                 <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
-                                Ficha Diagnóstica Consultada
+                                Ficha diagnóstica consultada
                               </span>
                               <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-semibold border border-emerald-200">
-                                -50 € Presupuesto Aplicado
+                                -50 € Presupuesto aplicado
                               </span>
                             </div>
                             <div className="text-slate-800 leading-relaxed">
@@ -426,7 +426,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                 <div className="flex items-center gap-2">
                   <ClipboardList className="w-4 h-4 text-emerald-400" />
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
-                    Volante de Laboratorio
+                    Volante de laboratorio
                   </span>
                 </div>
                 {selectedBiomarkerIds.length > 0 && (
@@ -539,7 +539,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                   </>
                 ) : (
                   <>
-                    <span>Tramitar Orden de Laboratorio ({selectedBiomarkerIds.length})</span>
+                    <span>Tramitar orden de laboratorio ({selectedBiomarkerIds.length})</span>
                     <ArrowRight className="w-4 h-4 text-emerald-600" />
                   </>
                 )}
@@ -608,7 +608,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                   <div className="flex justify-between items-center font-bold">
                     <span className="flex items-center gap-1.5">
                       <Wallet className="w-3.5 h-3.5 text-amber-700" />
-                      Coste de Interconsulta:
+                      Coste de interconsulta:
                     </span>
                     <span className="font-mono text-amber-800 font-extrabold text-xs">-50 € Presupuesto</span>
                   </div>

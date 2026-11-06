@@ -168,7 +168,7 @@ export const CaseList: React.FC<CaseListProps> = ({
         <div>
           <div className="flex items-center gap-2 mb-1 flex-wrap">
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-slate-900 text-white">
-              Hospital Universitario
+              Hospital universitario
             </span>
             <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
               PID 26-158
@@ -281,7 +281,7 @@ export const CaseList: React.FC<CaseListProps> = ({
               <div className="flex items-center gap-2">
                 <span className="font-extrabold text-sm text-slate-900">Dr. Carlos Morales</span>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
-                  Tutor Clínico UGR • Servicio de Urgencias
+                  Tutor clínico UGR • servicio de urgencias
                 </span>
               </div>
 
@@ -407,7 +407,7 @@ export const CaseList: React.FC<CaseListProps> = ({
 
                   {/* Card Bottom CTA Button */}
                   <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                    <span>Acceder a los Casos del Bloque {block.blockNumber}</span>
+                    <span>Acceder a los casos del bloque {block.blockNumber}</span>
                     <div className="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center transition-colors">
                       <ArrowRight className="w-4 h-4" />
                     </div>

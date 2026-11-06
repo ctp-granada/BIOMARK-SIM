@@ -91,7 +91,7 @@ export const BiochemicalInfoTooltip: React.FC<BiochemicalInfoTooltipProps> = ({
               </span>
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block leading-tight">
-                  Mecanismo Bioquímico
+                  Mecanismo bioquímico
                 </span>
                 <h4 className="text-xs font-bold text-white leading-snug">{title}</h4>
               </div>

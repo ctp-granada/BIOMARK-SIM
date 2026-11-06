@@ -72,7 +72,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
             <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
               <span>Bienvenida del tutor clínico</span>
               <span className="text-xs bg-amber-400 text-slate-950 font-bold px-2 py-0.5 rounded-full uppercase">
-                Guía de Guardia
+                Guía de guardia
               </span>
             </h2>
             <p className="text-xs sm:text-sm text-emerald-100/90 mt-1 max-w-lg">
@@ -266,7 +266,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                   <div className="p-3 rounded-xl border border-slate-200 bg-white space-y-1">
                     <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">
-                      Paso 1: Anamnesis & Exploración
+                      Paso 1: anamnesis & exploración
                     </span>
                     <p className="text-[11px] text-slate-600">
                       Revisa la historia clínica, antecedentes, signos vitales y la analítica básica de urgencias. Los parámetros clave aparecen como <em>incógnitas</em>.
@@ -275,7 +275,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
 
                   <div className="p-3 rounded-xl border border-slate-200 bg-white space-y-1">
                     <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">
-                      Paso 2: Selección de Biomarcadores
+                      Paso 2: selección de biomarcadores
                     </span>
                     <p className="text-[11px] text-slate-600">
                       Tu objetivo como médico es solicitar <strong>únicamente las pruebas discriminatorias esenciales</strong> que confirmen el diagnóstico sin despilfarrar recursos.

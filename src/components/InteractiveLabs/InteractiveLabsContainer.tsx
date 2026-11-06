@@ -51,11 +51,11 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
           <div>
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 block bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                Biblioteca Biomédica · Materiales de Apoyo al Aprendizaje (Curso 26-27)
+                Biblioteca biomédica · materiales de apoyo al aprendizaje (curso 26-27)
               </span>
             </div>
             <h2 className="text-base font-bold text-slate-900 mt-0.5">
-              Simuladores Interactivos y Modelos Fisiopatológicos de Apoyo
+              Simuladores interactivos y modelos fisiopatológicos de apoyo
             </h2>
           </div>
         </div>

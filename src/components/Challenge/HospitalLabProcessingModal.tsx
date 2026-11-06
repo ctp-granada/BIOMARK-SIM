@@ -108,7 +108,7 @@ export const HospitalLabProcessingModal: React.FC<HospitalLabProcessingModalProp
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] uppercase font-bold tracking-wider text-cyan-400">
-                  Laboratorio Central de Urgencias
+                  Laboratorio central de urgencias
                 </span>
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1" />
@@ -116,7 +116,7 @@ export const HospitalLabProcessingModal: React.FC<HospitalLabProcessingModalProp
                 </span>
               </div>
               <h3 className="text-sm font-bold text-white tracking-tight">
-                Procesando Petición Multianalítica en Tiempo Real
+                Procesando petición multianalítica en tiempo real
               </h3>
             </div>
           </div>
@@ -265,7 +265,7 @@ export const HospitalLabProcessingModal: React.FC<HospitalLabProcessingModalProp
             <div className="flex items-center justify-between text-xs text-slate-400 font-bold">
               <span className="flex items-center gap-1.5">
                 <Dna className="w-3.5 h-3.5 text-cyan-400" />
-                Marcadores en Columna de Ensayo ({orderedBiomarkers.length})
+                Marcadores en columna de ensayo ({orderedBiomarkers.length})
               </span>
               <span className="text-[10px] font-mono text-cyan-400">
                 {orderedBiomarkers.filter((_, i) => progress >= ((i + 1) / orderedBiomarkers.length) * 80).length} / {orderedBiomarkers.length} cuantificados
@@ -342,7 +342,7 @@ export const HospitalLabProcessingModal: React.FC<HospitalLabProcessingModalProp
             Simulación analítica hospitalaria acelerada
           </span>
           <span className="font-mono text-cyan-400 font-bold">
-            Autoanalizador Roche Cobas / Abbott ARCHITECT
+            Autoanalizador roche cobas / abbott ARCHITECT
           </span>
         </div>
       </motion.div>

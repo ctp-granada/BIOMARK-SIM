@@ -141,7 +141,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             {!isLogin && (
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Nombre Completo / Alumno
+                  Nombre completo / alumno
                 </label>
                 <div className="relative">
                   <UserIcon className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -160,7 +160,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="block text-xs font-semibold text-slate-700">
-                  Correo Electrónico Institucional UGR
+                  Correo electrónico institucional UGR
                 </label>
                 <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">
                   @correo.ugr.es / @go.ugr.es
