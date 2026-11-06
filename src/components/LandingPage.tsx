@@ -197,7 +197,7 @@ const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
     badge: 'ZONA LÚDICA • JUEGOS Y GANAR DINERO',
     image: '/park_section.jpg',
     description:
-      'Área lúdica interactiva orientada al aprendizaje dinámico y la economía de guardia. Juega a «El Rosco Metabólico» tipo Pasapalabra, la «Sopa de Letras» de biomarcadores y el «Crucigrama» clínico de laboratorio para acumular fondos hospitalarios (+250 € a +300 € Fondos 💰) o compite en el Reto Diario con bonificador 2.0x XP.',
+      'Área lúdica interactiva orientada al aprendizaje dinámico y la economía de guardia. Juega a «El Rosco Metabólico» tipo Pasapalabra, la «Sopa de Letras» de biomarcadores y el «Crucigrama» clínico de laboratorio para acumular fondos hospitalarios (+250 € a +300 € Fondos) o compite en el Reto Diario con bonificador 2.0x XP.',
     primaryAction: {
       label: 'Visitar Parque',
       target: 'juegos',
@@ -205,13 +205,13 @@ const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
     },
     secondaryActions: [
       {
-        label: 'El Rosco Metabólico (Tipo Pasapalabra ⭕)',
+        label: 'El Rosco Metabólico (Tipo Pasapalabra)',
         sublabel: '25 letras con definición central: aciertos suman dinero',
         target: 'juegos',
         icon: Gamepad2
       },
       {
-        label: 'Sopa de Letras & Crucigrama Clínico 🔍🧩',
+        label: 'Sopa de Letras & Crucigrama Clínico',
         sublabel: 'Reconocimiento de biomarcadores e integración diagnóstica (+300 €)',
         target: 'juegos',
         icon: Coins
@@ -224,7 +224,7 @@ const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
       }
     ],
     facilities: ['El Rosco Metabólico', 'Sopa de Letras', 'Crucigrama Clínico', 'Parejas Diagnósticas', 'Clasificador Flash'],
-    stats: '6 Minijuegos (+💰 Fondos) • 3 Labs • 2.0x XP',
+    stats: '6 Minijuegos (+Fondos) • 3 Labs • 2.0x XP',
     themeColor: {
       accent: 'emerald-500',
       border: 'border-emerald-500/50',
@@ -652,7 +652,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </span>
                 <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/90 text-white text-xs font-black shadow-lg border border-emerald-500/60 backdrop-blur-md">
                   <span className="text-emerald-400 font-extrabold">PARQUE</span>
-                  <span className="text-[10px] text-slate-300 font-medium">(Minijuegos & Dinero 💰)</span>
+                  <span className="text-[10px] text-slate-300 font-medium">(Minijuegos & Dinero)</span>
                 </span>
               </div>
 
@@ -671,7 +671,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     />
                     <div className="truncate">
                       <div className="font-bold text-emerald-300 truncate">Parque Lúdico</div>
-                      <div className="text-[10px] text-slate-300">Minijuegos (Preguntas, Parejas, Pasapalabra) 💰</div>
+                      <div className="text-[10px] text-slate-300">Minijuegos (Preguntas, Parejas, Pasapalabra)</div>
                     </div>
                   </div>
                   <span className="text-[10px] bg-emerald-600 px-2.5 py-1 rounded-lg font-black text-white shrink-0 flex items-center gap-1">

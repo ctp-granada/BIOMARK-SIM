@@ -22,8 +22,7 @@ import {
   DollarSign,
   Sparkles,
   BookmarkCheck,
-  Stethoscope
-} from 'lucide-react';
+  Stethoscope, BookOpen, Brain, TestTube } from 'lucide-react';
 import { BiochemicalInfoTooltip } from '../BiochemicalInfoTooltip';
 
 interface VademecumViewProps {
@@ -32,52 +31,52 @@ interface VademecumViewProps {
   embedded?: boolean;
 }
 
-const SYSTEM_CONFIG: Record<OrganSystem | 'all', { label: string; icon: string; color: string; badgeClass: string; borderClass: string }> = {
+const SYSTEM_CONFIG: Record<OrganSystem | 'all', { label: string; icon: React.ReactNode; color: string; badgeClass: string; borderClass: string }> = {
   all: { 
     label: 'Todos los Sistemas', 
-    icon: '📚', 
+    icon: <BookOpen className="inline-block w-[1em] h-[1em]" />, 
     color: 'slate', 
     badgeClass: 'bg-slate-100 text-slate-800 border-slate-200', 
     borderClass: 'border-slate-200' 
   },
   cardiac: { 
     label: 'Cardiovascular', 
-    icon: '❤️', 
+    icon: <Heart className="inline-block w-[1em] h-[1em]" />, 
     color: 'rose', 
     badgeClass: 'bg-rose-50 text-rose-800 border-rose-200', 
     borderClass: 'border-rose-200 hover:border-rose-300' 
   },
   hepatic: { 
     label: 'Hepático y Biliar', 
-    icon: '🩸', 
+    icon: <Droplet className="inline-block w-[1em] h-[1em]" />, 
     color: 'amber', 
     badgeClass: 'bg-amber-50 text-amber-800 border-amber-200', 
     borderClass: 'border-amber-200 hover:border-amber-300' 
   },
   metabolic: { 
     label: 'Metabólico y Endocrino', 
-    icon: '⚡', 
+    icon: <Zap className="inline-block w-[1em] h-[1em]" />, 
     color: 'emerald', 
     badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-200', 
     borderClass: 'border-emerald-200 hover:border-emerald-300' 
   },
   renal: { 
     label: 'Renal y Urinario', 
-    icon: '💧', 
+    icon: <Droplet className="inline-block w-[1em] h-[1em]" />, 
     color: 'blue', 
     badgeClass: 'bg-blue-50 text-blue-800 border-blue-200', 
     borderClass: 'border-blue-200 hover:border-blue-300' 
   },
   pancreatic: { 
     label: 'Pancreático', 
-    icon: '🧪', 
+    icon: <TestTube className="inline-block w-[1em] h-[1em]" />, 
     color: 'orange', 
     badgeClass: 'bg-orange-50 text-orange-800 border-orange-200', 
     borderClass: 'border-orange-200 hover:border-orange-300' 
   },
   neuromuscular: { 
     label: 'Neuromuscular', 
-    icon: '🧠', 
+    icon: <Brain className="inline-block w-[1em] h-[1em]" />, 
     color: 'purple', 
     badgeClass: 'bg-purple-50 text-purple-800 border-purple-200', 
     borderClass: 'border-purple-200 hover:border-purple-300' 
@@ -148,7 +147,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
 
             <div className="flex items-center gap-2.5 flex-wrap">
               <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
-                <span>🧪 Vademécum de Biomarcadores</span>
+                <span>Vademécum de Biomarcadores</span>
               </h1>
               <BiochemicalInfoTooltip
                 title="Catálogo de Biomarcadores y Diagnóstico Bioquímico"
@@ -228,7 +227,7 @@ export const VademecumView: React.FC<VademecumViewProps> = ({
       {/* Biomarker Cards Grid */}
       {filteredBiomarkers.length === 0 ? (
         <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-3">
-          <div className="text-4xl">🔍</div>
+          <div className="text-4xl"><Search className="inline-block w-[1em] h-[1em]" /></div>
           <h3 className="text-base font-bold text-slate-800">No se encontraron biomarcadores</h3>
           <p className="text-xs text-slate-500 max-w-sm mx-auto">
             No coincide ningún parámetro con «{searchQuery}». Intenta buscar por abreviatura (ej. CK, Tn, GGT) o selecciona otro sistema orgánico.

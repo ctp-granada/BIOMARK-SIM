@@ -132,7 +132,7 @@ export const InteractiveLabsContainer: React.FC<InteractiveLabsContainerProps> =
             title="Ir al Parque Biomédico para jugar a minijuegos y ganar dinero"
           >
             <Trees className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Ir al Parque (Minijuegos) 💰</span>
+            <span>Ir al Parque (Minijuegos)</span>
           </button>
         </div>
       </div>

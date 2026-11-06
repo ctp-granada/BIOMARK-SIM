@@ -27,8 +27,7 @@ import {
   Coins,
   Wallet,
   Search,
-  Grid
-} from 'lucide-react';
+  Grid, Circle, Dna, Droplet, HeartPulse, Microscope, Puzzle, TestTube, Hourglass } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { audioService } from '../../utils/audioService';
 
@@ -342,7 +341,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
           totalCorrect === 3 ? 300 : 260,
           totalCorrect === 3 ? 80 : 60,
           '¡Reanimación Exitosa!',
-          `Has respondido correctamente ${totalCorrect}/3 casos de urgencia bioquímica. ¡+${totalCorrect === 3 ? 300 : 260} € de Presupuesto Hospitalario 💰 y +${totalCorrect === 3 ? 80 : 60} XP acreditados!`
+          `Has respondido correctamente ${totalCorrect}/3 casos de urgencia bioquímica. ¡+${totalCorrect === 3 ? 300 : 260} € de Presupuesto Hospitalario y +${totalCorrect === 3 ? 80 : 60} XP acreditados!`
         );
       }
     }
@@ -403,7 +402,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         bonusBudget,
         bonusXP,
         '¡Triage Analítico Completado!',
-        `Has clasificado ${classifierScore} biomarcadores correctamente bajo presión temporal. ¡+${bonusBudget} € de Fondos Sanitarios 💰 y +${bonusXP} XP conseguidos!`
+        `Has clasificado ${classifierScore} biomarcadores correctamente bajo presión temporal. ¡+${bonusBudget} € de Fondos Sanitarios y +${bonusXP} XP conseguidos!`
       );
     }
   }, [classifierFinished]);
@@ -527,7 +526,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                 280,
                 80,
                 '¡Memoria Diagnóstica Perfecta!',
-                'Has emparejado todos los biomarcadores con sus dianas clínicas. ¡+280 € Presupuesto de Guardia 💰 y +80 XP conseguidos!'
+                'Has emparejado todos los biomarcadores con sus dianas clínicas. ¡+280 € Presupuesto de Guardia y +80 XP conseguidos!'
               );
             }, 100);
           }
@@ -570,7 +569,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                     {celebrationToast.title}
                   </span>
                   <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                    +{celebrationToast.budgetGained} € Dinero 💰
+                    +{celebrationToast.budgetGained} € Dinero
                   </span>
                   <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono">
                     +{celebrationToast.xpGained} XP
@@ -609,7 +608,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
             <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
               <span>Minijuegos & Ganancia de Dinero</span>
               <span className="text-xs font-semibold px-2 py-0.5 rounded-lg bg-amber-100 text-amber-800 border border-amber-200">
-                +Fondos Sanitarios 💰 & XP
+                +Fondos Sanitarios & XP
               </span>
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
@@ -661,7 +660,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
             <span className="inline-flex items-center gap-1.5 text-emerald-800 font-semibold">
               <Coins className="w-4 h-4 text-amber-500 shrink-0" />
               <span>
-                ¡Gana más dinero jugando en el Parque! Cada minijuego superado añade entre <strong className="text-emerald-950 font-bold">+250 € y +300 € de Fondos de Presupuesto (💰)</strong> para financiar las analíticas de los pacientes en el hospital.
+                ¡Gana más dinero jugando en el Parque! Cada minijuego superado añade entre <strong className="text-emerald-950 font-bold">+250 € y +300 € de Fondos de Presupuesto ()</strong> para financiar las analíticas de los pacientes en el hospital.
               </span>
             </span>
           </div>
@@ -689,7 +688,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         >
           <div className="flex items-center justify-between mb-1.5">
             <span className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-xs">
-              ⭕
+              <Circle className="inline-block w-[1em] h-[1em]" />
             </span>
             <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
               +300 € • +250 XP
@@ -720,7 +719,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         >
           <div className="flex items-center justify-between mb-1.5">
             <span className="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs">
-              🔍
+              <Search className="inline-block w-[1em] h-[1em]" />
             </span>
             <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
               +300 € • +120 XP
@@ -751,7 +750,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         >
           <div className="flex items-center justify-between mb-1.5">
             <span className="w-7 h-7 rounded-lg bg-teal-100 text-teal-800 flex items-center justify-center font-bold text-xs">
-              🧩
+              <Puzzle className="inline-block w-[1em] h-[1em]" />
             </span>
             <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-teal-50 text-teal-800 border border-teal-200">
               +300 € • +150 XP
@@ -782,7 +781,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         >
           <div className="flex items-center justify-between mb-1.5">
             <span className="w-7 h-7 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xs">
-              ⚡
+              <Zap className="inline-block w-[1em] h-[1em]" />
             </span>
             <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
               +260 € • +80 XP
@@ -808,7 +807,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         >
           <div className="flex items-center justify-between mb-1.5">
             <span className="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">
-              🧬
+              <Dna className="inline-block w-[1em] h-[1em]" />
             </span>
             <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
               +280 € • +80 XP
@@ -834,7 +833,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         >
           <div className="flex items-center justify-between mb-1.5">
             <span className="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-xs">
-              ⏱️
+              <Timer className="inline-block w-[1em] h-[1em]" />
             </span>
             <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
               +300 € • +100 XP
@@ -973,7 +972,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
               {triviaRevealed && (
                 <div className="p-4 rounded-xl bg-slate-900 text-white space-y-3 animate-fadeIn">
                   <div className="flex items-center gap-2 text-xs font-bold">
-                    <span className="text-emerald-400">💡 Fundamentación Bioquímica:</span>
+                    <span className="text-emerald-400">Fundamentación Bioquímica:</span>
                   </div>
                   <p className="text-xs text-slate-200 leading-relaxed">
                     {triviaQuestions[triviaIdx].explanation}
@@ -993,7 +992,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
           ) : (
             <div className="text-center py-8 space-y-4">
               <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto text-2xl">
-                🏆
+                <Trophy className="inline-block w-[1em] h-[1em]" />
               </div>
               <h3 className="text-lg font-bold text-slate-900">
                 ¡Ronda de Urgencias Finalizada!
@@ -1007,7 +1006,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                   className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-xs"
                 >
                   <RotateCcw className="w-4 h-4 text-emerald-400" />
-                  <span>Jugar otra Ronda (+Dinero 💰 / XP)</span>
+                  <span>Jugar otra Ronda (+Dinero / XP)</span>
                 </button>
                 <button
                   onClick={() => onNavigate('casos')}
@@ -1051,7 +1050,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
           {!classifierActive && !classifierFinished ? (
             <div className="text-center py-10 space-y-4 max-w-lg mx-auto">
               <div className="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto text-2xl shadow-xs">
-                ⏱️
+                <Timer className="inline-block w-[1em] h-[1em]" />
               </div>
               <h3 className="text-lg font-bold text-slate-900">
                 Reto de Triage Analítico en 30 Segundos
@@ -1060,7 +1059,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                 Aparecerán biomarcadores clínicos en pantalla. Tu misión como facultativo es asociar cada analítica con su sistema fisiológico correspondiente lo más rápido posible.
               </p>
               <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-medium text-left">
-                🎯 <strong>Objetivo de Fondos:</strong> Acierta al menos 4 biomarcadores antes de que acabe el tiempo para <strong className="text-emerald-950 font-bold">ganar hasta +260 € de Fondos 💰 y puntos extra de XP</strong>.
+                <strong>Objetivo de Fondos:</strong> Acierta al menos 4 biomarcadores antes de que acabe el tiempo para <strong className="text-emerald-950 font-bold">ganar hasta +260 € de Fondos y puntos extra de XP</strong>.
               </div>
               <button
                 onClick={startClassifierGame}
@@ -1103,7 +1102,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                   className="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-rose-400 hover:bg-rose-50 text-left transition-all cursor-pointer group"
                 >
                   <div className="flex items-center gap-2 text-rose-600 font-bold text-xs mb-1">
-                    <span>🫀</span>
+                    <span><HeartPulse className="inline-block w-[1em] h-[1em]" /></span>
                     <span>Cardiovascular</span>
                   </div>
                   <span className="text-[11px] text-slate-500">Troponinas, BNP, CK-MB</span>
@@ -1114,7 +1113,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                   className="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-amber-400 hover:bg-amber-50 text-left transition-all cursor-pointer group"
                 >
                   <div className="flex items-center gap-2 text-amber-700 font-bold text-xs mb-1">
-                    <span>🧪</span>
+                    <span><TestTube className="inline-block w-[1em] h-[1em]" /></span>
                     <span>Hepato-Biliar</span>
                   </div>
                   <span className="text-[11px] text-slate-500">Transaminasas, GGT, Bilirrubina</span>
@@ -1125,7 +1124,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                   className="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-cyan-400 hover:bg-cyan-50 text-left transition-all cursor-pointer group"
                 >
                   <div className="flex items-center gap-2 text-cyan-700 font-bold text-xs mb-1">
-                    <span>🔬</span>
+                    <span><Microscope className="inline-block w-[1em] h-[1em]" /></span>
                     <span>Pancreático</span>
                   </div>
                   <span className="text-[11px] text-slate-500">Lipasa, Amilasa sérica</span>
@@ -1136,7 +1135,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                   className="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50 text-left transition-all cursor-pointer group"
                 >
                   <div className="flex items-center gap-2 text-blue-700 font-bold text-xs mb-1">
-                    <span>💧</span>
+                    <span><Droplet className="inline-block w-[1em] h-[1em]" /></span>
                     <span>Renal / Filtrado</span>
                   </div>
                   <span className="text-[11px] text-slate-500">Creatinina, Cistatina C, Urea</span>
@@ -1147,7 +1146,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                   className="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-purple-400 hover:bg-purple-50 text-left transition-all cursor-pointer group"
                 >
                   <div className="flex items-center gap-2 text-purple-700 font-bold text-xs mb-1">
-                    <span>🩸</span>
+                    <span><Droplet className="inline-block w-[1em] h-[1em]" /></span>
                     <span>Hemostasia</span>
                   </div>
                   <span className="text-[11px] text-slate-500">Dímero D, TP/INR, Fibrinógeno</span>
@@ -1158,7 +1157,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                   className="p-3.5 rounded-xl bg-white border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50 text-left transition-all cursor-pointer group"
                 >
                   <div className="flex items-center gap-2 text-emerald-700 font-bold text-xs mb-1">
-                    <span>⚡</span>
+                    <span><Zap className="inline-block w-[1em] h-[1em]" /></span>
                     <span>Metabólico</span>
                   </div>
                   <span className="text-[11px] text-slate-500">HbA1c, Cuerpos cetónicos</span>
@@ -1168,7 +1167,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
           ) : (
             <div className="text-center py-8 space-y-4">
               <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto text-2xl">
-                {classifierScore >= 4 ? '🎉' : '⏳'}
+                {classifierScore >= 4 ? <Trophy className="w-7 h-7" /> : <Hourglass className="w-7 h-7" />}
               </div>
               <h3 className="text-lg font-bold text-slate-900">
                 ¡Tiempo Finalizado!
@@ -1182,7 +1181,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
                   className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-xs"
                 >
                   <RotateCcw className="w-4 h-4" />
-                  <span>Jugar de Nuevo (+Dinero 💰 / XP)</span>
+                  <span>Jugar de Nuevo (+Dinero / XP)</span>
                 </button>
                 <button
                   onClick={() => onNavigate('casos')}
@@ -1277,13 +1276,13 @@ export const GamesHub: React.FC<GamesHubProps> = ({
           ) : (
             <div className="text-center py-8 space-y-4">
               <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto text-2xl">
-                🧬
+                <Dna className="inline-block w-[1em] h-[1em]" />
               </div>
               <h3 className="text-lg font-bold text-slate-900">
                 ¡Tablero Diagnóstico Resuelto!
               </h3>
               <p className="text-xs text-slate-600 max-w-md mx-auto">
-                Has emparejado todas las dianas en <strong className="text-slate-900 font-bold">{memoryMoves} intentos</strong>. ¡+280 € Fondos 💰 y +80 XP asignados a tu expediente!
+                Has emparejado todas las dianas en <strong className="text-slate-900 font-bold">{memoryMoves} intentos</strong>. ¡+280 € Fondos y +80 XP asignados a tu expediente!
               </p>
               <div className="flex items-center justify-center gap-3 pt-2">
                 <button

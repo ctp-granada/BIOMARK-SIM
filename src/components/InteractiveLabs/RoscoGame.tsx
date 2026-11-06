@@ -685,7 +685,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
 
             <div className="space-y-1">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-rose-200/80 text-rose-900 border border-rose-300 shadow-xs">
-                ⏰ ¡Tiempo Agotado! (0:00)
+                ¡Tiempo Agotado! (0:00)
               </span>
               <h3 className="text-2xl font-black text-slate-900 pt-1">
                 La guardia no esperó: tiempo límite alcanzado
@@ -701,7 +701,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
             </p>
 
             <div className="p-3 bg-white/90 rounded-xl border border-rose-200 max-w-sm mx-auto text-xs text-slate-600 shadow-xs">
-              ⚠️ La partida se ha bloqueado. Debes <strong className="text-slate-900">reiniciar la partida</strong> para restablecer el rosco con un nuevo contador de 90 segundos.
+              La partida se ha bloqueado. Debes <strong className="text-slate-900">reiniciar la partida</strong> para restablecer el rosco con un nuevo contador de 90 segundos.
             </div>
 
             <div className="pt-2">
@@ -835,7 +835,7 @@ export const RoscoGame: React.FC<RoscoGameProps> = ({
                 {hintsUsed[currentIndex] && (
                   <div className="w-full py-1.5 px-3 rounded-xl bg-amber-500/20 border border-amber-400/50 text-amber-200 text-xs font-semibold flex items-center justify-between shadow-xs">
                     <div className="flex items-center gap-2">
-                      <span className="text-amber-400 text-sm">💡</span>
+                      <span className="text-amber-400 text-sm"><Lightbulb className="inline-block w-[1em] h-[1em]" /></span>
                       <span>
                         2ª letra revelada:{' '}
                         <strong className="text-white font-mono text-sm uppercase px-1.5 py-0.5 rounded bg-amber-500/40 border border-amber-400/60 shadow-xs">

@@ -10,8 +10,7 @@ import {
   FlaskConical,
   Award,
   Coins,
-  ShieldAlert
-} from 'lucide-react';
+  ShieldAlert, BookOpen, FerrisWheel, Hospital } from 'lucide-react';
 
 interface SatisfactionGateLockScreenProps {
   reason?: 'access_park' | 'cases_milestone' | 'access_advanced_labs' | 'general';
@@ -151,7 +150,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 relative">
               <div className="flex items-center justify-between">
-                <span className="text-2xl">🏥</span>
+                <span className="text-2xl"><Hospital className="inline-block w-[1em] h-[1em]" /></span>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
                   Desbloqueable
                 </span>
@@ -164,7 +163,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
 
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 relative">
               <div className="flex items-center justify-between">
-                <span className="text-2xl">🎡</span>
+                <span className="text-2xl"><FerrisWheel className="inline-block w-[1em] h-[1em]" /></span>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                   Desbloqueable
                 </span>
@@ -177,7 +176,7 @@ export const SatisfactionGateLockScreen: React.FC<SatisfactionGateLockScreenProp
 
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 relative">
               <div className="flex items-center justify-between">
-                <span className="text-2xl">📚</span>
+                <span className="text-2xl"><BookOpen className="inline-block w-[1em] h-[1em]" /></span>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                   Siempre Abierto
                 </span>

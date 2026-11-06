@@ -14,8 +14,7 @@ import {
   BookOpen, 
   Building2,
   TrendingUp,
-  Wallet
-} from 'lucide-react';
+  Wallet, Hospital } from 'lucide-react';
 import { UserProgress, ActiveModule } from '../../types';
 
 interface HospitalDoctorWelcomeModalProps {
@@ -253,7 +252,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                 }`}
               >
                 <Coins className="w-3.5 h-3.5 text-amber-500" />
-                <span>2. ¿Cómo funciona el Dinero? 💰</span>
+                <span>2. ¿Cómo funciona el Dinero?</span>
               </button>
             </div>
 
@@ -266,7 +265,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
               >
                 <div className="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-100 flex items-start gap-3">
                   <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">
-                    🏥
+                    <Hospital className="inline-block w-[1em] h-[1em]" />
                   </div>
                   <div>
                     <h4 className="font-extrabold text-slate-900 text-xs mb-1">
@@ -299,7 +298,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                 </div>
 
                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 flex items-center justify-between gap-3 text-[11px]">
-                  <span>💡 <em>Consejo del Tutor:</em> Puedes consultar la <strong>Biblioteca de Biomarcadores</strong> en cualquier momento si tienes dudas sobre los valores o ventanas temporales.</span>
+                  <span><em>Consejo del Tutor:</em> Puedes consultar la <strong>Biblioteca de Biomarcadores</strong> en cualquier momento si tienes dudas sobre los valores o ventanas temporales.</span>
                 </div>
               </motion.div>
             )}
@@ -313,7 +312,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
               >
                 <div className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200 flex items-start gap-3">
                   <div className="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 font-bold text-sm shadow-2xs">
-                    💰
+                    <Coins className="inline-block w-[1em] h-[1em]" />
                   </div>
                   <div>
                     <h4 className="font-extrabold text-slate-900 text-xs mb-1">
@@ -354,7 +353,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                       <span>¿Te estás quedando sin dinero? ¡Visita el Parque!</span>
                     </span>
                     <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-200 text-emerald-900 font-extrabold">
-                      +150 € a +300 € 💰
+                      +150 € a +300 €
                     </span>
                   </div>
                   <p className="text-[11px] text-emerald-800">

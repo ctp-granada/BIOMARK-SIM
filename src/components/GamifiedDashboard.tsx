@@ -111,7 +111,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold tracking-wider uppercase text-slate-500">Parque Lúdico</span>
-              <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">+Dinero 💰</span>
+              <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">+Dinero</span>
             </div>
 
             <div className="flex items-center gap-3 my-2">
@@ -302,7 +302,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
                   : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
               }`}
             >
-              {isStreakingUp ? '¡+1 Acierto Dorado! ✨' : streakInfo.label}
+              {isStreakingUp ? '¡+1 Acierto Dorado!' : streakInfo.label}
             </motion.span>
           </div>
 
@@ -319,7 +319,7 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
               }
               transition={{ duration: 1.2, ease: 'easeInOut' }}
             >
-              {isStreakingUp ? '🌟' : '✨'}
+              <Flame className="w-5 h-5 text-amber-600" />
             </motion.span>
 
             <div className="relative inline-flex items-baseline">

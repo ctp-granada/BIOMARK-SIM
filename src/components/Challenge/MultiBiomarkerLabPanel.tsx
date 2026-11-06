@@ -22,8 +22,7 @@ import {
   Loader2,
   HelpCircle,
   BookOpen,
-  Info
-} from 'lucide-react';
+  Info, Bean, Brain, Droplets, HeartPulse, LayoutGrid, Microscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface MultiBiomarkerLabPanelProps {
@@ -34,14 +33,14 @@ interface MultiBiomarkerLabPanelProps {
   onConsultBiomarker?: (biomarkerId: string, cost?: number) => boolean;
 }
 
-const SYSTEM_TABS: { id: OrganSystem | 'all'; label: string; icon: string }[] = [
-  { id: 'all', label: 'Todos', icon: '🌐' },
-  { id: 'pancreatic', label: 'Pancreático-Digestivo', icon: '🔬' },
-  { id: 'cardiac', label: 'Cardíaco', icon: '🫀' },
-  { id: 'hepatic', label: 'Hepático / Ictericias', icon: '🪵' },
-  { id: 'metabolic', label: 'Metabólico / β-Oxid.', icon: '⚡' },
-  { id: 'renal', label: 'Renal / Uricemia', icon: '🫘' },
-  { id: 'neuromuscular', label: 'Neuromuscular', icon: '🧠' },
+const SYSTEM_TABS: { id: OrganSystem | 'all'; label: string; icon: React.ReactNode }[] = [
+  { id: 'all', label: 'Todos', icon: <LayoutGrid className="inline-block w-[1em] h-[1em]" /> },
+  { id: 'pancreatic', label: 'Pancreático-Digestivo', icon: <Microscope className="inline-block w-[1em] h-[1em]" /> },
+  { id: 'cardiac', label: 'Cardíaco', icon: <HeartPulse className="inline-block w-[1em] h-[1em]" /> },
+  { id: 'hepatic', label: 'Hepático / Ictericias', icon: <Droplets className="inline-block w-[1em] h-[1em]" /> },
+  { id: 'metabolic', label: 'Metabólico / β-Oxid.', icon: <Zap className="inline-block w-[1em] h-[1em]" /> },
+  { id: 'renal', label: 'Renal / Uricemia', icon: <Bean className="inline-block w-[1em] h-[1em]" /> },
+  { id: 'neuromuscular', label: 'Neuromuscular', icon: <Brain className="inline-block w-[1em] h-[1em]" /> },
 ];
 
 interface PresetBattery {
@@ -412,7 +411,7 @@ export const MultiBiomarkerLabPanel: React.FC<MultiBiomarkerLabPanelProps> = ({
                           ? 'bg-slate-900 text-emerald-400 border-slate-800' 
                           : 'bg-slate-100 text-slate-600 border-slate-200'
                       }`}>
-                        🪙 -{cost} € Presupuesto
+                        -{cost} € Presupuesto
                       </span>
 
                       <button

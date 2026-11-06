@@ -18,8 +18,7 @@ import {
   Clock,
   ShieldCheck,
   Building2,
-  GraduationCap
-} from 'lucide-react';
+  GraduationCap, Hospital, User } from 'lucide-react';
 import {
   subscribeStudentRankings,
   StudentRankingRecord,
@@ -291,7 +290,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto shrink-0">
             <div className="bg-white border border-amber-300/80 rounded-2xl p-3 flex items-center gap-3 shadow-xs">
               <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-700 flex items-center justify-center font-bold text-base border border-amber-300">
-                👨‍⚕️
+                <User className="inline-block w-[1em] h-[1em]" />
               </div>
               <div className="text-left">
                 <div className="flex items-center gap-1.5">
@@ -387,7 +386,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
               <div className="absolute top-3 right-3 text-2xl font-black text-amber-500/40">#1</div>
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-black text-xl shadow-md border-2 border-amber-300">
-                  🥇
+                  <Medal className="inline-block w-[1em] h-[1em]" />
                 </div>
                 <div>
                   <span className="text-[10px] font-black uppercase tracking-wider bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full inline-block mb-0.5">
@@ -423,7 +422,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
               <div className="absolute top-3 right-3 text-2xl font-black text-slate-400/40">#2</div>
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-11 h-11 rounded-2xl bg-slate-300 text-slate-800 flex items-center justify-center font-black text-lg shadow-xs border border-slate-400">
-                  🥈
+                  <Medal className="inline-block w-[1em] h-[1em]" />
                 </div>
                 <div>
                   <span className="text-[10px] font-black uppercase tracking-wider bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full inline-block mb-0.5">
@@ -459,7 +458,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
               <div className="absolute top-3 right-3 text-2xl font-black text-amber-600/30">#3</div>
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-11 h-11 rounded-2xl bg-amber-700 text-amber-100 flex items-center justify-center font-black text-lg shadow-xs border border-amber-600">
-                  🥉
+                  <Medal className="inline-block w-[1em] h-[1em]" />
                 </div>
                 <div>
                   <span className="text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full inline-block mb-0.5">
@@ -533,7 +532,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
         ) : filteredAndSortedRankings.length === 0 ? (
           <div className="p-12 text-center space-y-4 max-w-md mx-auto">
             <div className="w-16 h-16 rounded-3xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mx-auto shadow-inner text-2xl">
-              🏥
+              <Hospital className="inline-block w-[1em] h-[1em]" />
             </div>
             <div>
               <h3 className="text-base font-black text-slate-900 mb-1">
@@ -613,9 +612,9 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                     >
                       {/* Puesto */}
                       <td className="p-3.5 text-center font-black">
-                        {pos === 1 && <span className="text-base" title="1º Puesto - Oro">🥇</span>}
-                        {pos === 2 && <span className="text-base" title="2º Puesto - Plata">🥈</span>}
-                        {pos === 3 && <span className="text-base" title="3º Puesto - Bronce">🥉</span>}
+                        {pos === 1 && <span className="text-base" title="1º Puesto - Oro"><Medal className="inline-block w-[1em] h-[1em]" /></span>}
+                        {pos === 2 && <span className="text-base" title="2º Puesto - Plata"><Medal className="inline-block w-[1em] h-[1em]" /></span>}
+                        {pos === 3 && <span className="text-base" title="3º Puesto - Bronce"><Medal className="inline-block w-[1em] h-[1em]" /></span>}
                         {pos > 3 && <span className="text-slate-500 font-mono text-xs">#{pos}</span>}
                       </td>
 
@@ -623,7 +622,7 @@ export const StudentRankingTable: React.FC<StudentRankingTableProps> = ({
                       <td className="p-3.5">
                         <div className="flex items-center gap-2.5">
                           <div className="w-8 h-8 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 flex items-center justify-center text-sm shrink-0">
-                            {pos === 1 ? '👑' : pos === 2 ? '🌟' : pos === 3 ? '⭐' : '🧑‍⚕️'}
+                            {pos <= 3 ? <Medal className="w-4 h-4" /> : <User className="w-4 h-4" />}
                           </div>
                           <div>
                             <div className="flex items-center gap-1.5">

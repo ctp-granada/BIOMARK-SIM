@@ -15,8 +15,7 @@ import {
   HelpCircle,
   FolderOpen,
   GraduationCap,
-  Lock
-} from 'lucide-react';
+  Lock, Brain, Droplet, HeartPulse, TestTube, User, Zap } from 'lucide-react';
 import { HospitalDoctorWelcomeModal } from './HospitalDoctorWelcomeModal';
 import { satisfactionService } from '../../utils/satisfactionService';
 
@@ -34,7 +33,7 @@ interface ThematicBlock {
   blockNumber: number;
   title: string;
   shortName: string;
-  iconEmoji: string;
+  iconEmoji: React.ReactNode;
   gradient: string;
   badgeBg: string;
   borderHover: string;
@@ -50,7 +49,7 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
     blockNumber: 1,
     title: 'Patología Cardiovascular & Necrosis Miocárdica',
     shortName: 'Cardiovascular',
-    iconEmoji: '🫀',
+    iconEmoji: <HeartPulse className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-rose-500/10 via-red-500/5 to-transparent',
     badgeBg: 'bg-rose-100 text-rose-800 border-rose-200',
     borderHover: 'hover:border-rose-400 group-hover:shadow-rose-500/10',
@@ -64,7 +63,7 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
     blockNumber: 2,
     title: 'Patología Hepática, Citólisis e Ictericias',
     shortName: 'Hepático / Ictericias',
-    iconEmoji: '🧪',
+    iconEmoji: <TestTube className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-amber-500/10 via-yellow-500/5 to-transparent',
     badgeBg: 'bg-amber-100 text-amber-900 border-amber-200',
     borderHover: 'hover:border-amber-400 group-hover:shadow-amber-500/10',
@@ -78,7 +77,7 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
     blockNumber: 3,
     title: 'Metabolismo Energético, Glúcidos y Cetoacidosis',
     shortName: 'Metabolismo / Glúcidos',
-    iconEmoji: '⚡',
+    iconEmoji: <Zap className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-emerald-500/10 via-teal-500/5 to-transparent',
     badgeBg: 'bg-emerald-100 text-emerald-800 border-emerald-200',
     borderHover: 'hover:border-emerald-400 group-hover:shadow-emerald-500/10',
@@ -92,7 +91,7 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
     blockNumber: 4,
     title: 'Función Renal, Purinas (Gota) y Metabolismo Nitrogenado',
     shortName: 'Renal / Purinas / Urea',
-    iconEmoji: '💧',
+    iconEmoji: <Droplet className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-blue-500/10 via-sky-500/5 to-transparent',
     badgeBg: 'bg-blue-100 text-blue-800 border-blue-200',
     borderHover: 'hover:border-blue-400 group-hover:shadow-blue-500/10',
@@ -106,7 +105,7 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
     blockNumber: 5,
     title: 'Páncreas Exocrino y Patología Digestiva',
     shortName: 'Páncreas / Digestivo',
-    iconEmoji: '🩺',
+    iconEmoji: <Stethoscope className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-purple-500/10 via-violet-500/5 to-transparent',
     badgeBg: 'bg-purple-100 text-purple-800 border-purple-200',
     borderHover: 'hover:border-purple-400 group-hover:shadow-purple-500/10',
@@ -120,7 +119,7 @@ const THEMATIC_BLOCKS: ThematicBlock[] = [
     blockNumber: 6,
     title: 'Trastornos Neuromusculares, Toxicología y Hemoglobina',
     shortName: 'Neuromuscular / Tóxicos',
-    iconEmoji: '🧠',
+    iconEmoji: <Brain className="inline-block w-[1em] h-[1em]" />,
     gradient: 'from-indigo-500/10 via-cyan-500/5 to-transparent',
     badgeBg: 'bg-indigo-100 text-indigo-800 border-indigo-200',
     borderHover: 'hover:border-indigo-400 group-hover:shadow-indigo-500/10',
@@ -206,7 +205,7 @@ export const CaseList: React.FC<CaseListProps> = ({
             onClick={() => setShowDoctorModal(true)}
             className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 font-bold text-xs shadow-2xs flex items-center gap-1.5 cursor-pointer transition-colors"
           >
-            <span className="text-sm">👨‍⚕️</span>
+            <span className="text-sm"><User className="inline-block w-[1em] h-[1em]" /></span>
             <span>Guía del Tutor Clínico</span>
           </button>
         </div>
@@ -320,7 +319,7 @@ export const CaseList: React.FC<CaseListProps> = ({
             </div>
 
             <p className="text-xs sm:text-[13px] text-slate-700 leading-relaxed">
-              «¡Bienvenido al hospital! En el <strong className="text-slate-900">Banco de Casos</strong> entrenarás como médico de urgencias. Los pacientes están agrupados por <strong className="text-teal-900 font-bold">bloques temáticos</strong> para que estudies ordenadamente y no te distraigas con temas que aún no has visto en clase. Recuerda la regla de oro: partes con una partida inicial de <strong className="text-emerald-800 font-bold">5.000 € de fondos sanitarios</strong>. Cada analítica consume entre <strong className="text-amber-900 font-bold">60 € y 300 €</strong> de tu dinero de guardia. Si pides pruebas a ciegas te quedarás sin fondos. Pide solo los biomarcadores discriminatorios clave. ¿Y si necesitas liquidez? ¡Pasa por la <strong className="text-emerald-700 font-bold">Zona Lúdica del Parque</strong> a ganar dinero respondiendo minijuegos (+150 € a +300 € 💰)!»
+              «¡Bienvenido al hospital! En el <strong className="text-slate-900">Banco de Casos</strong> entrenarás como médico de urgencias. Los pacientes están agrupados por <strong className="text-teal-900 font-bold">bloques temáticos</strong> para que estudies ordenadamente y no te distraigas con temas que aún no has visto en clase. Recuerda la regla de oro: partes con una partida inicial de <strong className="text-emerald-800 font-bold">5.000 € de fondos sanitarios</strong>. Cada analítica consume entre <strong className="text-amber-900 font-bold">60 € y 300 €</strong> de tu dinero de guardia. Si pides pruebas a ciegas te quedarás sin fondos. Pide solo los biomarcadores discriminatorios clave. ¿Y si necesitas liquidez? ¡Pasa por la <strong className="text-emerald-700 font-bold">Zona Lúdica del Parque</strong> a ganar dinero respondiendo minijuegos (+150 € a +300 €)!»
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
@@ -338,7 +337,7 @@ export const CaseList: React.FC<CaseListProps> = ({
                   className="text-xs font-bold text-amber-900 hover:text-amber-950 inline-flex items-center gap-1.5 bg-amber-100/90 hover:bg-amber-200/90 px-3 py-1.5 rounded-xl border border-amber-300 transition-colors cursor-pointer shadow-2xs"
                 >
                   <Gamepad2 className="w-3.5 h-3.5 text-amber-700" />
-                  <span>Ir al Parque a ganar Dinero (+150 € a +300 € 💰)</span>
+                  <span>Ir al Parque a ganar Dinero (+150 € a +300 €)</span>
                 </button>
               )}
             </div>

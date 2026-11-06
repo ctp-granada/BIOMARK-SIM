@@ -14,8 +14,7 @@ import {
   Gauge, 
   ShieldCheck,
   Zap,
-  TestTubes
-} from 'lucide-react';
+  TestTubes, ClipboardList, Microscope, TestTube } from 'lucide-react';
 
 interface HospitalLabProcessingModalProps {
   orderedBiomarkerIds: string[];
@@ -26,7 +25,7 @@ interface HospitalLabProcessingModalProps {
 interface ProcessingStage {
   label: string;
   sublabel: string;
-  icon: string;
+  icon: React.ReactNode;
   minProgress: number;
 }
 
@@ -34,25 +33,25 @@ const STAGES: ProcessingStage[] = [
   {
     label: 'Recepción & Centrifugación STAT',
     sublabel: 'Separación de fase sérica a 3500 RPM (37°C)',
-    icon: '🧪',
+    icon: <TestTube className="inline-block w-[1em] h-[1em]" />,
     minProgress: 0
   },
   {
     label: 'Autoanalizador Bioquímico en Curso',
     sublabel: 'Ensayo espectrofotométrico e inmunoquimioluminiscencia',
-    icon: '⚡',
+    icon: <Zap className="inline-block w-[1em] h-[1em]" />,
     minProgress: 28
   },
   {
     label: 'Control de Calidad & Calibración',
     sublabel: 'Validación de curvas cinéticas y límites de detección',
-    icon: '🔬',
+    icon: <Microscope className="inline-block w-[1em] h-[1em]" />,
     minProgress: 65
   },
   {
     label: 'Emisión de Informe Analítico',
     sublabel: 'Firma electrónica y transmisión a Urgencias',
-    icon: '📋',
+    icon: <ClipboardList className="inline-block w-[1em] h-[1em]" />,
     minProgress: 90
   }
 ];

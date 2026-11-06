@@ -126,7 +126,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
                   </p>
                   {dailyState?.bonusMultiplierApplied && dailyState.bonusMultiplierApplied > 1 && (
                     <span className="inline-block mt-1 text-[11px] font-bold text-amber-300 bg-amber-950/60 px-2 py-0.5 rounded-full border border-amber-500/40">
-                      ⚡ Bonificación 2.0x aplicada
+                      Bonificación 2.0x aplicada
                     </span>
                   )}
                 </div>
@@ -151,7 +151,7 @@ export const DailyChallengeView: React.FC<DailyChallengeViewProps> = ({
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
                 <span className="text-[11px] font-bold text-slate-900 tracking-wide uppercase">
-                  ⚡ 120 Seg • Bonificación 2.0x XP
+                  120 Seg • Bonificación 2.0x XP
                 </span>
               </motion.button>
             )}

@@ -253,7 +253,7 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
             <span className="text-xs font-bold text-slate-500 uppercase">Racha Activa</span>
             <Flame className="w-4 h-4 text-orange-500" />
           </div>
-          <div className="text-2xl font-black text-slate-900">{userProgress.streak} 🔥</div>
+          <div className="text-2xl font-black text-slate-900">{userProgress.streak}</div>
           <p className="text-[11px] text-slate-400 mt-1">{streak.bonusText}</p>
         </div>
 

@@ -33,7 +33,7 @@ interface OnboardingTourProps {
 const TOUR_STEPS: Step[] = [
   {
     target: '#tour-welcome-header',
-    title: '🏛️ ¡Bienvenido a la Ciudad Biomédica UGR!',
+    title: '¡Bienvenido a la Ciudad Biomédica UGR!',
     content: (
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
@@ -45,7 +45,7 @@ const TOUR_STEPS: Step[] = [
         </p>
         <div className="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-950 text-[11px] leading-relaxed space-y-1">
           <p className="font-bold flex items-center gap-1.5 text-amber-900">
-            <span>🎯 Objetivo formativo:</span>
+            <span>Objetivo formativo:</span>
           </p>
           <p>
             Aprenderás a interpretar biomarcadores moleculares en situaciones clínicas reales, optimizando el coste sanitario y dominando la integración metabólica a través de 3 distritos clave:
@@ -63,7 +63,7 @@ const TOUR_STEPS: Step[] = [
   },
   {
     target: '#tour-hospital',
-    title: '🏥 1. Hospital Clínico: Casos Reales y Toma de Decisiones',
+    title: '1. Hospital Clínico: Casos Reales y Toma de Decisiones',
     content: (
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
@@ -89,7 +89,7 @@ const TOUR_STEPS: Step[] = [
   },
   {
     target: '#tour-biblioteca',
-    title: '📚 2. Biblioteca Médica: Temario, Vademécum & Labs',
+    title: '2. Biblioteca Médica: Temario, Vademécum & Labs',
     content: (
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
@@ -98,16 +98,16 @@ const TOUR_STEPS: Step[] = [
         <div className="space-y-1.5 text-[11px] text-slate-700">
           <div className="p-2 rounded-xl bg-blue-50/70 border border-blue-200 space-y-1">
             <p>
-              <strong className="text-blue-900">📖 Temario Oficial:</strong> 27 temas completos del programa teórico de Bioquímica Médica (7 créditos ECTS).
+              <strong className="text-blue-900">Temario Oficial:</strong> 27 temas completos del programa teórico de Bioquímica Médica (7 créditos ECTS).
             </p>
             <p>
-              <strong className="text-blue-900">🧪 Vademécum de Biomarcadores:</strong> Catálogo con más de 40 fichas analíticas con valores de referencia (convencionales y SI), ventanas cinéticas (inicio, pico, aclaramiento) y especificidad diagnóstica.
+              <strong className="text-blue-900">Vademécum de Biomarcadores:</strong> Catálogo con más de 40 fichas analíticas con valores de referencia (convencionales y SI), ventanas cinéticas (inicio, pico, aclaramiento) y especificidad diagnóstica.
             </p>
             <p>
-              <strong className="text-blue-900">⚗️ Simuladores Fisiopatológicos:</strong> Ciclo de Randle, Ictericias, Hemostasia y Lanzadera de Carnitina con explicaciones bioquímicas contextuales ('i').
+              <strong className="text-blue-900">Simuladores Fisiopatológicos:</strong> Ciclo de Randle, Ictericias, Hemostasia y Lanzadera de Carnitina con explicaciones bioquímicas contextuales ('i').
             </p>
             <p>
-              <strong className="text-blue-900">📅 Prácticas y Seminarios:</strong> Calendario interactivo por subgrupos 1 al 15 (LAB L-5/6 y Aula S3).
+              <strong className="text-blue-900">Prácticas y Seminarios:</strong> Calendario interactivo por subgrupos 1 al 15 (LAB L-5/6 y Aula S3).
             </p>
           </div>
         </div>
@@ -118,7 +118,7 @@ const TOUR_STEPS: Step[] = [
   },
   {
     target: '#tour-parque',
-    title: '🌳 3. Parque Lúdico: Minijuegos & Ganar Dinero Hospitalario',
+    title: '3. Parque Lúdico: Minijuegos & Ganar Dinero Hospitalario',
     content: (
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
@@ -126,13 +126,13 @@ const TOUR_STEPS: Step[] = [
         </p>
         <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-[11px] leading-relaxed space-y-1.5">
           <p>
-            <strong className="text-emerald-800">⭕ El Rosco Metabólico:</strong> 25 letras tipo Pasapalabra con definiciones bioquímicas. Cada acierto suma entre <strong className="text-emerald-900">+250 € y +300 € de fondos sanitarios</strong>.
+            <strong className="text-emerald-800">El Rosco Metabólico:</strong> 25 letras tipo Pasapalabra con definiciones bioquímicas. Cada acierto suma entre <strong className="text-emerald-900">+250 € y +300 € de fondos sanitarios</strong>.
           </p>
           <p>
-            <strong className="text-emerald-800">🔍 Sopa de Letras & Crucigrama Clínico:</strong> Reconocimiento activo de metabolitos y enzimas clave.
+            <strong className="text-emerald-800">Sopa de Letras & Crucigrama Clínico:</strong> Reconocimiento activo de metabolitos y enzimas clave.
           </p>
           <p>
-            <strong className="text-emerald-800">⚡ Reto Diario STAT:</strong> Caso contrarreloj de 2 minutos con multiplicador <strong className="text-emerald-900">2.0x XP</strong> y racha diaria de días consecutivos.
+            <strong className="text-emerald-800">Reto Diario STAT:</strong> Caso contrarreloj de 2 minutos con multiplicador <strong className="text-emerald-900">2.0x XP</strong> y racha diaria de días consecutivos.
           </p>
         </div>
       </div>
@@ -142,7 +142,7 @@ const TOUR_STEPS: Step[] = [
   },
   {
     target: '#tour-stats-bar',
-    title: '💼 Monitor de Guardia y Recursos del Estudiante',
+    title: 'Monitor de Guardia y Recursos del Estudiante',
     content: (
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
@@ -150,19 +150,19 @@ const TOUR_STEPS: Step[] = [
         </p>
         <div className="grid grid-cols-2 gap-2 text-[11px]">
           <div className="p-2 rounded-xl bg-slate-50 border border-slate-200 space-y-0.5">
-            <span className="font-bold text-amber-700 block">💰 Fondos (€):</span>
+            <span className="font-bold text-amber-700 block">Fondos (€):</span>
             <span className="text-slate-600 text-[10px]">Tu presupuesto de guardia para pedir analíticas en el Hospital.</span>
           </div>
           <div className="p-2 rounded-xl bg-slate-50 border border-slate-200 space-y-0.5">
-            <span className="font-bold text-emerald-700 block">⭐ XP (Experiencia):</span>
+            <span className="font-bold text-emerald-700 block">XP (Experiencia):</span>
             <span className="text-slate-600 text-[10px]">Puntos ganados al resolver casos y responder correctamente.</span>
           </div>
           <div className="p-2 rounded-xl bg-slate-50 border border-slate-200 space-y-0.5">
-            <span className="font-bold text-rose-700 block">❤️ Vidas de Guardia:</span>
+            <span className="font-bold text-rose-700 block">Vidas de Guardia:</span>
             <span className="text-slate-600 text-[10px]">Intentos disponibles antes de necesitar reposición.</span>
           </div>
           <div className="p-2 rounded-xl bg-slate-50 border border-slate-200 space-y-0.5">
-            <span className="font-bold text-amber-600 block">🔥 Racha Diaria:</span>
+            <span className="font-bold text-amber-600 block">Racha Diaria:</span>
             <span className="text-slate-600 text-[10px]">Días consecutivos entrando a la plataforma.</span>
           </div>
         </div>
@@ -176,7 +176,7 @@ const TOUR_STEPS: Step[] = [
   },
   {
     target: '#tour-quick-tutorial-btn',
-    title: '✨ ¡Listo para Iniciar tu Aprendizaje!',
+    title: '¡Listo para Iniciar tu Aprendizaje!',
     content: (
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
@@ -184,7 +184,7 @@ const TOUR_STEPS: Step[] = [
         </p>
         <div className="p-2.5 rounded-xl bg-amber-50/90 border border-amber-300 text-amber-950 text-[11px] leading-relaxed">
           <p className="font-bold text-amber-900">
-            🎓 ¡Mucho éxito en tu guardia formativa!
+            ¡Mucho éxito en tu guardia formativa!
           </p>
           <p className="text-slate-600 text-[10px] mt-1">
             Pon a prueba tu criterio bioquímico, ahorra recursos sanitarios y alcanza el Top 10 del ranking del curso.

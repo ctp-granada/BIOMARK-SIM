@@ -8,8 +8,7 @@ import {
   Calendar,
   Sparkles,
   MapPin,
-  GraduationCap,
-} from 'lucide-react';
+  GraduationCap, CalendarX } from 'lucide-react';
 import { ComputedSession, FilterState } from '../../types/practicasSeminarios';
 import { getMonthDaysGrid, getHolyWeekInfo } from '../../utils/practicasSeminarios/perpetualDateUtils';
 
@@ -86,10 +85,10 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
     // Holy Week detection
     const holyTitle = holyWeek.getHolyDayTitle(date);
     if (holyTitle) {
-      return `✝️ ${holyTitle}`;
+      return `${holyTitle}`;
     }
     if (holyWeek.isDateInHolyWeek(date)) {
-      return '✝️ Semana Santa (No lectivo)';
+      return 'Semana Santa (No lectivo)';
     }
 
     return null;
@@ -172,7 +171,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
       {isHolyWeekInThisMonth && (
         <div className="px-6 py-2.5 bg-gradient-to-r from-purple-100/90 via-amber-50 to-purple-100/90 border-b border-purple-200 flex items-center justify-between flex-wrap gap-2 text-xs text-purple-950">
           <div className="flex items-center gap-2 font-bold">
-            <span className="text-base">✝️</span>
+            <span className="text-base"><CalendarX className="inline-block w-[1em] h-[1em]" /></span>
             <span>Semana Santa {year}: {holyWeek.dateRangeLabel}</span>
             <span className="text-[11px] font-medium text-purple-800 hidden sm:inline">
               • Periodo no lectivo y festivo universitario oficial UGR
@@ -239,7 +238,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
                     }`}
                     title={holyDayTitle || 'Semana Santa'}
                   >
-                    ✝️ {holyDayTitle || 'Semana Santa'}
+                    {holyDayTitle || 'Semana Santa'}
                   </span>
                 )}
 
@@ -314,7 +313,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
                               : 'bg-purple-200 text-purple-950 border-purple-400'
                           }`}
                         >
-                          {isPractice ? '🔬 LAB L-5/6' : isExam ? '📝 EXAMEN' : '📖 AULA S3'}
+                          {isPractice ? 'LAB L-5/6' : isExam ? 'EXAMEN' : 'AULA S3'}
                         </span>
                       </div>
 
@@ -384,7 +383,7 @@ export const MonthCalendarView: React.FC<MonthCalendarViewProps> = ({
           </div>
           <div className="flex items-center gap-1.5">
             <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-900 border border-purple-300">
-              ✝️ Semana Santa ({holyWeek.dateRangeLabel})
+              Semana Santa ({holyWeek.dateRangeLabel})
             </span>
           </div>
           <div className="flex items-center gap-1.5">

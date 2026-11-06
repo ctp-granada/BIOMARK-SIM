@@ -121,7 +121,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({
 
           {/* Keyboard tip */}
           <div className="text-center text-[11px] text-slate-500 pt-1">
-            💡 Consejo: También puedes pulsar{' '}
+            Consejo: También puedes pulsar{' '}
             <kbd className="px-1.5 py-0.5 bg-slate-200 border border-slate-300 rounded font-mono font-bold text-slate-800">
               Ctrl + P
             </kbd>{' '}

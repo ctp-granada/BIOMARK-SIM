@@ -15,7 +15,7 @@ export function getStreakMultiplier(streak: number): StreakInfo {
   if (streak >= 5) {
     return {
       multiplier: 2.0,
-      label: 'Racha Épica 🔥',
+      label: 'Racha Épica',
       bonusText: '+100% XP (x2.0)',
       isHot: true,
       color: 'text-amber-500 bg-amber-500/10 border-amber-500/30'
@@ -24,7 +24,7 @@ export function getStreakMultiplier(streak: number): StreakInfo {
   if (streak >= 3) {
     return {
       multiplier: 1.5,
-      label: 'Racha Activa ⚡',
+      label: 'Racha Activa',
       bonusText: '+50% XP (x1.5)',
       isHot: true,
       color: 'text-orange-500 bg-orange-500/10 border-orange-500/30'
@@ -33,7 +33,7 @@ export function getStreakMultiplier(streak: number): StreakInfo {
   if (streak >= 1) {
     return {
       multiplier: 1.1,
-      label: 'En Racha ✨',
+      label: 'En Racha',
       bonusText: '+10% XP (x1.1)',
       isHot: false,
       color: 'text-blue-500 bg-blue-500/10 border-blue-500/30'

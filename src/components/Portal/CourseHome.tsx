@@ -18,8 +18,7 @@ import {
   GraduationCap,
   Clock,
   Bell,
-  FileText
-} from 'lucide-react';
+  FileText, Droplet, TestTube } from 'lucide-react';
 import { InteractiveCityEntrance } from '../City/InteractiveCityEntrance';
 import { CLINICAL_CASES_DATABASE } from '../../data/clinicalCases';
 
@@ -249,7 +248,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
             className="bg-slate-950 p-5 rounded-2xl border border-slate-800 hover:border-emerald-500/60 transition-all cursor-pointer space-y-3 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-2xl">🔄</span>
+              <span className="text-2xl"><RefreshCw className="inline-block w-[1em] h-[1em]" /></span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
                 Metabolismo
               </span>
@@ -260,7 +259,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
             <p className="text-xs text-slate-400 leading-relaxed">
               Navegador metabólico interactivo. Competencia entre glucosa y ácidos grasos por el Acetil-CoA en ayuno y postprandio. Regulación por Malonil-CoA y CAT-1.
             </p>
-            <span className="text-xs font-bold text-emerald-400 block pt-2">Abrir Navegador ➔</span>
+            <span className="text-xs font-bold text-emerald-400 block pt-2">Abrir Navegador →</span>
           </div>
 
           {/* Lab 2: Ictericias */}
@@ -272,7 +271,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
             className="bg-slate-950 p-5 rounded-2xl border border-slate-800 hover:border-emerald-500/60 transition-all cursor-pointer space-y-3 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-2xl">🧪</span>
+              <span className="text-2xl"><TestTube className="inline-block w-[1em] h-[1em]" /></span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 Diagnóstico Clínico
               </span>
@@ -283,7 +282,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
             <p className="text-xs text-slate-400 leading-relaxed">
               Diagnóstico diferencial de ictericias con sliders analíticos de BT, BD, transaminasas y FA. Probeta de orina reactiva, acolia fecal y panel neonatal BIND/Kramer.
             </p>
-            <span className="text-xs font-bold text-emerald-400 block pt-2">Iniciar Simulación ➔</span>
+            <span className="text-xs font-bold text-emerald-400 block pt-2">Iniciar Simulación →</span>
           </div>
 
           {/* Lab 3: Hemostasia */}
@@ -295,7 +294,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
             className="bg-slate-950 p-5 rounded-2xl border border-slate-800 hover:border-emerald-500/60 transition-all cursor-pointer space-y-3 group"
           >
             <div className="flex items-center justify-between">
-              <span className="text-2xl">🩸</span>
+              <span className="text-2xl"><Droplet className="inline-block w-[1em] h-[1em]" /></span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">
                 Hematología
               </span>
@@ -306,7 +305,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
             <p className="text-xs text-slate-400 leading-relaxed">
               Plataforma interactiva con animación paso a paso de la cascada intrínseca, extrínseca y común, señalización plaquetaria AMPc/calcio y la Tríada de Virchow.
             </p>
-            <span className="text-xs font-bold text-emerald-400 block pt-2">Ver Cascada ➔</span>
+            <span className="text-xs font-bold text-emerald-400 block pt-2">Ver Cascada →</span>
           </div>
         </div>
       </div>
@@ -442,7 +441,7 @@ export const CourseHome: React.FC<CourseHomeProps> = ({
               onClick={() => onNavigate('estadisticas')}
               className="text-xs font-bold text-emerald-700 hover:text-emerald-800 hover:underline cursor-pointer"
             >
-              Ver mi expediente ➔
+              Ver mi expediente →
             </button>
           </div>
         </div>

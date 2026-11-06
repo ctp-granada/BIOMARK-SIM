@@ -15,8 +15,7 @@ import {
   Eye,
   EyeOff,
   KeyRound,
-  GraduationCap,
-} from 'lucide-react';
+  GraduationCap, BookOpen, FlaskConical } from 'lucide-react';
 import { TemplateWeek, ShiftType } from '../../types/practicasSeminarios';
 import { PROFESSORS_LIST, PROFESSOR_EMAILS, TEMPLATE_WEEKS } from '../../data/practicasSeminarios/curriculumData';
 
@@ -560,7 +559,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                       <div className="bg-white rounded-xl border border-sky-200 overflow-hidden shadow-2xs">
                         <div className="bg-sky-500 text-white px-3.5 py-2 flex items-center justify-between font-bold">
                           <span className="flex items-center gap-1.5">
-                            <span>🥼</span>
+                            <span><FlaskConical className="inline-block w-[1em] h-[1em]" /></span>
                             <span>PRÁCTICAS • LAB L-5/6</span>
                           </span>
                           <span className="text-[11px] font-normal">{currentWeek.practiceTitle}</span>
@@ -636,7 +635,7 @@ export const CoordinatorModal: React.FC<CoordinatorModalProps> = ({
                       <div className="bg-white rounded-xl border border-purple-200 overflow-hidden shadow-2xs">
                         <div className="bg-purple-600 text-white px-3.5 py-2 flex items-center justify-between font-bold">
                           <span className="flex items-center gap-1.5">
-                            <span>📖</span>
+                            <span><BookOpen className="inline-block w-[1em] h-[1em]" /></span>
                             <span>SEMINARIOS • AULA S3</span>
                           </span>
                           <span className="text-[11px] font-normal">{currentWeek.seminarTitle}</span>

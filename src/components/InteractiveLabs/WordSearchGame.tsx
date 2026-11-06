@@ -269,7 +269,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
           <h2 className="text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
             <span>Sopa de Letras de Biomarcadores</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono">
-              +270-300 € Dinero 💰
+              +270-300 € Dinero
             </span>
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -337,7 +337,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
           </div>
 
           <p className="text-[11px] text-slate-500 mt-3 text-center">
-            💡 <strong>Instrucción:</strong> Pulsa la primera letra y luego la última para trazar la palabra (horizontal o vertical).
+            <strong>Instrucción:</strong> Pulsa la primera letra y luego la última para trazar la palabra (horizontal o vertical).
           </p>
         </div>
 
@@ -402,7 +402,7 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-4 text-center sm:text-left">
                 <div className="w-14 h-14 rounded-2xl bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shrink-0 text-3xl">
-                  🏆
+                  <Trophy className="inline-block w-[1em] h-[1em]" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 justify-center sm:justify-start">

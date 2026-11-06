@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ClinicalCase, OrganSystem, DifficultyLevel } from '../types';
-import { Sparkles, X, Loader2, AlertCircle, BookOpen, Layers, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { Sparkles, X, Loader2, AlertCircle, BookOpen, Layers, CheckCircle2, ShieldAlert, Bean, Brain, Droplets, HeartPulse, Microscope, Zap } from 'lucide-react';
 
 interface AICaseGeneratorModalProps {
   isOpen: boolean;
@@ -10,13 +10,13 @@ interface AICaseGeneratorModalProps {
 
 const SYSTEM_CURRICULUM_DETAILS: Record<OrganSystem, {
   label: string;
-  icon: string;
+  icon: React.ReactNode;
   subtopics: { id: string; name: string }[];
   biomarkers: string[];
 }> = {
   cardiac: {
-    label: '🫀 Cardíaco y Síndrome Coronario',
-    icon: '🫀',
+    label: 'Cardíaco y Síndrome Coronario',
+    icon: <HeartPulse className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
       { id: 'scasest_iam', name: 'SCASEST / IAM Agudo en ventana precoz (2-4 horas)' },
       { id: 'reinfarction', name: 'Sospecha de Reinfarto precoz a los 4 días (Cinética CK-MB vs Troponina)' },
@@ -25,8 +25,8 @@ const SYSTEM_CURRICULUM_DETAILS: Record<OrganSystem, {
     biomarkers: ['Troponina hs-cTn', 'CK-MB Masa', 'CK Total', 'NT-proBNP', 'LDH']
   },
   hepatic: {
-    label: '🪵 Hepático e Ictericias',
-    icon: '🪵',
+    label: 'Hepático e Ictericias',
+    icon: <Droplets className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
       { id: 'obstructive_jaundice', name: 'Ictericia Posthepática / Obstructiva (Bilirrubina Directa, FA, GGT)' },
       { id: 'hemolytic_jaundice', name: 'Ictericia Prehepática / Hemolítica (Bilirrubina Indirecta, Haptoglobina)' },
@@ -36,8 +36,8 @@ const SYSTEM_CURRICULUM_DETAILS: Record<OrganSystem, {
     biomarkers: ['Bilirrubina Directa', 'Bilirrubina Total', 'ALT (GPT)', 'AST (GOT)', 'GGT', 'Fosfatasa Alcalina']
   },
   metabolic: {
-    label: '⚡ Metabolismo, β-Oxidación y Glúcidos',
-    icon: '⚡',
+    label: 'Metabolismo, β-Oxidación y Glúcidos',
+    icon: <Zap className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
       { id: 'mcadd_defect', name: 'Deficiencia de MCADD / Defecto de β-Oxidación (Hipoglucemia Hipocetósica)' },
       { id: 'diabetic_ketoacidosis', name: 'Cetoacidosis Diabética (β-Hidroxibutirato elevado > 3.0 mmol/L)' },
@@ -46,8 +46,8 @@ const SYSTEM_CURRICULUM_DETAILS: Record<OrganSystem, {
     biomarkers: ['Perfil Acilcarnitinas (C8)', 'Carnitina Libre C0', 'β-Hidroxibutirato', 'Glucemia en Ayunas', 'HbA1c', 'Triglicéridos']
   },
   renal: {
-    label: '🫘 Renal, Ciclo de la Urea y Purinas',
-    icon: '🫘',
+    label: 'Renal, Ciclo de la Urea y Purinas',
+    icon: <Bean className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
       { id: 'otc_deficiency', name: 'Defecto Ciclo de la Urea por Déficit de OTC (Hiperamonemia masiva)' },
       { id: 'gout_hyperuricemia', name: 'Artritis Gotosa Aguda / Hiperuricemia Primaria (Ácido Úrico sérico)' },
@@ -56,8 +56,8 @@ const SYSTEM_CURRICULUM_DETAILS: Record<OrganSystem, {
     biomarkers: ['Amonio Plasmático (tubo frío)', 'Ácido Úrico', 'Urea Sérica', 'Creatinina Sérica', 'eGFR']
   },
   pancreatic: {
-    label: '🔬 Pancreático-Digestivo y Malabsorción',
-    icon: '🔬',
+    label: 'Pancreático-Digestivo y Malabsorción',
+    icon: <Microscope className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
       { id: 'hypertriglyceridemic_pancreatitis', name: 'Pancreatitis por Hipertrigliceridemia (>1000 mg/dL con suero lechoso)' },
       { id: 'omeprazole_chronic', name: 'Uso Crónico de Omeprazol/IBPs (Hipomagnesemia, Hipocalcemia y Déficit B12)' },
@@ -67,8 +67,8 @@ const SYSTEM_CURRICULUM_DETAILS: Record<OrganSystem, {
     biomarkers: ['Lipasa Sérica', 'Triglicéridos Séricos', 'tTG-IgA', 'Vitamina B12', 'Magnesio / Calcio', 'Amilasa Total']
   },
   neuromuscular: {
-    label: '🧠 Neuromuscular y Señalización Celular',
-    icon: '🧠',
+    label: 'Neuromuscular y Señalización Celular',
+    icon: <Brain className="inline-block w-[1em] h-[1em]" />,
     subtopics: [
       { id: 'myasthenia_gravis', name: 'Miastenia Gravis (Receptores nicotínicos AChR y canales iónicos)' },
       { id: 'lambert_eaton', name: 'Síndrome de Lambert-Eaton (Canales de calcio VGCC presinápticos)' }
@@ -174,11 +174,11 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
               }}
               className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl font-medium text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
             >
-              <option value="cardiac">🫀 Cardíaco y Síndrome Coronario (SCASEST, IAM, Reinfarto, IC)</option>
-              <option value="hepatic">🪵 Hepático e Ictericias (Prehepática, Posthepática, Citólisis, Alcohol)</option>
-              <option value="metabolic">⚡ Metabolismo y β-Oxidación (MCADD, Cetoacidosis, Resistencia Insulina)</option>
-              <option value="renal">🫘 Renal y Ciclo de la Urea (Amonio, OTC, Gota, Lisis Tumoral)</option>
-              <option value="pancreatic">🔬 Pancreático-Digestivo (Pancreatitis, IBPs/Omeprazol, Celíaca)</option>
+              <option value="cardiac">Cardíaco y Síndrome Coronario (SCASEST, IAM, Reinfarto, IC)</option>
+              <option value="hepatic">Hepático e Ictericias (Prehepática, Posthepática, Citólisis, Alcohol)</option>
+              <option value="metabolic">Metabolismo y β-Oxidación (MCADD, Cetoacidosis, Resistencia Insulina)</option>
+              <option value="renal">Renal y Ciclo de la Urea (Amonio, OTC, Gota, Lisis Tumoral)</option>
+              <option value="pancreatic">Pancreático-Digestivo (Pancreatitis, IBPs/Omeprazol, Celíaca)</option>
             </select>
           </div>
 
@@ -193,10 +193,10 @@ export const AICaseGeneratorModal: React.FC<AICaseGeneratorModalProps> = ({
               onChange={(e) => setSelectedSubtopic(e.target.value)}
               className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl font-medium text-slate-900 focus:ring-2 focus:ring-purple-500 focus:outline-none"
             >
-              <option value="">🎲 Síntesis Curricular Automática (Cualquier escenario del módulo)</option>
+              <option value="">Síntesis Curricular Automática (Cualquier escenario del módulo)</option>
               {currentCurriculum.subtopics.map((st) => (
                 <option key={st.id} value={st.id}>
-                  📌 {st.name}
+                  {st.name}
                 </option>
               ))}
             </select>

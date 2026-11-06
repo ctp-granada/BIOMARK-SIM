@@ -376,7 +376,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       </span>
                     ) : (
                       <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-white text-emerald-700 border border-emerald-300">
-                        +💰 Dinero
+                        +Dinero
                       </span>
                     )}
                   </button>

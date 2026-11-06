@@ -107,7 +107,7 @@ export const DutyAssistantWidget: React.FC<DutyAssistantWidgetProps> = ({
 
             <p className="text-xs text-slate-300 line-clamp-1 mt-0.5">
               {isCritical
-                ? '⚠️ ¡Alerta presupuestaria! Aplica biomarcadores esenciales costo-efectivos para no agotar la guardia.'
+                ? '¡Alerta presupuestaria! Aplica biomarcadores esenciales costo-efectivos para no agotar la guardia.'
                 : 'Recomendaciones contextuales para optimizar la rentabilidad de las pruebas.'}
             </p>
           </div>
@@ -151,7 +151,7 @@ export const DutyAssistantWidget: React.FC<DutyAssistantWidgetProps> = ({
                   {advice.supervisorQuote}
                 </p>
                 <div className="text-[11px] text-slate-400 font-medium pt-1">
-                  💡 {advice.strategicTip}
+                  {advice.strategicTip}
                 </div>
               </div>
             </div>
@@ -228,7 +228,7 @@ export const DutyAssistantWidget: React.FC<DutyAssistantWidgetProps> = ({
                         className="p-2.5 rounded-lg bg-slate-900/80 border border-rose-900/60 text-xs space-y-0.5"
                       >
                         <div className="font-bold text-rose-300 flex items-center gap-1">
-                          <span>❌ {item.biomarkerName}</span>
+                          <span>{item.biomarkerName}</span>
                         </div>
                         <p className="text-[11px] text-slate-400 leading-snug">
                           {item.reason}

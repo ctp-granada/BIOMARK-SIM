@@ -1,6 +1,6 @@
 import React from 'react';
 import { ClinicalCase, OrganSystem } from '../../types';
-import { User, Activity, ChevronRight } from 'lucide-react';
+import { User, Activity, ChevronRight, Dna } from 'lucide-react';
 
 interface CaseCardProps {
   caseData: ClinicalCase;
@@ -42,7 +42,7 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseData, onSelectCase, onSt
          !caseData.signalingType.toLowerCase().includes('channel') && (
           <div className="mb-2.5">
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200/80">
-              <span>🧬</span>
+              <span><Dna className="inline-block w-[1em] h-[1em]" /></span>
               <span>Señalización: {caseData.signalingType.replace(/_/g, ' ')}</span>
             </span>
           </div>

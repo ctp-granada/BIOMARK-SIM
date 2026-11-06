@@ -303,7 +303,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
           <h2 className="text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
             <span>Crucigrama de Laboratorio Clínico</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 font-mono">
-              +250-300 € Dinero 💰
+              +250-300 € Dinero
             </span>
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -462,7 +462,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
           {/* Horizontales */}
           <div className="space-y-2">
             <div className="flex items-center gap-1.5 pb-1 border-b border-slate-100 text-xs font-bold text-slate-800 uppercase tracking-wide">
-              <span>➡️ Horizontales</span>
+              <span>→️ Horizontales</span>
             </div>
             <div className="space-y-1.5">
               {CROSSWORD_CLUES.filter((c) => c.direction === 'across').map((clue) => {
@@ -537,7 +537,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-4 text-center sm:text-left">
                 <div className="w-14 h-14 rounded-2xl bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shrink-0 text-3xl">
-                  🏆
+                  <Trophy className="inline-block w-[1em] h-[1em]" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 justify-center sm:justify-start">

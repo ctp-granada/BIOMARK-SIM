@@ -40,7 +40,6 @@ interface ImmediateFeedbackModalProps {
 }
 
 // Celebration particles for streak celebration
-const STREAK_EMOJIS = ['🔥', '✨', '⚡', '🏆', '🎯', '🌟', '💎', '🔥'];
 
 export const ImmediateFeedbackModal: React.FC<ImmediateFeedbackModalProps> = ({
   currentCase,
@@ -183,7 +182,7 @@ export const ImmediateFeedbackModal: React.FC<ImmediateFeedbackModalProps> = ({
                   transition={{ type: 'spring', stiffness: 300, damping: 15 }}
                   className="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-xl shrink-0"
                 >
-                  ⚡
+                  <Zap className="inline-block w-[1em] h-[1em]" />
                 </motion.div>
 
                 <div>
@@ -342,7 +341,7 @@ export const ImmediateFeedbackModal: React.FC<ImmediateFeedbackModalProps> = ({
                   </span>
                 ) : isPartiallyCorrect ? (
                   <span className="text-amber-400 text-xs font-medium flex items-center gap-1">
-                    ⚠ Paciente en observación | Requiere marcador confirmatorio
+                    Paciente en observación | Requiere marcador confirmatorio
                   </span>
                 ) : (
                   <span className="text-rose-400 text-xs font-medium flex items-center gap-1">

@@ -86,7 +86,7 @@ export const DailyChallengeBanner: React.FC<DailyChallengeBannerProps> = ({
                 Puntuación obtenida: <strong className="text-white font-semibold">{dailyState?.scoreEarned} XP</strong>
                 {dailyState?.bonusMultiplierApplied && dailyState.bonusMultiplierApplied > 1 && (
                   <span className="block text-emerald-400 font-medium text-[10px]">
-                    ⚡ Bonificación de velocidad {dailyState.bonusMultiplierApplied}x aplicada
+                    Bonificación de velocidad {dailyState.bonusMultiplierApplied}x aplicada
                   </span>
                 )}
               </p>

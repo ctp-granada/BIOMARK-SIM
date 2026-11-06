@@ -17,8 +17,7 @@ import {
   ChevronDown,
   Filter,
   Layers,
-  ArrowUpRight
-} from 'lucide-react';
+  ArrowUpRight, Hourglass } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export interface MilestoneTimelineProps {
@@ -68,7 +67,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
           : `Caso Avanzado Completado: ${record.caseTitle}`,
         subtitle: `Superado con éxito diagnosticando con ${record.selectedBiomarkerName}.`,
         timestamp: record.timestamp,
-        badgeTag: isExpert ? 'Dificultad Experto ⭐⭐⭐' : 'Nivel Avanzado ⭐⭐',
+        badgeTag: isExpert ? 'Dificultad Experto' : 'Nivel Avanzado',
         badgeColor: isExpert
           ? 'bg-purple-100 text-purple-800 border-purple-300'
           : 'bg-amber-100 text-amber-800 border-amber-300',
@@ -87,7 +86,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
         title: `Insignia Obtenida: ${record.badgeUnlocked}`,
         subtitle: `Logro desbloqueado tras resolver "${record.caseTitle}".`,
         timestamp: record.timestamp,
-        badgeTag: 'Insignia Desbloqueada 🏅',
+        badgeTag: 'Insignia Desbloqueada',
         badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-300',
         icon: <Trophy className="w-4 h-4 text-emerald-600" />,
         details: 'Acreditación facultativa sumada a tu expediente.',
@@ -108,7 +107,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
         title: `Insignia de Maestría: ${b.title}`,
         subtitle: b.description,
         timestamp: 'Hito Acreditado',
-        badgeTag: b.category === 'special' ? 'Especial 🌟' : 'Sistema Clínico 🏅',
+        badgeTag: b.category === 'special' ? 'Especial' : 'Sistema Clínico',
         badgeColor: b.badgeBg + ' ' + b.badgeTextColor + ' ' + b.badgeBorder,
         icon: <Award className="w-4 h-4 text-indigo-600" />,
         details: b.requirementDescription,
@@ -125,7 +124,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
       title: `Racha de Aciertos en Guardia: ${userProgress.streak} Consecutivos`,
       subtitle: `Bonificador multiplicador de experiencia activado en el hospital.`,
       timestamp: 'Racha Activa',
-      badgeTag: 'Racha de Fuego 🔥',
+      badgeTag: 'Racha de Fuego',
       badgeColor: 'bg-rose-100 text-rose-800 border-rose-300',
       icon: <Flame className="w-4 h-4 text-rose-600 fill-rose-600" />,
       details: 'Precisión diagnóstica sin fallos en guardias continuas.'
@@ -140,7 +139,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
       title: 'Bautismo en Guardia Hospitalaria',
       subtitle: 'Comienzo oficial de la rotación y primer caso clínico atendido.',
       timestamp: 'Inicio de Rotación',
-      badgeTag: 'Primer Turno 🏥',
+      badgeTag: 'Primer Turno',
       badgeColor: 'bg-blue-100 text-blue-800 border-blue-300',
       icon: <CheckCircle2 className="w-4 h-4 text-blue-600" />,
       details: 'Ingreso al simulador de Bioquímica Clínica.'
@@ -293,7 +292,7 @@ export const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ userProgre
       ) : (
         <div className="text-center py-10 space-y-3 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
           <div className="w-12 h-12 rounded-2xl bg-slate-200/60 text-slate-500 flex items-center justify-center mx-auto text-xl">
-            ⏳
+            <Hourglass className="inline-block w-[1em] h-[1em]" />
           </div>
           <h4 className="text-sm font-bold text-slate-800">
             Aún no se registran hitos en esta categoría
