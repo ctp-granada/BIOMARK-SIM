@@ -47,7 +47,7 @@ export const getBiomarkerCost = (biomarker: Biomarker): number => {
   if ([
     'bm_perfil_acilcarnitinas', 'bm_ttg_iga', 'bm_nt_probnp', 'bm_achr_ab', 
     'bm_anti_vgcc', 'bm_metanephrines_plasma', 'bm_gen_aldob_mutaciones', 
-    'bm_aminoacidos_orina_cola', 'bm_tsi_trab', 'bm_alfa_amanitina_orina', 
+    'bm_aminoacidos_orina_cola', 'bm_tsi_trab', 'bm_trab_tsh', 'bm_alfa_amanitina_orina', 
     'bm_hexosaminidasa_a', 'bm_electroforesis_hemoglobina'
   ].includes(biomarker.id)) {
     return 180;

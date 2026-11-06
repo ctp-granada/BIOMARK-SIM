@@ -499,7 +499,7 @@ export const App: React.FC = () => {
     }
   };
 
-  const totalCasesCount = CLINICAL_CASES_DATABASE.length; // Exactly 31!
+  const totalCasesCount = CLINICAL_CASES_DATABASE.length;
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 selection:bg-amber-100 selection:text-amber-900">
@@ -548,7 +548,7 @@ export const App: React.FC = () => {
           />
         )}
 
-        {/* HOSPITAL: Casos Clínicos (31 Casos) */}
+        {/* HOSPITAL: Casos clínicos */}
         {activeModule === 'casos' && (
           <CaseList
             cases={CLINICAL_CASES_DATABASE}

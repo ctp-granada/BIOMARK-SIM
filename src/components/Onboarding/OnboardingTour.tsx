@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { CLINICAL_CASES_DATABASE } from '../../data/clinicalCases';
 import {
   Joyride,
   Step,
@@ -54,7 +55,7 @@ const TOUR_STEPS: Step[] = [
       <div className="space-y-2.5 text-xs">
         <p className="leading-relaxed">
           En el <strong className="text-slate-900">Hospital universitario</strong> actuarás como médico de guardia ante{' '}
-          <strong className="text-rose-700">31 casos clínicos interactivos</strong> clasificados por sistemas orgánicos (Cardiovascular, Hepático, Metabólico, Renal, Pancreático y Neuromuscular).
+          <strong className="text-rose-700">{CLINICAL_CASES_DATABASE.length} casos clínicos interactivos</strong> ordenados en 7 bloques que siguen el temario; el profesorado los va abriendo a medida que avanza la asignatura.
         </p>
         <div className="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-950 text-[11px] leading-relaxed space-y-1.5">
           <div className="flex items-center gap-1.5 font-bold text-rose-900">
