@@ -103,6 +103,16 @@ export const DEFAULT_CASE_BLOCK: Record<string, string> = {
   case_hepatic_02: 'b6',
   case_marks_insuficiencia_cardiaca_01: 'b7',
   case_hepatic_03: 'b7',
+  // Casos añadidos en noviembre de 2026
+  case_marks_lactosa_01: 'b1',
+  case_marks_trehalasa_01: 'b1',
+  case_marks_fructosa_01: 'b3',
+  case_marks_dm2_01: 'b3',
+  case_marks_sindrome_metabolico_01: 'b4',
+  case_marks_amanitina_01: 'b5',
+  case_marks_talasemia_01: 'b6',
+  case_marks_anorexia_01: 'b7',
+  case_marks_desnutricion_01: 'b7',
 };
 
 export function topicsLabel(block: SyllabusBlock): string {

@@ -1,4 +1,5 @@
 import { ClinicalCase } from '../types';
+import { NEW_MARKS_CASES } from './clinicalCasesNew';
 
 export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
   // CASOS CARDÍACOS
@@ -3315,5 +3316,6 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
     categoryDocente: 'Péptidos natriuréticos y regulación de la homeostasis hidrosalina',
     molecularPathway: 'Sobrecarga de presión en ventrículo -> Estiramiento biomecánico de miocitos -> Síntesis de proBNP -> Escisión en BNP (activador de guanilato ciclasa y GMPc) y NT-proBNP',
     molecularAlteration: 'Aumento masivo de la tensión parietal del miocardio ventricular secundario a disfunción sistólica o diastólica'
-  }
+  },
+  ...NEW_MARKS_CASES
 ];
