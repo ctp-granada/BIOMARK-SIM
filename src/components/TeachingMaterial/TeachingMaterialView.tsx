@@ -565,7 +565,7 @@ export const TeachingMaterialView: React.FC<TeachingMaterialViewProps> = ({ init
                       isCorrect ? 'bg-emerald-50/70 text-emerald-950 border border-emerald-200' : 'bg-rose-50/70 text-rose-950 border border-rose-200'
                     }`}>
                       <span className="font-bold block uppercase text-[10px] tracking-wider">
-                        Justificación Bioquímica oficial:
+                        Justificación bioquímica oficial:
                       </span>
                       <p className="leading-relaxed">
                         {q.rationale}

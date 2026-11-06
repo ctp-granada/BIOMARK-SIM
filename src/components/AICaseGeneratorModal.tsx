@@ -8,7 +8,7 @@ interface AICaseGeneratorModalProps {
   onCaseGenerated: (newCase: ClinicalCase) => void;
 }
 
-const SYSTEM_CURRICULUM_DETAILS: record<OrganSystem, {
+const SYSTEM_CURRICULUM_DETAILS: Record<OrganSystem, {
   label: string;
   icon: React.ReactNode;
   subtopics: { id: string; name: string }[];
