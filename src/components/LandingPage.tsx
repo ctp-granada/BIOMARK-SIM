@@ -338,7 +338,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 leading-tight">
-              Plano de la ciudad biomédica UGR
+              Plano de la Ciudad Biomédica UGR
             </h1>
 
             <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
