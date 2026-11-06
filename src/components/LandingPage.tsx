@@ -64,7 +64,7 @@ const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
     secondaryActions: [
       {
         label: 'Banco de casos clínicos',
-        sublabel: `${CLINICAL_CASES_DATABASE.length} Casos clasificados por sistemas orgánicos`,
+        sublabel: `${CLINICAL_CASES_DATABASE.length} casos clasificados por bloques del temario`,
         target: 'casos',
         icon: Stethoscope
       },
@@ -83,7 +83,7 @@ const DISTRICT_DETAILS: Record<DistrictId, DistrictInfo> = {
       }
     ],
     facilities: ['Urgencias & triaje general', 'Unidad Coronaria', 'Planta de Medicina Interna', 'Laboratorio Central 24h'],
-    stats: `${CLINICAL_CASES_DATABASE.length} Pacientes Activos • 6 Sistemas`,
+    stats: `${CLINICAL_CASES_DATABASE.length} pacientes • 7 bloques del temario`,
     themeColor: {
       accent: 'rose-500',
       border: 'border-rose-500/50',
