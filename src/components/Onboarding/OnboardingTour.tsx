@@ -197,10 +197,7 @@ const TOUR_STEPS: Step[] = [
   }
 ];
 
-interface CustomTooltipProps extends TooltipRenderProps {
-  dontShowAgain: boolean;
-  onToggleDontShowAgain: (checked: boolean) => void;
-}
+interface CustomTooltipProps extends TooltipRenderProps {}
 
 const TourTooltip: React.FC<CustomTooltipProps> = ({
   index,
@@ -211,9 +208,7 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
   skipProps,
   tooltipProps,
   isLastStep,
-  size,
-  dontShowAgain,
-  onToggleDontShowAgain
+  size
 }) => {
   return (
     <div
@@ -294,19 +289,11 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
           </div>
         </div>
 
-        {/* Checkbox "No volver a mostrar" and Navigation Action Buttons */}
+        {/* Navigation Action Buttons & Close hint */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-          <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-slate-700 hover:text-slate-900 group">
-            <input
-              type="checkbox"
-              checked={dontShowAgain}
-              onChange={(e) => onToggleDontShowAgain(e.target.checked)}
-              className="w-4 h-4 rounded text-amber-600 border-slate-300 focus:ring-amber-500 cursor-pointer accent-amber-600 transition-transform group-hover:scale-105"
-            />
-            <span className="font-semibold text-slate-700 group-hover:text-slate-950 text-[11px] sm:text-xs">
-              No volver a mostrar al entrar
-            </span>
-          </label>
+          <div className="text-[11px] text-slate-500 font-medium">
+            Se muestra al inicio para guiar a los alumnos (puedes cerrarlo en cualquier momento).
+          </div>
 
           <div className="flex items-center justify-end gap-2 shrink-0">
             {index > 0 && (
@@ -335,16 +322,6 @@ const TourTooltip: React.FC<CustomTooltipProps> = ({
 
 export const OnboardingTour: React.FC<OnboardingTourProps> = ({ run, onFinishTour }) => {
   const [tourKey, setTourKey] = useState(0);
-  const [dontShowAgain, setDontShowAgain] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        return localStorage.getItem(DONT_SHOW_TOUR_STORAGE_KEY) === 'true';
-      } catch {
-        return false;
-      }
-    }
-    return false;
-  });
 
   // When run changes from false to true, refresh key to ensure tour starts from step 0
   useEffect(() => {
@@ -352,17 +329,6 @@ export const OnboardingTour: React.FC<OnboardingTourProps> = ({ run, onFinishTou
       setTourKey((prev) => prev + 1);
     }
   }, [run]);
-
-  const handleToggleDontShowAgain = (checked: boolean) => {
-    setDontShowAgain(checked);
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem(DONT_SHOW_TOUR_STORAGE_KEY, checked ? 'true' : 'false');
-      } catch (err) {
-        console.warn('Could not save tour preference', err);
-      }
-    }
-  };
 
   if (!run) return null;
 
@@ -386,11 +352,7 @@ export const OnboardingTour: React.FC<OnboardingTourProps> = ({ run, onFinishTou
       continuous
       scrollToFirstStep
       tooltipComponent={(props) => (
-        <TourTooltip
-          {...props}
-          dontShowAgain={dontShowAgain}
-          onToggleDontShowAgain={handleToggleDontShowAgain}
-        />
+        <TourTooltip {...props} />
       )}
       options={{
         overlayColor: 'rgba(15, 23, 42, 0.75)',

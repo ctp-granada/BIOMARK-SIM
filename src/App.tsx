@@ -196,20 +196,19 @@ export const App: React.FC = () => {
     });
   }, []);
 
-  // Auto-launch explanatory tour on entrance if user has not chosen to hide it
+  // Auto-launch explanatory tour always on entrance
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
-        const dontShow = localStorage.getItem(DONT_SHOW_TOUR_STORAGE_KEY);
-        if (dontShow !== 'true') {
-          const timer = setTimeout(() => {
-            setRunTour(true);
-          }, 650);
-          return () => clearTimeout(timer);
-        }
+        // Clear any old suppression flag so the tour always runs on entrance
+        localStorage.removeItem(DONT_SHOW_TOUR_STORAGE_KEY);
       } catch (err) {
-        console.warn('Could not read tour preference', err);
+        console.warn('Could not clear tour suppression flag', err);
       }
+      const timer = setTimeout(() => {
+        setRunTour(true);
+      }, 650);
+      return () => clearTimeout(timer);
     }
   }, []);
 
