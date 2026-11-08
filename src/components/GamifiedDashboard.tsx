@@ -55,7 +55,8 @@ export const GamifiedDashboard: React.FC<GamifiedDashboardProps> = ({
     metabolic: 'Metabolismo / β-Oxidación',
     renal: 'Renal / urea / uricemia',
     pancreatic: 'Pancreático-Digestivo',
-    neuromuscular: 'Neuromuscular / Señalización'
+    neuromuscular: 'Neuromuscular / Señalización',
+    hematologic: 'Hematología'
   };
 
   return (

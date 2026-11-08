@@ -630,7 +630,7 @@ export const NEW_MARKS_CASES: ClinicalCase[] = [
   {
     id: 'case_marks_talasemia_01',
     title: 'Aya M. (5 años): Palidez, cansancio y bazo grande con hierro normal',
-    system: 'neuromuscular',
+    system: 'hematologic',
     difficulty: 'avanzado',
     studentSummary:
       'Aya M., una niña de 5 años de origen marroquí, está pálida y se cansa mucho jugando. Su pediatra le dio hierro durante tres meses sin ninguna mejoría. Tiene el bazo grande y los glóbulos rojos son muy pequeños, pero sus depósitos de hierro son normales. Su médula fabrica poca cadena β de la hemoglobina.',

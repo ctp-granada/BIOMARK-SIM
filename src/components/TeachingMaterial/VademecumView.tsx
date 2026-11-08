@@ -59,6 +59,13 @@ const SYSTEM_CONFIG: Record<OrganSystem | 'all', { label: string; icon: React.Re
     color: 'purple', 
     badgeClass: 'bg-purple-50 text-purple-800 border-purple-200', 
     borderClass: 'border-purple-200 hover:border-purple-300' 
+  },
+  hematologic: {
+    label: 'Hematología',
+    icon: <Droplet className="inline-block w-[1em] h-[1em]" />,
+    color: 'red',
+    badgeClass: 'bg-red-50 text-red-800 border-red-200',
+    borderClass: 'border-red-200 hover:border-red-300'
   }
 };
 

@@ -22,6 +22,7 @@ const SYSTEM_TABS: { id: OrganSystem | 'all'; label: string; icon: React.ReactNo
   { id: 'metabolic', label: 'Metabólico / β-oxid.', icon: <Zap className="inline-block w-[1em] h-[1em]" /> },
   { id: 'renal', label: 'Renal / uricemia', icon: <Bean className="inline-block w-[1em] h-[1em]" /> },
   { id: 'neuromuscular', label: 'Neuromuscular', icon: <Brain className="inline-block w-[1em] h-[1em]" /> },
+  { id: 'hematologic', label: 'Hematología', icon: <Droplets className="inline-block w-[1em] h-[1em]" /> },
 ];
 
 interface PresetBattery {

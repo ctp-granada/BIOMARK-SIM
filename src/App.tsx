@@ -79,7 +79,8 @@ const INITIAL_PROGRESS: UserProgress = {
     metabolic: { attempted: 0, correct: 0 },
     renal: { attempted: 0, correct: 0 },
     pancreatic: { attempted: 0, correct: 0 },
-    neuromuscular: { attempted: 0, correct: 0 }
+    neuromuscular: { attempted: 0, correct: 0 },
+    hematologic: { attempted: 0, correct: 0 }
   },
   history: [],
   unlockedBadges: []

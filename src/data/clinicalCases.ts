@@ -110,7 +110,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
   {
     id: 'case_hepatic_01',
     title: 'Carmen R.: Coloración amarillenta y fatiga intensa',
-    system: 'hepatic',
+    system: 'hematologic',
     difficulty: 'intermedio',
     studentSummary: 'Carmen R., mujer de 34 años con antecedentes de lupus, consulta porque desde hace 4 días nota sus ojos y piel amarillos (ictericia) y se siente muy débil. Sus deposiciones son de color oscuro normal y no tiene picor ni dolor en el vientre. El reto es confirmar si la bilirrubina alta se debe a que se están rompiendo glóbulos rojos masivamente antes del hígado (ictericia prehepática o hemolítica) o a un problema en las vías biliares.',
     clinicalGlossary: [
@@ -2214,7 +2214,7 @@ export const CLINICAL_CASES_DATABASE: ClinicalCase[] = [
   {
     id: 'case_marks_falciforme_01',
     title: 'Mateo R. (19 años): Dolor agudo en huesos y pecho tras partido de fútbol en día frío',
-    system: 'neuromuscular',
+    system: 'hematologic',
     difficulty: 'avanzado',
     studentSummary: 'Mateo R., estudiante universitario de 19 años de origen afrocaribeño, acuda a urgencias con dolores muy intensos e incapacitantes en la espalda, costillas y fémures tras disputar un partido de fútbol en una tarde invernal ventosa. Refiere además una fatiga creciente en los últimos días y nota el blanco de los ojos ligeramente amarillento. Una mutación en el gen de la beta-globina hace que sus glóbulos rojos pierdan su forma redonda y flexible bajo el frío y la deshidratación, adoptando forma de media luna ("hoz") que tapona los pequeños vasos capilares.',
     clinicalGlossary: [

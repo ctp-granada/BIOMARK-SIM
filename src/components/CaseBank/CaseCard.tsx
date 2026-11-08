@@ -15,7 +15,8 @@ export const CaseCard: React.FC<CaseCardProps> = ({ caseData, onSelectCase, onSt
     metabolic: 'Metabolismo / β-Oxidación',
     renal: 'Renal / urea / uricemia',
     pancreatic: 'Pancreático-Digestivo',
-    neuromuscular: 'Neuromuscular / Señalización'
+    neuromuscular: 'Neuromuscular / Señalización',
+    hematologic: 'Hematología'
   };
 
   return (

@@ -43,7 +43,8 @@ export const UserStatsView: React.FC<UserStatsViewProps> = ({
     { key: 'hepatic', label: 'Hepático & ictericias', color: 'bg-amber-500' },
     { key: 'metabolic', label: 'Metabolismo & β-oxidación', color: 'bg-indigo-500' },
     { key: 'renal', label: 'Renal, urea & purinas', color: 'bg-blue-500' },
-    { key: 'pancreatic', label: 'Pancreático & digestivo', color: 'bg-teal-500' }
+    { key: 'pancreatic', label: 'Pancreático & digestivo', color: 'bg-teal-500' },
+    { key: 'hematologic', label: 'Hematología', color: 'bg-red-500' }
   ];
 
   const [chartViewMode, setChartViewMode] = useState<'cumulative' | 'delta'>('cumulative');

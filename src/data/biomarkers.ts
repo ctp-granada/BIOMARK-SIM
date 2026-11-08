@@ -563,7 +563,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
     id: 'bm_electroforesis_hb',
     name: 'Electroforesis de hemoglobina en sangre',
     abbreviation: 'Hb Electroforesis',
-    system: 'cardiac',
+    system: 'hematologic',
     referenceValues: { conventional: 'HbA: 95-98%, HbA2: 1.5-3.5%, HbF: < 1%', si: '%' },
     temporalWindow: { elevationStart: 'Congénito', peak: 'Constante', normalizationWindow: 'Permanente' },
     diagnosticParams: { sensitivity: '99%', specificity: '100%', optimalCutoff: 'Presencia de banda HbS' },
