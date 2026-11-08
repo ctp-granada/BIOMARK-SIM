@@ -1,5 +1,6 @@
 import { Biomarker } from '../types';
 import { EXTRA_BIOMARKERS } from './biomarkersExtra';
+import { BAYNES_BIOMARKERS } from './biomarkersBaynes';
 
 export const BIOMARKERS_DATABASE: Biomarker[] = [
   // Cardíaco
@@ -661,7 +662,8 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
     discriminatoryContexts: ['Albúmina < 2.5 g/dL con proteinuria > 3.5 g/24h confirma síndrome nefrótico.'],
     cost: 12
   },
-  ...EXTRA_BIOMARKERS
+  ...EXTRA_BIOMARKERS,
+  ...BAYNES_BIOMARKERS
 ];
 
 export const BIOMARKERS = BIOMARKERS_DATABASE;
