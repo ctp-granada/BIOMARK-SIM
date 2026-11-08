@@ -74,6 +74,16 @@ const SYSTEM_CURRICULUM_DETAILS: Record<OrganSystem, {
       { id: 'lambert_eaton', name: 'Síndrome de Lambert-Eaton (Canales de calcio VGCC presinápticos)' }
     ],
     biomarkers: ['Anticuerpos Anti-AChR', 'Anticuerpos Anti-MuSK', 'Anti-VGCC', 'CK Total', 'Electromiografía']
+  },
+  hematologic: {
+    label: 'Hematología: hematíe y hemoglobina',
+    icon: <Droplets className="inline-block w-[1em] h-[1em]" />,
+    subtopics: [
+      { id: 'sickle_cell', name: 'Anemia falciforme (HbS y polimerización de la desoxihemoglobina)' },
+      { id: 'thalassemia', name: 'Talasemias (desequilibrio de cadenas de globina)' },
+      { id: 'hemolytic_anemia', name: 'Anemia hemolítica e ictericia prehepática' }
+    ],
+    biomarkers: ['Hemograma y VCM', 'Electroforesis / HPLC de hemoglobinas', 'LDH', 'Haptoglobina', 'Bilirrubina indirecta', 'Ferritina']
   }
 };
 

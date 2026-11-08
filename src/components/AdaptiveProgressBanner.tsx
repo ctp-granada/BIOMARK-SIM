@@ -17,7 +17,8 @@ export const AdaptiveProgressBanner: React.FC<AdaptiveProgressBannerProps> = ({ 
     metabolic: 'Metabolismo / β-Oxidación',
     renal: 'Renal / urea / uricemia',
     pancreatic: 'Pancreático-Digestivo',
-    neuromuscular: 'Neuromuscular / Señalización'
+    neuromuscular: 'Neuromuscular / Señalización',
+    hematologic: 'Hematología'
   };
 
   const getAccuracyColor = (acc: number) => {

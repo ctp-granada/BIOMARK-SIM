@@ -1,4 +1,4 @@
-export type OrganSystem = 'cardiac' | 'hepatic' | 'metabolic' | 'renal' | 'pancreatic' | 'neuromuscular';
+export type OrganSystem = 'cardiac' | 'hepatic' | 'metabolic' | 'renal' | 'pancreatic' | 'neuromuscular' | 'hematologic';
 
 export type DifficultyLevel = 'intermedio' | 'avanzado' | 'experto';
 

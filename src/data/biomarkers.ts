@@ -1,4 +1,6 @@
 import { Biomarker } from '../types';
+import { EXTRA_BIOMARKERS } from './biomarkersExtra';
+import { BAYNES_BIOMARKERS } from './biomarkersBaynes';
 
 export const BIOMARKERS_DATABASE: Biomarker[] = [
   // Cardíaco
@@ -562,7 +564,7 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
     id: 'bm_electroforesis_hb',
     name: 'Electroforesis de hemoglobina en sangre',
     abbreviation: 'Hb Electroforesis',
-    system: 'cardiac',
+    system: 'hematologic',
     referenceValues: { conventional: 'HbA: 95-98%, HbA2: 1.5-3.5%, HbF: < 1%', si: '%' },
     temporalWindow: { elevationStart: 'Congénito', peak: 'Constante', normalizationWindow: 'Permanente' },
     diagnosticParams: { sensitivity: '99%', specificity: '100%', optimalCutoff: 'Presencia de banda HbS' },
@@ -659,7 +661,9 @@ export const BIOMARKERS_DATABASE: Biomarker[] = [
     },
     discriminatoryContexts: ['Albúmina < 2.5 g/dL con proteinuria > 3.5 g/24h confirma síndrome nefrótico.'],
     cost: 12
-  }
+  },
+  ...EXTRA_BIOMARKERS,
+  ...BAYNES_BIOMARKERS
 ];
 
 export const BIOMARKERS = BIOMARKERS_DATABASE;

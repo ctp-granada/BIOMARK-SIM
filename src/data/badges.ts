@@ -111,6 +111,27 @@ export const SYSTEM_BADGES_CATALOG: SystemBadge[] = [
     progressPct: 0
   },
   {
+    id: 'badge_hematologic',
+    system: 'hematologic',
+    title: 'Especialista en hematíe y hemoglobina',
+    shortTitle: 'Hematología',
+    category: 'system',
+    description: 'Diagnóstico de hemoglobinopatías y anemias hemolíticas a partir del hemograma, la LDH y el estudio de hemoglobinas.',
+    requirementDescription: 'Resuelve al menos 3 casos de hematología con precisión ≥ 80%.',
+    icon: 'Droplet',
+    themeColor: 'red',
+    badgeBg: 'bg-red-50',
+    badgeBorder: 'border-red-200',
+    badgeTextColor: 'text-red-700',
+    minCasesRequired: 3,
+    targetAccuracy: 80,
+    isUnlocked: false,
+    currentAccuracy: 0,
+    currentAttempted: 0,
+    currentCorrect: 0,
+    progressPct: 0
+  },
+  {
     id: 'badge_streak_master',
     title: 'Clínico infalible (racha x5)',
     shortTitle: 'Racha Épica',

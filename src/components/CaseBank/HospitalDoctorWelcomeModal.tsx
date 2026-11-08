@@ -258,7 +258,7 @@ export const HospitalDoctorWelcomeModal: React.FC<HospitalDoctorWelcomeModalProp
                       Pacientes reales y simulados de alta fidelidad
                     </h4>
                     <p className="text-slate-600">
-                      Encontrarás casos clínicos organizados por especialidades médicas: <strong>Cardíaco</strong>, <strong>Hepático (ictericias)</strong>, <strong>Metabólico</strong>, <strong>Renal / purinas</strong>, <strong>Pancreático-Digestivo</strong> y <strong>Neuromuscular</strong>.
+                      Encontrarás casos clínicos organizados por especialidades médicas: <strong>Cardíaco</strong>, <strong>Hepático (ictericias)</strong>, <strong>Metabólico</strong>, <strong>Renal / purinas</strong>, <strong>Pancreático-Digestivo</strong>, <strong>Neuromuscular</strong> y <strong>Hematología</strong>.
                     </p>
                   </div>
                 </div>
