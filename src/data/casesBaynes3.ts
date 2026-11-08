@@ -172,7 +172,7 @@ export const BAYNES_CASES_3: CaseSpec[] = [
       ['bm_fenilalanina_tirosina', 'Fenilalanina y tirosina', 'Se alteran en la fenilcetonuria.', 'Normales: el bloqueo está más adelante en la ruta.'],
     ],
     key:
-      'La alcaptonuria fue la primera enfermedad que Garrod llamó «error innato del metabolismo» (1902): una enzima que falta y un metabolito que se acumula. El ácido homogentísico se oxida a benzoquinonas que polimerizan en un pigmento parecido a la melanina y se unen al colágeno. El nitisinona bloquea un paso anterior de la ruta (4-hidroxifenilpiruvato dioxigenasa) y reduce mucho la producción de ácido homogentísico.',
+      'La alcaptonuria fue la primera enfermedad que Garrod llamó «error innato del metabolismo» (1902): una enzima que falta y un metabolito que se acumula. El ácido homogentísico se oxida a benzoquinonas que polimerizan en un pigmento parecido a la melanina y se unen al colágeno. La nitisinona bloquea un paso anterior de la ruta (4-hidroxifenilpiruvato dioxigenasa) y reduce mucho la producción de ácido homogentísico.',
     category: 'Degradación de la fenilalanina y la tirosina',
     pathway: 'Tirosina -> 4-hidroxifenilpiruvato -> ácido homogentísico -> [homogentisato 1,2-dioxigenasa, DÉFICIT] -> maleilacetoacetato -> fumarato + acetoacetato',
     alteration: 'Variantes del gen HGD (herencia autosómica recesiva)',
@@ -359,7 +359,7 @@ export const BAYNES_CASES_3: CaseSpec[] = [
       'Rosa I., de 52 años, bebe mucho alcohol desde que perdió su trabajo y apenas come. Su hermana la trae porque tiene la piel del cuello y las manos oscura y descamada «como quemada», diarrea desde hace semanas y está despistada y olvidadiza. Le falta niacina, la vitamina con la que se fabrica el NAD+.',
     glossary: [
       ['Pelagra', 'Enfermedad por falta de niacina. Se recuerda por las «3 D»: dermatitis, diarrea y demencia.'],
-      ['NAD+', 'Coenzima que aceptan electrones en cientos de reacciones de oxidación, como en la glucólisis o el ciclo de Krebs.'],
+      ['NAD+', 'Coenzima que acepta electrones en cientos de reacciones de oxidación, como en la glucólisis o el ciclo de Krebs.'],
       ['Collar de Casal', 'Lesión de pelagra alrededor del cuello, por la exposición al sol.'],
     ],
     concept:
